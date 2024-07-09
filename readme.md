@@ -13,7 +13,7 @@ It was designed as an alternative to CanvasDraw.
 
 As of now, there is only one place to learn OSGL, the docs:
 
--   (The Docs)[https://gunshot-sound-studios.github.io/osgl-graphics/index.html]
+-   [The Docs](https://gunshot-sound-studios.github.io/osgl-graphics/index.html)
 
 
 ## Contribute
