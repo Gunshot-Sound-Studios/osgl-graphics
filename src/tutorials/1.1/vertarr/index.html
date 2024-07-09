@@ -1,0 +1,89 @@
+<html>
+
+<head>
+    <title>Vertex Arrays (OSGL / Learn)</title>
+    <link rel="stylesheet" type="text/css" href="/src/styles.css" title="default" media="screen,print" />
+</head>
+
+<body id="top">
+    <div id="page">
+        <div id="banner-container">
+            <div id="banner">
+
+                <a href="/src/index.html"><img id="logo" src="/src/images/osgllogo.png" alt="OSGL logo"></a>
+                <ul id="menu">
+                    <li><a href="/src/index.html">Learn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="navigation-container">
+            <div id="navigation">
+                <ul id="breadcrumbs">
+                    <li><a href="../../../index.html">Learn</a></li>
+                    <li>»<a href="../../../index.html">1.1 Tutorials</a></li>
+                    <li>»<a href="index.html">Vertex Arrays</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="content">
+
+            <h1>Vertex Arrays & Custom rendering</h1>
+
+            <h2>What is a vertex array?</h2>
+            A vertex array is, simply put, an array of vertices. You can bind your own functions
+            to the shape module and the <code>WindowRenderer</code> object to create your own
+            shapes and objects, for example, a video player.
+
+            <h2>Vertex Arrays</h2>
+            Vertex arrays don't have their own class as technically they're just a shape; which is
+            why you use the <code>shape</code> class to make it - You can use the <code>vertexArray</code>
+            function to create a vertex array.
+
+            <div class=code>local clearscreen = shape.vertexArray("custom_clearscreen", function(Color): { Command: string, Data: { [any?]: any? } } 
+    return {
+        Command = "custom_clearscreen",
+        Data = {
+            Color = Color
+        }
+    }	
+end, function(Window, self) 
+    local arguments = self.Args.Object.Data
+    local RGB, Alpha = color.toRGB(arguments.Color)
+
+    print("The screen was cleared!")
+    Window.Renderer:DrawRectangle(Vector2.zero, Window.Renderer.Size, RGB, Alpha)
+end)
+            
+myWindow:draw(shape.custom_clearscreen(color.Blue))
+myWindow:render()</div>
+            <br></br>
+            I know the above code <b>does</b> look scary, but don't worry. I'll explain it. Before I get into it,
+            since these functions are registered at the core of OSGL (<code>WindowRenderer</code>), it's best to have
+            some knowledge of how <code>EditableImages</code> work since calling <code>Render</code> in this case won't
+            work - You'll have to use the functions the <code>EditableImage</code> API provides you with.
+            <br></br>
+            The code creates a version of <code>clear</code> that prints "The screen was cleared!" every time the screen is
+            cleared. The first argument is the name of our new vertex array. In this case, it's "custom_clearscreen". We then
+            pass 2 functions.
+            <br></br>
+            The first function is the one that will be appended to the <code>shape</code> class - this means you can override the
+            existing inbuilt functions. The function must return a "RenderCommand" - This is what the argument buffer gives to the 
+            <code>WindowRenderer</code>. It must have the command you want the argument buffer to call 
+            (In this example, "custom_clearscreen"), and the arguments that you want to pass in a "Data" array.
+            <br></br>
+            The second function is the one that is attatched to the <code>WindowRenderer</code>. It is given the Window, and "self".
+            "self" is the value that was returned in the first function, but there are a few tables appended around it. <code>self.Name</code>
+            is the name of the command being run, and <code>self.Args.Object.Data</code> is the array of arguments that we passed.
+            <br></br>
+            In the example we gave, we convert the RGBA Color to a Color3 and Alpha value, and draw a rectangle onto the EditableImage.
+            Finally, the function is called from the <code>shape</code> class with a blue color and the screen is rendered once - making
+            the window appear blue.
+
+        </div>
+
+       
+       
+    </div>
+</body>
+
+</html>
