@@ -1,0 +1,157 @@
+<html>
+
+<head>
+    <title>Sprites & Textures (OSGL / Learn)</title>
+    <link rel="stylesheet" type="text/css" href="../../../styles.css" title="default" media="screen,print" />
+</head>
+
+<body id="top">
+    <div id="page">
+        <div id="banner-container">
+            <div id="banner">
+
+                <a href="index.html"><img id="logo" src="../../../images/osgllogo.png" alt="OSGL logo"></a>
+                <ul id="menu">
+                    <li><a href="index.html">Learn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="navigation-container">
+            <div id="navigation">
+                <ul id="breadcrumbs">
+                    <li><a href="../../../index.html">Learn</a></li>
+                    <li>»<a href="../../../index.html">1.1 Tutorials</a></li>
+                    <li>»<a href="index.html">Sprites & Textures</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="content">
+
+            <h1>Sprites & Textures</h1>
+
+            <h2>What are they?</h2>
+            Most of you reading this are probably familiar with these 2 objects
+            that are very common in game development - but lets define them very
+            briefly.
+
+            <br><br>
+            A texture is essentially an OSGL Image. We call it a "texture" because
+            it has one specific role: being mapped to a 2d entity on the screen.
+            <br><br>
+            A sprite is nothing more than a textured rectangle. It is simply a rectangle
+            with a texture overlapped on top of it.
+            <h2>Loading textures</h2>
+            Before creating any sprites, we need textures to map to them. The class that allows
+            the creation of textures in OSGL, is surprisingly, believe it or not, <code>texture</code>!
+            Since the only role of a texture is to be mapped to a sprite, all this is, is, a simple constructor
+            for us.
+
+            <br><br>
+            The most common way to load a texture is from a module - this can be done with the
+            <code>loadFromModule</code>
+            function:
+
+            <div class=code>local OSGL = require(script.OSGL)
+local window = OSGL.window
+local enum = OSGL.enum
+local color = OSGL.color
+local texture = OSGL.texture
+                                
+local myWindow = window.new({
+    Size = enum.WindowSize.Maximum,
+    Instance = script.Parent
+})()
+                                
+local myTexture = texture.loadFromModule(script.PlayerTexture)
+                                
+while myWindow:isOpen() do
+    myWindow:clear(color.Black)
+                                    
+    --// ...
+                                
+    myWindow:render()
+end</div>
+            <br><br>
+            You can also load a texture directly from a string with (you'll never guess this): <code>loadFromString</code>!
+            Both functions come with an extra argument which can be used if you want to crop a part of the texture:
+
+<div class=code>local OSGL = require(script.OSGL)
+local window = OSGL.window
+local enum = OSGL.enum
+local color = OSGL.color
+local texture = OSGL.texture
+    
+local myWindow = window.new({
+    Size = enum.WindowSize.Maximum,
+    Instance = script.Parent
+})()
+    
+-- Crop a 32x32 rectangle from 10, 10.
+local myTexture = texture.loadFromModule(script.PlayerTexture, texture.rectCrop(Vector2.new(10, 10), Vector2.new(32, 32)))
+    
+while myWindow:isOpen() do
+    myWindow:clear(color.Black)
+        
+    --// ...
+    
+    myWindow:render()
+end</div>
+            <br><br>
+            The <code>rectCrop</code> function is a simple utility function which represents a rectangle. It
+            takes the coordinates of the top-left corner, and the size of the rectangle.
+            <br><br>
+            Currently, textures <b>cannot</b> be edited at runtime, but they can be created.
+            OSGL provides a multitude of functions for creating a texture during runtime. 
+            Textures are made with the <code>texture.new</code> function. An "<code>EditableTexture</code>"
+            has the ability for its textures to be modified in memory - it cannot be displayed until the 
+            <code>finish</code> method is called, in which it will return the final copy of the image in OSGL
+            format (as a string).
+
+            <h2>Okay.. but like.. can I have my sprite now?</h2>
+            Yes; you can have your sprite now.
+            <br><br>
+<div class=code>local OSGL = require(script.OSGL)
+local window = OSGL.window
+local enum = OSGL.enum
+local color = OSGL.color
+local texture = OSGL.texture
+local sprite = OSGL.sprite
+    
+ local myWindow = window.new({
+    Size = enum.WindowSize.Maximum,
+    Instance = script.Parent
+})()
+    
+local myTexture = texture.loadFromModule(script.PlayerTexture)
+local mySprite = sprite.new(myTexture)
+    
+while myWindow:isOpen() do
+    myWindow:clear(color.Black)
+        
+    myWindow:draw(mySprite)
+    
+    myWindow:render()
+end</div>
+            <br><br>
+            Sprites have numerous properties that allow us to change how it's rendered. We can change its:
+            <br><br>
+            <ul>
+                <li>Texture (Texture)</li>
+                <li>Color (number)</li>
+                <li>Position (Vector2)</li>
+                <li>Scale (Vector2)</li>
+            </ul>
+            <br><br>
+            Sprites are, of course, drawn with windows' <code>draw</code> method. Just pass the sprite through the function
+            to add it to the argument buffer.
+
+            <h2>The importance of using as little textures as possible</h2>
+            Using as few textures as possible is a good strategy, as changing textures
+            is an expensive operation for Roblox, and the graphics card. Drawing many sprites
+            with the same texture will give the best performance - You can have multiple textures
+            using sprite-maps. Keep this in mind while creating textures - remember to create tilesets
+            and animation sheets to use as little textures as possible.
+        </div>
+</body>
+
+</html>

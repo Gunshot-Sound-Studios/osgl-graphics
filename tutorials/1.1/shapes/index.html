@@ -1,0 +1,108 @@
+<html>
+
+<head>
+    <title>Shapes (OSGL / Learn)</title>
+    <link rel="stylesheet" type="text/css" href="../../../styles.css" title="default" media="screen,print" />
+</head>
+
+<body id="top">
+    <div id="page">
+        <div id="banner-container">
+            <div id="banner">
+
+                <a href="index.html"><img id="logo" src="../../../images/osgllogo.png" alt="OSGL logo"></a>
+                <ul id="menu">
+                    <li><a href="index.html">Learn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="navigation-container">
+            <div id="navigation">
+                <ul id="breadcrumbs">
+                    <li><a href="../../../index.html">Learn</a></li>
+                    <li>»<a href="../../../index.html">1.1 Tutorials</a></li>
+                    <li>»<a href="index.html">Shapes</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="content">
+
+            <h1>Shapes</h1>
+
+            <h2>Shape classes</h2>
+            OSGL provides a set of shape classes that represent simple common shape entities.
+            Each shape is different, but they all have the same format in the argument buffer.
+            Every one of the primitives below use the <code>shape</code> class. Like any other
+            entity, you can pass the shape through <code>draw</code> to render it.
+
+            <h2>Circle</h2>
+            You can use the <code>circle</code> function to create a circle. It requires a <b>color,
+            position, and radius</b>:
+
+            <div class=code>shape.circle({
+    Color = color.Blue,
+    Position = Vector2.new(50, 50),
+    Radius = 5
+})</div>
+
+            <h2>Rectangle</h2>
+            You can use the <code>rectangle</code> function to construct a rectangle. Like other primitives,
+            it requires a <b>size, position, and color</b>:
+
+            <div class=code>shape.rectangle({
+    Color = color.Blue,
+    Position = Vector2.new(50, 50),
+    Size = Vector2.new(50, 50),
+})</div>
+
+            <h2>Triangle</h2>
+            You can use the <code>triangle</code> function to create a.. well triangle..
+            It only requires a <b>color</b>, and <b>3 points</b> (Vector2). <b>Note</b>:
+            This function calls <code>shape.convex</code>. It is the same as passing 
+            3 arguments through that function.
+
+            <div class=code>shape.triangle({
+    Color = color.Blue,
+    P1 = Vector2.new(10, 10),
+    P2 = Vector2.new(100, 10),
+    P3 = Vector2.new(100, 100),
+})</div>
+
+            <h2>Convex</h2>
+            A convex shape is a custom shape with <b>any</b> amount of vertices allowed.
+
+            <div class=code>shape.convex({
+    Color = color.Blue,
+    Verts = {Vector2}
+})</div>
+
+            <h2>Regular Polygon</h2>
+            Allows for the creation of a regular polygon.
+
+            <div class=code>shape.polygon({
+    Color = color.Blue,
+    Sides = 5, --// Pentagon
+    Position = Vector2.new(50, 50),
+    Size = Vector2.new(25, 25)
+})</div>
+
+            <h2>Line</h2>
+            Draws a line from P1 to P2.
+
+            <div class=code>shape.line({
+    Color = color.Blue,
+    P1 = Vector2.zero,
+    P2 = Vector2.one,
+    Thickness = 3
+})</div>
+
+<br><br>
+You can also create your own shapes and rendering methods with: <a href="../vertarr/index.html">vertex arrays</a>.
+        </div>
+
+       
+       
+    </div>
+</body>
+
+</html>
