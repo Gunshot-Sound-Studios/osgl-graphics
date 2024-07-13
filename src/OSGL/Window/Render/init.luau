@@ -48,17 +48,17 @@ local function DrawThickLine( 	EditableImage: EditableImage, p1: Vector2, p2: Ve
 
 	for i = 0, numSteps do
 		local currentPoint = p1 + stepVector * i
-		EditableImage:DrawCircle(currentPoint, thickness / 2, color, transparency)
+		EditableImage:DrawCircle(currentPoint, thickness / 2, color, transparency, Enum.ImageCombineType.BlendSourceOver)
 	end
 
-	EditableImage:DrawCircle(p1, thickness / 2, color, transparency)
-	EditableImage:DrawCircle(p2, thickness / 2, color, transparency)
+	EditableImage:DrawCircle(p1, thickness / 2, color, transparency, Enum.ImageCombineType.BlendSourceOver)
+	EditableImage:DrawCircle(p2, thickness / 2, color, transparency, Enum.ImageCombineType.BlendSourceOver)
 end
 
 local function fillShapeFromVerts(verts: {Vector2}, Renderer: EditableImage, RGB: Color3, Alpha: number)
 	for i, v in ipairs(verts) do
 		local nextObj = verts[i + 1] or verts[1]
-		Renderer:DrawLine(v, nextObj, RGB, Alpha)
+		Renderer:DrawLine(v, nextObj, RGB, Alpha, Enum.ImageCombineType.BlendSourceOver)
 	end
 
 	local minY, maxY = math.huge, -math.huge
@@ -97,7 +97,7 @@ end
 return {
 	["Clear"] = function(Window: Types.WindowRenderingContext, Command: Types.RenderCommand)
 		local RGB, Alpha = RGBA.toRGB(Command.Args.Color)
-		Window.Renderer:DrawRectangle(Vector2.zero, Window.Renderer.Size, RGB, Alpha)
+		Window.Renderer:DrawRectangle(Vector2.zero, Window.Renderer.Size, RGB, Alpha, Enum.ImageCombineType.BlendSourceOver)
 	end,
 
 	["DrawSprite"] = function(Window: Types.WindowRenderingContext, Command: Types.RenderCommand)
@@ -218,7 +218,7 @@ return {
 
 		local RGB, Alpha = RGBA.toRGB(Color)
 
-		Window.Renderer:DrawCircle(Data.Position, Data.Radius, RGB, Alpha)
+		Window.Renderer:DrawCircle(Data.Position, Data.Radius, RGB, Alpha, Enum.ImageCombineType.BlendSourceOver)
 	end,
 
 	["Rect"] = function(Window: Types.WindowRenderingContext, Command: Types.RenderCommand)
@@ -228,7 +228,7 @@ return {
 
 		local RGB, Alpha = RGBA.toRGB(Color)
 
-		Window.Renderer:DrawRectangle(Data.Position, Data.Size, RGB, Alpha)
+		Window.Renderer:DrawRectangle(Data.Position, Data.Size, RGB, Alpha, Enum.ImageCombineType.BlendSourceOver)
 	end,
 
 	["Poly"] = function(Window: Types.WindowRenderingContext, Command: Types.RenderCommand)
