@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Vertex Arrays (OSGL / Learn)</title>
+    <title>Shapes+ (OSGL / Learn)</title>
     <link rel="stylesheet" type="text/css" href="../../../styles.css" title="default" media="screen,print" />
 </head>
 
@@ -21,25 +21,20 @@
                 <ul id="breadcrumbs">
                     <li><a href="../../../index.html">Learn</a></li>
                     <li>»<a href="../../../index.html">1.1 Tutorials</a></li>
-                    <li>»<a href="index.html">Vertex Arrays</a></li>
+                    <li>»<a href="index.html">Registering Shapes</a></li>
                 </ul>
             </div>
         </div>
         <div id="content">
 
-            <h1>Vertex Arrays & Custom rendering</h1>
+            <h1>Custom rendering</h1>
 
-            <h2>What is a vertex array?</h2>
-            A vertex array is, simply put, an array of vertices. You can bind your own functions
+            <h2>How do I create my own shape?</h2>
+            Using the <code>register</code> function, you can bind your own functions
             to the shape module and the <code>WindowRenderer</code> object to create your own
             shapes and objects, for example, a video player.
 
-            <h2>Vertex Arrays</h2>
-            Vertex arrays don't have their own class as technically they're just a shape; which is
-            why you use the <code>shape</code> class to make it - You can use the <code>vertexArray</code>
-            function to create a vertex array.
-
-            <div class=code>local clearscreen = shape.vertexArray("custom_clearscreen", function(Color): { Command: string, Data: { [any?]: any? } } 
+            <div class=code>local clearscreen = shape.register("custom_clearscreen", function(Color): { Command: string, Data: { [any?]: any? } } 
     return {
         Command = "custom_clearscreen",
         Data = {
@@ -63,7 +58,7 @@ myWindow:render()</div>
             work - You'll have to use the functions the <code>EditableImage</code> API provides you with.
             <br></br>
             The code creates a version of <code>clear</code> that prints "The screen was cleared!" every time the screen is
-            cleared. The first argument is the name of our new vertex array. In this case, it's "custom_clearscreen". We then
+            cleared. The first argument is the name of our new shape. In this case, it's "custom_clearscreen". We then
             pass 2 functions.
             <br></br>
             The first function is the one that will be appended to the <code>shape</code> class - this means you can override the
