@@ -1,4 +1,5 @@
 --!native
+--!optimize 2
 
 -- Module by 1waffle1, optimized by boatbomber
 -- https://devforum.roblox.com/t/text-compression/163637
