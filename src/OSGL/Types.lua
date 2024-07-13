@@ -73,15 +73,16 @@ export type WindowRenderingContext = {
 	Renderer: EditableImage,
 	Size: Vector2,
 	
-	clear: (self: WindowRenderingContext, Color: RGBA) -> (nil),
-	isOpen: (self: WindowRenderingContext, yieldAmount: number?) -> (boolean),
+	clear: (self: WindowRenderingContext, Color: RGBA) -> nil,
+	isOpen: (self: WindowRenderingContext, yieldAmount: number?) -> boolean,
 	
-	render: (self: WindowRenderingContext) -> (nil),
+	render: (self: WindowRenderingContext) -> nil,
 	
-	getRelativeMousePosition: (self: WindowRenderingContext) -> (Vector2?),
-	getRelativeMousePositionOnScreen: (self: WindowRenderingContext) -> (Vector2),
+	getRelativeMousePosition: (self: WindowRenderingContext) -> Vector2?,
+	getRelativeMousePositionOnScreen: (self: WindowRenderingContext) -> Vector2,
 	
-	draw: (self: WindowRenderingContext, ...renderableObjects) -> (nil),
+	draw: (self: WindowRenderingContext, ...renderableObjects) -> nil,
+	readRGBA: (self: WindowRenderingContext, Position: Vector2) -> RGBA,
 }
 
 export type RenderCommand = {

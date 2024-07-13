@@ -276,4 +276,11 @@ function windowPrivate:draw(...:Types.renderableObjects): nil
 	end
 end
 
+function windowPrivate:readRGBA(Position: Vector2): Types.RGBA
+	local Renderer = self.Renderer :: EditableImage
+	local color = Renderer:ReadPixels(Position, Vector2.zero)
+	
+	return Color.new(color[1], color[2], color[3], color[4])
+end
+
 return windowPublic
