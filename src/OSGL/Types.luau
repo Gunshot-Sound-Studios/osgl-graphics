@@ -73,16 +73,16 @@ export type WindowRenderingContext = {
 	Renderer: EditableImage,
 	Size: Vector2,
 	
-	clear: (self: WindowRenderingContext, Color: RGBA) -> nil,
-	isOpen: (self: WindowRenderingContext, yieldAmount: number?) -> boolean,
+	Clear: (self: WindowRenderingContext, Color: RGBA) -> nil,
+	IsOpen: (self: WindowRenderingContext, yieldAmount: number?) -> boolean,
 	
-	render: (self: WindowRenderingContext) -> nil,
+	Render: (self: WindowRenderingContext) -> nil,
 	
-	getRelativeMousePosition: (self: WindowRenderingContext) -> Vector2?,
-	getRelativeMousePositionOnScreen: (self: WindowRenderingContext) -> Vector2,
+	GetRelativeMousePosition: (self: WindowRenderingContext) -> Vector2?,
+	GtRelativeMousePositionOnScreen: (self: WindowRenderingContext) -> Vector2,
 	
-	draw: (self: WindowRenderingContext, ...renderableObjects) -> nil,
-	readRGBA: (self: WindowRenderingContext, Position: Vector2) -> RGBA,
+	Draw: (self: WindowRenderingContext, ...renderableObjects) -> nil,
+	ReadRGBA: (self: WindowRenderingContext, Position: Vector2) -> RGBA,
 }
 
 export type RenderCommand = {
@@ -92,6 +92,12 @@ export type RenderCommand = {
 	}
 }
 
+export type RegisteredCommand = {
+	Command: string,
+	Data: {
+		[string?]: string
+	}
+}
 
 ---------------
 
@@ -126,12 +132,12 @@ export type Sprite = {
 }
 
 export type EditableTexture = {
-	finish: (self: EditableTexture) -> (string),
-	setPixel: (self: EditableTexture, Position: Vector2, Color: RGBA) -> (),
-	setPixels: (self: EditableTexture, Size: Vector2, Position: Vector2, Color: RGBA) -> (),
+	Finish: (self: EditableTexture) -> (string),
+	SetPixel: (self: EditableTexture, Position: Vector2, Color: RGBA) -> (),
+	SetPixels: (self: EditableTexture, Size: Vector2, Position: Vector2, Color: RGBA) -> (),
 	
-	getPixel: (self: EditableTexture) -> (RGBA?),
-	getPixels: (self: EditableTexture) -> ({{{RGBA}}}),
+	GetPixel: (self: EditableTexture) -> (RGBA?),
+	GetPixels: (self: EditableTexture) -> ({{{RGBA}}}),
 }
 
 ---------------

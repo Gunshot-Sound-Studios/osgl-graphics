@@ -136,22 +136,20 @@ function RGBA_Public.new(Red: number?, Green: number?, Blue: number?, Alpha: num
 end
 
 -- Converts a RGB value to a RGBA value (Red, Green, Blue, Alpha)
-function RGBA_Public.fromRGB(Red: number? | Color3, Green: number?, Blue: number?): Type.RGBA
+function RGBA_Public.fromRGB(Red: number?, Green: number?, Blue: number?): Type.RGBA
 	Red = Red or 0
 	Green = Green or 0
 	Blue = Blue or 0
 
 	if typeof(Red) == "number" then
 		return RGBA_Public.new(Red, Green, Blue)
-	elseif typeof(Red) == "Color3" then
-		return RGBA_Public.new(Red.R * 255, Red.G * 255, Red.B * 255)
 	end
 
 	return RGBA_Public.new()
 end
 
 -- Converts a HSV value to a RGBA value (Red, Green, Blue, Alpha)
-function RGBA_Public.fromHSV(Hue: number? | Color3, Saturation: number?, Value: number?): Type.RGBA
+function RGBA_Public.fromHSV(Hue: number?, Saturation: number?, Value: number?): Type.RGBA
 
 	Hue = Hue or 0
 	Saturation = Saturation or 0
@@ -160,24 +158,17 @@ function RGBA_Public.fromHSV(Hue: number? | Color3, Saturation: number?, Value: 
 	if typeof(Hue) == "number" then
 		local rgbHsv = hsvToRgb(Hue, Saturation, Value)
 		return RGBA_Public.new(rgbHsv.R * 255, rgbHsv.G * 255, rgbHsv.B*255)
-	elseif typeof(Hue) == "Color3" then
-		local h, s, v = Hue:ToHSV()
-		local rgbHsv = hsvToRgb(h, s, v)
-		print(rgbHsv)
-		return RGBA_Public.new(rgbHsv.R * 255, rgbHsv.G * 255, rgbHsv.B * 255)
 	end
 
 	return RGBA_Public.new()
 end
 
 -- Converts a HEX value to a RGBA value (Red, Green, Blue, Alpha)
-function RGBA_Public.fromHex(HexValue: string? | Color3?): Type.RGBA
+function RGBA_Public.fromHex(HexValue: string?): Type.RGBA
 	HexValue = HexValue or "#FFFFFF"
 
 	if typeof(HexValue) == "string" then
 		return RGBA_Public.fromRGB(Color3.fromHex(HexValue))
-	elseif typeof(HexValue) == "Color3" then
-		return RGBA_Public.fromRGB(HexValue)
 	end
 
 	return RGBA_Public.new()
@@ -190,17 +181,17 @@ function RGBA_Public.toRGB(Color: Type.RGBA): (Color3, number)
 	return color, Color.Alpha / 255
 end
 
-RGBA_Public.White = RGBA_Public.new(255, 255, 255, 0)
-RGBA_Public.Black = RGBA_Public.new(0, 0, 0, 0)
-RGBA_Public.Red = RGBA_Public.new(255, 0, 0, 0)
-RGBA_Public.Green = RGBA_Public.new(0, 255, 0, 0)
-RGBA_Public.Blue = RGBA_Public.new(0, 0, 255, 0)
-RGBA_Public.Yellow = RGBA_Public.new(255, 255, 0, 0)
-RGBA_Public.Magenta = RGBA_Public.new(255, 0, 255, 0)
-RGBA_Public.Cyan = RGBA_Public.new(0, 255, 255, 0)
-RGBA_Public.Transparent = RGBA_Public.new(0, 0, 0, 255)
+RGBA_Public.WHITE = RGBA_Public.new(255, 255, 255, 0)
+RGBA_Public.BLACK = RGBA_Public.new(0, 0, 0, 0)
+RGBA_Public.RED = RGBA_Public.new(255, 0, 0, 0)
+RGBA_Public.GREEN = RGBA_Public.new(0, 255, 0, 0)
+RGBA_Public.BLUE = RGBA_Public.new(0, 0, 255, 0)
+RGBA_Public.YELLOW = RGBA_Public.new(255, 255, 0, 0)
+RGBA_Public.MAGENTA = RGBA_Public.new(255, 0, 255, 0)
+RGBA_Public.CYAN = RGBA_Public.new(0, 255, 255, 0)
+RGBA_Public.TRANSPARENT = RGBA_Public.new(0, 0, 0, 255)
 
-function RGBA_Public.random(setR: number?, setG: number?, setB: number?, setA: number): Type.RGBA
+function RGBA_Public.random(setR: number?, setG: number?, setB: number?, setA: number?): Type.RGBA
 	local rand = Random.new()
 	return RGBA_Public.new(setR or rand:NextInteger(0, 255), setG or rand:NextInteger(0, 255), setB or rand:NextInteger(0, 255), setA or rand:NextInteger(0, 255))
 end

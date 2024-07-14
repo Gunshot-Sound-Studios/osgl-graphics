@@ -195,7 +195,7 @@ end
 -- to the DOUBLE BUFFER ONLY - It does NOT clear the window
 -- in real-time.
 
-function windowPrivate:clear(ClearColor: Types.RGBA): nil
+function windowPrivate:Clear(ClearColor: Types.RGBA): nil
 	if not ClearColor then
 		warn([[Function 'window:clear' expects all parameters to be passed.
 No parameters were passed at all.
@@ -223,12 +223,12 @@ Clearing with color.Black instead.]])
 end
 
 -- Yields the thread and returns true if the Renderer still exists.
-function windowPrivate:isOpen(yieldAmount: number?): boolean
+function windowPrivate:IsOpen(yieldAmount: number?): boolean
 	task.wait(yieldAmount)
 	return self.Renderer ~= nil
 end
 
-function windowPrivate:render(): nil
+function windowPrivate:Render(): nil
 	local editableImage = self.Renderer :: EditableImage
 
 	for i, v: Types.RenderCommand in ipairs(self.DoubleBuffer) do
@@ -242,7 +242,7 @@ function windowPrivate:render(): nil
 	return
 end
 
-function windowPrivate:getRelativeMousePosition(): Vector2?
+function windowPrivate:GetRelativeMousePosition(): Vector2?
 	
 	local TransformedPoint = getMousePosition(self)
 	
@@ -257,11 +257,11 @@ function windowPrivate:getRelativeMousePosition(): Vector2?
 	return getMousePosition(self)
 end
 
-function windowPrivate:getRelativeMousePositionOnScreen(): Vector2?
+function windowPrivate:GetRelativeMousePositionOnScreen(): Vector2?
 	return getMousePosition(self)
 end
 
-function windowPrivate:draw(...:Types.renderableObjects): nil
+function windowPrivate:Draw(...:Types.renderableObjects): nil
 	local unpacked = {...}
 	
 	for i, v in ipairs(unpacked) do
@@ -276,7 +276,7 @@ function windowPrivate:draw(...:Types.renderableObjects): nil
 	end
 end
 
-function windowPrivate:readRGBA(Position: Vector2): Types.RGBA
+function windowPrivate:ReadRGBA(Position: Vector2): Types.RGBA
 	local Renderer = self.Renderer :: EditableImage
 	local color = Renderer:ReadPixels(Position, Vector2.zero)
 	

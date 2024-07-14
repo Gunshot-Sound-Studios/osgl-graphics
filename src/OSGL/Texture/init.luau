@@ -174,7 +174,7 @@ end
 
 
 
-function TexturePrivate:setPixel(Position: Vector2, PixelColor: Types.RGBA)
+function TexturePrivate:SetPixel(Position: Vector2, PixelColor: Types.RGBA)
 	Position = Position or Vector2.one
 	PixelColor = PixelColor or Color.Black
 	
@@ -186,7 +186,7 @@ function TexturePrivate:setPixel(Position: Vector2, PixelColor: Types.RGBA)
 	return
 end
 
-function TexturePrivate:setPixels(Size: Vector2, Position: Vector2, PixelColor: Types.RGBA)
+function TexturePrivate:SetPixels(Size: Vector2, Position: Vector2, PixelColor: Types.RGBA)
 	Position = Position or Vector2.one
 	PixelColor = PixelColor or Color.Black
 	
@@ -202,7 +202,7 @@ function TexturePrivate:setPixels(Size: Vector2, Position: Vector2, PixelColor: 
 	return
 end
 
-function TexturePrivate:getPixels(Size: Vector2, Position: Vector2): {{{Types.RGBA}}}
+function TexturePrivate:GetPixels(Size: Vector2, Position: Vector2): {{{Types.RGBA}}}
 	Position = Position or Vector2.one
 	
 	local Pixels = {}
@@ -220,7 +220,7 @@ function TexturePrivate:getPixels(Size: Vector2, Position: Vector2): {{{Types.RG
 	return Pixels
 end
 
-function TexturePrivate:getPixel(Position: Vector2): Types.RGBA?
+function TexturePrivate:GetPixel(Position: Vector2): Types.RGBA?
 	Position = Position or Vector2.one
 
 	if not self.Buffer[Position.Y] then return end

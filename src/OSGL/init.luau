@@ -28,11 +28,11 @@
 --========================================================================
 
 return {
-	window = require(script.Window),
-	enum = require(script.Types), --// Our def file also holds our enums
-	color = require(script.Color),
-	texture = require(script.Texture),
-	sprite = require(script.Sprite),
-	text = require(script.Text),
-	shape = require(script.Shapes)
+	Window = require(script.Window),
+	Enum = require(script.Types), --// Our def file also holds our enums
+	Color = require(script.Color),
+	Texture = require(script.Texture),
+	Sprite = require(script.Sprite),
+	Text = require(script.Text),
+	Shape = require(script.Shapes)
 }

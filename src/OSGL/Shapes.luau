@@ -146,7 +146,7 @@ function ShapePublic.pixel(Position: Vector2, PixelColor: Types.RGBA)
 	}
 end
 
-function ShapePublic.register(Name: string, constructor: () -> ({Command: string, Data: {[any?]: any?}}), callback: (Window: Types.WindowRenderingContext, self: Types.RenderCommand) -> ()): nil
+function ShapePublic.register(Name: string, constructor: () -> (RegisteredCommand), callback: (Window: Types.WindowRenderingContext, self: Types.RenderCommand) -> ()): nil
 	if not Name or not constructor or not callback then
 		error("Function 'shape.register' requires all parameters to be passed.\nNot all of the parameters were passed.\nDid you forget to pass them?")
 	end
