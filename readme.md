@@ -23,3 +23,4 @@ OSGL is an open-source project - It constantly needs to be improved upon. If you
 
 - SawWasTaken
 - jukepilot
+- opensrcerror
