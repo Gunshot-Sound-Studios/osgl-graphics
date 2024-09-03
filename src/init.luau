@@ -24,5 +24,6 @@
 return {
     Window = require(script.window),
     color = require(script.color),
-    draw = require(script.draw)
+    draw = require(script.draw),
+    texture = require(script.texture)
 }

@@ -272,30 +272,29 @@ function draw.circle(
 	local strokeSquared = totalRadius * totalRadius
 
 	for y = -totalRadius, totalRadius do
-	local ySquared = y * y
+		local ySquared = y * y
 
-	for x = -totalRadius, totalRadius do
-		local distance = x * x + ySquared
+		for x = -totalRadius, totalRadius do
+			local distance = x * x + ySquared
 
-		if distance <= strokeSquared then
-			local pixelColor = if distance <= radiusSquared
-				then circle.fillColor
-				else circle.strokeColor
+			if distance <= strokeSquared then
+				local pixelColor = if distance <= radiusSquared
+					then circle.fillColor
+					else circle.strokeColor
 
-			local rotatedX = x * cosTheta - y * sinTheta
-			local rotatedY = x * sinTheta + y * cosTheta
+				local rotatedX = x * cosTheta - y * sinTheta
+				local rotatedY = x * sinTheta + y * cosTheta
 
-			local pixelX = math.floor(circle.centerX + rotatedX + 0.5)  -- Snap to nearest pixel
-			local pixelY = math.floor(circle.centerY + rotatedY + 0.5)
+				local pixelX = math.floor(circle.centerX + rotatedX + 0.5)  -- Snap to nearest pixel
+				local pixelY = math.floor(circle.centerY + rotatedY + 0.5)
 
-			-- Bounds check and pixel writing
-			if pixelX >= 0 and pixelX < sizeX and pixelY >= 0 and pixelY < sizeY then
-				writePixel(sizeX, pixels, pixelX, pixelY, pixelColor)
+				-- Bounds check and pixel writing
+				if pixelX >= 0 and pixelX < sizeX and pixelY >= 0 and pixelY < sizeY then
+					writePixel(sizeX, pixels, pixelX, pixelY, pixelColor)
+				end
 			end
 		end
 	end
-end
-
 end
 
 --[=[
@@ -355,21 +354,49 @@ function draw.rectangle(
 	rectangle.strokeColor = rectangle.strokeColor or color.TRANSPARENT
 	rectangle.strokeThickness = rectangle.strokeThickness or 0
 
-	if rectangle.strokeColor ~= color.TRANSPARENT and rectangle.strokeThickness > 0 then
-		draw.rectangle(window, {
-			xPos = rectangle.xPos - rectangle.strokeThickness / 2,
-			yPos = rectangle.yPos - rectangle.strokeThickness / 2,
-			width = rectangle.width + rectangle.strokeThickness,
-			height = rectangle.height + rectangle.strokeThickness,
-			fillColor = rectangle.strokeColor,
-			rotation = rectangle.rotation,
-		})
-	end
+	local strokeLength = if rectangle.strokeColor ~= color.TRANSPARENT
+		then rectangle.strokeThickness
+		else 0
 
 	local sizeX, sizeY = window.sizeX, window.sizeY
 
 	local centerX = rectangle.xPos + rectangle.width / 2
 	local centerY = rectangle.yPos + rectangle.height / 2
+
+	if rectangle.rotation % 90 == 0 then
+		local width, height
+
+		if rectangle.rotation % 180 == 0 then
+			width, height = rectangle.width, rectangle.height
+		else
+			width, height = rectangle.height, rectangle.width
+		end
+
+		width += strokeLength
+		height += strokeLength
+
+		for x = 1, width do
+			x += rectangle.xPos
+			if x >= sizeX then
+				break
+			end
+
+			for y = 1, height do
+				y += rectangle.yPos
+				if y >= sizeY then
+					break
+				end
+
+				local pixelColor = if x > width or y > height
+					then rectangle.strokeColor
+					else rectangle.fillColor
+
+				writePixel(sizeX, window.pixels, x, y, pixelColor)
+			end
+		end
+
+		return
+	end
 
 	local radians = rectangle.rotation * (math.pi / 180)
 	local cosTheta = math.cos(radians)

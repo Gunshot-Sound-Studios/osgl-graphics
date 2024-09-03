@@ -16,27 +16,20 @@ local color = OSGL.color
 
 local myWindow = Window.new(windowUi, { sizeX = SIZE_X, sizeY = SIZE_Y })
 
--- Runs every heartbeat
-local rot = 0
-
 while myWindow:IsOpen() do
-
-    -- Render here
     myWindow:Clear(color.TRANSPARENT)
 
-    draw.circle(myWindow, {
-        centerX = math.random(0, SIZE_X),
-        centerY = math.random(0, SIZE_Y),
-        radius = 400,
+    draw.rectangle(myWindow, {
+        xPos = math.random(0, SIZE_X),
+        yPos = math.random(0, SIZE_Y),
+        width = 800,
+        height = 900,
         fillColor = color.WHITE,
         strokeColor = color.RED,
         strokeThickness = 50,
     })
-    
-    -- Stop rendering here
 
     myWindow:Render()
-    rot += 1
 end
 
 -- print("The window has been destroyed.")

@@ -78,7 +78,21 @@ export type WindowConfiguration = {
     sizeY: number
 }
 
-export type RawTexture = {number | {number}}
+--- @type RawTexture {Color}
+--- @within Texture
+--- The byte-representation of a texture. An
+--- array of colours.
+export type RawTexture = {Color}
+ 
+--- @interface Texture
+--- @within Texture
+--- .rawTexture RawTexture -- The raw-bytes of the texture
+--- .width number -- The width of the texture
+--- .height number -- The height of the texture
+---
+--- A `texture` can be drawn onto a `sprite` to be displayed on-screen.
+--- Textures are simply an array of colors.
+--- 
 export type Texture = {
     rawTexture: RawTexture,
     width: number,
