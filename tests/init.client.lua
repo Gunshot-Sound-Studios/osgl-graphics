@@ -14,7 +14,7 @@ local Window = OSGL.Window
 local draw = OSGL.draw
 local color = OSGL.color
 
-local myWindow = Window.new(windowUi, { sizeX = 30, sizeY = 30 })
+local myWindow = Window.new(windowUi, { sizeX = SIZE_X, sizeY = SIZE_Y })
 
 -- Runs every heartbeat
 local rot = 0
@@ -22,14 +22,15 @@ local rot = 0
 while myWindow:IsOpen() do
 
     -- Render here
-    -- Draw our 
     myWindow:Clear(color.TRANSPARENT)
 
-    draw.line(myWindow, {
-        startX = 0,
-        startY = 0,
-        stopX = 29,
-        stopY = 29,
+    draw.circle(myWindow, {
+        centerX = math.random(0, SIZE_X),
+        centerY = math.random(0, SIZE_Y),
+        radius = 400,
+        fillColor = color.WHITE,
+        strokeColor = color.RED,
+        strokeThickness = 50,
     })
     
     -- Stop rendering here

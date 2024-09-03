@@ -21,30 +21,32 @@
 --
 ------------------------------------------------------------
 
-local log = {}
+local types = require(script.Parent.types)
 
-function log.typeCheckArgument(fnName: string, argName: string, argument: any, expectedType: string)
-    if not argument or not argument:isA(expectedType) then
-        log.error(`Argument '{argName}' of function '{fnName}' was not passed or was not of type '{expectedType}'.`)
+--[=[
+    @class Texture
+
+    The Texture class. Handles loading textures into memory
+    for further use with sprites.
+]=]
+local Texture = {}
+
+local function loadTxt(txt: types.RawTexture): types.Texture
+    local finalTexture = table.create(#txt) -- remove me
+
+    return {
+        rawTexture = txt,
+        width = 0,
+        height = 0,
+    }
+end
+
+function Texture.from(string: types.RawTexture | ModuleScript): types.Texture
+    if type(string) ~= "string" and string:IsA("ModuleScript") then
+        string = require(string) -- Assuming it's an array
     end
 
-    return
+    return loadTxt(string)
 end
 
-local DIVIDE_ERR = "\n------ OSGL Error ------\n"
-function log.error(message: string)
-	local stack = `Stack: {debug.traceback(nil, 2)}`
-    return log.doLog(error, DIVIDE_ERR, message, stack)
-end
-
-local DIVIDE_WARN = "\n------ OSGL Warn ------\n"
-function log.warn(message: string)
-	local stack = `Stack: {debug.traceback(nil, 2)}`
-    return log.doLog(warn, DIVIDE_WARN, message, stack)
-end
-
-function log.doLog(logType: any, header: string, message: string, stack: string)
-    logType(`{header}{message}{header}{stack}`, logType == error and 0 or "")
-end
-
-return log
+return Texture

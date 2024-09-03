@@ -246,15 +246,19 @@ function draw.circle(
 	circle.strokeThickness = circle.strokeThickness or 0
 
 	local radius = circle.radius
-	if circle.strokeColor ~= color.TRANSPARENT and circle.strokeThickness > 0 then
-		draw.circle(window, {
-			centerX = circle.centerX,
-			centerY = circle.centerY,
-			radius = circle.radius + circle.strokeThickness,
-			fillColor = circle.strokeColor,
-			rotation = circle.rotation,
-		})
-	end
+	local strokeThickness = if circle.strokeColor ~= color.TRANSPARENT
+		then circle.strokeThickness
+		else 0
+		
+	-- if circle.strokeColor ~= color.TRANSPARENT and circle.strokeThickness > 0 then
+	-- 	draw.circle(window, {
+	-- 		centerX = circle.centerX,
+	-- 		centerY = circle.centerY,
+	-- 		radius = circle.radius + circle.strokeThickness,
+	-- 		fillColor = circle.strokeColor,
+	-- 		rotation = circle.rotation,
+	-- 	})
+	-- end
 
 	local sizeX, sizeY = window.sizeX, window.sizeY
 	local pixels = window.pixels
@@ -263,29 +267,35 @@ function draw.circle(
 	local cosTheta = math.cos(radians)
 	local sinTheta = math.sin(radians)
 
-	for y = -radius, radius do
-		for x = -radius, radius do
-			if (x * x + y * y) <= radius * radius then
-				local rotatedX = x * cosTheta - y * sinTheta
-				local rotatedY = x * sinTheta + y * cosTheta
+	local radiusSquared = radius * radius
+	local totalRadius = strokeThickness + radius
+	local strokeSquared = totalRadius * totalRadius
 
-				local pixelX = circle.centerX + rotatedX
-				local pixelY = circle.centerY + rotatedY
+	for y = -totalRadius, totalRadius do
+	local ySquared = y * y
 
-				for dx = -0.5, 0.5, 1 do
-					for dy = -0.5, 0.5, 1 do
-						local subPixelX = pixelX + dx
-						local subPixelY = pixelY + dy
+	for x = -totalRadius, totalRadius do
+		local distance = x * x + ySquared
 
-						-- just make sure it doesn't error if out-of-bounds
-						if subPixelX >= 0 and subPixelX < sizeX and subPixelY >= 0 and subPixelY < sizeY then
-							writePixel(sizeX, pixels, math.floor(subPixelX), math.floor(subPixelY), circle.fillColor)
-						end
-					end
-				end
+		if distance <= strokeSquared then
+			local pixelColor = if distance <= radiusSquared
+				then circle.fillColor
+				else circle.strokeColor
+
+			local rotatedX = x * cosTheta - y * sinTheta
+			local rotatedY = x * sinTheta + y * cosTheta
+
+			local pixelX = math.floor(circle.centerX + rotatedX + 0.5)  -- Snap to nearest pixel
+			local pixelY = math.floor(circle.centerY + rotatedY + 0.5)
+
+			-- Bounds check and pixel writing
+			if pixelX >= 0 and pixelX < sizeX and pixelY >= 0 and pixelY < sizeY then
+				writePixel(sizeX, pixels, pixelX, pixelY, pixelColor)
 			end
 		end
 	end
+end
+
 end
 
 --[=[

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
--- OSGL v1.1 - Open-Source-Graphical-Library
+-- OSGL v1.2b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
@@ -76,6 +76,13 @@ export type Window = {
 export type WindowConfiguration = {
     sizeX: number,
     sizeY: number
+}
+
+export type RawTexture = {number | {number}}
+export type Texture = {
+    rawTexture: RawTexture,
+    width: number,
+    height: number
 }
 
 return nil
