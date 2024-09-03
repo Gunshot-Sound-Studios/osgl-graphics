@@ -1,6 +1,11 @@
 {
     "name": "OSGL",
     "tree": {
-        "$path": "src"
+        "$className": "DataModel",
+        "ReplicatedStorage": {
+            "OSGL": {
+                "$path": "src"
+            }
+        }
     }
 }
