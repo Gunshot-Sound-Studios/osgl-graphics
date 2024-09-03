@@ -41,40 +41,39 @@ local function writePixel(SIZE_X: number, pixels: { buffer }, x: number, y: numb
 	pixels[(y * SIZE_X + x) + 1] = color
 end
 
-local function fillPolygon(corners: {{number}}, sizeX: number, sizeY: number, pixels: any, fillColor: types.Color)
-    local minX = math.floor(math.min(corners[1][1], corners[2][1], corners[3][1], corners[4][1]))
-    local maxX = math.ceil(math.max(corners[1][1], corners[2][1], corners[3][1], corners[4][1]))
-    local minY = math.floor(math.min(corners[1][2], corners[2][2], corners[3][2], corners[4][2]))
-    local maxY = math.ceil(math.max(corners[1][2], corners[2][2], corners[3][2], corners[4][2]))
+local function fillPolygon(corners: { { number } }, sizeX: number, sizeY: number, pixels: any, fillColor: types.Color)
+	local minX = math.floor(math.min(corners[1][1], corners[2][1], corners[3][1], corners[4][1]))
+	local maxX = math.ceil(math.max(corners[1][1], corners[2][1], corners[3][1], corners[4][1]))
+	local minY = math.floor(math.min(corners[1][2], corners[2][2], corners[3][2], corners[4][2]))
+	local maxY = math.ceil(math.max(corners[1][2], corners[2][2], corners[3][2], corners[4][2]))
 
- 
-    for y = minY, maxY do
-        for x = minX, maxX do
-            local function isPointInside(px, py, corners)
-                local function sign(x0, y0, x1, y1, x2, y2)
-                    return (x0 - x2) * (y1 - y2) - (x1 - x2) * (y0 - y2)
-                end
-                local b1 = sign(px, py, corners[1][1], corners[1][2], corners[2][1], corners[2][2]) < 0
-                local b2 = sign(px, py, corners[2][1], corners[2][2], corners[3][1], corners[3][2]) < 0
-                local b3 = sign(px, py, corners[3][1], corners[3][2], corners[4][1], corners[4][2]) < 0
-                local b4 = sign(px, py, corners[4][1], corners[4][2], corners[1][1], corners[1][2]) < 0
-                return (b1 == b2) and (b2 == b3) and (b3 == b4)
-            end
+	for y = minY, maxY do
+		for x = minX, maxX do
+			local function isPointInside(px, py, corners)
+				local function sign(x0, y0, x1, y1, x2, y2)
+					return (x0 - x2) * (y1 - y2) - (x1 - x2) * (y0 - y2)
+				end
+				local b1 = sign(px, py, corners[1][1], corners[1][2], corners[2][1], corners[2][2]) < 0
+				local b2 = sign(px, py, corners[2][1], corners[2][2], corners[3][1], corners[3][2]) < 0
+				local b3 = sign(px, py, corners[3][1], corners[3][2], corners[4][1], corners[4][2]) < 0
+				local b4 = sign(px, py, corners[4][1], corners[4][2], corners[1][1], corners[1][2]) < 0
+				return (b1 == b2) and (b2 == b3) and (b3 == b4)
+			end
 
-            if isPointInside(x, y, corners) then
-                if x >= 0 and x < sizeX and y >= 0 and y < sizeY then
-                    writePixel(sizeX, pixels, x, y, fillColor)
-                end
-            end
-        end
-    end
+			if isPointInside(x, y, corners) then
+				if x >= 0 and x < sizeX and y >= 0 and y < sizeY then
+					writePixel(sizeX, pixels, x, y, fillColor)
+				end
+			end
+		end
+	end
 end
 
 --[=[
     Draws a singular pixel at the given location
      ```lua
     local OSGL = require(path.to.osgl)
-    local Draw = OSGL.draw
+    local draw = OSGL.draw
     local Window = OSGL.Window
     local color = OSGL.color
 
@@ -85,7 +84,7 @@ end
     while myWindow:IsOpen() do
         -- Render here
         -- Draws a pixel at 0, 0, with a red color, onto "myWindow"
-        Draw.pixel(myWindow, 0, 0, color.red)
+        draw.pixel(myWindow, 0, 0, color.red)
         -- Stop rendering here
 
         myWindow:Render()
@@ -111,7 +110,7 @@ end
     Draws a singular pixel at the given location
     ```lua
     local OSGL = require(path.to.osgl)
-    local Draw = OSGL.draw
+    local draw = OSGL.draw
     local Window = OSGL.Window
     local color = OSGL.color
 
@@ -121,8 +120,17 @@ end
     -- Runs every heartbeat
     while myWindow:IsOpen() do
         -- Render here
-        -- Draws a pixel at 0, 0, with a red color, onto "myWindow"
-        Draw.pixel(myWindow, 0, 0, color.red)
+        -- Draws a red line from 0,0 to 29,29
+        draw.line(myWindow, {
+            startX = 0,
+            startY = 0,
+            stopX = 29,
+            stopY = 29,
+
+            -- Thickness defaults to 1
+            -- Color defaults to black
+            color = color.RED
+        })
         -- Stop rendering here
 
         myWindow:Render()
@@ -145,6 +153,41 @@ function draw.line(
 		color: types.Color?,
 	}
 )
+	line.thickness = line.thickness or 1
+	line.color = line.color or color.BLACK
+
+	local sizeX, sizeY = window.sizeX, window.sizeY
+	local pixels = window.pixels
+
+	local dx = line.stopX - line.startX
+	local dy = line.stopY - line.startY
+
+	local steps = math.max(math.abs(dx), math.abs(dy))
+
+	local xIncrement = dx / steps
+	local yIncrement = dy / steps
+
+	local x = line.startX
+	local y = line.startY
+
+	local function drawThickPoint(px: number, py: number, thickness: number)
+		local halfThickness = thickness / 2
+		for offsetX = -halfThickness, halfThickness do
+			for offsetY = -halfThickness, halfThickness do
+				local pixelX = math.floor(px + offsetX + 0.5)
+				local pixelY = math.floor(py + offsetY + 0.5)
+				if pixelX >= 0 and pixelX < sizeX and pixelY >= 0 and pixelY < sizeY then
+					writePixel(sizeX, pixels, pixelX, pixelY, line.color)
+				end
+			end
+		end
+	end
+
+	for _ = 0, steps do
+		drawThickPoint(x, y, line.thickness)
+		x = x + xIncrement
+		y = y + yIncrement
+	end
 end
 
 --[=[
@@ -249,7 +292,7 @@ end
 	Draws a rectangle with an optional stroke on the screen
 	```lua
 	local OSGL = require(path.to.osgl)
-	local Draw = OSGL.draw
+	local draw = OSGL.draw
 	local Window = OSGL.Window
 	local color = OSGL.color
 
@@ -260,7 +303,7 @@ end
 	while myWindow:IsOpen() do
 		-- Render here
 		-- Draws a square (5x5) at 0, 0, with a red color, onto "myWindow"
-		Draw.rectangle(myWindow, {
+		draw.rectangle(myWindow, {
 			xPos = 0,
 			yPos = 0,
 			width = 5,
@@ -285,64 +328,62 @@ end
 	@return nil
 ]=]
 function draw.rectangle(
-    window: types.Window,
-    rectangle: {
-        xPos: number,
-        yPos: number,
-        width: number,
-        height: number,
-        fillColor: types.Color?,
-        strokeColor: types.Color?,
+	window: types.Window,
+	rectangle: {
+		xPos: number,
+		yPos: number,
+		width: number,
+		height: number,
+		fillColor: types.Color?,
+		strokeColor: types.Color?,
 		strokeThickness: number?,
-        rotation: number?,
-    }
+		rotation: number?,
+	}
 )
-    rectangle.fillColor = rectangle.fillColor or color.TRANSPARENT
-    rectangle.rotation = rectangle.rotation or 0
-    rectangle.strokeColor = rectangle.strokeColor or color.TRANSPARENT
+	rectangle.fillColor = rectangle.fillColor or color.TRANSPARENT
+	rectangle.rotation = rectangle.rotation or 0
+	rectangle.strokeColor = rectangle.strokeColor or color.TRANSPARENT
 	rectangle.strokeThickness = rectangle.strokeThickness or 0
 
-    if rectangle.strokeColor ~= color.TRANSPARENT and rectangle.strokeThickness > 0 then
+	if rectangle.strokeColor ~= color.TRANSPARENT and rectangle.strokeThickness > 0 then
 		draw.rectangle(window, {
-            xPos = rectangle.xPos - rectangle.strokeThickness / 2,
-            yPos = rectangle.yPos - rectangle.strokeThickness / 2,
-            width = rectangle.width + rectangle.strokeThickness,
-            height = rectangle.height + rectangle.strokeThickness,
-            fillColor = rectangle.strokeColor,
-            rotation = rectangle.rotation
+			xPos = rectangle.xPos - rectangle.strokeThickness / 2,
+			yPos = rectangle.yPos - rectangle.strokeThickness / 2,
+			width = rectangle.width + rectangle.strokeThickness,
+			height = rectangle.height + rectangle.strokeThickness,
+			fillColor = rectangle.strokeColor,
+			rotation = rectangle.rotation,
 		})
 	end
 
-    local sizeX, sizeY = window.sizeX, window.sizeY
+	local sizeX, sizeY = window.sizeX, window.sizeY
 
-    local centerX = rectangle.xPos + rectangle.width / 2
-    local centerY = rectangle.yPos + rectangle.height / 2
+	local centerX = rectangle.xPos + rectangle.width / 2
+	local centerY = rectangle.yPos + rectangle.height / 2
 
-    local radians = rectangle.rotation * (math.pi / 180)
-    local cosTheta = math.cos(radians)
-    local sinTheta = math.sin(radians)
+	local radians = rectangle.rotation * (math.pi / 180)
+	local cosTheta = math.cos(radians)
+	local sinTheta = math.sin(radians)
 
-    local function rotatePoint(x, y)
-        local relativeX = x - centerX
-        local relativeY = y - centerY
-        local rotatedX = relativeX * cosTheta - relativeY * sinTheta
-        local rotatedY = relativeX * sinTheta + relativeY * cosTheta
-        return centerX + rotatedX, centerY + rotatedY
-    end
+	local function rotatePoint(x, y)
+		local relativeX = x - centerX
+		local relativeY = y - centerY
+		local rotatedX = relativeX * cosTheta - relativeY * sinTheta
+		local rotatedY = relativeX * sinTheta + relativeY * cosTheta
+		return centerX + rotatedX, centerY + rotatedY
+	end
 
-    local x0, y0 = rotatePoint(rectangle.xPos, rectangle.yPos)
-    local x1, y1 = rotatePoint(rectangle.xPos + rectangle.width, rectangle.yPos)
-    local x2, y2 = rotatePoint(rectangle.xPos + rectangle.width, rectangle.yPos + rectangle.height)
-    local x3, y3 = rotatePoint(rectangle.xPos, rectangle.yPos + rectangle.height)
+	local x0, y0 = rotatePoint(rectangle.xPos, rectangle.yPos)
+	local x1, y1 = rotatePoint(rectangle.xPos + rectangle.width, rectangle.yPos)
+	local x2, y2 = rotatePoint(rectangle.xPos + rectangle.width, rectangle.yPos + rectangle.height)
+	local x3, y3 = rotatePoint(rectangle.xPos, rectangle.yPos + rectangle.height)
 
-    fillPolygon({
-        {x0, y0},
-        {x1, y1},
-        {x2, y2},
-        {x3, y3}
-    }, sizeX, sizeY, window.pixels, rectangle.fillColor)
+	fillPolygon({
+		{ x0, y0 },
+		{ x1, y1 },
+		{ x2, y2 },
+		{ x3, y3 },
+	}, sizeX, sizeY, window.pixels, rectangle.fillColor)
 end
-
-
 
 return draw

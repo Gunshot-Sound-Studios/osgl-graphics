@@ -25,16 +25,11 @@ while myWindow:IsOpen() do
     -- Draw our 
     myWindow:Clear(color.TRANSPARENT)
 
-    draw.rectangle(myWindow, {
-        xPos = 15,
-        yPos = 15,
-        width = 10,
-        height = 5,
-        fillColor = color.RED,
-        rotation = rot,
-
-        strokeColor = color.BLACK,
-        strokeThickness = 2
+    draw.line(myWindow, {
+        startX = 0,
+        startY = 0,
+        stopX = 29,
+        stopY = 29,
     })
     
     -- Stop rendering here
