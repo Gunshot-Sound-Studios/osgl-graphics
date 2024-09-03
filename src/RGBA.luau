@@ -30,19 +30,8 @@ local types = require(script.Parent.types)
     RGBA color values.
 ]=]
 local RGBA = {}
-local RGBAPrivate = {}
-RGBAPrivate.__index = RGBAPrivate
 
-local function updateBuffer(bfr: buffer, r: number, g: number, b: number, a: number)
-    buffer.writeu8(bfr, 0, r)
-    buffer.writeu8(bfr, 1, g)
-    buffer.writeu8(bfr, 2, b)
-    buffer.writeu8(bfr, 3, a)
-
-    return
-end
-
-function RGBAPrivate.__add(color1: types.RGBA, color2: types.RGBA)
+function RGBA.add(color1: types.RGBA, color2: types.RGBA)
     return RGBA.new(
         math.clamp(color1.R + color2.R, 0, 255),
         math.clamp(color1.G + color2.G, 0, 255),
@@ -51,7 +40,7 @@ function RGBAPrivate.__add(color1: types.RGBA, color2: types.RGBA)
     )
 end
 
-function RGBAPrivate.__sub(color1: types.RGBA, color2: types.RGBA)
+function RGBA.subtract(color1: types.RGBA, color2: types.RGBA)
     return RGBA.new(
         math.clamp(color1.R + color2.R, 0, 255),
         math.clamp(color1.G + color2.G, 0, 255),
@@ -60,7 +49,7 @@ function RGBAPrivate.__sub(color1: types.RGBA, color2: types.RGBA)
     )
 end
 
-function RGBAPrivate.__mul(color1: types.RGBA, color2: types.RGBA)
+function RGBA.multiply(color1: types.RGBA, color2: types.RGBA)
     local r = math.clamp((color1.R / 255) * (color2.R / 255) * 255, 0, 255)
     local g = math.clamp((color1.G / 255) * (color2.G / 255) * 255, 0, 255)
     local b = math.clamp((color1.B / 255) * (color2.B / 255) * 255, 0, 255)
@@ -69,21 +58,13 @@ function RGBAPrivate.__mul(color1: types.RGBA, color2: types.RGBA)
     return RGBA.new(r, g, b, a)
 end
 
-function RGBAPrivate.__div(color1: types.RGBA, color2: types.RGBA)
+function RGBA.divide(color1: types.RGBA, color2: types.RGBA)
     local r = (color2.R == 0 and 255 or math.clamp((color1.R / 255) / (color2.R / 255) * 255, 0, 255))
     local g = (color2.G == 0 and 255 or math.clamp((color1.G / 255) / (color2.G / 255) * 255, 0, 255))
     local b = (color2.B == 0 and 255 or math.clamp((color1.B / 255) / (color2.B / 255) * 255, 0, 255))
     local a = (color2.A == 0 and 255 or math.clamp((color1.A / 255) / (color2.A / 255) * 255, 0, 255))
     
     return RGBA.new(r, g, b, a)
-end
-
-function RGBAPrivate.__tostring(self: types.RGBA)
-    return `{self.R}, {self.G}, {self.B}, {self.A}`
-end
-
-function RGBAPrivate.__eq(color1: types.RGBA, color2: types.RGBA)
-    return color1.R == color2.R and color1.G == color2.G and color1.B == color2.B and color1.A == color2.A
 end
 
 --[=[
@@ -104,14 +85,6 @@ end
     @return Color -- Returns a RGBA Value
 ]=]
 function RGBA.new(red: number?, green: number?, blue: number?, alpha: number?): types.RGBA
-    --red = red or 0
-    --green = green or 0
-    --blue = blue or 0
-    --alpha = alpha or 255
-
-
-    --local b = buffer.create(4)
-    --updateBuffer(b, red, green, blue, alpha)
     local r = red or 0
     local g = green or 0
     local b = blue or 0

@@ -6,6 +6,13 @@
             "OSGL": {
                 "$path": "src"
             }
+        },
+        "StarterPlayer": {
+            "StarterPlayerScripts": {
+                "tests": {
+                    "$path": "tests"
+                }
+            }
         }
     }
 }
