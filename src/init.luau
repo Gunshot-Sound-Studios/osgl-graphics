@@ -23,6 +23,6 @@
 
 return {
     Window = require(script.window),
-    Color = require(script.RGBA),
-    Draw = require(script.draw)
+    color = require(script.color),
+    draw = require(script.draw)
 }

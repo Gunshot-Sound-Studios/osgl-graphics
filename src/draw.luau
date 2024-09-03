@@ -33,9 +33,9 @@ local types = require(script.Parent.types)
     The draw class. Contains functions that manipulates pixels
     on an OSGL window.
 ]=]
-local Draw = {}
+local draw = {}
 
-local function writePixel(SIZE_X: number, pixels: {buffer}, x: number, y: number, color: buffer)
+local function writePixel(SIZE_X: number, pixels: {buffer}, x: number, y: number, color: types.Color)
     pixels[(y * SIZE_X + x) + 1] = color
 end
 
@@ -43,9 +43,9 @@ end
     Draws a singular pixel at the given location
      ```lua
     local OSGL = require(path.to.osgl)
-    local Draw = OSGL.Draw
+    local Draw = OSGL.draw
     local Window = OSGL.Window
-    local Color = OSGL.Color
+    local color = OSGL.color
 
     --// Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
@@ -53,9 +53,8 @@ end
     -- Runs every heartbeat
     while myWindow:IsOpen() do
         -- Render here
-        -- Position, Color, Buffer
         -- Draws a pixel at 0, 0, with a red color, onto "myWindow"
-        Draw.pixel(myWindow, 0, 0, Color.red)
+        Draw.pixel(myWindow, 0, 0, color.red)
         -- Stop rendering here
 
         myWindow:Render()
@@ -63,15 +62,18 @@ end
 
     print("The window has been destroyed.")
     ```
-
+    @param window Window -- The window to draw on
+    @param xPos number -- The X-Position of the window
+    @param yPos number -- The Y-Position of the window
+    @param color Color -- The color of the pixel
     @within Draw
     @return nil
 ]=]
-function Draw.pixel(window: types.Window, xPos: number, yPos: number, rgbaColor: types.RGBA)
+function draw.pixel(window: types.Window, xPos: number, yPos: number, color: types.Color)
     xPos = math.clamp(xPos or 0, 0, 1023)
     yPos = math.clamp(yPos or 0, 0, 1023)
 
-    writePixel(window.sizeX, window.pixels, xPos, yPos, rgbaColor) -- Temporary
+    writePixel(window.sizeX, window.pixels, xPos, yPos, color) -- Temporary
 end
 
-return Draw
+return draw

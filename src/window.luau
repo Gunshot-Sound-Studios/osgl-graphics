@@ -27,6 +27,7 @@
 
 local types = require(script.Parent.types)
 local log = require(script.Parent.log)
+local color = require(script.Parent.color)
 
 --[=[
     @class Window
@@ -43,7 +44,7 @@ WindowPrivate.__index = WindowPrivate
     Creates an OSGL window from an existing EditableImage.
      ```lua
     local OSGL = require(path.to.osgl)
-    local Window = OSGL.window
+    local Window = OSGL.Window
     ​
     --// Creates a window from an existing EditableImage
     local myWindow = Window.from(path.to.editableImage, { size = Vector2.new(50, 50) })
@@ -59,16 +60,11 @@ function Window.from(editableImage: EditableImage): types.Window
 
 	local self = {
 		renderer = editableImage,
-        pixels = table.create(editableImage.Size.X * editableImage.Size.Y, 0),
-        sizeX = editableImage.Size.X,
-        sizeY = editableImage.Size.Y,
-        size = editableImage.Size,
-    }
-
-    --for i, v in ipairs(self.pixels) do
-    --    -- Allocate some memory
-    --    self.pixels[i] = buffer.create(4) -- 4 bytes for colours
-    --end
+		pixels = table.create(editableImage.Size.X * editableImage.Size.Y, 0),
+		sizeX = editableImage.Size.X,
+		sizeY = editableImage.Size.Y,
+		size = editableImage.Size,
+	}
 
 	return setmetatable(self, WindowPrivate)
 end
@@ -77,7 +73,7 @@ end
     Creates an OSGL window by creating a new EditableImage instance at the given place.
      ```lua
     local OSGL = require(path.to.osgl)
-    local Window = OSGL.window
+    local Window = OSGL.Window
     ​
     --// Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
@@ -108,7 +104,7 @@ end
     Returns if the OSGL Window still exists. Useful for game-loops. Automatically yields for a heartbeat, or the given time.
      ```lua
     local OSGL = require(path.to.osgl)
-    local Window = OSGL.window
+    local Window = OSGL.Window
 
     --// Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
@@ -139,7 +135,7 @@ end
     Renders `Window.pixels` to the EditableImage
      ```lua
     local OSGL = require(path.to.osgl)
-    local Window = OSGL.window
+    local Window = OSGL.Window
 
     --// Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
@@ -153,29 +149,124 @@ end
         myWindow:Render()
     end
 
-    print("The window has been destroyed.")
+    print("I have become script, destroyer of OSGL windows.")
     ```
 
     @within Window
     @return Window -- Returns an OSGL window instance
 ]=]
 function WindowPrivate:Render()
-    local final = table.create(#self.pixels, 0) :: { number }
-    local n = math.round(#final / 2) -- change later
-    
-    for i, color in ipairs(self.pixels) do
-        if i % n == 0 then
-            task.wait()
-        end
-        
-        local i = (i - 1) * 4
-        final[i + 1] = bit32.rshift(color, 24) / 255
-        final[i + 2] = bit32.band(bit32.rshift(color, 16), 0xFF) / 255
-        final[i + 3] = bit32.band(bit32.rshift(color, 8), 0xFF) / 255
-        final[i + 4] = bit32.band(color, 0xFF) / 255
+	local final = table.create(#self.pixels, 0) :: { number }
+	local n = math.round(#final / 2) -- change later
+
+	for i, color in ipairs(self.pixels) do
+		if i % n == 0 then
+			task.wait()
+		end
+
+		local i = (i - 1) * 4
+		final[i + 1] = bit32.rshift(color, 24) / 255
+		final[i + 2] = bit32.band(bit32.rshift(color, 16), 0xFF) / 255
+		final[i + 3] = bit32.band(bit32.rshift(color, 8), 0xFF) / 255
+		final[i + 4] = bit32.band(color, 0xFF) / 255
+	end
+
+	(self.renderer :: EditableImage):WritePixels(Vector2.zero, self.size, final)
+
+	return
+end
+
+--[=[
+    Clears the double-buffer with the given color or a transparent color
+     ```lua
+    local OSGL = require(path.to.osgl)
+    local Window = OSGL.Window
+    local color = OSGL.color
+
+    --// Creates a new EditableImage
+    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+
+    -- Runs every heartbeat
+    while myWindow:IsOpen() do
+        -- Render here
+        myWindow:Clear(color.GREEN)
+        -- Stop rendering here
+
+        myWindow:Render()
     end
-    
-    (self.renderer :: EditableImage):WritePixels(Vector2.zero, self.size, final)
+
+    print("I have become script, destroyer of OSGL windows.")
+    ```
+    @param clearColor Color? -- The color the screen will be cleared with
+    @within Window
+    @return Window -- Returns an OSGL window instance
+]=]
+function WindowPrivate:Clear(clearColor: types.Color?)
+	clearColor = clearColor or color.TRANSPARENT
+
+	for i, _ in ipairs(self.pixels) do
+		self.pixels[i] = clearColor
+	end
+
+	return
+end
+
+--[=[
+    Resizes the window and its buffer. This function is resource intensive and is not
+    made for constant use. May require a re-render depending on the new size.
+     ```lua
+    local OSGL = require(path.to.osgl)
+    local Window = OSGL.Window
+    local color = OSGL.color
+
+    --// Creates a new EditableImage
+    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+    myWindow:Resize(100) --// Changes width to 100
+
+    -- Runs every heartbeat
+    while myWindow:IsOpen() do
+        -- Render here
+        -- *rendering magic*
+        -- Stop rendering here
+
+        myWindow:Render()
+    end
+
+    print("I have become script, destroyer of OSGL windows.")
+    ```
+    @param newWidth number? -- The new width of the window
+    @param newHeight number? -- The new height of the window
+    @within Window
+    @return Window -- Returns an OSGL window instance
+]=]
+function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
+	newWidth = math.clamp(newWidth or self.size.X, 0, 1024)
+	newHeight = math.clamp(newHeight or self.size.Y, 0, 1024)
+
+	local resizedPixels = table.create(newWidth * newHeight, 0)
+	local oldWidth = self.size.X
+	local oldHeight = self.size.Y
+
+	for y = 0, newHeight - 1 do
+		for x = 0, newWidth - 1 do
+			if x < oldWidth and y < oldHeight then
+				local oldIndex = (y * oldWidth) + x + 1
+				local newIndex = (y * newWidth) + x + 1
+
+				if self.pixels[oldIndex] then
+					resizedPixels[newIndex] = self.pixels[oldIndex]
+				end
+			end
+		end
+	end
+	
+
+	self.pixels = resizedPixels
+	self.size = Vector2.new(newWidth, newHeight)
+    self.sizeX = newWidth
+    self.sizeY = newHeight
+	
+    self.renderer.Size = self.size
 
 	return
 end

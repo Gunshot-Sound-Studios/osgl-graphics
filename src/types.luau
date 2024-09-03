@@ -21,10 +21,24 @@
 --
 ------------------------------------------------------------
 
+--- @type Color number
+--- @within Color
+--- ```lua
+--- local OSGL = require(path.to.osgl)
+--- local color = OSGL.color
+--- ​
+--- --// All other parameters are defaulted
+--- --// to 0, except for alpha, which is
+--- --// defaulted to 255.
+--- local myAwesomeRedColor = color.new(255)
+--- ```
+export type Color = number
+
+
 --- @interface Window
 --- @within Window
 --- .renderer EditableImage -- The actual EditableImage instance
---- .pixels {Buffer} -- The double-buffer. An array of buffers containing RGBA values
+--- .pixels { Color } -- The double-buffer. An array of numbers containing color values
 ---
 --- An OSGL window is the representation of the EditableImage instance.
 --- A window can be created by importing the OSGL '*window*' submodule:
@@ -37,10 +51,11 @@
 --- ```
 export type Window = {
     renderer: EditableImage,
-    pixels: {buffer},
+    pixels: { Color },
 
     IsOpen: (self: Window, yield: number?) -> boolean,
-    Render: (self: Window) -> nil
+    Render: (self: Window) -> nil,
+    Clear: (self: Window, clearColor: Color) -> ()
 }
 
 --- @interface WindowConfiguration
@@ -60,28 +75,6 @@ export type Window = {
 export type WindowConfiguration = {
     sizeX: number,
     sizeY: number
-}
-
---- @interface RGBA
---- @within Color
---- .buffer buffer -- A color buffer containing color data
----
---- ```lua
---- local OSGL = require(path.to.osgl)
---- local Color = OSGL.Color
---- ​
---- --// All other parameters are defaulted
---- --// to 0, except for alpha, which is
---- --// defaulted to 255.
---- local myAwesomeRedColor = RGBA.new(255)
---- ```
-export type RGBA = {
-    buffer: buffer,
-
-    ToColor3: () -> (Color3, number),
-    ToHex: () -> (string, number),
-    Read: () -> { R: number, G: number, B: number, A: number },
-    Set: (red: number?, green: number?, blue: number?, alpha: number?) -> (),
 }
 
 return nil
