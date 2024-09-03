@@ -55,7 +55,8 @@ export type Window = {
 
     IsOpen: (self: Window, yield: number?) -> boolean,
     Render: (self: Window) -> nil,
-    Clear: (self: Window, clearColor: Color) -> ()
+    Clear: (self: Window, clearColor: Color) -> (),
+    Resize: (self: Window, newWidth: number?, newHeight: number?) -> ()
 }
 
 --- @interface WindowConfiguration

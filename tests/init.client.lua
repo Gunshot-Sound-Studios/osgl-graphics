@@ -14,22 +14,33 @@ local Window = OSGL.Window
 local draw = OSGL.draw
 local color = OSGL.color
 
-local myWindow = Window.new(windowUi, { sizeX = 8, sizeY = 4 })
-myWindow:Clear(color.BLUE)
-myWindow:Resize(4, 4)
-myWindow:Render() 
-draw.pixel(myWindow, 0, 0, color.RED)
-myWindow:Render()
-myWindow:Resize(8, 4) --// Changes width to 100
-myWindow:Render()
+local myWindow = Window.new(windowUi, { sizeX = 30, sizeY = 30 })
 
 -- Runs every heartbeat
--- while myWindow:IsOpen() do
---     -- Render here
+local rot = 0
 
---     myWindow:Clear(color.WHITE)
---     draw.pixel(myWindow, 49, 24, color.BLUE)
---     -- Stop rendering here
+while myWindow:IsOpen() do
 
---     myWindow:Render()
--- end
+    -- Render here
+    -- Draw our 
+    myWindow:Clear(color.TRANSPARENT)
+
+    draw.rectangle(myWindow, {
+        xPos = 15,
+        yPos = 15,
+        width = 10,
+        height = 5,
+        fillColor = color.RED,
+        rotation = rot,
+
+        strokeColor = color.BLACK,
+        strokeThickness = 2
+    })
+    
+    -- Stop rendering here
+
+    myWindow:Render()
+    rot += 1
+end
+
+-- print("The window has been destroyed.")

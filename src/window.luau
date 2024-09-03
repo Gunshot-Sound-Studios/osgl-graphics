@@ -27,7 +27,7 @@
 
 local types = require(script.Parent.types)
 local log = require(script.Parent.log)
-local color = require(script.Parent.color)
+local colorM = require(script.Parent.color)
 
 --[=[
     @class Window
@@ -156,6 +156,8 @@ end
     @return Window -- Returns an OSGL window instance
 ]=]
 function WindowPrivate:Render()
+    
+
 	local final = table.create(#self.pixels, 0) :: { number }
 	local n = math.round(#final / 2) -- change later
 
@@ -202,7 +204,7 @@ end
     @return Window -- Returns an OSGL window instance
 ]=]
 function WindowPrivate:Clear(clearColor: types.Color?)
-	clearColor = clearColor or color.TRANSPARENT
+	clearColor = clearColor or colorM.TRANSPARENT
 
 	for i, _ in ipairs(self.pixels) do
 		self.pixels[i] = clearColor

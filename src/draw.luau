@@ -1,3 +1,4 @@
+local StarterPack = game:GetService("StarterPack")
 --!strict
 --!native
 --!optimize 2
@@ -26,6 +27,7 @@
 ------------------------------------------------------------
 
 local types = require(script.Parent.types)
+local color = require(script.Parent.color)
 
 --[=[
     @class Draw
@@ -35,8 +37,37 @@ local types = require(script.Parent.types)
 ]=]
 local draw = {}
 
-local function writePixel(SIZE_X: number, pixels: {buffer}, x: number, y: number, color: types.Color)
-    pixels[(y * SIZE_X + x) + 1] = color
+local function writePixel(SIZE_X: number, pixels: { buffer }, x: number, y: number, color: types.Color)
+	pixels[(y * SIZE_X + x) + 1] = color
+end
+
+local function fillPolygon(corners: {{number}}, sizeX: number, sizeY: number, pixels: any, fillColor: types.Color)
+    local minX = math.floor(math.min(corners[1][1], corners[2][1], corners[3][1], corners[4][1]))
+    local maxX = math.ceil(math.max(corners[1][1], corners[2][1], corners[3][1], corners[4][1]))
+    local minY = math.floor(math.min(corners[1][2], corners[2][2], corners[3][2], corners[4][2]))
+    local maxY = math.ceil(math.max(corners[1][2], corners[2][2], corners[3][2], corners[4][2]))
+
+ 
+    for y = minY, maxY do
+        for x = minX, maxX do
+            local function isPointInside(px, py, corners)
+                local function sign(x0, y0, x1, y1, x2, y2)
+                    return (x0 - x2) * (y1 - y2) - (x1 - x2) * (y0 - y2)
+                end
+                local b1 = sign(px, py, corners[1][1], corners[1][2], corners[2][1], corners[2][2]) < 0
+                local b2 = sign(px, py, corners[2][1], corners[2][2], corners[3][1], corners[3][2]) < 0
+                local b3 = sign(px, py, corners[3][1], corners[3][2], corners[4][1], corners[4][2]) < 0
+                local b4 = sign(px, py, corners[4][1], corners[4][2], corners[1][1], corners[1][2]) < 0
+                return (b1 == b2) and (b2 == b3) and (b3 == b4)
+            end
+
+            if isPointInside(x, y, corners) then
+                if x >= 0 and x < sizeX and y >= 0 and y < sizeY then
+                    writePixel(sizeX, pixels, x, y, fillColor)
+                end
+            end
+        end
+    end
 end
 
 --[=[
@@ -70,10 +101,248 @@ end
     @return nil
 ]=]
 function draw.pixel(window: types.Window, xPos: number, yPos: number, color: types.Color)
-    xPos = math.clamp(xPos or 0, 0, 1023)
-    yPos = math.clamp(yPos or 0, 0, 1023)
+	xPos = math.clamp(xPos or 0, 0, 1023)
+	yPos = math.clamp(yPos or 0, 0, 1023)
 
-    writePixel(window.sizeX, window.pixels, xPos, yPos, color) -- Temporary
+	writePixel(window.sizeX, window.pixels, xPos, yPos, color) -- Temporary
 end
+
+--[=[
+    Draws a singular pixel at the given location
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local Draw = OSGL.draw
+    local Window = OSGL.Window
+    local color = OSGL.color
+
+    --// Creates a new EditableImage
+    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+
+    -- Runs every heartbeat
+    while myWindow:IsOpen() do
+        -- Render here
+        -- Draws a pixel at 0, 0, with a red color, onto "myWindow"
+        Draw.pixel(myWindow, 0, 0, color.red)
+        -- Stop rendering here
+
+        myWindow:Render()
+    end
+
+    print("The window has been destroyed.")
+    ```
+    @param line { startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: Color? } -- The data that is used to construct the line
+    @within Draw
+    @return nil
+]=]
+function draw.line(
+	window: types.Window,
+	line: {
+		startX: number,
+		startY: number,
+		stopX: number,
+		stopY: number,
+		thickness: number?,
+		color: types.Color?,
+	}
+)
+end
+
+--[=[
+    Draws a circle with an optional stroke onto the screen
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local Draw = OSGL.draw
+    local Window = OSGL.Window
+    local color = OSGL.color
+
+    --// Creates a new EditableImage
+    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+
+    -- Runs every heartbeat
+    while myWindow:IsOpen() do
+        -- Render here
+        -- Draw our circle
+        myWindow:Clear(color.TRANSPARENT)
+        draw.circle(myWindow, {
+            centerX = 25,
+            centerY = 25,
+            radius = 10,
+            fillColor = color.RED,
+
+            -- Rotation defaults to 0.
+            -- Strokes are completely optional
+            strokeColor = color.BLACK,
+            strokeThickness = 2
+        })
+        -- Stop rendering here
+
+        myWindow:Render()
+    end
+
+    print("The window has been destroyed.")
+    ```
+    @param circle {centerX: number, centerY: number, radius: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?} -- The data that is used to construct the circle
+    @within Draw
+    @return nil
+]=]
+function draw.circle(
+	window: types.Window,
+	circle: {
+		centerX: number,
+		centerY: number,
+		radius: number,
+		fillColor: types.Color?,
+		strokeColor: types.Color?,
+		strokeThickness: number?,
+		rotation: number?,
+	}
+)
+	circle.fillColor = circle.fillColor or color.BLACK
+	circle.rotation = circle.rotation or 0
+	circle.strokeColor = circle.strokeColor or color.TRANSPARENT
+	circle.strokeThickness = circle.strokeThickness or 0
+
+	local radius = circle.radius
+	if circle.strokeColor ~= color.TRANSPARENT and circle.strokeThickness > 0 then
+		draw.circle(window, {
+			centerX = circle.centerX,
+			centerY = circle.centerY,
+			radius = circle.radius + circle.strokeThickness,
+			fillColor = circle.strokeColor,
+			rotation = circle.rotation,
+		})
+	end
+
+	local sizeX, sizeY = window.sizeX, window.sizeY
+	local pixels = window.pixels
+
+	local radians = circle.rotation * (math.pi / 180)
+	local cosTheta = math.cos(radians)
+	local sinTheta = math.sin(radians)
+
+	for y = -radius, radius do
+		for x = -radius, radius do
+			if (x * x + y * y) <= radius * radius then
+				local rotatedX = x * cosTheta - y * sinTheta
+				local rotatedY = x * sinTheta + y * cosTheta
+
+				local pixelX = circle.centerX + rotatedX
+				local pixelY = circle.centerY + rotatedY
+
+				for dx = -0.5, 0.5, 1 do
+					for dy = -0.5, 0.5, 1 do
+						local subPixelX = pixelX + dx
+						local subPixelY = pixelY + dy
+
+						-- just make sure it doesn't error if out-of-bounds
+						if subPixelX >= 0 and subPixelX < sizeX and subPixelY >= 0 and subPixelY < sizeY then
+							writePixel(sizeX, pixels, math.floor(subPixelX), math.floor(subPixelY), circle.fillColor)
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
+--[=[
+	Draws a rectangle with an optional stroke on the screen
+	```lua
+	local OSGL = require(path.to.osgl)
+	local Draw = OSGL.draw
+	local Window = OSGL.Window
+	local color = OSGL.color
+
+	--// Creates a new EditableImage
+	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+
+	-- Runs every heartbeat
+	while myWindow:IsOpen() do
+		-- Render here
+		-- Draws a square (5x5) at 0, 0, with a red color, onto "myWindow"
+		Draw.rectangle(myWindow, {
+			xPos = 0,
+			yPos = 0,
+			width = 5,
+			height = 5,
+			fillColor = color.RED,
+
+			-- Rotation defaults to 0.
+			-- Strokes are completely optional
+			strokeColor = color.BLACK,
+			strokeThickness = 2
+		})
+		-- Stop rendering here
+
+		myWindow:Render()
+	end
+
+	print("The window has been destroyed.")
+	```
+	@param window Window -- The window to draw on
+	@param rectangle {xPos: number, yPos: number, width: number, height: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?} -- The data that is used to construct the rectangle
+	@within Draw
+	@return nil
+]=]
+function draw.rectangle(
+    window: types.Window,
+    rectangle: {
+        xPos: number,
+        yPos: number,
+        width: number,
+        height: number,
+        fillColor: types.Color?,
+        strokeColor: types.Color?,
+		strokeThickness: number?,
+        rotation: number?,
+    }
+)
+    rectangle.fillColor = rectangle.fillColor or color.TRANSPARENT
+    rectangle.rotation = rectangle.rotation or 0
+    rectangle.strokeColor = rectangle.strokeColor or color.TRANSPARENT
+	rectangle.strokeThickness = rectangle.strokeThickness or 0
+
+    if rectangle.strokeColor ~= color.TRANSPARENT and rectangle.strokeThickness > 0 then
+		draw.rectangle(window, {
+            xPos = rectangle.xPos - rectangle.strokeThickness / 2,
+            yPos = rectangle.yPos - rectangle.strokeThickness / 2,
+            width = rectangle.width + rectangle.strokeThickness,
+            height = rectangle.height + rectangle.strokeThickness,
+            fillColor = rectangle.strokeColor,
+            rotation = rectangle.rotation
+		})
+	end
+
+    local sizeX, sizeY = window.sizeX, window.sizeY
+
+    local centerX = rectangle.xPos + rectangle.width / 2
+    local centerY = rectangle.yPos + rectangle.height / 2
+
+    local radians = rectangle.rotation * (math.pi / 180)
+    local cosTheta = math.cos(radians)
+    local sinTheta = math.sin(radians)
+
+    local function rotatePoint(x, y)
+        local relativeX = x - centerX
+        local relativeY = y - centerY
+        local rotatedX = relativeX * cosTheta - relativeY * sinTheta
+        local rotatedY = relativeX * sinTheta + relativeY * cosTheta
+        return centerX + rotatedX, centerY + rotatedY
+    end
+
+    local x0, y0 = rotatePoint(rectangle.xPos, rectangle.yPos)
+    local x1, y1 = rotatePoint(rectangle.xPos + rectangle.width, rectangle.yPos)
+    local x2, y2 = rotatePoint(rectangle.xPos + rectangle.width, rectangle.yPos + rectangle.height)
+    local x3, y3 = rotatePoint(rectangle.xPos, rectangle.yPos + rectangle.height)
+
+    fillPolygon({
+        {x0, y0},
+        {x1, y1},
+        {x2, y2},
+        {x3, y3}
+    }, sizeX, sizeY, window.pixels, rectangle.fillColor)
+end
+
+
 
 return draw
