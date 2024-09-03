@@ -47,9 +47,9 @@ end
     local OSGL = require(path.to.osgl)
     local color = OSGL.color
 
-    --// All other parameters are defaulted
-    --// to 0, except for alpha, which is
-    --// defaulted to 255.
+    -- All other parameters are defaulted
+    -- to 0, except for alpha, which is
+    -- defaulted to 255.
     local myAwesomeRedColor = color.new(255)
     ```
 
@@ -80,7 +80,7 @@ end
     -- All other parameters are defaulted to 0, except for alpha,
     -- which is defaulted to 255.
     local myAwesomeRedColor = color.new(255)
-    print color.read(myAwesomeRedColor)) --// Ouput:  { 255, 0, 0, 255 }
+    print color.read(myAwesomeRedColor)) -- Ouput:  { 255, 0, 0, 255 }
     ```
 
     @param color Color -- The color to read
@@ -101,7 +101,7 @@ end
     -- All other parameters are defaulted to 0, except for alpha,
     -- which is defaulted to 255.
     local myAwesomeRedColor = color.new(255)
-    print color.r(myAwesomeRedColor)) --// Ouput:  255
+    print color.r(myAwesomeRedColor)) -- Ouput:  255
     ```
 
     @param color Color -- The color to read
@@ -122,7 +122,7 @@ end
     -- All other parameters are defaulted to 0, except for alpha,
     -- which is defaulted to 255.
     local myAwesomeRedColor = color.new(255)
-    print color.g(myAwesomeRedColor)) --// Ouput:  0
+    print color.g(myAwesomeRedColor)) -- Ouput:  0
     ```
 
     @param color Color -- The color to read
@@ -143,7 +143,7 @@ end
     -- All other parameters are defaulted to 0, except for alpha,
     -- which is defaulted to 255.
     local myAwesomeRedColor = color.new(255)
-    print color.b(myAwesomeRedColor)) --// Ouput:  0
+    print color.b(myAwesomeRedColor)) -- Ouput:  0
     ```
 
     @param color Color -- The color to read
@@ -164,7 +164,7 @@ end
     -- All other parameters are defaulted to 0, except for alpha,
     -- which is defaulted to 255.
     local myAwesomeRedColor = color.new(255)
-    print(color.a(myAwesomeRedColor)) --// Ouput:  255
+    print(color.a(myAwesomeRedColor)) -- Ouput:  255
     ```
 
     @param color Color -- The color to read

@@ -46,7 +46,7 @@ WindowPrivate.__index = WindowPrivate
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
     ​
-    --// Creates a window from an existing EditableImage
+    -- Creates a window from an existing EditableImage
     local myWindow = Window.from(path.to.editableImage, { size = Vector2.new(50, 50) })
     ```
 
@@ -75,7 +75,7 @@ end
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
     ​
-    --// Creates a new EditableImage
+    -- Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
     ```
 
@@ -106,7 +106,7 @@ end
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
 
-    --// Creates a new EditableImage
+    -- Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
     -- Runs every heartbeat
@@ -137,7 +137,7 @@ end
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
 
-    --// Creates a new EditableImage
+    -- Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
     -- Runs every heartbeat
@@ -156,7 +156,7 @@ end
     @return Window -- Returns an OSGL window instance
 ]=]
 function WindowPrivate:Render()
-    
+
 
 	local final = table.create(#self.pixels, 0) :: { number }
 	local n = math.round(#final / 2) -- change later
@@ -185,7 +185,7 @@ end
     local Window = OSGL.Window
     local color = OSGL.color
 
-    --// Creates a new EditableImage
+    -- Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
     -- Runs every heartbeat
@@ -221,9 +221,9 @@ end
     local Window = OSGL.Window
     local color = OSGL.color
 
-    --// Creates a new EditableImage
+    -- Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
-    myWindow:Resize(100) --// Changes width to 100
+    myWindow:Resize(100) -- Changes width to 100
 
     -- Runs every heartbeat
     while myWindow:IsOpen() do

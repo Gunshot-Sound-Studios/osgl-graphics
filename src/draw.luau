@@ -77,7 +77,7 @@ end
     local Window = OSGL.Window
     local color = OSGL.color
 
-    --// Creates a new EditableImage
+    -- Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
     -- Runs every heartbeat
@@ -114,7 +114,7 @@ end
     local Window = OSGL.Window
     local color = OSGL.color
 
-    --// Creates a new EditableImage
+    -- Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
     -- Runs every heartbeat
@@ -198,7 +198,7 @@ end
     local Window = OSGL.Window
     local color = OSGL.color
 
-    --// Creates a new EditableImage
+    -- Creates a new EditableImage
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
     -- Runs every heartbeat
@@ -296,7 +296,7 @@ end
 	local Window = OSGL.Window
 	local color = OSGL.color
 
-	--// Creates a new EditableImage
+	-- Creates a new EditableImage
 	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
 	-- Runs every heartbeat

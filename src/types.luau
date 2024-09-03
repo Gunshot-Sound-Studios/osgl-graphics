@@ -27,9 +27,9 @@
 --- local OSGL = require(path.to.osgl)
 --- local color = OSGL.color
 --- ​
---- --// All other parameters are defaulted
---- --// to 0, except for alpha, which is
---- --// defaulted to 255.
+--- -- All other parameters are defaulted
+--- -- to 0, except for alpha, which is
+--- -- defaulted to 255.
 --- local myAwesomeRedColor = color.new(255)
 --- ```
 export type Color = number
@@ -46,7 +46,7 @@ export type Color = number
 --- local OSGL = require(path.to.osgl)
 --- local Window = OSGL.Window
 --- ​
---- --// Creates a window from an existing EditableImage
+--- -- Creates a window from an existing EditableImage
 --- local myWindow = Window.from(path.to.editableImage)
 --- ```
 export type Window = {
@@ -70,7 +70,7 @@ export type Window = {
 --- local OSGL = require(path.to.osgl)
 --- local Window = OSGL.Window
 --- ​
---- --// Creates an EditableImage with a size of 50x50
+--- -- Creates an EditableImage with a size of 50x50
 --- local myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })
 --- ```
 export type WindowConfiguration = {
