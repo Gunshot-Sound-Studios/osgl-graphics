@@ -87,8 +87,8 @@ end
     @within Color
     @return { number }
 ]=]
-function color.read(rgba: types.Color): {  number }
-	return { color.r(rgba), color.g(rgba), color.b(rgba), color.a(rgba) }
+function color.read(color: types.Color): {  number }
+	return { color.r(color), color.g(color), color.b(color), color.a(color) }
 end
 
 --[=[

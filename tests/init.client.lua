@@ -1,31 +1,36 @@
---!native
 --!optimize 2
+-- ^^ This flag optimises 
+
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
-local windowUi = Players.LocalPlayer.PlayerGui:WaitForChild("ScreenGui").ImageLabel
+local windowUi = Players.LocalPlayer.PlayerGui:WaitForChild("ScreenGui").Window
 
 local SIZE_X = 1024
 local SIZE_Y = 1024
 
 local OSGL = require(ReplicatedStorage.OSGL)
 local Window = OSGL.Window
-local Sprite = OSGL.Sprite
 local draw = OSGL.draw
 local color = OSGL.color
-local texture = OSGL.texture
 
 local myWindow = Window.new(windowUi, { sizeX = SIZE_X, sizeY = SIZE_Y })
-local txt = texture.from(script.spritetest)
-
-local sprite = Sprite.new(txt)
-sprite.color = color.RED
+myWindow:SkipUnchangedRender(false)
 
 while myWindow:IsOpen() do
-	myWindow:Clear(color.TRANSPARENT)
-
-	sprite:Draw(myWindow)
+	for y = 0, 1023 do
+		 
+		for x = 0, 1023 do
+			local R, G, B = math.random(0, 255), math.random(0, 255), math.random(0, 255)
+			draw.pixel(myWindow, x, y, color.new(R, G, B))
+		end
+		
+		if y % 300 == 0 then
+			task.wait()
+		end
+	end
+	
 	myWindow:Render()
 end
 
