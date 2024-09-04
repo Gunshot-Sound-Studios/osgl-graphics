@@ -61,6 +61,7 @@ function Window.from(editableImage: EditableImage): types.Window
 	local self = {
 		renderer = editableImage,
 		pixels = table.create(editableImage.Size.X * editableImage.Size.Y, 0),
+		windowContents = {},
 		sizeX = editableImage.Size.X,
 		sizeY = editableImage.Size.Y,
 		size = editableImage.Size,
@@ -156,7 +157,9 @@ end
     @return Window -- Returns an OSGL window instance
 ]=]
 function WindowPrivate:Render()
-
+	if self.pixels == self.windowContents then
+		return
+	end
 
 	local final = table.create(#self.pixels, 0) :: { number }
 	local n = math.round(#final / 2) -- change later
@@ -173,7 +176,10 @@ function WindowPrivate:Render()
 		final[i + 4] = bit32.band(color, 0xFF) / 255
 	end
 
+	--if (self.renderer :: EditableImage):ReadPixels(Vector2.zero, self.size) ~= final then
 	(self.renderer :: EditableImage):WritePixels(Vector2.zero, self.size, final)
+	self.windowContents = self.pixels
+	--end
 
 	return
 end
@@ -261,14 +267,13 @@ function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
 			end
 		end
 	end
-	
 
 	self.pixels = resizedPixels
 	self.size = Vector2.new(newWidth, newHeight)
-    self.sizeX = newWidth
-    self.sizeY = newHeight
-	
-    self.renderer.Size = self.size
+	self.sizeX = newWidth
+	self.sizeY = newHeight
+
+	self.renderer.Size = self.size
 
 	return
 end
