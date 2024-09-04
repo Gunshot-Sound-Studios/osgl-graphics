@@ -22,6 +22,7 @@
 ------------------------------------------------------------
 
 local types = require(script.Parent.types)
+local colorm = require(script.Parent.color)
 
 --[=[
     @class Texture
@@ -31,22 +32,36 @@ local types = require(script.Parent.types)
 ]=]
 local Texture = {}
 
-local function loadTxt(txt: types.RawTexture): types.Texture
-    local finalTexture = table.create(#txt) -- remove me
+local function loadTxt(txt: types.FlagTexture): types.Texture
+    local finalTable = table.create(txt.width * txt.height, 0) -- isn't the accurate amount, but still more performant!
+    local i = 1
+    for _, v in ipairs(txt.pixels) do
+        if type(v) == "number" then
+            finalTable[i] = v
+            i += 1
+        else
+            -- This is a flag. For now, there's only an `r` flag.
+            local repetitions, color = string.match(v, "(%d+)-(%d+)")
+            for _ = 1, repetitions do
+                finalTable[i] = color
+                i += 1
+            end
+        end
+    end
 
     return {
-        rawTexture = txt,
-        width = 0,
-        height = 0,
+        rawTexture = finalTable,
+        width = txt.width,
+        height = txt.height,
     }
 end
 
-function Texture.from(string: types.RawTexture | ModuleScript): types.Texture
-    if type(string) ~= "string" and string:IsA("ModuleScript") then
-        string = require(string) -- Assuming it's an array
-    end
+function Texture.from(textureData: types.FlagTexture | ModuleScript): types.Texture
+	if type(textureData) ~= "string" and textureData:IsA("ModuleScript") then
+		textureData = require(textureData) -- Assuming it's an array
+	end
 
-    return loadTxt(string)
+	return loadTxt(textureData)
 end
 
 return Texture

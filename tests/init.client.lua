@@ -11,25 +11,22 @@ local SIZE_Y = 1024
 
 local OSGL = require(ReplicatedStorage.OSGL)
 local Window = OSGL.Window
+local Sprite = OSGL.Sprite
 local draw = OSGL.draw
 local color = OSGL.color
+local texture = OSGL.texture
 
 local myWindow = Window.new(windowUi, { sizeX = SIZE_X, sizeY = SIZE_Y })
+local txt = texture.from(script.spritetest)
+
+local sprite = Sprite.new(txt)
+sprite.color = color.RED
 
 while myWindow:IsOpen() do
-    myWindow:Clear(color.TRANSPARENT)
+	myWindow:Clear(color.TRANSPARENT)
 
-    draw.rectangle(myWindow, {
-        xPos = math.random(0, SIZE_X),
-        yPos = math.random(0, SIZE_Y),
-        width = 800,
-        height = 900,
-        fillColor = color.WHITE,
-        strokeColor = color.RED,
-        strokeThickness = 50,
-    })
-
-    myWindow:Render()
+	sprite:Draw(myWindow)
+	myWindow:Render()
 end
 
 -- print("The window has been destroyed.")

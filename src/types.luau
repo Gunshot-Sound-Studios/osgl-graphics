@@ -78,6 +78,12 @@ export type WindowConfiguration = {
     sizeY: number
 }
 
+--- @type FlagTexture {width: number, height: number, pixels: {Color | string}}
+--- @within Texture
+--- The byte-representation of a texture. An
+--- array of colours and flags.
+export type FlagTexture = {width: number, height: number, pixels: {number | string}}
+
 --- @type RawTexture {Color}
 --- @within Texture
 --- The byte-representation of a texture. An
@@ -97,6 +103,27 @@ export type Texture = {
     rawTexture: RawTexture,
     width: number,
     height: number
+}
+
+--- @interface Sprite
+--- @within Sprite
+--- .texture Texture -- The sprites' texture
+--- .width number -- The width of the sprite
+--- .height number -- The height of the sprite
+--- .color Color -- The color of the sprite
+--- .x number -- The X position of the sprite
+--- .y number -- The Y position of the sprite
+---
+--- A `sprite` can be drawn onto onto the screen to display a `texture`
+--- 
+export type Sprite = {
+    texture: Texture,
+    width: number,
+    height: number,
+    x: number,
+    y: number,
+
+    Draw: (self: Sprite, window: types.Window) -> ()
 }
 
 return nil

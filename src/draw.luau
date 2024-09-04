@@ -185,8 +185,8 @@ function draw.line(
 
 	for _ = 0, steps do
 		drawThickPoint(x, y, line.thickness)
-		x = x + xIncrement
-		y = y + yIncrement
+		x += xIncrement
+		y += yIncrement
 	end
 end
 

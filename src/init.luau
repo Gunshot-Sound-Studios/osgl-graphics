@@ -23,6 +23,8 @@
 
 return {
     Window = require(script.window),
+    Sprite = require(script.sprite),
+
     color = require(script.color),
     draw = require(script.draw),
     texture = require(script.texture)
