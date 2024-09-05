@@ -246,23 +246,30 @@ end
     @return Window -- Returns an OSGL window instance
 ]=]
 function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
-	newWidth = math.clamp(newWidth or self.size.X, 0, 1024)
-	newHeight = math.clamp(newHeight or self.size.Y, 0, 1024)
+	newWidth = newWidth or self.size.X
+	newHeight = newHeight or self.size.Y
+
+    assert(newHeight > 0, "Height passed to `Window:Resize()` must be larger than 0.")
+    assert(newWidth > 0, "Width passed to `Window:Resize()` must be larger than 0.")
 
 	local resizedPixels = table.create(newWidth * newHeight, 0)
-	local oldWidth = self.size.X
-	local oldHeight = self.size.Y
+	local oldWidth = self.sizeX
+	local oldHeight = self.sizeY
 
 	for y = 0, newHeight - 1 do
-		for x = 0, newWidth - 1 do
-			if x < oldWidth and y < oldHeight then
-				local oldIndex = (y * oldWidth) + x + 1
-				local newIndex = (y * newWidth) + x + 1
+        if y > oldHeight then
+            break
+        end
 
-				if self.pixels[oldIndex] then
-					resizedPixels[newIndex] = self.pixels[oldIndex]
-				end
+		for x = 0, newWidth - 1 do
+			if x > oldWidth then
+                break
 			end
+
+            local oldIndex = (y * oldWidth) + x + 1
+            local newIndex = (y * newWidth) + x + 1
+
+            resizedPixels[newIndex] = self.pixels[oldIndex]
 		end
 	end
 
@@ -272,8 +279,6 @@ function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
 	self.sizeY = newHeight
 
 	self.renderer.Size = self.size
-
-	return
 end
 
 return Window
