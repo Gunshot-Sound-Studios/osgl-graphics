@@ -184,7 +184,8 @@ end
 
 --[=[
     Clears the double-buffer with the given color or a transparent color
-     ```lua
+
+    ```lua
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
     local color = OSGL.color
@@ -194,27 +195,16 @@ end
 
     -- Runs every heartbeat
     while myWindow:IsOpen() do
-        -- Render here
         myWindow:Clear(color.GREEN)
-        -- Stop rendering here
-
         myWindow:Render()
     end
-
-    print("I have become script, destroyer of OSGL windows.")
     ```
+
     @param clearColor Color? -- The color the screen will be cleared with
     @within Window
-    @return Window -- Returns an OSGL window instance
 ]=]
 function WindowPrivate:Clear(clearColor: types.Color?)
-	clearColor = clearColor or colorM.TRANSPARENT
-
-	for i, _ in ipairs(self.pixels) do
-		self.pixels[i] = clearColor
-	end
-
-	return
+    self.pixels = table.create(self.sizeX * self.sizeY, clearColor or colorM.TRANSPARENT)
 end
 
 --[=[
