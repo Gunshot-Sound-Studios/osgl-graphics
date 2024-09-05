@@ -73,7 +73,8 @@ end
 
 --[=[
     Creates an OSGL window from an existing EditableImage.
-     ```lua
+
+    ```lua
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
     ​
@@ -89,15 +90,15 @@ end
 function Window.from(editableImage: EditableImage): types.Window
 	log.typeCheckArgument("Window.from", "editableImage", editableImage, "EditableImage")
 
-	local self = {
+	local self = setmetatable({
 		renderer = editableImage,
 		pixels = table.create(editableImage.Size.X * editableImage.Size.Y, 0),
 		sizeX = editableImage.Size.X,
 		sizeY = editableImage.Size.Y,
 		size = editableImage.Size,
-	}
+	}, WindowPrivate)
 
-	return setmetatable(self, WindowPrivate)
+	return self
 end
 
 --[=[
