@@ -43,7 +43,7 @@ end
     Creates a new color value. Values cannot be changed manually and must be changed
     via a function.
 
-     ```lua
+    ```lua
     local OSGL = require(path.to.osgl)
     local color = OSGL.color
 
@@ -80,21 +80,26 @@ end
     -- All other parameters are defaulted to 0, except for alpha,
     -- which is defaulted to 255.
     local myAwesomeRedColor = color.new(255)
-    print color.read(myAwesomeRedColor)) -- Ouput:  { 255, 0, 0, 255 }
+    print(color.read(myAwesomeRedColor)) -- Output: { 255, 0, 0, 255 }
     ```
 
-    @param color Color -- The color to read
+    @param rgbaColor Color -- The color to read
     @within Color
     @return { number }
 ]=]
-function color.read(color: types.Color): {  number }
-	return { color.r(color), color.g(color), color.b(color), color.a(color) }
+function color.read(rgbaColor: types.Color): {  number }
+	return {
+        color.r(rgbaColor),
+        color.g(rgbaColor),
+        color.b(rgbaColor),
+        color.a(rgbaColor),
+    }
 end
 
 --[=[
     Reads the 'r' value of the color
 
-     ```lua
+    ```lua
     local OSGL = require(path.to.osgl)
     local color = OSGL.color
 
@@ -113,9 +118,9 @@ function color.r(color: types.Color): number
 end
 
 --[=[
-    Reads the 'r' value of the color
+    Reads the 'g' value of the color
 
-     ```lua
+    ```lua
     local OSGL = require(path.to.osgl)
     local color = OSGL.color
 
@@ -136,7 +141,7 @@ end
 --[=[
     Reads the 'b' value of the color
 
-     ```lua
+    ```lua
     local OSGL = require(path.to.osgl)
     local color = OSGL.color
 
@@ -157,7 +162,7 @@ end
 --[=[
     Reads the 'a' value of the color
 
-     ```lua
+    ```lua
     local OSGL = require(path.to.osgl)
     local color = OSGL.color
 

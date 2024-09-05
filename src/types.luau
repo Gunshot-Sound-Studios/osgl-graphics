@@ -23,6 +23,7 @@
 
 --- @type Color number
 --- @within Color
+---
 --- ```lua
 --- local OSGL = require(path.to.osgl)
 --- local color = OSGL.color
@@ -34,14 +35,14 @@
 --- ```
 export type Color = number
 
-
 --- @interface Window
 --- @within Window
---- .renderer EditableImage -- The actual EditableImage instance
---- .pixels { Color } -- The double-buffer. An array of numbers containing color values
+--- .renderer EditableImage -- The actual `EditableImage` instance.
+--- .pixels { Color } -- An array of color values.
 ---
 --- An OSGL window is the representation of the EditableImage instance.
 --- A window can be created by importing the OSGL '*window*' submodule:
+---
 --- ```lua
 --- local OSGL = require(path.to.osgl)
 --- local Window = OSGL.Window
@@ -66,29 +67,34 @@ export type Window = {
 ---
 --- An OSGL window is the representation of the EditableImage instance.
 --- A window can be created by importing the OSGL '*window*' submodule:
+---
 --- ```lua
 --- local OSGL = require(path.to.osgl)
 --- local Window = OSGL.Window
 --- ​
---- -- Creates an EditableImage with a size of 50x50
+--- -- Creates a Window with a size of 50x50
 --- local myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })
 --- ```
 export type WindowConfiguration = {
-    sizeX: number,
-    sizeY: number
+    sizeX: number?,
+    sizeY: number?,
 }
 
---- @type FlagTexture {width: number, height: number, pixels: {Color | string}}
+--- @type FlagTexture { width: number, height: number, pixels: { Color | string }, }
 --- @within Texture
 --- The byte-representation of a texture. An
 --- array of colours and flags.
-export type FlagTexture = {width: number, height: number, pixels: {number | string}}
+export type FlagTexture = {
+    width: number,
+    height: number,
+    pixels: { number | string },
+}
 
---- @type RawTexture {Color}
+--- @type RawTexture { Color }
 --- @within Texture
 --- The byte-representation of a texture. An
 --- array of colours.
-export type RawTexture = {Color}
+export type RawTexture = { Color }
 
 --- @interface Texture
 --- @within Texture
@@ -98,7 +104,6 @@ export type RawTexture = {Color}
 ---
 --- A `texture` can be drawn onto a `sprite` to be displayed on-screen.
 --- Textures are simply an array of colors.
----
 export type Texture = {
     rawTexture: RawTexture,
     width: number,
@@ -114,8 +119,7 @@ export type Texture = {
 --- .x number -- The X position of the sprite
 --- .y number -- The Y position of the sprite
 ---
---- A `sprite` can be drawn onto onto the screen to display a `texture`
----
+--- A `Sprite` can be drawn onto onto the screen to display a `Texture`
 export type Sprite = {
     texture: Texture,
     width: number,
