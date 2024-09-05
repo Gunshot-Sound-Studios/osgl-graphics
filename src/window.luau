@@ -71,7 +71,8 @@ end
 
 --[=[
     Creates an OSGL window by creating a new EditableImage instance at the given place.
-     ```lua
+
+    ```lua
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
     ​
@@ -81,21 +82,20 @@ end
 
     @within Window
     @error "Argument Type" -- This error occurs when a required argument is not passed or the type is incorrect
-    @param instance Instance -- The instance the EditableImage will be parented to
-    @param config WindowConfiguration -- Optional configurations
+    @param parent Instance -- The instance the EditableImage will be parented to
+    @param config WindowConfiguration? -- Optional configurations
     @return Window -- Returns an OSGL window instance
 ]=]
-function Window.new(instance: Instance, config: types.WindowConfiguration?): types.Window
-	log.typeCheckArgument("Window.new", "instance", instance, "Instance")
-
-	local editableImage = Instance.new("EditableImage")
-	editableImage.Parent = instance
+function Window.new(parent: Instance, config: types.WindowConfiguration?): types.Window
+	log.typeCheckArgument("Window.new", "parent", parent, "Instance")
 
 	config = config or {}
 	config.sizeX = math.clamp(config.sizeX or 1, 1, 1024)
 	config.sizeY = math.clamp(config.sizeY or 1, 1, 1024)
 
+    local editableImage = Instance.new("EditableImage")
 	editableImage.Size = Vector2.new(config.sizeX, config.sizeY)
+	editableImage.Parent = parent
 
 	return Window.from(editableImage)
 end
