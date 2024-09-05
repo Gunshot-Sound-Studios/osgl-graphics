@@ -119,12 +119,11 @@ end
 
     @within Window
     @error "Argument Type" -- This error occurs when a required argument is not passed or the type is incorrect
-    @param yield number -- The amount of time to yield. Defaults to a heartbeat
-    @return Window -- Returns an OSGL window instance
+    @param yield number? -- The amount of time to yield. Defaults to a heartbeat.
 ]=]
-function WindowPrivate:IsOpen(yield: number?)
+function WindowPrivate:IsOpen(yield: number?): boolean
 	if yield and type(yield) ~= "number" then
-		log.typeCheckArgument("WindowPrivate:IsOpen", "yield", yield, "number")
+		log.typeCheckArgument("Window:IsOpen", "yield", yield, "number")
 	end
 
 	task.wait(yield)
