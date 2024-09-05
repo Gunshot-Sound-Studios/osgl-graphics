@@ -101,12 +101,14 @@ function Window.new(instance: Instance, config: types.WindowConfiguration?): typ
 end
 
 --[=[
-    Returns if the OSGL Window still exists. Useful for game-loops. Automatically yields for a heartbeat, or the given time.
-     ```lua
+    Returns if the OSGL Window still exists. Useful for game-loops. Automatically yields
+    for a heartbeat, or the given time.
+
+    ```lua
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
 
-    -- Creates a new EditableImage
+    -- Creates a new Window
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
     -- Runs every heartbeat
