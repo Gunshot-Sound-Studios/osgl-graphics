@@ -37,11 +37,12 @@ local color = require(script.Parent.color)
 ]=]
 local draw = {}
 
-local function writePixel(SIZE_X: number, pixels: { buffer }, x: number, y: number, color: types.Color)
-	pixels[(y * SIZE_X + x) + 1] = color
+local function writePixel(SIZE_X: number, window: types.Window, x: number, y: number, color: types.Color)
+	window._didUpdate = true
+	window.pixels[(y * SIZE_X + x) + 1] = color
 end
 
-local function fillPolygon(corners: { { number } }, sizeX: number, sizeY: number, pixels: any, fillColor: types.Color)
+local function fillPolygon(corners: { { number } }, sizeX: number, sizeY: number, window: any, fillColor: types.Color)
 	local minX = math.floor(math.min(corners[1][1], corners[2][1], corners[3][1], corners[4][1]))
 	local maxX = math.ceil(math.max(corners[1][1], corners[2][1], corners[3][1], corners[4][1]))
 	local minY = math.floor(math.min(corners[1][2], corners[2][2], corners[3][2], corners[4][2]))
@@ -62,7 +63,7 @@ local function fillPolygon(corners: { { number } }, sizeX: number, sizeY: number
 
 			if isPointInside(x, y, corners) then
 				if x >= 0 and x < sizeX and y >= 0 and y < sizeY then
-					writePixel(sizeX, pixels, x, y, fillColor)
+					writePixel(sizeX, window, x, y, fillColor)
 				end
 			end
 		end
@@ -103,7 +104,7 @@ function draw.pixel(window: types.Window, xPos: number, yPos: number, color: typ
 	xPos = math.clamp(xPos or 0, 0, 1023)
 	yPos = math.clamp(yPos or 0, 0, 1023)
 
-	writePixel(window.sizeX, window.pixels, xPos, yPos, color) -- Temporary
+	writePixel(window.sizeX, window, xPos, yPos, color) -- Temporary
 end
 
 --[=[
@@ -157,7 +158,6 @@ function draw.line(
 	line.color = line.color or color.BLACK
 
 	local sizeX, sizeY = window.sizeX, window.sizeY
-	local pixels = window.pixels
 
 	local dx = line.stopX - line.startX
 	local dy = line.stopY - line.startY
@@ -177,7 +177,7 @@ function draw.line(
 				local pixelX = math.floor(px + offsetX + 0.5)
 				local pixelY = math.floor(py + offsetY + 0.5)
 				if pixelX >= 0 and pixelX < sizeX and pixelY >= 0 and pixelY < sizeY then
-					writePixel(sizeX, pixels, pixelX, pixelY, line.color)
+					writePixel(sizeX, window, pixelX, pixelY, line.color)
 				end
 			end
 		end
@@ -261,8 +261,6 @@ function draw.circle(
 	-- end
 
 	local sizeX, sizeY = window.sizeX, window.sizeY
-	local pixels = window.pixels
-
 	local radians = circle.rotation * (math.pi / 180)
 	local cosTheta = math.cos(radians)
 	local sinTheta = math.sin(radians)
@@ -290,7 +288,7 @@ function draw.circle(
 
 				-- Bounds check and pixel writing
 				if pixelX >= 0 and pixelX < sizeX and pixelY >= 0 and pixelY < sizeY then
-					writePixel(sizeX, pixels, pixelX, pixelY, pixelColor)
+					writePixel(sizeX, window, pixelX, pixelY, pixelColor)
 				end
 			end
 		end
@@ -391,7 +389,7 @@ function draw.rectangle(
 					then rectangle.strokeColor
 					else rectangle.fillColor
 
-				writePixel(sizeX, window.pixels, x, y, pixelColor)
+				writePixel(sizeX, window, x, y, pixelColor)
 			end
 		end
 
@@ -420,7 +418,7 @@ function draw.rectangle(
 		{ x1, y1 },
 		{ x2, y2 },
 		{ x3, y3 },
-	}, sizeX, sizeY, window.pixels, rectangle.fillColor)
+	}, sizeX, sizeY, window, rectangle.fillColor)
 end
 
 return draw

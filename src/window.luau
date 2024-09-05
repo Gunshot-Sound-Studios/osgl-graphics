@@ -156,6 +156,11 @@ end
     @return Window -- Returns an OSGL window instance
 ]=]
 function WindowPrivate:Render()
+    if not self._didUpdate then
+        self._didUpdate = false
+        return
+    end
+
 	local final = table.create(#self.pixels, 0) :: { number }
 	local n = math.round(#final / 2) -- change later
 
@@ -172,6 +177,7 @@ function WindowPrivate:Render()
 	end
 
 	(self.renderer :: EditableImage):WritePixels(Vector2.zero, self.size, final)
+    self._didUpdate = false
 
 	return
 end
