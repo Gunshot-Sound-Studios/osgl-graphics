@@ -218,32 +218,29 @@ function WindowPrivate:Clear(clearColor: types.Color?)
 end
 
 --[=[
-    Resizes the window and its buffer. This function is resource intensive and is not
-    made for constant use. May require a re-render depending on the new size.
-     ```lua
+    Resizes the window and its pixel buffer. This function may be resource intensive and
+    is not made for constant use. May require a re-render, depending on the new size.
+
+    ```lua
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
     local color = OSGL.color
 
-    -- Creates a new EditableImage
+    -- Creates a new Window
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
     myWindow:Resize(100) -- Changes width to 100
 
     -- Runs every heartbeat
     while myWindow:IsOpen() do
-        -- Render here
         -- *rendering magic*
-        -- Stop rendering here
 
         myWindow:Render()
     end
-
-    print("I have become script, destroyer of OSGL windows.")
     ```
+
     @param newWidth number? -- The new width of the window
     @param newHeight number? -- The new height of the window
     @within Window
-    @return Window -- Returns an OSGL window instance
 ]=]
 function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
 	newWidth = newWidth or self.size.X
