@@ -76,7 +76,7 @@ end
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
     ​
-    -- Creates a new EditableImage
+    -- Creates a new Window
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
     ```
 
