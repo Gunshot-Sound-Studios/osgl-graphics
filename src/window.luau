@@ -133,36 +133,33 @@ end
 
 --[=[
     Renders `Window.pixels` to the EditableImage
-     ```lua
+
+    ```lua
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
 
-    -- Creates a new EditableImage
+    -- Creates a new Window
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
     -- Runs every heartbeat
     while myWindow:IsOpen() do
-        -- Render here
         -- *rendering magic*
-        -- Stop rendering here
 
         myWindow:Render()
     end
-
-    print("I have become script, destroyer of OSGL windows.")
     ```
 
     @within Window
-    @return Window -- Returns an OSGL window instance
 ]=]
 function WindowPrivate:Render()
     if not self._didUpdate then
         self._didUpdate = false
+
         return
     end
 
 	local final = table.create(#self.pixels, 0) :: { number }
-	local n = math.round(#final / 2) -- change later
+	local n = math.round(#final / 2)
 
 	for i, color in ipairs(self.pixels) do
 		if i % n == 0 then
@@ -178,8 +175,6 @@ function WindowPrivate:Render()
 
 	(self.renderer :: EditableImage):WritePixels(Vector2.zero, self.size, final)
     self._didUpdate = false
-
-	return
 end
 
 --[=[
