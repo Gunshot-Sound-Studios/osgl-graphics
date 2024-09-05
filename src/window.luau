@@ -41,35 +41,6 @@ local WindowPrivate = {}
 WindowPrivate.__index = WindowPrivate
 
 --[=[
-    Creates an OSGL window from an existing EditableImage.
-     ```lua
-    local OSGL = require(path.to.osgl)
-    local Window = OSGL.Window
-    ​
-    -- Creates a window from an existing EditableImage
-    local myWindow = Window.from(path.to.editableImage, { size = Vector2.new(50, 50) })
-    ```
-
-    @within Window
-    @error "Argument Type" -- This error occurs when a required argument is not passed or the type is incorrect
-    @param editableImage EditableImage -- The existing EditableImage
-    @return Window -- Returns an OSGL window instance
-]=]
-function Window.from(editableImage: EditableImage): types.Window
-	log.typeCheckArgument("Window.from", "editableImage", editableImage, "EditableImage")
-
-	local self = {
-		renderer = editableImage,
-		pixels = table.create(editableImage.Size.X * editableImage.Size.Y, 0),
-		sizeX = editableImage.Size.X,
-		sizeY = editableImage.Size.Y,
-		size = editableImage.Size,
-	}
-
-	return setmetatable(self, WindowPrivate)
-end
-
---[=[
     Creates an OSGL window by creating a new EditableImage instance at the given place.
 
     ```lua
@@ -98,6 +69,35 @@ function Window.new(parent: Instance, config: types.WindowConfiguration?): types
 	editableImage.Parent = parent
 
 	return Window.from(editableImage)
+end
+
+--[=[
+    Creates an OSGL window from an existing EditableImage.
+     ```lua
+    local OSGL = require(path.to.osgl)
+    local Window = OSGL.Window
+    ​
+    -- Creates a window from an existing EditableImage
+    local myWindow = Window.from(path.to.editableImage, { size = Vector2.new(50, 50) })
+    ```
+
+    @within Window
+    @error "Argument Type" -- This error occurs when a required argument is not passed or the type is incorrect
+    @param editableImage EditableImage -- The existing EditableImage
+    @return Window -- Returns an OSGL window instance
+]=]
+function Window.from(editableImage: EditableImage): types.Window
+	log.typeCheckArgument("Window.from", "editableImage", editableImage, "EditableImage")
+
+	local self = {
+		renderer = editableImage,
+		pixels = table.create(editableImage.Size.X * editableImage.Size.Y, 0),
+		sizeX = editableImage.Size.X,
+		sizeY = editableImage.Size.Y,
+		size = editableImage.Size,
+	}
+
+	return setmetatable(self, WindowPrivate)
 end
 
 --[=[
