@@ -89,7 +89,7 @@ export type FlagTexture = {width: number, height: number, pixels: {number | stri
 --- The byte-representation of a texture. An
 --- array of colours.
 export type RawTexture = {Color}
- 
+
 --- @interface Texture
 --- @within Texture
 --- .rawTexture RawTexture -- The raw-bytes of the texture
@@ -98,7 +98,7 @@ export type RawTexture = {Color}
 ---
 --- A `texture` can be drawn onto a `sprite` to be displayed on-screen.
 --- Textures are simply an array of colors.
---- 
+---
 export type Texture = {
     rawTexture: RawTexture,
     width: number,
@@ -115,7 +115,7 @@ export type Texture = {
 --- .y number -- The Y position of the sprite
 ---
 --- A `sprite` can be drawn onto onto the screen to display a `texture`
---- 
+---
 export type Sprite = {
     texture: Texture,
     width: number,
@@ -123,7 +123,7 @@ export type Sprite = {
     x: number,
     y: number,
 
-    Draw: (self: Sprite, window: types.Window) -> ()
+    Draw: (self: Sprite, window: Window) -> ()
 }
 
 return nil
