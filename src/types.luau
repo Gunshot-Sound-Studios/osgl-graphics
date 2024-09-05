@@ -82,8 +82,7 @@ export type WindowConfiguration = {
 
 --- @type FlagTexture { width: number, height: number, pixels: { Color | string }, }
 --- @within Texture
---- The byte-representation of a texture. An
---- array of colours and flags.
+--- The representation of a texture made with the `converter` exe provided with the module.
 export type FlagTexture = {
     width: number,
     height: number,
@@ -92,8 +91,7 @@ export type FlagTexture = {
 
 --- @type RawTexture { Color }
 --- @within Texture
---- The byte-representation of a texture. An
---- array of colours.
+--- The colors of a texture's pixels.
 export type RawTexture = { Color }
 
 --- @interface Texture
@@ -102,7 +100,7 @@ export type RawTexture = { Color }
 --- .width number -- The width of the texture
 --- .height number -- The height of the texture
 ---
---- A `texture` can be drawn onto a `sprite` to be displayed on-screen.
+--- A `Texture` can be drawn onto a `Sprite` to be displayed on-screen.
 --- Textures are simply an array of colors.
 export type Texture = {
     rawTexture: RawTexture,

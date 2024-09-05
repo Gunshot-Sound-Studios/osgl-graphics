@@ -36,11 +36,12 @@ SpritePrivate.__index = SpritePrivate
 
 --[=[
     Creates a new sprite
-     ```lua
+
+    ```lua
     local OSGL = require(path.to.osgl)
     local Sprite = OSGL.Sprite
     ​
-    local txt = -- *load texture*
+    local txt -- *load texture*
     local mySprite = Sprite.new(txt)
     ```
 
@@ -49,21 +50,22 @@ SpritePrivate.__index = SpritePrivate
     @return Sprite -- The new sprite
 ]=]
 function Sprite.new(Texture: types.Texture): types.Sprite
-	local self = {
+	local self = setmetatable({
 		width = Texture.width,
 		height = Texture.height,
 		x = 0,
 		y = 0,
 		color = color.WHITE,
 		texture = Texture,
-	}
+	}, SpritePrivate)
 
-	return setmetatable(self, SpritePrivate)
+	return self
 end
 
 --[=[
     Creates a new sprite on the given window
-     ```lua
+
+    ```lua
     local OSGL = require(path.to.osgl)
     local Window = OSGL.Window
     local Sprite = OSGL.Sprite
@@ -77,33 +79,30 @@ end
 
     @within Sprite
     @param window Window -- The window the sprite will be drawn on
-    @return Sprite -- The new sprite
 ]=]
 function SpritePrivate:Draw(window: types.Window)
-	self = self :: types.Sprite -- Remove me!
+	self = self :: types.Sprite
 
 	local SIZE_X = window.sizeX
 	local pixels = window.pixels
 	local texture = self.texture
 
-	local everythingIsZero = true
-	local y2 = 0 -- Initialize outside the loop
+	local y2 = 0
 	for y = self.y, self.y + self.height - 1 do
 		if y >= window.sizeY then
 			break
-		end -- Stop drawing if outside window bounds
+		end
 
-		y2 = y - self.y -- Calculate y2 relative to the texture (top-left aligned)
+		y2 = y - self.y
 
-		local x2 = 0 -- Reset x2 for each row
+		local x2 = 0
 		for x = self.x, self.x + self.width - 1 do
 			if x >= window.sizeX then
 				break
-			end -- Stop drawing if outside window bounds
+			end
 
-			x2 = x - self.x -- Calculate x2 relative to the texture (top-left aligned)
+			x2 = x - self.x
 
-			-- Make sure the index for both `pixels` and `rawTexture` are valid
 			if y2 < texture.height and x2 < texture.width then
 				pixels[(y * SIZE_X + x) + 1] = texture.rawTexture[(y2 * texture.width + x2) + 1]
 			end
