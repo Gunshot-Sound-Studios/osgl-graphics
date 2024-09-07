@@ -96,23 +96,21 @@ export type RawTexture = { Color }
 
 --- @interface Texture
 --- @within Texture
---- .rawTexture RawTexture -- The raw-bytes of the texture
---- .width number -- The width of the texture
---- .height number -- The height of the texture
+--- .pixels RawTexture -- The raw-bytes of the texture
+--- .sizeX number -- The width of the texture
+--- .sizeY number -- The height of the texture
 ---
 --- A `Texture` can be drawn onto a `Sprite` to be displayed on-screen.
 --- Textures are simply an array of colors.
 export type Texture = {
-    rawTexture: RawTexture,
-    width: number,
-    height: number
+    pixels: RawTexture,
+    sizeX: number,
+    sizeY: number
 }
 
 --- @interface Sprite
 --- @within Sprite
 --- .texture Texture -- The sprites' texture
---- .width number -- The width of the sprite
---- .height number -- The height of the sprite
 --- .color Color -- The color of the sprite
 --- .x number -- The X position of the sprite
 --- .y number -- The Y position of the sprite
@@ -120,8 +118,6 @@ export type Texture = {
 --- A `Sprite` can be drawn onto onto the screen to display a `Texture`
 export type Sprite = {
     texture: Texture,
-    width: number,
-    height: number,
     x: number,
     y: number,
 

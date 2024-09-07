@@ -1,7 +1,6 @@
 --!optimize 2
 -- ^^ This flag optimises 
 
-
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
@@ -12,26 +11,25 @@ local SIZE_Y = 1024
 
 local OSGL = require(ReplicatedStorage.OSGL)
 local Window = OSGL.Window
+local texture = OSGL.texture
+local sprite = OSGL.Sprite
 local draw = OSGL.draw
 local color = OSGL.color
 
 local myWindow = Window.new(windowUi, { sizeX = SIZE_X, sizeY = SIZE_Y })
-myWindow:SkipUnchangedRender(false)
+local txt = texture.from(script.Parent.st)
+draw.circle(txt, {
+	centerX = 250,
+	centerY = 250,
+	radius = 200,
+	fillColor = color.RED
+})
 
+
+local spriteTest = sprite.new(txt)
 while myWindow:IsOpen() do
-	for y = 0, 1023 do
-		 
-		for x = 0, 1023 do
-			local R, G, B = math.random(0, 255), math.random(0, 255), math.random(0, 255)
-			draw.pixel(myWindow, x, y, color.new(R, G, B))
-		end
-		
-		if y % 300 == 0 then
-			task.wait()
-		end
-	end
-	
+	spriteTest:Draw(myWindow)
 	myWindow:Render()
 end
 
--- print("The window has been destroyed.")
+print("End.")

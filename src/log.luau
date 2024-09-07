@@ -37,11 +37,16 @@ function log.error(message: string)
     return log.doLog(error, DIVIDE_ERR, message, stack)
 end
 
+function log.cassert(value: boolean, message: string)
+    if not value then log.error(message) end
+end
+
 local DIVIDE_WARN = "\n------ OSGL Warn ------\n"
 function log.warn(message: string)
 	local stack = `Stack: {debug.traceback(nil, 2)}`
     return log.doLog(warn, DIVIDE_WARN, message, stack)
 end
+
 
 function log.doLog(logType: any, header: string, message: string, stack: string)
     logType(`{header}{message}{header}{stack}`, logType == error and 0 or "")

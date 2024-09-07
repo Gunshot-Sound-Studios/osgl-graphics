@@ -28,6 +28,7 @@ local StarterPack = game:GetService("StarterPack")
 
 local types = require(script.Parent.types)
 local color = require(script.Parent.color)
+local log = require(script.Parent.log)
 
 --[=[
     @class Draw
@@ -101,9 +102,9 @@ end
     @return nil
 ]=]
 function draw.pixel(window: types.Window, xPos: number, yPos: number, color: types.Color)
-	xPos = math.clamp(xPos or 0, 0, 1023)
-	yPos = math.clamp(yPos or 0, 0, 1023)
-
+	log.cassert(xPos >= 0, "X position must be higher or equal to 0")
+	log.cassert(yPos >= 0, "Y position must be higher or equal to 0")
+	
 	writePixel(window.sizeX, window, xPos, yPos, color) -- Temporary
 end
 

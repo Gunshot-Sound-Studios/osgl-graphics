@@ -233,8 +233,8 @@ function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
 	newWidth = newWidth or self.size.X
 	newHeight = newHeight or self.size.Y
 
-    assert(newHeight > 0, "Height passed to `Window:Resize()` must be larger than 0.")
-    assert(newWidth > 0, "Width passed to `Window:Resize()` must be larger than 0.")
+    log.cassert(newHeight > 0, "Height passed to `Window:Resize()` must be larger than 0.")
+    log.cassert(newWidth > 0, "Width passed to `Window:Resize()` must be larger than 0.")
 
 	local resizedPixels = table.create(newWidth * newHeight, 0)
 	local oldWidth = self.sizeX

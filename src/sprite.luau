@@ -1,3 +1,7 @@
+--!native
+--!optimize 2
+
+
 ------------------------------------------------------------
 -- OSGL v1.2b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
@@ -23,6 +27,7 @@
 
 local types = require(script.Parent.types)
 local color = require(script.Parent.color)
+local draw = require(script.Parent.draw)
 
 --[=[
     @class Sprite
@@ -51,8 +56,6 @@ SpritePrivate.__index = SpritePrivate
 ]=]
 function Sprite.new(Texture: types.Texture): types.Sprite
 	local self = setmetatable({
-		width = Texture.width,
-		height = Texture.height,
 		x = 0,
 		y = 0,
 		color = color.WHITE,
@@ -83,12 +86,10 @@ end
 function SpritePrivate:Draw(window: types.Window)
 	self = self :: types.Sprite
 
-	local SIZE_X = window.sizeX
-	local pixels = window.pixels
 	local texture = self.texture
 
 	local y2 = 0
-	for y = self.y, self.y + self.height - 1 do
+	for y = self.y, self.y + texture.sizeY - 1 do
 		if y >= window.sizeY then
 			break
 		end
@@ -96,15 +97,14 @@ function SpritePrivate:Draw(window: types.Window)
 		y2 = y - self.y
 
 		local x2 = 0
-		for x = self.x, self.x + self.width - 1 do
+		for x = self.x, self.x + texture.sizeY - 1 do
 			if x >= window.sizeX then
 				break
 			end
 
 			x2 = x - self.x
-
-			if y2 < texture.height and x2 < texture.width then
-				pixels[(y * SIZE_X + x) + 1] = texture.rawTexture[(y2 * texture.width + x2) + 1]
+			if y2 < texture.sizeY and x2 < texture.sizeX then
+				draw.pixel(window, x, y, texture.pixels[(y2 * texture.sizeX + x2) + 1])
 			end
 		end
 	end
