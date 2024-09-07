@@ -63,7 +63,7 @@ function Sprite.new(Texture: types.Texture): types.Sprite
 end
 
 --[=[
-    Creates a new sprite on the given window
+    Creates a new sprite on the given window or texture.
 
     ```lua
     local OSGL = require(path.to.osgl)
@@ -71,16 +71,17 @@ end
     local Sprite = OSGL.Sprite
     ​
     -- Creates a window from an existing EditableImage
-    local myWindow = Window.from(path.to.editableImage, { size = Vector2.new(50, 50) })
+    local myWindow = Window.from(path.to.editableImage, { sizeX = 50, sizeY = 50 })
 
     local txt = -- *load texture*
     local mySprite = Sprite.new(myWindow, txt)
+    mySprite:Draw(myWindow) -- Draws the sprite onto the window at 0, 0
     ```
 
     @within Sprite
-    @param window Window -- The window the sprite will be drawn on
+    @param window Drawable -- The window, or texture, the sprite will be drawn on.
 ]=]
-function SpritePrivate:Draw(window: types.Window)
+function SpritePrivate:Draw(window: types.Drawable)
 	self = self :: types.Sprite
 
 	local texture = self.texture

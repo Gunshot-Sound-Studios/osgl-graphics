@@ -129,4 +129,9 @@ export type Sprite = {
 --- An array of points
 export type Points = {{number}}
 
+--- @type Drawable Window | Texture
+--- @within Draw
+--- An object that contains a buffer. You can draw to these objects.
+export type Drawable = Window | Texture
+
 return nil

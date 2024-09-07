@@ -37,11 +37,11 @@ local log = require(script.Parent.log)
 ]=]
 local draw = {}
 
-local function writePixel(SIZE_X: number, window: types.Window, x: number, y: number, color: types.Color)
+local function writePixel(SIZE_X: number, window: types.Drawable, x: number, y: number, color: types.Color)
 	window.pixels[(y * SIZE_X + x) + 1] = color
 end
 
-local function fillPolygon(corners: { { number } }, window: types.Window, fillColor: types.Color)
+local function fillPolygon(corners: { { number } }, window: types.Drawable, fillColor: types.Color)
 	-- These are temporary, cause 
 	-- if i calculate it, it takes up
 	-- like 10FPS
@@ -91,7 +91,7 @@ end
     while myWindow:IsOpen() do
         -- Render here
         -- Draws a pixel at 0, 0, with a red color, onto "myWindow"
-        draw.pixel(myWindow, 0, 0, color.red)
+        draw.pixel(myWindow, 0, 0, color.RED)
         -- Stop rendering here
 
         myWindow:Render()
@@ -99,16 +99,16 @@ end
 
     print("The window has been destroyed.")
     ```
-    @param window Window -- The window to draw on
-    @param xPos number -- The X-Position of the window
-    @param yPos number -- The Y-Position of the window
+    @param window Drawable -- The window or texture to draw on
+    @param xPos number -- The X-Position of the pixel,
+    @param yPos number -- The Y-Position of the pixel
     @param color Color -- The color of the pixel
-	@error "X" -- This error occurs if the X is less than 0
+    @error "X" -- This error occurs if the X is less than 0
     @error "Y" -- This error occurs if the Y is less than 0
     @within Draw
     @return nil
 ]=]
-function draw.pixel(window: types.Window, xPos: number, yPos: number, color: types.Color)
+function draw.pixel(window: types.Drawable, xPos: number, yPos: number, color: types.Color)
 	log.cassert(xPos >= 0, "X position must be higher or equal to 0")
 	log.cassert(yPos >= 0, "Y position must be higher or equal to 0")
 
@@ -147,12 +147,13 @@ end
 
     print("The window has been destroyed.")
     ```
+    @param window Drawable -- The window or texture to draw on
     @param line { startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: Color? } -- The data that is used to construct the line
     @within Draw
     @return nil
 ]=]
 function draw.line(
-	window: types.Window,
+	window: types.Drawable,
 	line: {
 		startX: number,
 		startY: number,
@@ -232,12 +233,13 @@ end
 
     print("The window has been destroyed.")
     ```
+    @param window Drawable -- The window or texture to draw on
     @param circle {centerX: number, centerY: number, radius: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?} -- The data that is used to construct the circle
     @within Draw
     @return nil
 ]=]
 function draw.circle(
-	window: types.Window,
+	window: types.Drawable,
 	circle: {
 		centerX: number,
 		centerY: number,
@@ -323,13 +325,13 @@ end
 
 	print("The window has been destroyed.")
 	```
-	@param window Window -- The window to draw on
+	@param window Drawable -- The window or texture to draw on
 	@param rectangle {xPos: number, yPos: number, width: number, height: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?} -- The data that is used to construct the rectangle
 	@within Draw
 	@return nil
 ]=]
 function draw.rectangle(
-	window: types.Window,
+	window: types.Drawable,
 	rectangle: {
 		xPos: number,
 		yPos: number,
@@ -441,16 +443,16 @@ end
 
 	print("The window has been destroyed.")
 	```
-	@param window Window -- The window to draw on
+	@param window Drawable -- The window or texture to draw on
 	@param points { x: number, y: number, points: Points, fillColor: Color } -- The data which is used to construct the shape
 	@error "X" -- This error occurs if the X is smaller than 0
-    @error "Y" -- This error occurs if the Y is smaller than 0
+	@error "Y" -- This error occurs if the Y is smaller than 0
 	@error "Points" -- This error occurs if 2 or less points are provided
 	@within Draw
 	@return nil
 ]=]
 function draw.points(
-	window: types.Window,
+	window: types.Drawable,
 	points: { x: number, y: number, points: types.Points, fillColor: types.Color }
 )
 
