@@ -11,8 +11,6 @@ onBrokenMarkdownLinks = "warn"
 
 # From git:
 projectName = "OSGL" 
-baseUrl = "/osgl-graphics"
-tagline = "Open-Source Graphical Library"
 
 [footer]
 style = "dark"
