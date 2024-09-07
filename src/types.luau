@@ -124,4 +124,9 @@ export type Sprite = {
     Draw: (self: Sprite, window: Window) -> ()
 }
 
+--- @type Points { {number} }
+--- @within Draw
+--- An array of points
+export type Points = {{number}}
+
 return nil

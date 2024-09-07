@@ -16,20 +16,27 @@ local sprite = OSGL.Sprite
 local draw = OSGL.draw
 local color = OSGL.color
 
-local myWindow = Window.new(windowUi, { sizeX = SIZE_X, sizeY = SIZE_Y })
-local txt = texture.from(script.Parent.st)
-draw.circle(txt, {
-	centerX = 250,
-	centerY = 250,
-	radius = 200,
-	fillColor = color.RED
-})
-
-
-local spriteTest = sprite.new(txt)
+local myWindow = Window.new(windowUi, { sizeX = 1024, sizeY = 1024 })
+-- An array of points (x, y)
+local starPoints = {
+    {0, 0},
+	{600, 0},
+	{600, 600},
+	{0, 600}
+}
+-- Runs every heartbeat
 while myWindow:IsOpen() do
-	spriteTest:Draw(myWindow)
+	-- Render here
+	-- Draws a triangle at 0, 0, with a red color, onto "myWindow"
+	draw.points(myWindow, {
+		points = starPoints,
+		color = color.RED,
+		x = 2,
+		y = 2,
+	})
+	-- Stop rendering here
+
 	myWindow:Render()
 end
 
-print("End.")
+print("The window has been destroyed.")

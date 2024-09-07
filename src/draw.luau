@@ -1,4 +1,3 @@
-local StarterPack = game:GetService("StarterPack")
 --!strict
 --!native
 --!optimize 2
@@ -39,7 +38,7 @@ local log = require(script.Parent.log)
 local draw = {}
 
 local function writePixel(SIZE_X: number, window: types.Window, x: number, y: number, color: types.Color)
-	window._didUpdate = true
+	--window._didUpdate = true
 	window.pixels[(y * SIZE_X + x) + 1] = color
 end
 
@@ -104,7 +103,7 @@ end
 function draw.pixel(window: types.Window, xPos: number, yPos: number, color: types.Color)
 	log.cassert(xPos >= 0, "X position must be higher or equal to 0")
 	log.cassert(yPos >= 0, "Y position must be higher or equal to 0")
-	
+
 	writePixel(window.sizeX, window, xPos, yPos, color) -- Temporary
 end
 
@@ -247,10 +246,8 @@ function draw.circle(
 	circle.strokeThickness = circle.strokeThickness or 0
 
 	local radius = circle.radius
-	local strokeThickness = if circle.strokeColor ~= color.TRANSPARENT
-		then circle.strokeThickness
-		else 0
-		
+	local strokeThickness = if circle.strokeColor ~= color.TRANSPARENT then circle.strokeThickness else 0
+
 	-- if circle.strokeColor ~= color.TRANSPARENT and circle.strokeThickness > 0 then
 	-- 	draw.circle(window, {
 	-- 		centerX = circle.centerX,
@@ -277,14 +274,12 @@ function draw.circle(
 			local distance = x * x + ySquared
 
 			if distance <= strokeSquared then
-				local pixelColor = if distance <= radiusSquared
-					then circle.fillColor
-					else circle.strokeColor
+				local pixelColor = if distance <= radiusSquared then circle.fillColor else circle.strokeColor
 
 				local rotatedX = x * cosTheta - y * sinTheta
 				local rotatedY = x * sinTheta + y * cosTheta
 
-				local pixelX = math.floor(circle.centerX + rotatedX + 0.5)  -- Snap to nearest pixel
+				local pixelX = math.floor(circle.centerX + rotatedX + 0.5) -- Snap to nearest pixel
 				local pixelY = math.floor(circle.centerY + rotatedY + 0.5)
 
 				-- Bounds check and pixel writing
@@ -353,9 +348,7 @@ function draw.rectangle(
 	rectangle.strokeColor = rectangle.strokeColor or color.TRANSPARENT
 	rectangle.strokeThickness = rectangle.strokeThickness or 0
 
-	local strokeLength = if rectangle.strokeColor ~= color.TRANSPARENT
-		then rectangle.strokeThickness
-		else 0
+	local strokeLength = if rectangle.strokeColor ~= color.TRANSPARENT then rectangle.strokeThickness else 0
 
 	local sizeX, sizeY = window.sizeX, window.sizeY
 
@@ -386,9 +379,7 @@ function draw.rectangle(
 					break
 				end
 
-				local pixelColor = if x > width or y > height
-					then rectangle.strokeColor
-					else rectangle.fillColor
+				local pixelColor = if x > width or y > height then rectangle.strokeColor else rectangle.fillColor
 
 				writePixel(sizeX, window, x, y, pixelColor)
 			end
@@ -420,6 +411,57 @@ function draw.rectangle(
 		{ x2, y2 },
 		{ x3, y3 },
 	}, sizeX, sizeY, window, rectangle.fillColor)
+end
+
+--[=[
+	Draws a shape from the given points
+	 ```lua
+	local OSGL = require(path.to.osgl)
+	local draw = OSGL.draw
+	local Window = OSGL.Window
+	local color = OSGL.color
+
+	-- Creates a new EditableImage
+	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+
+	-- An array of points (x, y)
+	local points = { { 0, 0 }, { 6, 0 }, { 6, 6 }, { 0, 6 }, }
+	-- Runs every heartbeat
+	while myWindow:IsOpen() do
+		-- Render here
+		-- Draws a square at 0, 0, with a red color, onto "myWindow"
+		draw.points(myWindow, {
+			points = points,
+			color = color.RED,
+			x = 0,
+			y = 0,
+		})
+		-- Stop rendering here
+
+		myWindow:Render()
+	end
+
+	print("The window has been destroyed.")
+	```
+	@param window Window -- The window to draw on
+	@param points { x: number, y: number, points: Points, fillColor: Color } -- The data which is used to construct the shape
+	@within Draw
+	@return nil
+]=]
+function draw.points(
+	window: types.Window,
+	points: { x: number, y: number, points: types.Points, fillColor: types.Color }
+)
+
+	print(#points.points < 4)
+	log.cassert(points.x >= 0, "X position must be higher or equal to 0")
+	log.cassert(points.y >= 0, "Y position must be higher or equal to 0")
+	log.cassert(#points.points >= 4, "Shapes must have atleast 4 points")
+
+	points.fillColor = points.fillColor or color.RED
+	points.points = points.points or {}
+
+	fillPolygon(points.points, window.sizeX, window.sizeY, window, points.fillColor)
 end
 
 return draw

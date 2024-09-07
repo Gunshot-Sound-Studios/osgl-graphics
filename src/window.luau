@@ -154,11 +154,11 @@ end
     @within Window
 ]=]
 function WindowPrivate:Render()
-    if not self._didUpdate then
-        self._didUpdate = false
+    -- if not self._didUpdate then
+    --     self._didUpdate = false
 
-        return
-    end
+    --     return
+    -- end
 
 	local final = table.create(#self.pixels, 0) :: { number }
 	local n = math.round(#final / 2)
@@ -176,7 +176,7 @@ function WindowPrivate:Render()
 	end
 
 	(self.renderer :: EditableImage):WritePixels(Vector2.zero, self.size, final)
-    self._didUpdate = false
+    -- self._didUpdate = false
 end
 
 --[=[
