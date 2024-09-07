@@ -1,7 +1,6 @@
 --!native
 --!optimize 2
 
-
 ------------------------------------------------------------
 -- OSGL v1.2b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
@@ -26,7 +25,6 @@
 ------------------------------------------------------------
 
 local types = require(script.Parent.types)
-local color = require(script.Parent.color)
 local draw = require(script.Parent.draw)
 
 --[=[
@@ -58,7 +56,6 @@ function Sprite.new(Texture: types.Texture): types.Sprite
 	local self = setmetatable({
 		x = 0,
 		y = 0,
-		color = color.WHITE,
 		texture = Texture,
 	}, SpritePrivate)
 

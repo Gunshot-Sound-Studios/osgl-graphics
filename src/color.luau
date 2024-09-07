@@ -30,15 +30,6 @@ local types = require(script.Parent.types)
 ]=]
 local color = {}
 
-function color.multiply(color1: types.Color, color2: types.Color)
-    local r = math.clamp((color.r(color1) / 255) * (color.r(color2) / 255) * 255, 0, 255)
-    local g = math.clamp((color.g(color1) / 255) * (color.g(color2) / 255) * 255, 0, 255)
-    local b = math.clamp((color.b(color1) / 255) * (color.b(color2) / 255) * 255, 0, 255)
-    local a = math.clamp((color.a(color1) / 255) * (color.a(color2) / 255) * 255, 0, 255)
-
-    return color.new(r, g, b, a)
-end
-
 --[=[
     Creates a new color value. Values cannot be changed manually and must be changed
     via a function.

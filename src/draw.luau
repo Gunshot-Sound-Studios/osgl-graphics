@@ -38,36 +38,42 @@ local log = require(script.Parent.log)
 local draw = {}
 
 local function writePixel(SIZE_X: number, window: types.Window, x: number, y: number, color: types.Color)
-	--window._didUpdate = true
 	window.pixels[(y * SIZE_X + x) + 1] = color
 end
 
-local function fillPolygon(corners: { { number } }, sizeX: number, sizeY: number, window: any, fillColor: types.Color)
-	local minX = math.floor(math.min(corners[1][1], corners[2][1], corners[3][1], corners[4][1]))
-	local maxX = math.ceil(math.max(corners[1][1], corners[2][1], corners[3][1], corners[4][1]))
-	local minY = math.floor(math.min(corners[1][2], corners[2][2], corners[3][2], corners[4][2]))
-	local maxY = math.ceil(math.max(corners[1][2], corners[2][2], corners[3][2], corners[4][2]))
+local function fillPolygon(corners: { { number } }, window: types.Window, fillColor: types.Color)
+	-- These are temporary, cause 
+	-- if i calculate it, it takes up
+	-- like 10FPS
 
-	for y = minY, maxY do
-		for x = minX, maxX do
-			local function isPointInside(px, py, corners)
-				local function sign(x0, y0, x1, y1, x2, y2)
-					return (x0 - x2) * (y1 - y2) - (x1 - x2) * (y0 - y2)
-				end
-				local b1 = sign(px, py, corners[1][1], corners[1][2], corners[2][1], corners[2][2]) < 0
-				local b2 = sign(px, py, corners[2][1], corners[2][2], corners[3][1], corners[3][2]) < 0
-				local b3 = sign(px, py, corners[3][1], corners[3][2], corners[4][1], corners[4][2]) < 0
-				local b4 = sign(px, py, corners[4][1], corners[4][2], corners[1][1], corners[1][2]) < 0
-				return (b1 == b2) and (b2 == b3) and (b3 == b4)
-			end
+	local sizeX = window.sizeX
+	local maxY = window.sizeY
 
-			if isPointInside(x, y, corners) then
-				if x >= 0 and x < sizeX and y >= 0 and y < sizeY then
-					writePixel(sizeX, window, x, y, fillColor)
-				end
-			end
-		end
-	end
+    for y = 0, maxY do
+        local intersections = {}
+
+        for i = 1, #corners do
+            local p1 = corners[i]
+            local p2 = corners[i % #corners + 1]
+
+            if (p1[2] <= y and p2[2] > y) or (p2[2] <= y and p1[2] > y) then
+                local t = (y - p1[2]) / (p2[2] - p1[2])
+                local intersectX = p1[1] + t * (p2[1] - p1[1])
+                table.insert(intersections, intersectX)
+            end
+        end
+
+        table.sort(intersections)
+
+        for i = 1, #intersections - 1, 2 do
+            local startX = math.max(0, math.floor(intersections[i]))
+            local endX = math.min(sizeX - 1, math.ceil(intersections[i + 1]))
+
+            for x = startX, endX do
+                writePixel(sizeX, window, x, y, fillColor)
+            end
+        end
+    end
 end
 
 --[=[
@@ -97,6 +103,8 @@ end
     @param xPos number -- The X-Position of the window
     @param yPos number -- The Y-Position of the window
     @param color Color -- The color of the pixel
+	@error "X" -- This error occurs if the X is less than 0
+    @error "Y" -- This error occurs if the Y is less than 0
     @within Draw
     @return nil
 ]=]
@@ -108,7 +116,7 @@ function draw.pixel(window: types.Window, xPos: number, yPos: number, color: typ
 end
 
 --[=[
-    Draws a singular pixel at the given location
+    Draws a line from point A to point B
     ```lua
     local OSGL = require(path.to.osgl)
     local draw = OSGL.draw
@@ -247,16 +255,6 @@ function draw.circle(
 
 	local radius = circle.radius
 	local strokeThickness = if circle.strokeColor ~= color.TRANSPARENT then circle.strokeThickness else 0
-
-	-- if circle.strokeColor ~= color.TRANSPARENT and circle.strokeThickness > 0 then
-	-- 	draw.circle(window, {
-	-- 		centerX = circle.centerX,
-	-- 		centerY = circle.centerY,
-	-- 		radius = circle.radius + circle.strokeThickness,
-	-- 		fillColor = circle.strokeColor,
-	-- 		rotation = circle.rotation,
-	-- 	})
-	-- end
 
 	local sizeX, sizeY = window.sizeX, window.sizeY
 	local radians = circle.rotation * (math.pi / 180)
@@ -410,7 +408,7 @@ function draw.rectangle(
 		{ x1, y1 },
 		{ x2, y2 },
 		{ x3, y3 },
-	}, sizeX, sizeY, window, rectangle.fillColor)
+	}, window, rectangle.fillColor)
 end
 
 --[=[
@@ -445,6 +443,9 @@ end
 	```
 	@param window Window -- The window to draw on
 	@param points { x: number, y: number, points: Points, fillColor: Color } -- The data which is used to construct the shape
+	@error "X" -- This error occurs if the X is smaller than 0
+    @error "Y" -- This error occurs if the Y is smaller than 0
+	@error "Points" -- This error occurs if 2 or less points are provided
 	@within Draw
 	@return nil
 ]=]
@@ -453,15 +454,14 @@ function draw.points(
 	points: { x: number, y: number, points: types.Points, fillColor: types.Color }
 )
 
-	print(#points.points < 4)
 	log.cassert(points.x >= 0, "X position must be higher or equal to 0")
 	log.cassert(points.y >= 0, "Y position must be higher or equal to 0")
-	log.cassert(#points.points >= 4, "Shapes must have atleast 4 points")
+	log.cassert(#points.points >= 3, "Shapes must have atleast 3 points")
 
 	points.fillColor = points.fillColor or color.RED
 	points.points = points.points or {}
 
-	fillPolygon(points.points, window.sizeX, window.sizeY, window, points.fillColor)
+	fillPolygon(points.points, window, points.fillColor)
 end
 
 return draw

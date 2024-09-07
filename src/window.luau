@@ -154,12 +154,6 @@ end
     @within Window
 ]=]
 function WindowPrivate:Render()
-    -- if not self._didUpdate then
-    --     self._didUpdate = false
-
-    --     return
-    -- end
-
 	local final = table.create(#self.pixels, 0) :: { number }
 	local n = math.round(#final / 2)
 
@@ -176,7 +170,6 @@ function WindowPrivate:Render()
 	end
 
 	(self.renderer :: EditableImage):WritePixels(Vector2.zero, self.size, final)
-    -- self._didUpdate = false
 end
 
 --[=[
@@ -227,6 +220,8 @@ end
 
     @param newWidth number? -- The new width of the window
     @param newHeight number? -- The new height of the window
+    @error "Height" -- This error occurs if the height is smaller than 0
+    @error "Width" -- This error occurs if the width is smaller than 0
     @within Window
 ]=]
 function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
