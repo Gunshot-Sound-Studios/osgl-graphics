@@ -204,7 +204,7 @@ color.YELLOW = color.new(255, 255)
 --- @prop MAGENTA Color
 --- @within Color
 --- A magenta color
-color.MAGENTA = color.new(255, 255)
+color.MAGENTA = color.new(255, 0, 255)
 
 --- @prop CYAN Color
 --- @within Color

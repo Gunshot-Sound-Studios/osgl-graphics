@@ -25,7 +25,7 @@
 ------------------------------------------------------------
 
 local types = require(script.Parent.types)
-local colorm = require(script.Parent.color)
+local log = require(script.Parent.log)
 
 --[=[
     @class Texture
@@ -109,6 +109,69 @@ function Texture.new(sizeX: number, sizeY: number): types.Texture
         sizeX = sizeX,
         sizeY = sizeY,
     }
+end
+
+function getIndicesInRange(size: number, width: number, x: number, y: number, sizeX: number, sizeY: number)
+    local indices = table.create(size, -1)
+    for j = 0, sizeY - 1 do
+        for i = 0, sizeX - 1 do
+            local index = ((y + j) * width + (x + i)) + 1
+            table.insert(indices, index)
+        end
+    end
+    return indices
+end
+
+--[=[
+    Reads the desired chunk from a drawable object
+
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local Window = OSGL.Window
+    local texture = OSGL.texture
+    ​
+    -- Creates a window from an existing EditableImage
+    local myWindow = Window.from(path.to.editableImage, { sizeX = 50, sizeY = 50 })
+
+    -- *Draw somthing here*
+
+    -- Read a 5x5 square chunk, with the top-left corner
+    -- being at 0, 0. This will return an array of colors
+    -- of length 25 (assuming the window isn't smaller than 5x5 pixels)
+    print(texture.read(myWindow, 0, 0, 5, 5))
+    ```
+
+    @within Texture
+    @param window Drawable -- The drawable-object that will be read
+    @param x number -- The X position of the area that will be read
+    @param y number -- The position of the area that will be read
+    @param xSize number? -- The X-Size of the chunk. Defaults to 1
+    @param ySize number? -- The Y-Size of the chunk. Defaults to 1
+    @error "X" -- This error occurs if the X is less than 0
+    @error "Y" -- This error occurs if the Y is less than 0
+    @error "XSize" -- This error occurs if the XSize is less than 1
+    @error "YSize" -- This error occurs if the YSize is less than 1
+    @return {types.Color} -- The colors in the specified chunk
+]=]
+function Texture.read(window: types.Drawable, x: number, y: number, xSize: number?, ySize: number?): {types.Color}
+    xSize = xSize or 1
+    ySize = ySize or 1
+
+    log.cassert(x >= 0, "The X must be bigger or equal to 0")
+    log.cassert(y >= 0, "The Y must be bigger or equal to 0")
+    log.cassert(xSize >= 1, "The XSize must be bigger or equal to 1")
+    log.cassert(ySize >= 1, "The XYsize must be bigger or equal to 1")
+
+    local size = (xSize * ySize) / 2
+    local colors = table.create(size, 0)
+    local pixels = window.pixels
+    local indecies = getIndicesInRange(size, window.sizeX, x, y, xSize, ySize)
+    for i, v in ipairs(indecies) do
+        if v == -1 then continue end
+        colors[i] = pixels[v]
+    end
+
+    return colors
 end
 
 return Texture 
