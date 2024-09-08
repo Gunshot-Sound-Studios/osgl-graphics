@@ -58,6 +58,7 @@ export type Window = {
     Render: (self: Window) -> nil,
     Clear: (self: Window, clearColor: Color) -> (),
     Resize: (self: Window, newWidth: number?, newHeight: number?) -> (),
+    GetRelativeMouse: (self: Window) -> (number, number)
 }
 
 --- @interface WindowConfiguration

@@ -25,6 +25,8 @@
 --
 ------------------------------------------------------------
 
+local UserInputService = game:GetService("UserInputService")
+
 local types = require(script.Parent.types)
 local log = require(script.Parent.log)
 local colorM = require(script.Parent.color)
@@ -258,6 +260,50 @@ function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
 	self.sizeY = newHeight
 
 	self.renderer.Size = self.size
+end
+
+--[=[
+    Returns the mouse position relative to the window. Useful to know if the mouse
+    is on-top of the window or not.
+
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local Window = OSGL.Window
+    local color = OSGL.color
+
+    -- Creates a new Window
+    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+    print(myWindow:GetRelativeMouse()) -- Example output: 25, 25
+    ```
+    @within (number, number) -- The X and Y of the mouse.
+]=]
+function WindowPrivate:GetRelativeMouse(): (number, number)
+    local mouseLocationX, mouseLocationY = UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y
+    
+    local canvasFrameSizeX, canvasFrameSizeY = self.renderer.Parent.AbsoluteSize.X, self.renderer.Parent.AbsoluteSize.Y
+    local frameSizeX, frameSizeY = self.renderer.Parent.AbsoluteSize.X, self.renderer.Parent.AbsoluteSize.Y
+    local canvasPositionX, canvasPositionY = self.renderer.Parent.AbsolutePosition.X, self.renderer.Parent.AbsolutePosition.Y
+    
+    local guiInsetX, guiInsetY = game.GuiService:GetGuiInset().X, game.GuiService:GetGuiInset().Y
+    
+    local mousePointX = mouseLocationX - guiInsetX - canvasPositionX
+    local mousePointY = mouseLocationY - guiInsetY - canvasPositionY
+    
+    local transformedPointX = mousePointX / frameSizeX
+    local transformedPointY = mousePointY / frameSizeY
+    
+    transformedPointX = transformedPointX * self.renderer.Size.X
+    transformedPointY = transformedPointY * self.renderer.Size.Y
+    
+    local ratioDifferenceX = (canvasFrameSizeX / frameSizeX) - 1
+    local ratioDifferenceY = (canvasFrameSizeY / frameSizeY) - 1
+    transformedPointX = transformedPointX - (ratioDifferenceX / 2) * self.renderer.Size.X
+    transformedPointY = transformedPointY - (ratioDifferenceY / 2) * self.renderer.Size.Y
+    
+    local RoundX = math.ceil(transformedPointX)
+    local RoundY = math.ceil(transformedPointY)
+    
+    return RoundX, RoundY
 end
 
 return Window
