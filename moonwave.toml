@@ -1,0 +1,22 @@
+title = "OSGL"
+gitRepoUrl = "https://github.com/Gunshot-Sound-Studios/osgl-graphics" # From Git
+
+gitSourceBranch = "main"
+changelog = true
+classOrder = []
+
+[docusaurus]
+onBrokenLinks = "throw"
+onBrokenMarkdownLinks = "warn"
+
+# From git:
+projectName = "OSGL" 
+
+[footer]
+style = "dark"
+copyright = "Copyright © 2024 Gunshot Sound Studios."
+
+[[navbar.items]]
+href = "example.com"
+label = "Intro"
+position = "right"
