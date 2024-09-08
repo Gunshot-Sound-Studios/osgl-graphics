@@ -16,7 +16,3 @@ projectName = "OSGL"
 style = "dark"
 copyright = "Copyright © 2024 Gunshot Sound Studios."
 
-[[navbar.items]]
-href = "example.com"
-label = "Intro"
-position = "right"
