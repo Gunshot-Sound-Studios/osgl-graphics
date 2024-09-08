@@ -15,7 +15,7 @@ An OSGL texture (known as a `FlagTexture` internally) is the texture generated b
 
 The `pixels` key of the texture is of type `{ number | string }`.  The `number` being of type `color`, and the string meaning a repeated pixel.
 
-The color is self-explanatory. It is the color of a specific pixel at a specific location. A string however contains multiple pixels of the same color, in the format: "rX-Y", `X` meaning how many times that pixel is repeated, and `Y` being the actual pixel itself. For example, 5 pixels in a row of color "0" would be stored as "r5-0". When storing large images, you can see this.
+The color is self-explanatory. It is the color of a specific pixel at a specific location. A string however contains multiple pixels of the same color, in the format: "rX-Y", `X` meaning how many times that pixel is repeated, and `Y` being the actual pixel itself. For example, 5 pixels in a row of color "0" would be stored as "r5-0".
 
 # Colors
 Colors are stored as a single 32-bit unsigned integer (`u32`). This allows for compact representation and fast manipulation of colors in the form of a single number.
@@ -42,22 +42,22 @@ This can be visualised as:
 
 For example, consider the color with the following components:
 
-Red: 255 (`0xFF`)
+Red (**R**): 255 (`0xFF`)
 
-Green: 128 (`0x80`)
+Green (**G**): 128 (`0x80`)
 
-Blue: 64 (`0x40`)
+Blue (**B**): 64 (`0x40`)
 
-Alpha: 255 (`0xFF`)
+Alpha (**A**): 255 (`0xFF`)
 
 These components would be packed into a 32-bit integer as follows:
 
-Red (R): 255 (`0xFF`) -> Occupies bits 24-31
+Red (**R**): 255 (`0xFF`) -> Occupies bits 24-31
 
-Green (G): 128 (`0x80`) -> Occupies bits 16-23
+Green (**G**): 128 (`0x80`) -> Occupies bits 16-23
 
-Blue (B): 64 (`0x40`) -> Occupies bits 8-15
+Blue (**B**): 64 (`0x40`) -> Occupies bits 8-15
 
-Alpha (A): 255 (`0xFF`) -> Occupies bits 0-7
+Alpha (**A**): 255 (`0xFF`) -> Occupies bits 0-7
 
-The resulting 32-bit integer representation would be: `0xFF8040FF`
+The resulting 32-bit integer representation would be: `0xFF8040FF` (`4286595327`)
