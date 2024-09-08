@@ -275,7 +275,9 @@ end
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
     print(myWindow:GetRelativeMouse()) -- Example output: 25, 25
     ```
-    @within (number, number) -- The X and Y of the mouse.
+
+    @within Window
+    @return (number, number) -- The X and Y of the mouse.
 ]=]
 function WindowPrivate:GetRelativeMouse(): (number, number)
     local mouseLocationX, mouseLocationY = UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y
