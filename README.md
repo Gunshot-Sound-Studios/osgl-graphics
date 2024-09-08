@@ -15,7 +15,7 @@ To get started with OSGL, download the latest official release from the releases
 
 ## Documentation
 
-For comprehensive guides and resources to help you master OSGL, check out our official documentation!
+For comprehensive guides and resources to help you master OSGL, check out our official documentation [here](https://gunshot-sound-studios.github.io/osgl-graphics/)!
 There, you’ll find tutorials, examples, and API references to assist you in making the most of this library.
 
 ## Contributing
