@@ -1,0 +1,9 @@
+[package]
+name = "gunshot-studios/osgl"
+version = "0.1.2"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+authors = ["SawWasTaken", "jukepilot", "msix"]
+description = "OSGL is an easy to learn, and super fast efficient module that allows you to draw pixels straight to the screen in Roblox."
+
+[dependencies]
