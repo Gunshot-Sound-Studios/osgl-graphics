@@ -281,31 +281,35 @@ end
 ]=]
 function WindowPrivate:GetRelativeMouse(): (number, number)
     local mouseLocationX, mouseLocationY = UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y
-    
+
     local canvasFrameSizeX, canvasFrameSizeY = self.renderer.Parent.AbsoluteSize.X, self.renderer.Parent.AbsoluteSize.Y
     local frameSizeX, frameSizeY = self.renderer.Parent.AbsoluteSize.X, self.renderer.Parent.AbsoluteSize.Y
     local canvasPositionX, canvasPositionY = self.renderer.Parent.AbsolutePosition.X, self.renderer.Parent.AbsolutePosition.Y
-    
+
     local guiInsetX, guiInsetY = game.GuiService:GetGuiInset().X, game.GuiService:GetGuiInset().Y
-    
+
     local mousePointX = mouseLocationX - guiInsetX - canvasPositionX
     local mousePointY = mouseLocationY - guiInsetY - canvasPositionY
-    
+
     local transformedPointX = mousePointX / frameSizeX
     local transformedPointY = mousePointY / frameSizeY
-    
+
     transformedPointX = transformedPointX * self.renderer.Size.X
     transformedPointY = transformedPointY * self.renderer.Size.Y
-    
+
     local ratioDifferenceX = (canvasFrameSizeX / frameSizeX) - 1
     local ratioDifferenceY = (canvasFrameSizeY / frameSizeY) - 1
     transformedPointX = transformedPointX - (ratioDifferenceX / 2) * self.renderer.Size.X
     transformedPointY = transformedPointY - (ratioDifferenceY / 2) * self.renderer.Size.Y
-    
+
     local RoundX = math.ceil(transformedPointX)
     local RoundY = math.ceil(transformedPointY)
-    
+
     return RoundX, RoundY
+end
+
+function WindowPrivate:ReadPixel(x: number, y: number): types.Color
+    return self.pixels[(y * self.sizeX + x) + 1]
 end
 
 return Window
