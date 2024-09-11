@@ -26,6 +26,7 @@ return {
     Sprite = require(script.sprite),
 
     color = require(script.color),
+    types = require(script.types),
     draw = require(script.draw),
     texture = require(script.texture)
 }
