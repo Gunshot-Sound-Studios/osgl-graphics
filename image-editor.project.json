@@ -1,0 +1,14 @@
+{
+    "name": "OSGL Image Editor",
+    "tree": {
+        "$className": "DataModel",
+        "ServerScriptService": {
+            "ImageEditor": {
+                "$path": "examples/image-editor",
+                "OSGL": {
+                    "$path": "src"
+                }
+            }
+        }
+    }
+}
