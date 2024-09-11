@@ -27,7 +27,6 @@
 
 local OSGL = script.Parent
 local types = require(OSGL.types)
-local color = require(OSGL.color)
 local log = require(OSGL.log)
 local writePixel = require(script.writePixel)
 
