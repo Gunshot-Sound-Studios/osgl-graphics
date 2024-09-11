@@ -1,6 +1,6 @@
 local OSGLTypes = require(script.Parent.OSGL).types
 
-export type Tools = { BaseTool }
+export type Tools<K = number> = { [K]: BaseTool }
 
 export type Cleanable = {
     _connections: { RBXScriptConnection },
@@ -11,10 +11,12 @@ export type Cleanable = {
 export type BaseTool = Cleanable & {
     Equip: (self: BaseTool, window: OSGLTypes.Window) -> (),
     UnEquip: (self: BaseTool, window: OSGLTypes.Window) -> (),
-    Update: (self: BaseTool, window: OSGLTypes.Window) -> (),
-    HandleInput: (self: BaseTool, input: InputObject) -> (),
+    HandleInput: (self: BaseTool, input: InputObject, window: OSGLTypes.Window) -> (),
 }
 
-export type ToolHandler = Cleanable & {}
+export type ToolHandler = Cleanable & {
+    EquipTool: (self: ToolHandler, index: number) -> (),
+    UnEquipTool: (self: ToolHandler, index: number) -> (),
+}
 
 return nil
