@@ -1,26 +1,45 @@
 local OSGL = require(script.Parent.Parent.OSGL)
-local types = OSGL.types
+local OSGLTypes = OSGL.types
+
+local imageEditor = script.Parent.Parent
+local types = require(imageEditor.types)
 
 local BaseTool = {}
 BaseTool.__index = BaseTool
 
+type BaseTool = types.BaseTool
+
 function BaseTool.new()
-    local self = setmetatable({}, BaseTool)
+    local self = setmetatable({
+        _connections = {},
+    }, BaseTool)
 
     return self
 end
 
-function BaseTool:Equip(window)
+function BaseTool.Equip(self: BaseTool, window: OSGLTypes.Window)
 
 end
-function BaseTool:UnEquip()
+function BaseTool.UnEquip(self: BaseTool, window: OSGLTypes.Window)
 
 end
-function BaseTool:Update()
+function BaseTool.Update(self: BaseTool, window: OSGLTypes.Window)
 
 end
-function BaseTool:HandleInput(input: InputObject)
+function BaseTool.HandleInput(self: BaseTool, input: InputObject)
 
+end
+
+function BaseTool.Clean(self: BaseTool)
+    for _, connection in ipairs(self._connections) do
+        connection:Disconnect()
+    end
+
+    table.clear(self._connections)
+end
+function BaseTool.Destroy(self: BaseTool)
+    self:Clean()
+    table.clear(self)
 end
 
 return BaseTool

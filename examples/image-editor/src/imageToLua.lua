@@ -1,7 +1,7 @@
 local OSGL = require(script.Parent.OSGL)
-local types = OSGL.types
+local OSGLTypes = OSGL.types
 
-return function(width: number, height: number, pixels: { types.Color }): string
+return function(width: number, height: number, pixels: { OSGLTypes.Color }): string
     local last_color = pixels[1]
     local repetitions = 0
     local module_text = "return {\n\t"
