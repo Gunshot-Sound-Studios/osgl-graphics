@@ -1,5 +1,5 @@
-local OSGL = script.Parent.Parent.OSGL
-local types = require(OSGL.types)
+local OSGL = require(script.Parent.Parent.OSGL)
+local types = OSGL.types
 
 local BaseTool = {}
 BaseTool.__index = BaseTool

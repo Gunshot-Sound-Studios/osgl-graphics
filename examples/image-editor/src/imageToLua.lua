@@ -1,4 +1,5 @@
-local types = require(script.Parent.OSGL.types)
+local OSGL = require(script.Parent.OSGL)
+local types = OSGL.types
 
 return function(width: number, height: number, pixels: { types.Color }): string
     local last_color = pixels[1]
