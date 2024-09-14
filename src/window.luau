@@ -263,8 +263,8 @@ function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
 end
 
 --[=[
-    Returns the mouse position relative to the window. Useful to know if the mouse
-    is on-top of the window or not.
+    Returns whether or not the mouse is inside the window and the mouse's position
+    relative to the window.
 
     ```lua
     local OSGL = require(path.to.osgl)
@@ -273,39 +273,20 @@ end
 
     -- Creates a new Window
     local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
-    print(myWindow:GetRelativeMouse()) -- Example output: 25, 25
+    print(myWindow:GetRelativeMouse()) -- Example output: true, 25, 25
     ```
 
     @within Window
-    @return (number, number) -- The X and Y of the mouse.
+    @return (boolean, number, number) -- Whether or not the mouse is in the window, it's X and Y positions.
 ]=]
-function WindowPrivate:GetRelativeMouse(): (number, number)
-    local mouseLocationX, mouseLocationY = UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y
+function WindowPrivate:GetRelativeMouse(): (boolean, number, number)
+    local sizeFactor = self.size / self.renderer.Parent.AbsoluteSize
+    local mousePosition = UserInputService:GetMouseLocation() - self.renderer.Parent.AbsolutePosition
 
-    local canvasFrameSizeX, canvasFrameSizeY = self.renderer.Parent.AbsoluteSize.X, self.renderer.Parent.AbsoluteSize.Y
-    local frameSizeX, frameSizeY = self.renderer.Parent.AbsoluteSize.X, self.renderer.Parent.AbsoluteSize.Y
-    local canvasPositionX, canvasPositionY = self.renderer.Parent.AbsolutePosition.X, self.renderer.Parent.AbsolutePosition.Y
+    local relativeMousePosition = mousePosition * sizeFactor
+    local isInWindow = relativeMousePosition.X > 0 and relativeMousePosition.Y > 0
 
-    local guiInsetX, guiInsetY = game.GuiService:GetGuiInset().X, game.GuiService:GetGuiInset().Y
-
-    local mousePointX = mouseLocationX - guiInsetX - canvasPositionX
-    local mousePointY = mouseLocationY - guiInsetY - canvasPositionY
-
-    local transformedPointX = mousePointX / frameSizeX
-    local transformedPointY = mousePointY / frameSizeY
-
-    transformedPointX = transformedPointX * self.renderer.Size.X
-    transformedPointY = transformedPointY * self.renderer.Size.Y
-
-    local ratioDifferenceX = (canvasFrameSizeX / frameSizeX) - 1
-    local ratioDifferenceY = (canvasFrameSizeY / frameSizeY) - 1
-    transformedPointX = transformedPointX - (ratioDifferenceX / 2) * self.renderer.Size.X
-    transformedPointY = transformedPointY - (ratioDifferenceY / 2) * self.renderer.Size.Y
-
-    local RoundX = math.ceil(transformedPointX)
-    local RoundY = math.ceil(transformedPointY)
-
-    return RoundX, RoundY
+    return isInWindow, math.round(relativeMousePosition.X), math.round(relativeMousePosition.Y)
 end
 
 function WindowPrivate:ReadPixel(x: number, y: number): types.Color

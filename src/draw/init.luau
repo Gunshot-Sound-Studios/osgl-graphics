@@ -74,6 +74,9 @@ function draw.pixel(window: types.Drawable, xPos: number, yPos: number, color: t
 	log.cassert(xPos >= 0, "X position must be higher or equal to 0")
 	log.cassert(yPos >= 0, "Y position must be higher or equal to 0")
 
+    xPos = math.round(xPos)
+    yPos = math.round(yPos)
+
 	writePixel(window.sizeX, window, xPos, yPos, color) -- Temporary
 end
 
@@ -198,7 +201,7 @@ draw.circle = require(script.circle)
 	@within Draw
 	@return nil
 ]=]
-draw.rectangle = require(script.required)
+draw.rectangle = require(script.rectangle)
 
 --[=[
 	Draws a shape from the given points
