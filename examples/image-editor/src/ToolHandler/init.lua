@@ -1,6 +1,7 @@
 local UserInputService = game:GetService("UserInputService")
 local imageEditor = script.Parent
 local types = require(imageEditor.types)
+local mouseData = require(imageEditor.ToolHandler.mouseData)
 
 local OSGLTypes = require(script.Parent.OSGL).types
 
@@ -17,6 +18,7 @@ type ToolHandler = types.ToolHandler & {
 }
 
 function ToolHandler.new(
+    mouse: PluginMouse,
     tools: types.Tools<string>,
     window: OSGLTypes.Window,
     toolsUi: ToolsUi
@@ -28,6 +30,8 @@ function ToolHandler.new(
         toolsUi = toolsUi,
         _connections = {},
     }, ToolHandler) :: ToolHandler
+    -- local plugin = script:FindFirstAncestorWhichIsA("Plugin") :: Plugin
+    -- local mouse = plugin:GetMouse()
 
     table.insert(
         self._connections,
@@ -47,6 +51,28 @@ function ToolHandler.new(
             end
         end)
     )
+    table.insert(
+        self._connections,
+        UserInputService.InputEnded:Connect(function(input, gameProcessedEvent)
+            --FIXME: Should I care about `gameProcessedEvent`?
+            if self.lastEquippedTool then
+                self.lastEquippedTool:HandleInputEnd(input, self.window)
+            end
+        end)
+    )
+    table.insert(
+        self._connections,
+        mouse.Button1Down:Connect(function()
+            mouseData.MouseButton1Down = true
+        end)
+    )
+    table.insert(
+        self._connections,
+        mouse.Button1Up:Connect(function()
+            mouseData.MouseButton1Down = false
+        end)
+    )
+
     for i, toolFrame: ImageButton in toolsUi:GetChildren() do
         if not toolFrame:IsA("GuiObject") then
             continue
@@ -64,7 +90,7 @@ end
 function ToolHandler.EquipTool(self: ToolHandler, index: number)
     local tool = self.tools[index]
     if not tool then
-        warn("Attempt to equip non-existent tool.")
+        return warn("Attempt to equip non-existent tool.")
     end
 
     if self.lastEquippedTool then
@@ -78,7 +104,7 @@ end
 function ToolHandler.UnEquipTool(self: ToolHandler, index: number)
     local tool = self.tools[index]
     if not tool then
-        warn("Attempt to unequip non-existent tool.")
+        return warn("Attempt to unequip non-existent tool.")
     end
 
     tool:UnEquip(self.window)

@@ -12,6 +12,7 @@ export type BaseTool = Cleanable & {
     Equip: (self: BaseTool, window: OSGLTypes.Window) -> (),
     UnEquip: (self: BaseTool, window: OSGLTypes.Window) -> (),
     HandleInput: (self: BaseTool, input: InputObject, window: OSGLTypes.Window) -> (),
+    HandleInputEnd: (self: BaseTool, input: InputObject, window: OSGLTypes.Window) -> (),
 }
 
 export type ToolHandler = Cleanable & {
