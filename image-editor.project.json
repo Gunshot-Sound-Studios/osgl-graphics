@@ -4,9 +4,12 @@
         "$className": "DataModel",
         "ServerScriptService": {
             "ImageEditor": {
-                "$path": "examples/image-editor/src",
-                "OSGL": {
-                    "$path": "src"
+                "$className": "Folder",
+                "ImageEditor": {
+                    "$path": "examples/image-editor/src",
+                    "OSGL": {
+                        "$path": "src"
+                    }
                 }
             }
         }
