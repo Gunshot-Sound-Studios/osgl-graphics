@@ -1,7 +1,9 @@
 local imageEditor = script.Parent.Parent
+local editor = imageEditor.Editor
 local BaseTool = require(imageEditor.ToolHandler.BaseTool)
 local types = require(imageEditor.types)
 local mouseData = require(imageEditor.ToolHandler.mouseData)
+local colorHandler = require(editor.colorHandler)
 
 local OSGL = require(imageEditor.OSGL)
 local OSGLTypes = OSGL.types
@@ -18,7 +20,6 @@ type PenTool = types.BaseTool & {
 
 function Pen.new()
 	local self = setmetatable({
-		color = color.RED,
 		previousMousePointX = nil,
 		previousMousePointY = nil,
 	}, Pen)
@@ -34,16 +35,17 @@ function Pen.HandleInput(self: PenTool, input: InputObject, window: OSGLTypes.Wi
 		return
 	end
 
+	print(colorHandler.getRGB(window.renderer.Parent.Parent))
 	if self.previousMousePointX and self.previousMousePointY then
 		draw.line(window, {
 			startX = self.previousMousePointX,
 			startY = self.previousMousePointY,
 			stopX = x,
 			stopY = y,
-            color = self.color
+            color = colorHandler.getRGB(window.renderer.Parent.Parent)
 		})
 	else
-		draw.pixel(window, x, y, self.color)
+		draw.pixel(window, x, y, colorHandler.getRGB(window.renderer.Parent.Parent))
 	end
 
 	self.previousMousePointX, self.previousMousePointY = x, y
