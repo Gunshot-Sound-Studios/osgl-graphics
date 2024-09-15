@@ -8,25 +8,22 @@ local OSGLTypes = OSGL.types
 local draw = OSGL.draw
 local color = OSGL.color
 
-local Pen = {}
-setmetatable(Pen, BaseTool)
-Pen.__index = Pen
+local Eraser = {}
+setmetatable(Eraser, BaseTool)
+Eraser.__index = Eraser
 
-type PenTool = types.BaseTool & {
-	color: OSGLTypes.Color,
-}
+type EraserTool = types.BaseTool & {}
 
-function Pen.new()
+function Eraser.new()
 	local self = setmetatable({
-		color = color.RED,
 		previousMousePointX = nil,
 		previousMousePointY = nil,
-	}, Pen)
+	}, Eraser)
 
 	return self
 end
 
-function Pen.HandleInput(self: PenTool, input: InputObject, window: OSGLTypes.Window)
+function Eraser.HandleInput(self: EraserTool, input: InputObject, window: OSGLTypes.Window)
 	local isInWindow, x, y = window:GetRelativeMouse()
 	if not isInWindow or not mouseData.MouseButton1Down then
         self.previousMousePointX = nil
@@ -40,10 +37,10 @@ function Pen.HandleInput(self: PenTool, input: InputObject, window: OSGLTypes.Wi
 			startY = self.previousMousePointY,
 			stopX = x,
 			stopY = y,
-            color = self.color
+            color = color.TRANSPARENT
 		})
 	else
-		draw.pixel(window, x, y, self.color)
+		draw.pixel(window, x, y, color.new(200, 50, 50, 255))
 	end
 
 	self.previousMousePointX, self.previousMousePointY = x, y
@@ -51,4 +48,4 @@ function Pen.HandleInput(self: PenTool, input: InputObject, window: OSGLTypes.Wi
 end
 
 
-return Pen
+return Eraser

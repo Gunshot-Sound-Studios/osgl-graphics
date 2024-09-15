@@ -4,10 +4,12 @@ local OSGLTypes = OSGL.types
 local imageEditor = script.Parent
 local ToolHandler = require(imageEditor.ToolHandler)
 local Pen = require(imageEditor.ToolHandler.Pen)
+local Eraser = require(imageEditor.ToolHandler.Eraser)
 local types = require(imageEditor.types)
 
 local TOOLS: types.Tools<string> = {
     draw = Pen.new(),
+    erase = Eraser.new()
 }
 
 local Editor = {}
