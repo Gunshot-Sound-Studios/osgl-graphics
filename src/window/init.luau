@@ -27,9 +27,17 @@
 
 local UserInputService = game:GetService("UserInputService")
 
-local types = require(script.Parent.types)
-local log = require(script.Parent.log)
-local colorM = require(script.Parent.color)
+local OSGL = script.Parent
+local types = require(OSGL.types)
+local privateTypes = require(script.types)
+local log = require(OSGL.log)
+local colorM = require(OSGL.color)
+local pixelStorage
+do
+    if true then
+        pixelStorage = require(script.default)
+    end
+end
 
 --[=[
     @class Window
@@ -41,6 +49,7 @@ local colorM = require(script.Parent.color)
 local Window = {}
 local WindowPrivate = {}
 WindowPrivate.__index = WindowPrivate
+
 
 --[=[
     Creates an OSGL window by creating a new EditableImage instance at the given place.
@@ -94,7 +103,7 @@ function Window.from(editableImage: EditableImage): types.Window
 
 	local self = setmetatable({
 		renderer = editableImage,
-		pixels = table.create(editableImage.Size.X * editableImage.Size.Y, 0),
+		pixelStorage = pixelStorage.new(editableImage.Size.X, editableImage.Size.Y),
 		sizeX = editableImage.Size.X,
 		sizeY = editableImage.Size.Y,
 		size = editableImage.Size,
@@ -156,22 +165,7 @@ end
     @within Window
 ]=]
 function WindowPrivate:Render()
-	local final = table.create(#self.pixels, 0) :: { number }
-	local n = math.round(#final / 2)
-
-	for i, color in ipairs(self.pixels) do
-		if i % n == 0 then
-			task.wait()
-		end
-
-		local i = (i - 1) * 4
-		final[i + 1] = bit32.rshift(color, 24) / 255
-		final[i + 2] = bit32.band(bit32.rshift(color, 16), 0xFF) / 255
-		final[i + 3] = bit32.band(bit32.rshift(color, 8), 0xFF) / 255
-		final[i + 4] = bit32.band(color, 0xFF) / 255
-	end
-
-	(self.renderer :: EditableImage):WritePixels(Vector2.zero, self.size, final)
+	self.pixelStorage:Render(self.renderer)
 end
 
 --[=[
@@ -196,7 +190,7 @@ end
     @within Window
 ]=]
 function WindowPrivate:Clear(clearColor: types.Color?)
-    self.pixels = table.create(self.sizeX * self.sizeY, clearColor or colorM.TRANSPARENT)
+    self.pixelStorage:Clear(clearColor or colorM.TRANSPARENT)
 end
 
 --[=[
@@ -233,28 +227,8 @@ function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
     log.cassert(newHeight > 0, "Height passed to `Window:Resize()` must be larger than 0.")
     log.cassert(newWidth > 0, "Width passed to `Window:Resize()` must be larger than 0.")
 
-	local resizedPixels = table.create(newWidth * newHeight, 0)
-	local oldWidth = self.sizeX
-	local oldHeight = self.sizeY
+	self.pixelStorage:Resize(self.sizeX, self.sizeY, newWidth, newHeight)
 
-	for y = 0, newHeight - 1 do
-        if y > oldHeight then
-            break
-        end
-
-		for x = 0, newWidth - 1 do
-			if x > oldWidth then
-                break
-			end
-
-            local oldIndex = (y * oldWidth) + x + 1
-            local newIndex = (y * newWidth) + x + 1
-
-            resizedPixels[newIndex] = self.pixels[oldIndex]
-		end
-	end
-
-	self.pixels = resizedPixels
 	self.size = Vector2.new(newWidth, newHeight)
 	self.sizeX = newWidth
 	self.sizeY = newHeight
@@ -290,7 +264,7 @@ function WindowPrivate:GetRelativeMouse(): (boolean, number, number)
 end
 
 function WindowPrivate:ReadPixel(x: number, y: number): types.Color
-    return self.pixels[(y * self.sizeX + x) + 1]
+    self.pixelStorage:ReadPixel(x, y)
 end
 
 return Window
