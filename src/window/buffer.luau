@@ -57,7 +57,7 @@ function PixelStorage.WritePixel(
     sizeX: number,
     newColor: Pixel
 )
-    buffer.writeu32(self.buffer, ((y - 1) * sizeX + (x - 1)) * 4, buffer.readu32(newColor, 0))
+    buffer.writeu32(self.buffer, (y * sizeX + x) * 4, newColor)
 end
 
 return PixelStorage
