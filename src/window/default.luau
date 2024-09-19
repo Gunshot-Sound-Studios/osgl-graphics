@@ -2,12 +2,13 @@ local OSGL = script.Parent.Parent
 local types = require(OSGL.types)
 local privateTypes = require(OSGL.window.types)
 
-local PixelStorage = {} :: privateTypes.PixelStorageBuilder<Pixel, Pixels>
+local PixelStorage = {} :: privateTypes.PixelStorageBuilder<Pixel>
 PixelStorage.__index = PixelStorage
 
 type Pixel = types.Color
-type Pixels = { Pixel }
-type PixelStorage = privateTypes.PixelStorage<Pixel, Pixels> & {}
+type PixelStorage = privateTypes.PixelStorage<Pixel> & {
+    pixels: { Pixel }
+}
 
 function PixelStorage.new(sizeX: number, sizeY: number)
     local self = setmetatable({
