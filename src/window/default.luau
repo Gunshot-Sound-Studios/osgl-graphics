@@ -19,7 +19,7 @@ function PixelStorage.new(sizeX: number, sizeY: number)
 end
 
 function PixelStorage.Render(self: PixelStorage, image: EditableImage, size: Vector2)
-	local final = table.create(#self.pixels * 4, 0) :: { number }
+	local final = table.create(#self.pixels, 0) :: { number }
 	local n = math.round(#final / 2)
 
 	for i, color in ipairs(self.pixels) do
