@@ -51,7 +51,11 @@ local WindowPrivate = {}
 WindowPrivate.__index = WindowPrivate
 
 type Window = types.Window & {
+    renderer: EditableImage,
     pixelStorage: privateTypes.PixelStorage<any, any>,
+    sizeX: number,
+    sizeY: number,
+    size: Vector2,
 }
 
 --[=[
@@ -168,7 +172,7 @@ end
     @within Window
 ]=]
 function WindowPrivate.Render(self: Window)
-	self.pixelStorage:Render(self.renderer)
+	self.pixelStorage:Render(self.renderer, self.size)
 end
 
 --[=[
@@ -283,7 +287,7 @@ end
     @return Color -- The color of the pixel
 ]=]
 function WindowPrivate.ReadPixel(self: Window, x: number, y: number): types.Color
-    self.pixelStorage:ReadPixel(x, y)
+    self.pixelStorage:ReadPixel(x, y, self.sizeX)
 end
 
 return Window

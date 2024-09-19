@@ -17,7 +17,7 @@ function PixelStorage.new(sizeX: number, sizeY: number)
     return self
 end
 
-function PixelStorage.Render(self: PixelStorage, image: EditableImage)
+function PixelStorage.Render(self: PixelStorage, image: EditableImage, size: Vector2)
 	local final = table.create(#self.pixels * 4, 0) :: { number }
 	local n = math.round(#final / 2)
 
@@ -33,11 +33,11 @@ function PixelStorage.Render(self: PixelStorage, image: EditableImage)
 		final[i + 4] = bit32.band(color, 0xFF) / 255
 	end
 
-	image:WritePixels(Vector2.zero, self.size, final)
+	image:WritePixels(Vector2.zero, size, final)
 end
 
 function PixelStorage.Clear(self: PixelStorage, clearColor: Pixel)
-    self.pixels = table.create(self.sizeX * self.sizeY, clearColor)
+    self.pixels = table.create(#self.pixels, clearColor)
 end
 
 function PixelStorage.Resize(
@@ -69,12 +69,23 @@ function PixelStorage.Resize(
 	self.pixels = resizedPixels
 end
 
-function PixelStorage.ReadPixel(self: PixelStorage, x: number, y: number): Pixel
-    return self.pixels[(y * self.sizeX + x) + 1]
+function PixelStorage.ReadPixel(
+    self: PixelStorage,
+    x: number,
+    y: number,
+    sizeX: number
+): Pixel
+    return self.pixels[(y * sizeX + x) + 1]
 end
 
-function PixelStorage.WritePixel(self: PixelStorage, x: number, y: number, newColor: Pixel)
-    self.pixels[(y * self.sizeX + x) + 1] = newColor
+function PixelStorage.WritePixel(
+    self: PixelStorage,
+    x: number,
+    y: number,
+    sizeX: number,
+    newColor: Pixel
+)
+    self.pixels[(y * sizeX + x) + 1] = newColor
 end
 
 return PixelStorage
