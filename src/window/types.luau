@@ -1,3 +1,7 @@
+export type PixelStorageBuilder<P, T> = {
+    new: () -> PixelStorage<P, T>,
+}
+
 export type PixelStorage<P, T> = {
     pixels: T,
 

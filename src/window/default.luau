@@ -2,7 +2,7 @@ local OSGL = script.Parent.Parent
 local types = require(OSGL.types)
 local privateTypes = require(OSGL.window.types)
 
-local PixelStorage = {} :: PixelStorage
+local PixelStorage = {} :: privateTypes.PixelStorageBuilder<Pixel, Pixels>
 PixelStorage.__index = PixelStorage
 
 type Pixel = types.Color
@@ -17,7 +17,7 @@ function PixelStorage.new(sizeX: number, sizeY: number)
     return self
 end
 
-function PixelStorage:Render(image: EditableImage)
+function PixelStorage.Render(self: PixelStorage, image: EditableImage)
 	local final = table.create(#self.pixels * 4, 0) :: { number }
 	local n = math.round(#final / 2)
 
@@ -36,11 +36,12 @@ function PixelStorage:Render(image: EditableImage)
 	image:WritePixels(Vector2.zero, self.size, final)
 end
 
-function PixelStorage:Clear(clearColor: Pixel)
+function PixelStorage.Clear(self: PixelStorage, clearColor: Pixel)
     self.pixels = table.create(self.sizeX * self.sizeY, clearColor)
 end
 
-function PixelStorage:Resize(
+function PixelStorage.Resize(
+    self: PixelStorage,
     oldWidth: number,
     oldHeight: number,
     newWidth: number,
@@ -68,11 +69,11 @@ function PixelStorage:Resize(
 	self.pixels = resizedPixels
 end
 
-function PixelStorage:ReadPixel(x: number, y: number): Pixel
+function PixelStorage.ReadPixel(self: PixelStorage, x: number, y: number): Pixel
     return self.pixels[(y * self.sizeX + x) + 1]
 end
 
-function PixelStorage:WritePixel(x: number, y: number, newColor: Pixel)
+function PixelStorage.WritePixel(self: PixelStorage, x: number, y: number, newColor: Pixel)
     self.pixels[(y * self.sizeX + x) + 1] = newColor
 end
 
