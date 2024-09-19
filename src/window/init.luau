@@ -34,8 +34,10 @@ local log = require(OSGL.log)
 local colorM = require(OSGL.color)
 local pixelStorage
 do
-    if true then
+    if false then
         pixelStorage = require(script.default)
+    else
+        pixelStorage = require(script.buffer)
     end
 end
 
