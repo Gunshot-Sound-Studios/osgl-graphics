@@ -52,7 +52,7 @@ WindowPrivate.__index = WindowPrivate
 
 type Window = types.Window & {
     renderer: EditableImage,
-    pixelStorage: privateTypes.PixelStorage<any, any>,
+    pixelStorage: privateTypes.PixelStorage<any>,
     sizeX: number,
     sizeY: number,
     size: Vector2,
@@ -288,6 +288,10 @@ end
 ]=]
 function WindowPrivate.ReadPixel(self: Window, x: number, y: number): types.Color
     self.pixelStorage:ReadPixel(x, y, self.sizeX)
+end
+
+function WindowPrivate.WritePixel(self: Window, x: number, y: number, newColor: types.Color): types.Color
+    self.pixelStorage:WritePixel(x, y, self.sizeX, newColor)
 end
 
 return Window
