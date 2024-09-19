@@ -50,6 +50,9 @@ local Window = {}
 local WindowPrivate = {}
 WindowPrivate.__index = WindowPrivate
 
+type Window = types.Window & {
+    pixelStorage: privateTypes.PixelStorage<any, any>,
+}
 
 --[=[
     Creates an OSGL window by creating a new EditableImage instance at the given place.
@@ -68,7 +71,7 @@ WindowPrivate.__index = WindowPrivate
     @param config WindowConfiguration? -- Optional configurations
     @return Window -- Returns an OSGL window instance
 ]=]
-function Window.new(parent: Instance, config: types.WindowConfiguration?): types.Window
+function Window.new(parent: Instance, config: types.WindowConfiguration?): Window
 	log.typeCheckArgument("Window.new", "parent", parent, "Instance")
 
 	config = config or {}
@@ -98,7 +101,7 @@ end
     @param editableImage EditableImage -- The existing EditableImage
     @return Window -- Returns an OSGL window instance
 ]=]
-function Window.from(editableImage: EditableImage): types.Window
+function Window.from(editableImage: EditableImage): Window
 	log.typeCheckArgument("Window.from", "editableImage", editableImage, "EditableImage")
 
 	local self = setmetatable({
@@ -135,7 +138,7 @@ end
     @error "Argument Type" -- This error occurs when a required argument is not passed or the type is incorrect
     @param yield number? -- The amount of time to yield. Defaults to a heartbeat.
 ]=]
-function WindowPrivate:IsOpen(yield: number?): boolean
+function WindowPrivate.IsOpen(self:Window, yield: number?): boolean
 	if yield and type(yield) ~= "number" then
 		log.typeCheckArgument("Window:IsOpen", "yield", yield, "number")
 	end
@@ -164,7 +167,7 @@ end
 
     @within Window
 ]=]
-function WindowPrivate:Render()
+function WindowPrivate.Render(self: Window)
 	self.pixelStorage:Render(self.renderer)
 end
 
@@ -189,7 +192,7 @@ end
     @param clearColor Color? -- The color the screen will be cleared with
     @within Window
 ]=]
-function WindowPrivate:Clear(clearColor: types.Color?)
+function WindowPrivate.Clear(self: Window, clearColor: types.Color?)
     self.pixelStorage:Clear(clearColor or colorM.TRANSPARENT)
 end
 
@@ -220,7 +223,7 @@ end
     @error "Width" -- This error occurs if the width is smaller than 0
     @within Window
 ]=]
-function WindowPrivate:Resize(newWidth: number?, newHeight: number?)
+function WindowPrivate.Resize(self: Window, newWidth: number?, newHeight: number?)
 	newWidth = newWidth or self.size.X
 	newHeight = newHeight or self.size.Y
 
@@ -253,7 +256,7 @@ end
     @within Window
     @return (boolean, number, number) -- Whether or not the mouse is in the window, it's X and Y positions.
 ]=]
-function WindowPrivate:GetRelativeMouse(): (boolean, number, number)
+function WindowPrivate.GetRelativeMouse(self: Window): (boolean, number, number)
     local sizeFactor = self.size / self.renderer.Parent.AbsoluteSize
     local mousePosition = UserInputService:GetMouseLocation() - self.renderer.Parent.AbsolutePosition
 
@@ -263,7 +266,23 @@ function WindowPrivate:GetRelativeMouse(): (boolean, number, number)
     return isInWindow, math.round(relativeMousePosition.X), math.round(relativeMousePosition.Y)
 end
 
-function WindowPrivate:ReadPixel(x: number, y: number): types.Color
+--[=[
+    Reads a pixel from the canvas.
+
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local Window = OSGL.Window
+    local color = OSGL.color
+
+    -- Creates a new Window
+    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+    print(myWindow:ReadPixel(1, 1)) -- Example output: 0
+    ```
+
+    @within Window
+    @return Color -- The color of the pixel
+]=]
+function WindowPrivate.ReadPixel(self: Window, x: number, y: number): types.Color
     self.pixelStorage:ReadPixel(x, y)
 end
 
