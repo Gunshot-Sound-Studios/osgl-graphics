@@ -24,7 +24,6 @@ function BaseTool.UnEquip(self: BaseTool, window: OSGLTypes.Window)
 
 end
 function BaseTool.HandleInput(self: BaseTool, input: InputObject, window: OSGLTypes.Window)
-    print("Bruh.")
 end
 function BaseTool.HandleInputEnd(self: BaseTool, input: InputObject, window: OSGLTypes.Window)
 end

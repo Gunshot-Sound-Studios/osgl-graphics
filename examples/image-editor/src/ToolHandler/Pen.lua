@@ -32,10 +32,10 @@ function Pen.HandleInput(self: PenTool, input: InputObject, window: OSGLTypes.Wi
 	if not isInWindow or not mouseData.MouseButton1Down then
         self.previousMousePointX = nil
 		self.previousMousePointY = nil
+
 		return
 	end
 
-	print(colorHandler.getRGB(window.renderer.Parent.Parent))
 	if self.previousMousePointX and self.previousMousePointY then
 		draw.line(window, {
 			startX = self.previousMousePointX,

@@ -28,6 +28,7 @@ function Eraser.HandleInput(self: EraserTool, input: InputObject, window: OSGLTy
 	if not isInWindow or not mouseData.MouseButton1Down then
         self.previousMousePointX = nil
 		self.previousMousePointY = nil
+
 		return
 	end
 
@@ -46,6 +47,5 @@ function Eraser.HandleInput(self: EraserTool, input: InputObject, window: OSGLTy
 	self.previousMousePointX, self.previousMousePointY = x, y
 	window:Render()
 end
-
 
 return Eraser
