@@ -21,6 +21,10 @@
 --
 ------------------------------------------------------------
 
+local debug = debug
+local warn = warn
+local error = error
+
 local log = {}
 
 function log.typeCheckArgument(fnName: string, argName: string, argument: any, expectedType: string)

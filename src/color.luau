@@ -23,6 +23,8 @@
 
 local types = require(script.Parent.types)
 
+local bit32 = bit32
+
 --[=[
     @class Color
 
