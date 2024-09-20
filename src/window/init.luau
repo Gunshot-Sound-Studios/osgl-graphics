@@ -32,12 +32,13 @@ local types = require(OSGL.types)
 local privateTypes = require(script.types)
 local log = require(OSGL.log)
 local colorM = require(OSGL.color)
+local config = require(OSGL.config)
 local pixelStorage
 do
-    if false then
-        pixelStorage = require(script.default)
-    else
+    if config.useBufferPixelStorage then
         pixelStorage = require(script.buffer)
+    else
+        pixelStorage = require(script.default)
     end
 end
 
