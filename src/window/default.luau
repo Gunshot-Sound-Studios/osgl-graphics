@@ -1,5 +1,6 @@
 local OSGL = script.Parent.Parent
 local types = require(OSGL.types)
+local color = require(OSGL.color)
 local privateTypes = require(OSGL.window.types)
 
 local PixelStorage = {} :: privateTypes.PixelStorageBuilder<Pixel>
@@ -22,16 +23,16 @@ function PixelStorage.Render(self: PixelStorage, image: EditableImage, size: Vec
 	local final = table.create(#self.pixels * 4, 0) :: { number }
 	local n = math.round(#final / 2)
 
-	for i, color in ipairs(self.pixels) do
+	for i, pixelColor in ipairs(self.pixels) do
 		if i % n == 0 then
 			task.wait()
 		end
 
 		local i = (i - 1) * 4
-		final[i + 1] = bit32.rshift(color, 24) / 255
-		final[i + 2] = bit32.band(bit32.rshift(color, 16), 0xFF) / 255
-		final[i + 3] = bit32.band(bit32.rshift(color, 8), 0xFF) / 255
-		final[i + 4] = bit32.band(color, 0xFF) / 255
+		final[i + 1] = color.r(pixelColor)
+		final[i + 2] = color.g(pixelColor)
+		final[i + 3] = color.b(pixelColor)
+		final[i + 4] = color.a(pixelColor)
 	end
 
 	image:WritePixels(Vector2.zero, size, final)

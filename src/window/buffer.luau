@@ -47,7 +47,7 @@ function PixelStorage.ReadPixel(
     y: number,
     sizeX: number
 ): Pixel
-    return buffer.readu32(self.buffer, ((y - 1) * sizeX + (x - 1)) * 4)
+    return buffer.readu32(self.buffer, (y * sizeX + x) * 4)
 end
 
 function PixelStorage.WritePixel(
