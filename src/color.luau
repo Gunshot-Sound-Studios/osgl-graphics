@@ -54,10 +54,10 @@ function color.new(red: number?, green: number?, blue: number?, alpha: number?):
     local a = alpha or 255
 
     return bit32.bor(
-        bit32.lshift(r, 24),
-        bit32.lshift(g, 16),
-        bit32.lshift(b, 8),
-        a
+        bit32.lshift(a, 24),
+        bit32.lshift(b, 16),
+        bit32.lshift(g, 8),
+        r
     )
 end
 
@@ -105,7 +105,7 @@ end
     @return number
 ]=]
 function color.r(color: types.Color): number
-    return bit32.rshift(color, 24) / 255
+    return bit32.band(color, 0xFF) / 255
 end
 
 --[=[
@@ -126,7 +126,7 @@ end
     @return number
 ]=]
 function color.g(color: types.Color): number
-    return bit32.band(bit32.rshift(color, 16), 0xFF) / 255
+    return bit32.band(bit32.rshift(color, 8), 0xFF) / 255
 end
 
 --[=[
@@ -147,7 +147,7 @@ end
     @return number
 ]=]
 function color.b(color: types.Color): number
-    return bit32.band(bit32.rshift(color, 8), 0xFF) / 255
+    return bit32.band(bit32.rshift(color, 16), 0xFF) / 255
 end
 
 --[=[
@@ -168,7 +168,7 @@ end
     @return number
 ]=]
 function color.a(color: types.Color): number
-    return bit32.band(color, 0xFF) / 255
+    return bit32.rshift(color, 24) / 255
 end
 
 --- @prop RED Color
