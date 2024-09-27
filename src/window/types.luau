@@ -1,10 +1,8 @@
 export type PixelStorageBuilder<P> = {
-    new: () -> PixelStorage<P>,
+    new: (sizeX: number, sizeY: number) -> PixelStorage<P>,
 }
 
 export type PixelStorage<P> = {
-    new: (sizeX: number, sizeY: number) -> PixelStorage<P>,
-
     Render: (self: PixelStorage<P>, image: EditableImage, size: Vector2) -> (),
     Clear: (self: PixelStorage<P>, clearColor: P) -> (),
     Resize: (

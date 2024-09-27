@@ -21,6 +21,12 @@
 --
 ------------------------------------------------------------
 
+---@diagnostic disable: undefined-doc-name
+-- ^^ for Luau LSP
+
+local OSGL = script.Parent
+local privateTypes = require(OSGL.window.types)
+
 --- @type Color number
 --- @within Color
 ---
@@ -50,17 +56,17 @@ export type Color = number
 --- -- Creates a window from an existing EditableImage
 --- local myWindow = Window.from(path.to.editableImage)
 --- ```
-export type Window = {
+export type Window<P> = {
     renderer: EditableImage,
-    pixelStorage: {
-        pixels: { Color },
-    },
+    pixelStorage: privateTypes.PixelStorage<P>,
 
-    IsOpen: (self: Window, yield: number?) -> boolean,
-    Render: (self: Window) -> nil,
-    Clear: (self: Window, clearColor: Color) -> (),
-    Resize: (self: Window, newWidth: number?, newHeight: number?) -> (),
-    GetRelativeMouse: (self: Window) -> (number, number)
+    IsOpen: (self: Window<P>, yield: number?) -> boolean,
+    Render: (self: Window<P>) -> nil,
+    Clear: (self: Window<P>, clearColor: Color) -> (),
+    Resize: (self: Window<P>, newWidth: number?, newHeight: number?) -> (),
+    GetRelativeMouse: (self: Window<P>) -> (number, number),
+    ReadPixel: (self: Window<P>, x: number, y: number) -> Color,
+    WritePixel: (self: Window<P>, x: number, y: number, newColor: Color) -> (),
 }
 
 --- @interface WindowConfiguration
@@ -119,12 +125,12 @@ export type Texture = {
 --- .y number -- The Y position of the sprite
 ---
 --- A `Sprite` can be drawn onto onto the screen to display a `Texture`
-export type Sprite = {
+export type Sprite<P> = {
     texture: Texture,
     x: number,
     y: number,
 
-    Draw: (self: Sprite, window: Window) -> ()
+    Draw: (self: Sprite<P>, window: Window<P>) -> ()
 }
 
 --- @type Points { {number} }
@@ -135,6 +141,6 @@ export type Points = {{number}}
 --- @type Drawable Window | Texture
 --- @within Draw
 --- An object that contains a buffer. You can draw to these objects.
-export type Drawable = Window | Texture
+export type Drawable<P> = Window<P> | Texture
 
 return nil

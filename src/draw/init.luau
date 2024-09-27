@@ -71,7 +71,7 @@ local draw = {}
     @within Draw
     @return nil
 ]=]
-function draw.pixel(window: types.Drawable, xPos: number, yPos: number, color: types.Color)
+function draw.pixel<P>(window: types.Drawable<P>, xPos: number, yPos: number, color: types.Color)
 	log.cassert(xPos >= 0, "X position must be higher or equal to 0")
 	log.cassert(yPos >= 0, "Y position must be higher or equal to 0")
 

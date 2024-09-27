@@ -153,7 +153,7 @@ end
     @error "YSize" -- This error occurs if the YSize is less than 1
     @return {types.Color} -- The colors in the specified chunk
 ]=]
-function Texture.read(window: types.Drawable, x: number, y: number, xSize: number?, ySize: number?): {types.Color}
+function Texture.read<P>(window: types.Drawable<P>, x: number, y: number, xSize: number?, ySize: number?): {types.Color}
     xSize = xSize or 1
     ySize = ySize or 1
 
@@ -174,4 +174,4 @@ function Texture.read(window: types.Drawable, x: number, y: number, xSize: numbe
     return colors
 end
 
-return Texture 
+return Texture

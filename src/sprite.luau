@@ -52,7 +52,7 @@ SpritePrivate.__index = SpritePrivate
     @param Texture Texture -- The texture of the sprite
     @return Sprite -- The new sprite
 ]=]
-function Sprite.new(Texture: types.Texture): types.Sprite
+function Sprite.new<P>(Texture: types.Texture): types.Sprite<P>
 	local self = setmetatable({
 		x = 0,
 		y = 0,
@@ -81,9 +81,7 @@ end
     @within Sprite
     @param window Drawable -- The window, or texture, the sprite will be drawn on.
 ]=]
-function SpritePrivate:Draw(window: types.Drawable)
-	self = self :: types.Sprite
-
+function SpritePrivate.Draw<P>(self: types.Sprite<P>, window: types.Drawable<P>)
 	local texture = self.texture
 
 	local y2 = 0

@@ -3,8 +3,8 @@ local types = require(OSGL.types)
 local color = require(OSGL.color)
 local writePixel = require(OSGL.draw.writePixel)
 
-return function(
-	window: types.Drawable,
+return function<P>(
+	window: types.Drawable<P>,
 	circle: {
 		centerX: number,
 		centerY: number,

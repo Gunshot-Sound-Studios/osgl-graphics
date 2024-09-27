@@ -4,8 +4,8 @@ local color = require(OSGL.color)
 local log = require(OSGL.log)
 local fillPolygon = require(OSGL.draw.fillPolygon)
 
-return function(
-	window: types.Drawable,
+return function<P>(
+	window: types.Drawable<P>,
 	points: { x: number, y: number, points: types.Points, fillColor: types.Color }
 )
 	log.cassert(points.x >= 0, "X position must be higher or equal to 0")

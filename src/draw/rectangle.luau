@@ -4,8 +4,8 @@ local color = require(OSGL.color)
 local fillPolygon = require(OSGL.draw.fillPolygon)
 local writePixel = require(OSGL.draw.writePixel)
 
-return function(
-	window: types.Drawable,
+return function<P>(
+	window: types.Drawable<P>,
 	rectangle: {
 		xPos: number,
 		yPos: number,
