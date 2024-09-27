@@ -27,20 +27,14 @@
 
 local UserInputService = game:GetService("UserInputService")
 
-local OSGL = script.Parent
+local OSGL = script.Parent.Parent
+local DrawableObject = require(OSGL.DrawableObject)
+local pixelStorage = DrawableObject.PixelStorage
 local types = require(OSGL.types)
-local privateTypes = require(script.types)
+local privateTypes = require(OSGL.DrawableObject.types)
 local log = require(OSGL.log)
 local colorM = require(OSGL.color)
 local config = require(OSGL.config)
-local pixelStorage
-do
-    if config.useBufferPixelStorage then
-        pixelStorage = require(script.buffer)
-    else
-        pixelStorage = require(script.default)
-    end
-end
 
 --[=[
     @class Window
@@ -51,14 +45,11 @@ end
 ]=]
 local Window = {}
 local WindowPrivate = {}
+setmetatable(WindowPrivate, DrawableObject)
 WindowPrivate.__index = WindowPrivate
 
-type Window<P> = types.Window<P> & {
+type Window<P> = types.DrawableObject<P> & {
     renderer: EditableImage,
-    pixelStorage: privateTypes.PixelStorage<any>,
-    sizeX: number,
-    sizeY: number,
-    size: Vector2,
 }
 
 --[=[
@@ -244,73 +235,6 @@ function WindowPrivate.Resize<P>(self: Window<P>, newWidth: number?, newHeight: 
 	self.sizeY = newHeight
 
 	self.renderer.Size = self.size
-end
-
---[=[
-    Returns whether or not the mouse is inside the window and the mouse's position
-    relative to the window.
-
-    ```lua
-    local OSGL = require(path.to.osgl)
-    local Window = OSGL.Window
-    local color = OSGL.color
-
-    -- Creates a new Window
-    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
-    print(myWindow:GetRelativeMouse()) -- Example output: true, 25, 25
-    ```
-
-    @within Window
-    @return (boolean, number, number) -- Whether or not the mouse is in the window, it's X and Y positions.
-]=]
-function WindowPrivate.GetRelativeMouse<P>(self: Window<P>): (boolean, number, number)
-    local sizeFactor = self.size / self.renderer.Parent.AbsoluteSize
-    local mousePosition = UserInputService:GetMouseLocation() - self.renderer.Parent.AbsolutePosition
-
-    local relativeMousePosition = mousePosition * sizeFactor
-    local isInWindow = relativeMousePosition.X > 0 and relativeMousePosition.Y > 0
-
-    return isInWindow, math.round(relativeMousePosition.X), math.round(relativeMousePosition.Y)
-end
-
---[=[
-    Reads a pixel from the canvas.
-
-    ```lua
-    local OSGL = require(path.to.osgl)
-    local Window = OSGL.Window
-    local color = OSGL.color
-
-    -- Creates a new Window
-    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
-    print(myWindow:ReadPixel(1, 1)) -- Example output: 0
-    ```
-
-    @within Window
-    @return Color -- The color of the pixel
-]=]
-function WindowPrivate.ReadPixel<P>(self: Window<P>, x: number, y: number): types.Color
-    self.pixelStorage:ReadPixel(x, y, self.sizeX)
-end
-
---[=[
-    Writes a pixel to the canvas.
-
-    ```lua
-    local OSGL = require(path.to.osgl)
-    local Window = OSGL.Window
-    local color = OSGL.color
-
-    -- Creates a new Window
-    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
-    myWindow:WritePixel(1, 1, color.RED)
-    ```
-
-    @within Window
-    @return Color -- The color of the pixel
-]=]
-function WindowPrivate.WritePixel<P>(self: Window<P>, x: number, y: number, newColor: types.Color)
-    self.pixelStorage:WritePixel(x, y, self.sizeX, newColor)
 end
 
 return Window

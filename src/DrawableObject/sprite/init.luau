@@ -24,8 +24,10 @@
 --
 ------------------------------------------------------------
 
-local types = require(script.Parent.types)
-local draw = require(script.Parent.draw)
+local OSGL = script.Parent.Parent
+local DrawableObject = require(OSGL.DrawableObject)
+local types = require(OSGL.types)
+local draw = require(OSGL.draw)
 
 --[=[
     @class Sprite
@@ -35,6 +37,7 @@ local draw = require(script.Parent.draw)
 ]=]
 local Sprite = {}
 local SpritePrivate = {}
+setmetatable(Sprite, DrawableObject)
 SpritePrivate.__index = SpritePrivate
 
 --[=[
@@ -52,7 +55,7 @@ SpritePrivate.__index = SpritePrivate
     @param Texture Texture -- The texture of the sprite
     @return Sprite -- The new sprite
 ]=]
-function Sprite.new<P>(Texture: types.Texture): types.Sprite<P>
+function Sprite.new<P>(Texture: types.Texture<P>): types.Sprite<P>
 	local self = setmetatable({
 		x = 0,
 		y = 0,
@@ -100,7 +103,7 @@ function SpritePrivate.Draw<P>(self: types.Sprite<P>, window: types.Drawable<P>)
 
 			x2 = x - self.x
 			if y2 < texture.sizeY and x2 < texture.sizeX then
-				draw.pixel(window, x, y, texture.pixels[(y2 * texture.sizeX + x2) + 1])
+				draw.pixel(window, x, y, texture.pixelStorage:ReadPixel(x, y, texture.sizeX))
 			end
 		end
 	end

@@ -1,6 +1,6 @@
 local OSGL = script.Parent.Parent
 local types = require(OSGL.types)
-local privateTypes = require(OSGL.window.types)
+local privateTypes = require(OSGL.DrawableObject.types)
 
 local PixelStorage = {} :: privateTypes.PixelStorageBuilder<Pixel>
 PixelStorage.__index = PixelStorage
@@ -58,6 +58,10 @@ function PixelStorage.WritePixel(
     newColor: Pixel
 )
     buffer.writeu32(self.buffer, (y * sizeX + x) * 4, newColor)
+end
+
+function PixelStorage.WriteIndex(self: PixelStorage, i: number, newColor: Pixel)
+    buffer.writeu32(self.buffer, i * 4, newColor)
 end
 
 return PixelStorage

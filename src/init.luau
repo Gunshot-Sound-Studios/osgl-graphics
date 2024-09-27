@@ -22,11 +22,12 @@
 ------------------------------------------------------------
 
 return {
-    Window = require(script.window),
-    Sprite = require(script.sprite),
+    Window = require(script.DrawableObject.window),
+
+    Sprite = require(script.DrawableObject.sprite),
+    texture = require(script.DrawableObject.sprite.texture),
 
     color = require(script.color),
     types = require(script.types),
     draw = require(script.draw),
-    texture = require(script.texture)
 }

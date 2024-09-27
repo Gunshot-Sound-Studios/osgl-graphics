@@ -25,7 +25,7 @@
 -- ^^ for Luau LSP
 
 local OSGL = script.Parent
-local privateTypes = require(OSGL.window.types)
+local privateTypes = require(OSGL.DrawableObject.types)
 
 --- @type Color number
 --- @within Color
@@ -98,21 +98,16 @@ export type FlagTexture = {
     pixels: { number | string },
 }
 
---- @type RawTexture { Color }
---- @within Texture
---- The colors of a texture's pixels.
-export type RawTexture = { Color }
-
 --- @interface Texture
 --- @within Texture
---- .pixels RawTexture -- The raw-bytes of the texture
+--- .pixelStorage PixelStorage -- The raw-bytes of the texture
 --- .sizeX number -- The width of the texture
 --- .sizeY number -- The height of the texture
 ---
 --- A `Texture` can be drawn onto a `Sprite` to be displayed on-screen.
 --- Textures are simply an array of colors.
-export type Texture = {
-    pixels: RawTexture,
+export type Texture<P> = {
+    pixelStorage: privateTypes.PixelStorage<P>,
     sizeX: number,
     sizeY: number
 }
@@ -126,7 +121,7 @@ export type Texture = {
 ---
 --- A `Sprite` can be drawn onto onto the screen to display a `Texture`
 export type Sprite<P> = {
-    texture: Texture,
+    texture: Texture<P>,
     x: number,
     y: number,
 
@@ -141,6 +136,17 @@ export type Points = {{number}}
 --- @type Drawable Window | Texture
 --- @within Draw
 --- An object that contains a buffer. You can draw to these objects.
-export type Drawable<P> = Window<P> | Texture
+export type Drawable<P> = Window<P> | Texture<P>
+
+export type DrawableObject<P> = {
+    pixelStorage: privateTypes.PixelStorage<any>,
+    sizeX: number,
+    sizeY: number,
+    size: Vector2,
+
+    GetRelativeMouse: (self: Window<P>) -> (number, number),
+    ReadPixel: (self: Window<P>, x: number, y: number) -> Color,
+    WritePixel: (self: Window<P>, x: number, y: number, newColor: Color) -> (),
+}
 
 return nil

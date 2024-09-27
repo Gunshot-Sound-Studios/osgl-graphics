@@ -3,23 +3,27 @@
 local UserInputService = game:GetService("UserInputService")
 local finished = false
 
-UserInputService.WindowFocusReleased:Connect(function()
-	if not finished then
-		print("WHY WINDOW RELEASED? THIS WILL MAKE IT INACCURATE")
-	end
-end)
-
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local SIZE_X = 1024
+local SIZE_Y = 1024
 
 local OSGL = require(ReplicatedStorage.OSGL)
 local window = OSGL.Window
 local color = OSGL.color
-local draw = OSGL.draw
+local Sprite = OSGL.Sprite
+local Texture = OSGL.texture
 
-local myWindow = window.new(Players.LocalPlayer.PlayerGui:WaitForChild("ScreenGui").Window, { sizeX = 1024, sizeY = 1024 })
+local sprite = Sprite.new(Texture.from(script.Parent.ModuleScript))
 
-draw.circle(myWindow, { centerX = 0, centerY = 0, radius = 500, fillColor = color.RED })
-draw.tint(myWindow, color.GREEN, .1)
+local myWindow = window.new(Players.LocalPlayer.PlayerGui:WaitForChild("ScreenGui").Window, { sizeX = SIZE_X, sizeY = SIZE_Y })
+
+for x = 0, SIZE_X - 1 do
+    for y = 0, SIZE_Y - 1 do
+        myWindow:WritePixel(x, y, color.new(math.random(255), math.random(255), math.random(255)))
+    end
+end
+sprite:Draw(myWindow)
 
 myWindow:Render()
