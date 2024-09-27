@@ -30,7 +30,7 @@ local bit32 = bit32
 
     The color class. Handles manipulations of color values.
 ]=]
-local color = {}
+local colorModule = {}
 
 --[=[
     Creates a new color value. Values cannot be changed manually and must be changed
@@ -49,7 +49,7 @@ local color = {}
     @within Color
     @return Color -- Returns a color Value
 ]=]
-function color.new(r: number?, g: number?, b: number?, a: number?): types.Color
+function colorModule.new(r: number?, g: number?, b: number?, a: number?): types.Color
     r = r or 0
     g = g or 0
     b = b or 0
@@ -79,13 +79,13 @@ end
     @within Color
     @return Color -- Returns a color Value
 ]=]
-function color.newRGB(r: number?, g: number?, b: number?): types.Color
+function colorModule.newRGB(r: number?, g: number?, b: number?): types.Color
     r = r or 0
     g = g or 0
     b =  b or 0
 
     return bit32.bor(
-        color.BLACK,
+        colorModule.BLACK,
         bit32.lshift(b, 16),
         bit32.lshift(g, 8),
         r
@@ -109,12 +109,12 @@ end
     @within Color
     @return { number }
 ]=]
-function color.read(rgbaColor: types.Color): {  number }
+function colorModule.read(rgbaColor: types.Color): {  number }
 	return {
-        color.r(rgbaColor),
-        color.g(rgbaColor),
-        color.b(rgbaColor),
-        color.a(rgbaColor),
+        colorModule.r(rgbaColor),
+        colorModule.g(rgbaColor),
+        colorModule.b(rgbaColor),
+        colorModule.a(rgbaColor),
     }
 end
 
@@ -135,7 +135,7 @@ end
     @within Color
     @return number
 ]=]
-function color.r(color: types.Color): number
+function colorModule.r(color: types.Color): number
     return bit32.band(color, 0xFF) / 255
 end
 
@@ -156,7 +156,7 @@ end
     @within Color
     @return number
 ]=]
-function color.g(color: types.Color): number
+function colorModule.g(color: types.Color): number
     return bit32.band(bit32.rshift(color, 8), 0xFF) / 255
 end
 
@@ -177,7 +177,7 @@ end
     @within Color
     @return number
 ]=]
-function color.b(color: types.Color): number
+function colorModule.b(color: types.Color): number
     return bit32.band(bit32.rshift(color, 16), 0xFF) / 255
 end
 
@@ -198,53 +198,53 @@ end
     @within Color
     @return number
 ]=]
-function color.a(color: types.Color): number
+function colorModule.a(color: types.Color): number
     return bit32.rshift(color, 24) / 255
 end
 
 --- @prop RED Color
 --- @within Color
 --- A red color
-color.RED = color.new(255)
+colorModule.RED = colorModule.new(255)
 
 --- @prop GREEN Color
 --- @within Color
 --- A green color
-color.GREEN = color.new(0, 255)
+colorModule.GREEN = colorModule.new(0, 255)
 
 --- @prop BLUE color
 --- @within Color
 --- A blue color
-color.BLUE = color.new(0, 0, 255)
+colorModule.BLUE = colorModule.new(0, 0, 255)
 
 --- @prop WHITE Color
 --- @within Color
 --- A white color
-color.WHITE = color.new(255, 255, 255)
+colorModule.WHITE = colorModule.new(255, 255, 255)
 
 --- @prop BLACK Color
 --- @within Color
 --- A black color
-color.BLACK = color.new(0, 0, 0, 255)
+colorModule.BLACK = colorModule.new(0, 0, 0, 255)
 
 --- @prop YELLOW Color
 --- @within Color
 --- A yellow color
-color.YELLOW = color.new(255, 255)
+colorModule.YELLOW = colorModule.new(255, 255)
 
 --- @prop MAGENTA Color
 --- @within Color
 --- A magenta color
-color.MAGENTA = color.new(255, 0, 255)
+colorModule.MAGENTA = colorModule.new(255, 0, 255)
 
 --- @prop CYAN Color
 --- @within Color
 --- A cyan color
-color.CYAN = color.new(0, 255, 255)
+colorModule.CYAN = colorModule.new(0, 255, 255)
 
 --- @prop TRANSPARENT Color
 --- @within Color
 --- A completely transparent color
-color.TRANSPARENT = color.new(0, 0, 0, 0)
+colorModule.TRANSPARENT = colorModule.new(0, 0, 0, 0)
 
-return color
+return colorModule
