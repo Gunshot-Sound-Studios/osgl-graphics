@@ -93,6 +93,114 @@ function colorModule.newRGB(r: number?, g: number?, b: number?): types.Color
 end
 
 --[=[
+    Sets the 'r' channel of the color.
+
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local color = OSGL.color
+
+    local c = color.setR(color.RED, 100)
+    print(color.r(c)) -- Ouput:  100
+    ```
+
+    For performance boost, if you're creating colors using only 1 or 2 channels, you
+    should do:
+
+    ```lua
+    local almostRed = color.setR(color.BLACK, 100)
+    ```
+
+    @param color Color -- The color to edit
+    @param r number -- The new value
+    @within Color
+    @return number
+]=]
+function colorModule.setR(c: types.Color, r: number): number
+    return bit32.bor(c, r)
+end
+
+--[=[
+    Sets the 'g' channel of the color.
+
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local color = OSGL.color
+
+    local c = color.setG(color.GREEN, 100)
+    print(color.g(c)) -- Ouput:  100
+    ```
+
+    For performance boost, if you're creating colors using only 1 or 2 channels, you
+    should do:
+
+    ```lua
+    local almostGreen = color.setG(color.BLACK, 100)
+    ```
+
+    @param color Color -- The color to edit
+    @param g number -- The new value
+    @within Color
+    @return number
+]=]
+function colorModule.setG(c: types.Color, g: number): number
+    return bit32.bor(c, bit32.bor(bit32.band(c, 0xFF00FFFF), bit32.lshift(g, 8)))
+end
+
+--[=[
+    Sets the 'b' channel of the color.
+
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local color = OSGL.color
+
+    local c = color.setB(color.BLUE, 100)
+    print(color.b(c)) -- Ouput:  100
+    ```
+
+    For performance boost, if you're creating colors using only 1 or 2 channels, you
+    should do:
+
+    ```lua
+    local almostBlue = color.setB(color.BLACK, 100)
+    ```
+
+    @param color Color -- The color to edit
+    @param b number -- The new value
+    @within Color
+    @return number
+]=]
+function colorModule.setB(c: types.Color, b: number): number
+    return bit32.bor(bit32.band(c, 0xFFFF00FF), bit32.lshift(b, 16))
+end
+
+--[=[
+    Sets the 'a' channel of the color.
+
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local color = OSGL.color
+
+    local c = color.setA(color.TRANSPARENT, 100)
+    print(color.a(c)) -- Ouput:  100
+    ```
+
+    For performance boost, if you're creating colors using only 1 or 2 channels, you
+    should do:
+
+    ```lua
+    local almostBlack = color.setA(color.TRANSPARENT, 100)
+    ```
+
+    @param color Color -- The color to edit
+    @param a number -- The new value
+    @within Color
+    @return number
+]=]
+function colorModule.setA(c: types.Color, a: number): number
+    return bit32.bor(bit32.band(c, 0x00FFFFFF), bit32.lshift(a, 24))
+end
+
+--[=[
     Reads the value of the color
 
     ```lua
