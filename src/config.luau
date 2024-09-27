@@ -7,11 +7,11 @@
 
 return {
     -- Whether or not to use `buffer` as the pixel storage for the window. This uses
-    -- `EditableImage:WritePixelsBuffer`, which is currently locked behind a FFlag.
-    -- If you have the FFlag enabled, you should enable this configuration, if not
-    -- keep it off to avoid errors.
+    -- `EditableImage:WritePixelsBuffer`, which was locked behind a FFlag. Currently,
+    -- it isn't. The option is still here in acse someone doesn't want to use it. Will
+    -- be removed in the future!
     --
     -- Enabling this provides a huge performance boost almost 2x as fast as the default
     -- storage.
-    useBufferPixelStorage = false
+    useBufferPixelStorage = true
 }
