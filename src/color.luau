@@ -23,7 +23,10 @@
 
 local types = require(script.Parent.types)
 
-local bit32 = bit32
+local bit32bor = bit32.bor
+local bit32lshift = bit32.lshift
+local bit32rshift = bit32.rshift
+local bit32band = bit32.band
 
 --[=[
     @class Color
@@ -55,10 +58,10 @@ function colorModule.new(r: number?, g: number?, b: number?, a: number?): types.
     b = b or 0
     a = a or 255
 
-    return bit32.bor(
-        bit32.lshift(a, 24),
-        bit32.lshift(b, 16),
-        bit32.lshift(g, 8),
+    return bit32bor(
+        bit32lshift(a, 24),
+        bit32lshift(b, 16),
+        bit32lshift(g, 8),
         r
     )
 end
@@ -84,10 +87,10 @@ function colorModule.newRGB(r: number?, g: number?, b: number?): types.Color
     g = g or 0
     b =  b or 0
 
-    return bit32.bor(
+    return bit32bor(
         colorModule.BLACK,
-        bit32.lshift(b, 16),
-        bit32.lshift(g, 8),
+        bit32lshift(b, 16),
+        bit32lshift(g, 8),
         r
     )
 end
@@ -116,7 +119,7 @@ end
     @return number
 ]=]
 function colorModule.setR(c: types.Color, r: number): number
-    return bit32.bor(c, r)
+    return bit32bor(c, r)
 end
 
 --[=[
@@ -143,7 +146,7 @@ end
     @return number
 ]=]
 function colorModule.setG(c: types.Color, g: number): number
-    return bit32.bor(c, bit32.bor(bit32.band(c, 0xFF00FFFF), bit32.lshift(g, 8)))
+    return bit32bor(c, bit32bor(bit32band(c, 0xFF00FFFF), bit32lshift(g, 8)))
 end
 
 --[=[
@@ -170,7 +173,7 @@ end
     @return number
 ]=]
 function colorModule.setB(c: types.Color, b: number): number
-    return bit32.bor(bit32.band(c, 0xFFFF00FF), bit32.lshift(b, 16))
+    return bit32bor(bit32band(c, 0xFFFF00FF), bit32lshift(b, 16))
 end
 
 --[=[
@@ -197,7 +200,7 @@ end
     @return number
 ]=]
 function colorModule.setA(c: types.Color, a: number): number
-    return bit32.bor(bit32.band(c, 0x00FFFFFF), bit32.lshift(a, 24))
+    return bit32bor(bit32band(c, 0x00FFFFFF), bit32lshift(a, 24))
 end
 
 --[=[
@@ -244,7 +247,7 @@ end
     @return number
 ]=]
 function colorModule.r(color: types.Color): number
-    return bit32.band(color, 0xFF) / 255
+    return bit32band(color, 0xFF) / 255
 end
 
 --[=[
@@ -265,7 +268,7 @@ end
     @return number
 ]=]
 function colorModule.g(color: types.Color): number
-    return bit32.band(bit32.rshift(color, 8), 0xFF) / 255
+    return bit32band(bit32rshift(color, 8), 0xFF) / 255
 end
 
 --[=[
@@ -286,7 +289,7 @@ end
     @return number
 ]=]
 function colorModule.b(color: types.Color): number
-    return bit32.band(bit32.rshift(color, 16), 0xFF) / 255
+    return bit32band(bit32rshift(color, 16), 0xFF) / 255
 end
 
 --[=[
@@ -307,7 +310,7 @@ end
     @return number
 ]=]
 function colorModule.a(color: types.Color): number
-    return bit32.rshift(color, 24) / 255
+    return bit32rshift(color, 24) / 255
 end
 
 --- @prop RED Color
