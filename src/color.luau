@@ -49,11 +49,11 @@ local color = {}
     @within Color
     @return Color -- Returns a color Value
 ]=]
-function color.new(red: number?, green: number?, blue: number?, alpha: number?): types.Color
-    local r = red or 0
-    local g = green or 0
-    local b = blue or 0
-    local a = alpha or 255
+function color.new(r: number?, g: number?, b: number?, a: number?): types.Color
+    r = r or 0
+    g = g or 0
+    b = b or 0
+    a = a or 255
 
     return bit32.bor(
         bit32.lshift(a, 24),
@@ -64,9 +64,38 @@ function color.new(red: number?, green: number?, blue: number?, alpha: number?):
 end
 
 --[=[
+    Creates a new color value with the alpha channel being 255. Values cannot be changed
+    manually and must be changed via a function.
+
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local color = OSGL.color
+
+    -- All other parameters are defaulted
+    -- to 0.
+    local myAwesomeRedColor = color.newRGB(255)
+    ```
+
+    @within Color
+    @return Color -- Returns a color Value
+]=]
+function color.newRGB(r: number?, g: number?, b: number?): types.Color
+    r = r or 0
+    g = g or 0
+    b =  b or 0
+
+    return bit32.bor(
+        color.BLACK,
+        bit32.lshift(b, 16),
+        bit32.lshift(g, 8),
+        r
+    )
+end
+
+--[=[
     Reads the value of the color
 
-     ```lua
+    ```lua
     local OSGL = require(path.to.osgl)
     local color = OSGL.color
 
@@ -196,7 +225,7 @@ color.WHITE = color.new(255, 255, 255)
 --- @prop BLACK Color
 --- @within Color
 --- A black color
-color.BLACK = color.new()
+color.BLACK = color.new(0, 0, 0, 255)
 
 --- @prop YELLOW Color
 --- @within Color
