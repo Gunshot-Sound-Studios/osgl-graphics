@@ -1,5 +1,5 @@
 ------------------------------------------------------------
--- OSGL v1.2b - Open-Source-Graphical-Library
+-- OSGL v1.3b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
@@ -52,7 +52,9 @@ export type Color = number
 --- ```
 export type Window = {
     renderer: EditableImage,
-    pixels: { Color },
+    pixelStorage: {
+        pixels: { Color },
+    },
 
     IsOpen: (self: Window, yield: number?) -> boolean,
     Render: (self: Window) -> nil,

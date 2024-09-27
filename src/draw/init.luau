@@ -3,7 +3,7 @@
 --!optimize 2
 
 ------------------------------------------------------------
--- OSGL v1.1 - Open-Source-Graphical-Library
+-- OSGL v1.3 - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
@@ -67,6 +67,7 @@ local draw = {}
     @param color Color -- The color of the pixel
     @error "X" -- This error occurs if the X is less than 0
     @error "Y" -- This error occurs if the Y is less than 0
+    @function pixel
     @within Draw
     @return nil
 ]=]
@@ -114,6 +115,7 @@ end
     ```
     @param window Drawable -- The window or texture to draw on
     @param line { startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: Color? } -- The data that is used to construct the line
+    @function line
     @within Draw
     @return nil
 ]=]
@@ -155,6 +157,7 @@ draw.line = require(script.line)
     ```
     @param window Drawable -- The window or texture to draw on
     @param circle {centerX: number, centerY: number, radius: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?} -- The data that is used to construct the circle
+    @function circle
     @within Draw
     @return nil
 ]=]
@@ -198,6 +201,7 @@ draw.circle = require(script.circle)
 
 	@param window Drawable -- The window or texture to draw on
 	@param rectangle {xPos: number, yPos: number, width: number, height: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?} -- The data that is used to construct the rectangle
+	@function rectangle
 	@within Draw
 	@return nil
 ]=]
@@ -206,7 +210,7 @@ draw.rectangle = require(script.rectangle)
 --[=[
 	Draws a shape from the given points
 
-    ```lua
+	```lua
 	local OSGL = require(path.to.osgl)
 	local draw = OSGL.draw
 	local Window = OSGL.Window
@@ -240,6 +244,7 @@ draw.rectangle = require(script.rectangle)
 	@error "X" -- This error occurs if the X is smaller than 0
 	@error "Y" -- This error occurs if the Y is smaller than 0
 	@error "Points" -- This error occurs if 2 or less points are provided
+	@function points
 	@within Draw
 	@return nil
 ]=]
