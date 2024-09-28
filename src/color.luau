@@ -251,7 +251,7 @@ end
     @return number
 ]=]
 function colorModule.r(color: types.Color): number
-    return bit32band(color, 0xFF) / 255
+    return bit32band(color, 0xFF)
 end
 
 --[=[
@@ -272,7 +272,7 @@ end
     @return number
 ]=]
 function colorModule.g(color: types.Color): number
-    return bit32band(bit32rshift(color, 8), 0xFF) / 255
+    return bit32band(bit32rshift(color, 8), 0xFF)
 end
 
 --[=[
@@ -293,7 +293,7 @@ end
     @return number
 ]=]
 function colorModule.b(color: types.Color): number
-    return bit32band(bit32rshift(color, 16), 0xFF) / 255
+    return bit32band(bit32rshift(color, 16), 0xFF)
 end
 
 --[=[
@@ -314,7 +314,7 @@ end
     @return number
 ]=]
 function colorModule.a(color: types.Color): number
-    return bit32rshift(color, 24) / 255
+    return bit32rshift(color, 24)
 end
 
 function colorModule.tint(color1: types.Color, color2: types.Color, factor: number)
