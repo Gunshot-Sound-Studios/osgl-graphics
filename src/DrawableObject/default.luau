@@ -102,4 +102,14 @@ function PixelStorage.GetIndex(self: PixelStorage, x: number, y: number, sizeX: 
     return (y * sizeX + x) + 1
 end
 
+function PixelStorage.OffsetIndex(
+    _: PixelStorage,
+    i: number,
+    x: number,
+    y: number,
+    sizeX: number
+): number
+    return i + (y * sizeX + x) + 1
+end
+
 return PixelStorage

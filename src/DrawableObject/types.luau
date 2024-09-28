@@ -17,6 +17,7 @@ export type PixelStorage<P> = {
     WritePixel: (self: PixelStorage<P>, x: number, y: number, sizeX: number, newColor: P) -> (),
     WriteIndex: (self: PixelStorage<P>, i: number, newColor: P) -> (),
     GetIndex: (self: PixelStorage<P>, x: number, y: number, sizeX: number) -> number,
+    OffsetIndex: (self: PixelStorage<P>, i: number, x: number, y: number, sizeX: number) -> number,
 }
 
 return nil
