@@ -23,9 +23,18 @@ function PixelStorage.Render(self: PixelStorage, image: EditableImage, size: Vec
 end
 
 function PixelStorage.Clear(self: PixelStorage, clearColor: Pixel)
-    local color = buffer.create(4)
-    buffer.writeu32(color, 0, clearColor)
-    buffer.copy(self.buffer, 0, color)
+    local bufferLength = buffer.len(self.buffer)
+    local current_size = 4
+    local numCopies = math.ceil(math.log(bufferLength / 4, 2))
+
+    buffer.writeu32(self.buffer, 0, clearColor)
+
+    for _ = 1, numCopies do
+        local copy_size = math.min(current_size, bufferLength - current_size)
+        buffer.copy(self.buffer, current_size, self.buffer, 0, copy_size)
+
+        current_size += copy_size
+    end
 end
 
 function PixelStorage.Resize(
