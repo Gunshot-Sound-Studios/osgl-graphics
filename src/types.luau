@@ -21,9 +21,6 @@
 --
 ------------------------------------------------------------
 
----@diagnostic disable: undefined-doc-name
--- ^^ for Luau LSP
-
 local OSGL = script.Parent
 local privateTypes = require(OSGL.DrawableObject.types)
 

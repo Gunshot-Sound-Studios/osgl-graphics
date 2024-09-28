@@ -9,6 +9,7 @@ local types = require(OSGL.types)
 local color = require(OSGL.color)
 local utils = require(OSGL.utils)
 local config = require(OSGL.config)
+
 local PixelStorage
 do
     if config.useBufferPixelStorage then
@@ -18,12 +19,35 @@ do
     end
 end
 
+--[=[
+    @class DrawableObject
+
+    The building-blocks for both the `Texture` and `Window` classes.
+]=]
 local DrawableObject = {}
 DrawableObject.__index = DrawableObject
 DrawableObject.PixelStorage = PixelStorage
 
 type DrawableObject<P> = types.DrawableObject<P>
 
+--[=[
+	Gets the mouse position relative to the window or texture
+
+	```lua
+	local OSGL = require(path.to.osgl)
+	local draw = OSGL.draw
+	local Window = OSGL.Window
+	local color = OSGL.color
+
+	-- Creates a new EditableImage
+	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+	print(myWindow:GetRelativeMouse())
+
+	print("The window has been destroyed.")
+	```
+	@within DrawableObject
+	@return (boolean, number, number) -- Is mouse in window, mouse X, mouse Y
+]=]
 function DrawableObject.GetRelativeMouse<P>(self: DrawableObject<P>): (boolean, number, number)
     local sizeFactor = self.size / self.renderer.Parent.AbsoluteSize
     local mousePosition = UserInputService:GetMouseLocation() - self.renderer.Parent.AbsolutePosition
@@ -34,18 +58,83 @@ function DrawableObject.GetRelativeMouse<P>(self: DrawableObject<P>): (boolean, 
     return isInWindow, math.round(relativeMousePosition.X), math.round(relativeMousePosition.Y)
 end
 
+--[=[
+	Reads a pixel at the given location
+
+	```lua
+	local OSGL = require(path.to.osgl)
+	local draw = OSGL.draw
+	local Window = OSGL.Window
+	local color = OSGL.color
+
+	-- Creates a new EditableImage
+	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+
+	draw.pixel(1, 1, color.RED)
+	myWindow:Render()
+
+	print(color.r(myWindow:ReadPixel(1, 1))) -- 255
+	```
+	@within DrawableObject
+	@return Color
+]=]
 function DrawableObject.ReadPixel<P>(self: DrawableObject<P>, x: number, y: number): types.Color
     return self.pixelStorage:ReadPixel(x, y, self.sizeX)
 end
 
+--[=[
+	Writes a pixel at the given location
+
+	```lua
+	local OSGL = require(path.to.osgl)
+	local draw = OSGL.draw
+	local Window = OSGL.Window
+	local color = OSGL.color
+
+	-- Creates a new EditableImage
+	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+	myWindow:WritePixel(1, 1, color.RED)
+	```
+	@within DrawableObject
+]=]
 function DrawableObject.WritePixel<P>(self: DrawableObject<P>, x: number, y: number, newColor: types.Color)
     self.pixelStorage:WritePixel(x, y, self.sizeX, newColor)
 end
 
+--[=[
+	Tints the entire of a window or texture
+
+	```lua
+	local OSGL = require(path.to.osgl)
+	local draw = OSGL.draw
+	local Window = OSGL.Window
+	local color = OSGL.color
+
+	-- Creates a new EditableImage
+	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+	myWindow:Tint(color.RED, .5)
+	```
+	@within DrawableObject
+]=]
 function DrawableObject.Tint<P>(self: DrawableObject<P>, tint: types.Color, tintFactor: number)
     self:TintRegion(tint, tintFactor, 0, 0, self.sizeX - 1, self.sizeY - 1)
 end
 
+--[=[
+	Tints a section of a window or texture
+
+	```lua
+	local OSGL = require(path.to.osgl)
+	local draw = OSGL.draw
+	local Window = OSGL.Window
+	local color = OSGL.color
+
+	-- Creates a new EditableImage
+	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+	myWindow:TintRegion(color.RED, .5, 1, 1, 25, 25)
+	```
+	@within DrawableObject
+]=]
 function DrawableObject.TintRegion<P>(
     self: DrawableObject<P>,
     tint: types.Color,
@@ -79,6 +168,21 @@ function DrawableObject.TintRegion<P>(
     end
 end
 
+--[=[
+	Fills a section of a window or texture with a color
+
+	```lua
+	local OSGL = require(path.to.osgl)
+	local draw = OSGL.draw
+	local Window = OSGL.Window
+	local color = OSGL.color
+
+	-- Creates a new EditableImage
+	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+	myWindow:FloodFill(color.RED, 5, 5)
+	```
+	@within DrawableObject
+]=]
 function DrawableObject.FloodFill<P>(
     self: DrawableObject<P>,
     newColor: types.Color,

@@ -25,7 +25,7 @@ for x = 0, SIZE_X - 1 do
     end
 end
 sprite:Draw(myWindow)
-
+myWindow:wr()
 myWindow:Render()
 task.wait(1)
 myWindow:Tint(color.RED, 0.5)

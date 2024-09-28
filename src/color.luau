@@ -114,7 +114,7 @@ end
     local almostRed = color.setR(color.BLACK, 100)
     ```
 
-    @param color Color -- The color to edit
+    @param c Color -- The color to edit
     @param r number -- The new value
     @within Color
     @return number
@@ -141,7 +141,7 @@ end
     local almostGreen = color.setG(color.BLACK, 100)
     ```
 
-    @param color Color -- The color to edit
+    @param c Color -- The color to edit
     @param g number -- The new value
     @within Color
     @return number
@@ -168,7 +168,7 @@ end
     local almostBlue = color.setB(color.BLACK, 100)
     ```
 
-    @param color Color -- The color to edit
+    @param c Color -- The color to edit
     @param b number -- The new value
     @within Color
     @return number
@@ -195,7 +195,7 @@ end
     local almostBlack = color.setA(color.TRANSPARENT, 100)
     ```
 
-    @param color Color -- The color to edit
+    @param c Color -- The color to edit
     @param a number -- The new value
     @within Color
     @return number
