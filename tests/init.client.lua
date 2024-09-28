@@ -27,3 +27,6 @@ end
 sprite:Draw(myWindow)
 
 myWindow:Render()
+task.wait(1)
+myWindow:Tint(color.RED, 0.5)
+myWindow:Render()
