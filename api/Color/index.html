@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v2.3.1">
-<title data-rh="true">Color | OSGL</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Color"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Color | OSGL"><meta data-rh="true" name="description" content="The color class. Handles manipulations of color values."><meta data-rh="true" property="og:description" content="The color class. Handles manipulations of color values."><link data-rh="true" rel="canonical" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Color"><link data-rh="true" rel="alternate" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Color" hreflang="en"><link data-rh="true" rel="alternate" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Color" hreflang="x-default"><link rel="stylesheet" href="/osgl-graphics/assets/css/styles.6b33bbd6.css">
-<link rel="preload" href="/osgl-graphics/assets/js/runtime~main.ca29455e.js" as="script">
-<link rel="preload" href="/osgl-graphics/assets/js/main.2ce97c02.js" as="script">
+<title data-rh="true">Color | OSGL</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Color"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Color | OSGL"><meta data-rh="true" name="description" content="The color class. Handles manipulations of color values."><meta data-rh="true" property="og:description" content="The color class. Handles manipulations of color values."><link data-rh="true" rel="canonical" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Color"><link data-rh="true" rel="alternate" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Color" hreflang="en"><link data-rh="true" rel="alternate" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Color" hreflang="x-default"><link rel="stylesheet" href="/osgl-graphics/assets/css/styles.e1adec2f.css">
+<link rel="preload" href="/osgl-graphics/assets/js/runtime~main.437a75a9.js" as="script">
+<link rel="preload" href="/osgl-graphics/assets/js/main.b682f1f9.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
 <script>!function(){function e(e){document.documentElement.setAttribute("data-theme",e)}var t=function(){var e=null;try{e=localStorage.getItem("theme")}catch(e){}return e}();null!==t?e(t):window.matchMedia("(prefers-color-scheme: dark)").matches?e("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,e("light"))}()</script><div id="__docusaurus">
-<div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/osgl-graphics/"><b class="navbar__title text--truncate">OSGL</b></a><a class="navbar__item navbar__link" href="/osgl-graphics/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/osgl-graphics/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/Gunshot-Sound-Studios/osgl-graphics" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="searchBox_ZlJk"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input type="search" id="search_input_react" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0 docPageContainer_wNNk"><div class="docPage_Dpn1"><div class="docSidebarContainer_o_re"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/osgl-graphics/api/Color">​Color</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Draw">​Draw</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Sprite">​Sprite</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Texture">​Texture</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Window">​Window</a></li></ul></nav></div></div><main class="docMainContainer_HJE1"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_MU3C"><div class="docItemContainer_Wv98"><article><div class="member_J0w1 markdown"><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_oUs_"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><header><h1 class="docTitle_mZRt" style="text-decoration:none"><span style="display:inline-block">Color</span></h1><div class="luaClassTags_EipM"></div><div>
+<div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/osgl-graphics/"><b class="navbar__title text--truncate">OSGL</b></a><a class="navbar__item navbar__link" href="/osgl-graphics/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/osgl-graphics/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/Gunshot-Sound-Studios/osgl-graphics" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="searchBox_ZlJk"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input type="search" id="search_input_react" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0 docPageContainer_wNNk"><div class="docPage_Dpn1"><div class="docSidebarContainer_o_re"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/osgl-graphics/api/Color">​Color</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Draw">​Draw</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/DrawableObject">​Drawable​Object</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Sprite">​Sprite</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Texture">​Texture</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Window">​Window</a></li></ul></nav></div></div><main class="docMainContainer_HJE1"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_MU3C"><div class="docItemContainer_Wv98"><article><div class="member_J0w1 markdown"><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_oUs_"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><header><h1 class="docTitle_mZRt" style="text-decoration:none"><span style="display:inline-block">Color</span></h1><div class="luaClassTags_EipM"></div><div>
 <p>The color class. Handles manipulations of color values.</p>
-</div></header><h2 class="anchor anchorWithStickyNavbar_LWe7" id="types">Types<a href="#types" class="hash-link" aria-label="Direct link to Types" title="Direct link to Types">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Color"><code style="text-decoration:none">Color</code><a href="#Color" class="hash-link" aria-label="Direct link to Color" title="Direct link to Color">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/types.luau#L36"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">type</code> <code>Color<!-- --> = </code> <code class="blue_P4bS">number</code></div><div>
+</div></header><h2 class="anchor anchorWithStickyNavbar_LWe7" id="types">Types<a href="#types" class="hash-link" aria-label="Direct link to Types" title="Direct link to Types">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Color"><code style="text-decoration:none">Color</code><a href="#Color" class="hash-link" aria-label="Direct link to Color" title="Direct link to Color">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/types.luau#L39"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">type</code> <code>Color<!-- --> = </code> <code class="blue_P4bS">number</code></div><div>
 <pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
 <span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
 ​
@@ -20,25 +20,25 @@
 <span class="token comment">-- defaulted to 255.</span>
 <span class="token keyword">local</span> myAwesomeRedColor <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span>
 </code></pre>
-</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="properties">Properties<a href="#properties" class="hash-link" aria-label="Direct link to Properties" title="Direct link to Properties">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="RED"><code style="text-decoration:none">RED</code><a href="#RED" class="hash-link" aria-label="Direct link to RED" title="Direct link to RED">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L177"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->RED<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
+</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="properties">Properties<a href="#properties" class="hash-link" aria-label="Direct link to Properties" title="Direct link to Properties">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="RED"><code style="text-decoration:none">RED</code><a href="#RED" class="hash-link" aria-label="Direct link to RED" title="Direct link to RED">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L335"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->RED<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
 <p>A red color</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GREEN"><code style="text-decoration:none">GREEN</code><a href="#GREEN" class="hash-link" aria-label="Direct link to GREEN" title="Direct link to GREEN">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L182"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->GREEN<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GREEN"><code style="text-decoration:none">GREEN</code><a href="#GREEN" class="hash-link" aria-label="Direct link to GREEN" title="Direct link to GREEN">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L340"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->GREEN<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
 <p>A green color</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="BLUE"><code style="text-decoration:none">BLUE</code><a href="#BLUE" class="hash-link" aria-label="Direct link to BLUE" title="Direct link to BLUE">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L187"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->BLUE<!-- -->:<!-- --> </code> <code class="blue_P4bS">color</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="BLUE"><code style="text-decoration:none">BLUE</code><a href="#BLUE" class="hash-link" aria-label="Direct link to BLUE" title="Direct link to BLUE">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L345"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->BLUE<!-- -->:<!-- --> </code> <code class="blue_P4bS">color</code></div><div>
 <p>A blue color</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="WHITE"><code style="text-decoration:none">WHITE</code><a href="#WHITE" class="hash-link" aria-label="Direct link to WHITE" title="Direct link to WHITE">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L192"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->WHITE<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="WHITE"><code style="text-decoration:none">WHITE</code><a href="#WHITE" class="hash-link" aria-label="Direct link to WHITE" title="Direct link to WHITE">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L350"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->WHITE<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
 <p>A white color</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="BLACK"><code style="text-decoration:none">BLACK</code><a href="#BLACK" class="hash-link" aria-label="Direct link to BLACK" title="Direct link to BLACK">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L197"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->BLACK<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="BLACK"><code style="text-decoration:none">BLACK</code><a href="#BLACK" class="hash-link" aria-label="Direct link to BLACK" title="Direct link to BLACK">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L355"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->BLACK<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
 <p>A black color</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="YELLOW"><code style="text-decoration:none">YELLOW</code><a href="#YELLOW" class="hash-link" aria-label="Direct link to YELLOW" title="Direct link to YELLOW">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L202"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->YELLOW<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="YELLOW"><code style="text-decoration:none">YELLOW</code><a href="#YELLOW" class="hash-link" aria-label="Direct link to YELLOW" title="Direct link to YELLOW">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L360"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->YELLOW<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
 <p>A yellow color</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="MAGENTA"><code style="text-decoration:none">MAGENTA</code><a href="#MAGENTA" class="hash-link" aria-label="Direct link to MAGENTA" title="Direct link to MAGENTA">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L207"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->MAGENTA<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="MAGENTA"><code style="text-decoration:none">MAGENTA</code><a href="#MAGENTA" class="hash-link" aria-label="Direct link to MAGENTA" title="Direct link to MAGENTA">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L365"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->MAGENTA<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
 <p>A magenta color</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="CYAN"><code style="text-decoration:none">CYAN</code><a href="#CYAN" class="hash-link" aria-label="Direct link to CYAN" title="Direct link to CYAN">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L212"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->CYAN<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="CYAN"><code style="text-decoration:none">CYAN</code><a href="#CYAN" class="hash-link" aria-label="Direct link to CYAN" title="Direct link to CYAN">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L370"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->CYAN<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
 <p>A cyan color</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="TRANSPARENT"><code style="text-decoration:none">TRANSPARENT</code><a href="#TRANSPARENT" class="hash-link" aria-label="Direct link to TRANSPARENT" title="Direct link to TRANSPARENT">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L217"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->TRANSPARENT<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="TRANSPARENT"><code style="text-decoration:none">TRANSPARENT</code><a href="#TRANSPARENT" class="hash-link" aria-label="Direct link to TRANSPARENT" title="Direct link to TRANSPARENT">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L375"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.<!-- -->TRANSPARENT<!-- -->:<!-- --> </code> <code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><div>
 <p>A completely transparent color</p>
-</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="new"><code style="text-decoration:none">new</code><a href="#new" class="hash-link" aria-label="Direct link to new" title="Direct link to new">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L50"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">new</code><code>(</code><div class="inset_uKQm"><div><code>red<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code></div><div><code>green<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code></div><div><code>blue<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code></div><div><code>alpha<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
+</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="new"><code style="text-decoration:none">new</code><a href="#new" class="hash-link" aria-label="Direct link to new" title="Direct link to new">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L56"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">new</code><code>(</code><div class="inset_uKQm"><div><code>r<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code></div><div><code>g<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code></div><div><code>b<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code></div><div><code>a<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
 <p>Returns a color Value</p>
 </span></span></div><div>
 <p>
@@ -53,7 +53,93 @@
 <span class="token comment">-- defaulted to 255.</span>
 <span class="token keyword">local</span> myAwesomeRedColor <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span>
 </code></pre>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="read"><code style="text-decoration:none">read</code><a href="#read" class="hash-link" aria-label="Direct link to read" title="Direct link to read">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L81"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">read</code><code>(</code><div class="inset_uKQm"><div><code>rgbaColor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="newRGB"><code style="text-decoration:none">newRGB</code><a href="#newRGB" class="hash-link" aria-label="Direct link to newRGB" title="Direct link to newRGB">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L86"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">newRGB</code><code>(</code><div class="inset_uKQm"><div><code>r<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code></div><div><code>g<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code></div><div><code>b<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>Returns a color Value</p>
+</span></span></div><div>
+<p>
+  Creates a new color value with the alpha channel being 255. Values cannot be changed
+  manually and must be changed via a function.
+</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
+
+<span class="token comment">-- All other parameters are defaulted</span>
+<span class="token comment">-- to 0.</span>
+<span class="token keyword">local</span> myAwesomeRedColor <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">newRGB</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="setR"><code style="text-decoration:none">setR</code><a href="#setR" class="hash-link" aria-label="Direct link to setR" title="Direct link to setR">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L122"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">setR</code><code>(</code><div class="inset_uKQm"><div><code>c<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The color to edit</p>
+</span></span></div><div><code>r<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>The new value</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS">number</code></div><div>
+<p>Sets the 'r' channel of the color.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
+
+<span class="token keyword">local</span> c <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">setR</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>RED<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span><span class="token function">r</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- Ouput:  100</span>
+</code></pre>
+<p>
+  For performance boost, if you're creating colors using only 1 or 2 channels, you
+  should do:
+</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> almostRed <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">setR</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>BLACK<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="setG"><code style="text-decoration:none">setG</code><a href="#setG" class="hash-link" aria-label="Direct link to setG" title="Direct link to setG">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L149"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">setG</code><code>(</code><div class="inset_uKQm"><div><code>c<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The color to edit</p>
+</span></span></div><div><code>g<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>The new value</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS">number</code></div><div>
+<p>Sets the 'g' channel of the color.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
+
+<span class="token keyword">local</span> c <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">setG</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>GREEN<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span><span class="token function">g</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- Ouput:  100</span>
+</code></pre>
+<p>
+  For performance boost, if you're creating colors using only 1 or 2 channels, you
+  should do:
+</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> almostGreen <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">setG</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>BLACK<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="setB"><code style="text-decoration:none">setB</code><a href="#setB" class="hash-link" aria-label="Direct link to setB" title="Direct link to setB">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L176"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">setB</code><code>(</code><div class="inset_uKQm"><div><code>c<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The color to edit</p>
+</span></span></div><div><code>b<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>The new value</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS">number</code></div><div>
+<p>Sets the 'b' channel of the color.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
+
+<span class="token keyword">local</span> c <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">setB</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>BLUE<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span><span class="token function">b</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- Ouput:  100</span>
+</code></pre>
+<p>
+  For performance boost, if you're creating colors using only 1 or 2 channels, you
+  should do:
+</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> almostBlue <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">setB</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>BLACK<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="setA"><code style="text-decoration:none">setA</code><a href="#setA" class="hash-link" aria-label="Direct link to setA" title="Direct link to setA">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L203"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">setA</code><code>(</code><div class="inset_uKQm"><div><code>c<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The color to edit</p>
+</span></span></div><div><code>a<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>The new value</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS">number</code></div><div>
+<p>Sets the 'a' channel of the color.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
+
+<span class="token keyword">local</span> c <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">setA</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>TRANSPARENT<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token function">print</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- Ouput:  100</span>
+</code></pre>
+<p>
+  For performance boost, if you're creating colors using only 1 or 2 channels, you
+  should do:
+</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> almostBlack <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">setA</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>TRANSPARENT<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="read"><code style="text-decoration:none">read</code><a href="#read" class="hash-link" aria-label="Direct link to read" title="Direct link to read">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L224"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">read</code><code>(</code><div class="inset_uKQm"><div><code>rgbaColor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
 <p>The color to read</p>
 </span></span></div></div><code>) → </code><code class="purple_ieR2">{</code><code class="blue_P4bS">number</code><code class="purple_ieR2">}</code></div><div>
 <p>Reads the value of the color</p>
@@ -65,7 +151,7 @@
 <span class="token keyword">local</span> myAwesomeRedColor <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span>
 <span class="token function">print</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>myAwesomeRedColor<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- Output: { 255, 0, 0, 255 }</span>
 </code></pre>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="r"><code style="text-decoration:none">r</code><a href="#r" class="hash-link" aria-label="Direct link to r" title="Direct link to r">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L107"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">r</code><code>(</code><div class="inset_uKQm"><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="r"><code style="text-decoration:none">r</code><a href="#r" class="hash-link" aria-label="Direct link to r" title="Direct link to r">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L250"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">r</code><code>(</code><div class="inset_uKQm"><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
 <p>The color to read</p>
 </span></span></div></div><code>) → </code><code class="blue_P4bS">number</code></div><div>
 <p>Reads the 'r' value of the color</p>
@@ -77,7 +163,7 @@
 <span class="token keyword">local</span> myAwesomeRedColor <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span>
 print color<span class="token punctuation">.</span><span class="token function">r</span><span class="token punctuation">(</span>myAwesomeRedColor<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- Ouput:  255</span>
 </code></pre>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="g"><code style="text-decoration:none">g</code><a href="#g" class="hash-link" aria-label="Direct link to g" title="Direct link to g">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L128"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">g</code><code>(</code><div class="inset_uKQm"><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="g"><code style="text-decoration:none">g</code><a href="#g" class="hash-link" aria-label="Direct link to g" title="Direct link to g">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L271"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">g</code><code>(</code><div class="inset_uKQm"><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
 <p>The color to read</p>
 </span></span></div></div><code>) → </code><code class="blue_P4bS">number</code></div><div>
 <p>Reads the 'g' value of the color</p>
@@ -89,7 +175,7 @@ print color<span class="token punctuation">.</span><span class="token function">
 <span class="token keyword">local</span> myAwesomeRedColor <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span>
 print color<span class="token punctuation">.</span><span class="token function">g</span><span class="token punctuation">(</span>myAwesomeRedColor<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- Ouput:  0</span>
 </code></pre>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="b"><code style="text-decoration:none">b</code><a href="#b" class="hash-link" aria-label="Direct link to b" title="Direct link to b">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L149"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">b</code><code>(</code><div class="inset_uKQm"><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="b"><code style="text-decoration:none">b</code><a href="#b" class="hash-link" aria-label="Direct link to b" title="Direct link to b">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L292"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">b</code><code>(</code><div class="inset_uKQm"><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
 <p>The color to read</p>
 </span></span></div></div><code>) → </code><code class="blue_P4bS">number</code></div><div>
 <p>Reads the 'b' value of the color</p>
@@ -101,7 +187,7 @@ print color<span class="token punctuation">.</span><span class="token function">
 <span class="token keyword">local</span> myAwesomeRedColor <span class="token operator">=</span> color<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">)</span>
 print color<span class="token punctuation">.</span><span class="token function">b</span><span class="token punctuation">(</span>myAwesomeRedColor<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">-- Ouput:  0</span>
 </code></pre>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="a"><code style="text-decoration:none">a</code><a href="#a" class="hash-link" aria-label="Direct link to a" title="Direct link to a">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L170"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">a</code><code>(</code><div class="inset_uKQm"><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="a"><code style="text-decoration:none">a</code><a href="#a" class="hash-link" aria-label="Direct link to a" title="Direct link to a">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/color.luau#L313"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Color<!-- -->.</code><code class="green_DgR4">a</code><code>(</code><div class="inset_uKQm"><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
 <p>The color to read</p>
 </span></span></div></div><code>) → </code><code class="blue_P4bS">number</code></div><div>
 <p>Reads the 'a' value of the color</p>
@@ -120,22 +206,22 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;Creates a new color value. Values cannot be changed manually and must be changed\nvia a function.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal color = OSGL.color\n\n-- All other parameters are defaulted\n-- to 0, except for alpha, which is\n-- defaulted to 255.\nlocal myAwesomeRedColor = color.new(255)\n```&quot;,
             &quot;params&quot;: [
                 {
-                    &quot;name&quot;: &quot;red&quot;,
+                    &quot;name&quot;: &quot;r&quot;,
                     &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;number?&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;green&quot;,
+                    &quot;name&quot;: &quot;g&quot;,
                     &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;number?&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;blue&quot;,
+                    &quot;name&quot;: &quot;b&quot;,
                     &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;number?&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;alpha&quot;,
+                    &quot;name&quot;: &quot;a&quot;,
                     &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;number?&quot;
                 }
@@ -148,13 +234,153 @@ print color<span class="token punctuation">.</span><span class="token function">
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 50,
+                &quot;line&quot;: 56,
+                &quot;path&quot;: &quot;src/color.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;newRGB&quot;,
+            &quot;desc&quot;: &quot;Creates a new color value with the alpha channel being 255. Values cannot be changed\nmanually and must be changed via a function.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal color = OSGL.color\n\n-- All other parameters are defaulted\n-- to 0.\nlocal myAwesomeRedColor = color.newRGB(255)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;r&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;g&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;b&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;Returns a color Value&quot;,
+                    &quot;lua_type&quot;: &quot;Color&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 86,
+                &quot;path&quot;: &quot;src/color.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;setR&quot;,
+            &quot;desc&quot;: &quot;Sets the &#x27;r&#x27; channel of the color.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal color = OSGL.color\n\nlocal c = color.setR(color.RED, 100)\nprint(color.r(c)) -- Ouput:  100\n```\n\nFor performance boost, if you&#x27;re creating colors using only 1 or 2 channels, you\nshould do:\n\n```lua\nlocal almostRed = color.setR(color.BLACK, 100)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;c&quot;,
+                    &quot;desc&quot;: &quot;The color to edit&quot;,
+                    &quot;lua_type&quot;: &quot;Color&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;r&quot;,
+                    &quot;desc&quot;: &quot;The new value&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 122,
+                &quot;path&quot;: &quot;src/color.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;setG&quot;,
+            &quot;desc&quot;: &quot;Sets the &#x27;g&#x27; channel of the color.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal color = OSGL.color\n\nlocal c = color.setG(color.GREEN, 100)\nprint(color.g(c)) -- Ouput:  100\n```\n\nFor performance boost, if you&#x27;re creating colors using only 1 or 2 channels, you\nshould do:\n\n```lua\nlocal almostGreen = color.setG(color.BLACK, 100)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;c&quot;,
+                    &quot;desc&quot;: &quot;The color to edit&quot;,
+                    &quot;lua_type&quot;: &quot;Color&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;g&quot;,
+                    &quot;desc&quot;: &quot;The new value&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 149,
+                &quot;path&quot;: &quot;src/color.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;setB&quot;,
+            &quot;desc&quot;: &quot;Sets the &#x27;b&#x27; channel of the color.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal color = OSGL.color\n\nlocal c = color.setB(color.BLUE, 100)\nprint(color.b(c)) -- Ouput:  100\n```\n\nFor performance boost, if you&#x27;re creating colors using only 1 or 2 channels, you\nshould do:\n\n```lua\nlocal almostBlue = color.setB(color.BLACK, 100)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;c&quot;,
+                    &quot;desc&quot;: &quot;The color to edit&quot;,
+                    &quot;lua_type&quot;: &quot;Color&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;b&quot;,
+                    &quot;desc&quot;: &quot;The new value&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 176,
+                &quot;path&quot;: &quot;src/color.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;setA&quot;,
+            &quot;desc&quot;: &quot;Sets the &#x27;a&#x27; channel of the color.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal color = OSGL.color\n\nlocal c = color.setA(color.TRANSPARENT, 100)\nprint(color.a(c)) -- Ouput:  100\n```\n\nFor performance boost, if you&#x27;re creating colors using only 1 or 2 channels, you\nshould do:\n\n```lua\nlocal almostBlack = color.setA(color.TRANSPARENT, 100)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;c&quot;,
+                    &quot;desc&quot;: &quot;The color to edit&quot;,
+                    &quot;lua_type&quot;: &quot;Color&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;a&quot;,
+                    &quot;desc&quot;: &quot;The new value&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 203,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
         {
             &quot;name&quot;: &quot;read&quot;,
-            &quot;desc&quot;: &quot;Reads the value of the color\n\n ```lua\nlocal OSGL = require(path.to.osgl)\nlocal color = OSGL.color\n\n-- All other parameters are defaulted to 0, except for alpha,\n-- which is defaulted to 255.\nlocal myAwesomeRedColor = color.new(255)\nprint(color.read(myAwesomeRedColor)) -- Output: { 255, 0, 0, 255 }\n```&quot;,
+            &quot;desc&quot;: &quot;Reads the value of the color\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal color = OSGL.color\n\n-- All other parameters are defaulted to 0, except for alpha,\n-- which is defaulted to 255.\nlocal myAwesomeRedColor = color.new(255)\nprint(color.read(myAwesomeRedColor)) -- Output: { 255, 0, 0, 255 }\n```&quot;,
             &quot;params&quot;: [
                 {
                     &quot;name&quot;: &quot;rgbaColor&quot;,
@@ -170,7 +396,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 81,
+                &quot;line&quot;: 224,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -192,7 +418,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 107,
+                &quot;line&quot;: 250,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -214,7 +440,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 128,
+                &quot;line&quot;: 271,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -236,7 +462,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 149,
+                &quot;line&quot;: 292,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -258,7 +484,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 170,
+                &quot;line&quot;: 313,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         }
@@ -269,7 +495,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;A red color\r&quot;,
             &quot;lua_type&quot;: &quot;Color&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 177,
+                &quot;line&quot;: 335,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -278,7 +504,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;A green color\r&quot;,
             &quot;lua_type&quot;: &quot;Color&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 182,
+                &quot;line&quot;: 340,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -287,7 +513,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;A blue color\r&quot;,
             &quot;lua_type&quot;: &quot;color&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 187,
+                &quot;line&quot;: 345,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -296,7 +522,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;A white color\r&quot;,
             &quot;lua_type&quot;: &quot;Color&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 192,
+                &quot;line&quot;: 350,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -305,7 +531,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;A black color\r&quot;,
             &quot;lua_type&quot;: &quot;Color&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 197,
+                &quot;line&quot;: 355,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -314,7 +540,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;A yellow color\r&quot;,
             &quot;lua_type&quot;: &quot;Color&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 202,
+                &quot;line&quot;: 360,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -323,7 +549,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;A magenta color\r&quot;,
             &quot;lua_type&quot;: &quot;Color&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 207,
+                &quot;line&quot;: 365,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -332,7 +558,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;A cyan color\r&quot;,
             &quot;lua_type&quot;: &quot;Color&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 212,
+                &quot;line&quot;: 370,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         },
@@ -341,7 +567,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;A completely transparent color\r&quot;,
             &quot;lua_type&quot;: &quot;Color&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 217,
+                &quot;line&quot;: 375,
                 &quot;path&quot;: &quot;src/color.luau&quot;
             }
         }
@@ -352,7 +578,7 @@ print color<span class="token punctuation">.</span><span class="token function">
             &quot;desc&quot;: &quot;```lua\nlocal OSGL = require(path.to.osgl)\nlocal color = OSGL.color\n​\n-- All other parameters are defaulted\n-- to 0, except for alpha, which is\n-- defaulted to 255.\nlocal myAwesomeRedColor = color.new(255)\n```\r&quot;,
             &quot;lua_type&quot;: &quot;number&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 36,
+                &quot;line&quot;: 39,
                 &quot;path&quot;: &quot;src/types.luau&quot;
             }
         }
@@ -360,11 +586,11 @@ print color<span class="token punctuation">.</span><span class="token function">
     &quot;name&quot;: &quot;Color&quot;,
     &quot;desc&quot;: &quot;The color class. Handles manipulations of color values.&quot;,
     &quot;source&quot;: {
-        &quot;line&quot;: 31,
+        &quot;line&quot;: 37,
         &quot;path&quot;: &quot;src/color.luau&quot;
     }
-}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a><ul><li><a href="#Color" class="table-of-contents__link toc-highlight">Color</a></li></ul></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a><ul><li><a href="#BLACK" class="table-of-contents__link toc-highlight">BLACK</a></li><li><a href="#BLUE" class="table-of-contents__link toc-highlight">BLUE</a></li><li><a href="#CYAN" class="table-of-contents__link toc-highlight">CYAN</a></li><li><a href="#GREEN" class="table-of-contents__link toc-highlight">GREEN</a></li><li><a href="#MAGENTA" class="table-of-contents__link toc-highlight">MAGENTA</a></li><li><a href="#RED" class="table-of-contents__link toc-highlight">RED</a></li><li><a href="#TRANSPARENT" class="table-of-contents__link toc-highlight">TRANSPARENT</a></li><li><a href="#WHITE" class="table-of-contents__link toc-highlight">WHITE</a></li><li><a href="#YELLOW" class="table-of-contents__link toc-highlight">YELLOW</a></li></ul></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#a" class="table-of-contents__link toc-highlight">.a</a></li><li><a href="#b" class="table-of-contents__link toc-highlight">.b</a></li><li><a href="#g" class="table-of-contents__link toc-highlight">.g</a></li><li><a href="#new" class="table-of-contents__link toc-highlight">.new</a></li><li><a href="#r" class="table-of-contents__link toc-highlight">.r</a></li><li><a href="#read" class="table-of-contents__link toc-highlight">.read</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 Gunshot Sound Studios.</div></div></div></footer></div>
-<script src="/osgl-graphics/assets/js/runtime~main.ca29455e.js"></script>
-<script src="/osgl-graphics/assets/js/main.2ce97c02.js"></script>
+}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a><ul><li><a href="#Color" class="table-of-contents__link toc-highlight">Color</a></li></ul></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a><ul><li><a href="#BLACK" class="table-of-contents__link toc-highlight">BLACK</a></li><li><a href="#BLUE" class="table-of-contents__link toc-highlight">BLUE</a></li><li><a href="#CYAN" class="table-of-contents__link toc-highlight">CYAN</a></li><li><a href="#GREEN" class="table-of-contents__link toc-highlight">GREEN</a></li><li><a href="#MAGENTA" class="table-of-contents__link toc-highlight">MAGENTA</a></li><li><a href="#RED" class="table-of-contents__link toc-highlight">RED</a></li><li><a href="#TRANSPARENT" class="table-of-contents__link toc-highlight">TRANSPARENT</a></li><li><a href="#WHITE" class="table-of-contents__link toc-highlight">WHITE</a></li><li><a href="#YELLOW" class="table-of-contents__link toc-highlight">YELLOW</a></li></ul></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#a" class="table-of-contents__link toc-highlight">.a</a></li><li><a href="#b" class="table-of-contents__link toc-highlight">.b</a></li><li><a href="#g" class="table-of-contents__link toc-highlight">.g</a></li><li><a href="#new" class="table-of-contents__link toc-highlight">.new</a></li><li><a href="#newRGB" class="table-of-contents__link toc-highlight">.newRGB</a></li><li><a href="#r" class="table-of-contents__link toc-highlight">.r</a></li><li><a href="#read" class="table-of-contents__link toc-highlight">.read</a></li><li><a href="#setA" class="table-of-contents__link toc-highlight">.setA</a></li><li><a href="#setB" class="table-of-contents__link toc-highlight">.setB</a></li><li><a href="#setG" class="table-of-contents__link toc-highlight">.setG</a></li><li><a href="#setR" class="table-of-contents__link toc-highlight">.setR</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 Gunshot Sound Studios.</div></div></div></footer></div>
+<script src="/osgl-graphics/assets/js/runtime~main.437a75a9.js"></script>
+<script src="/osgl-graphics/assets/js/main.b682f1f9.js"></script>
 </body>
 </html>
