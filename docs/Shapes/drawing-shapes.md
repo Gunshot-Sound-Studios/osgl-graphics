@@ -3,7 +3,8 @@ sidebar_position: 1
 ---
 
 # Drawing Shapes
-Below is a list of shapes in OSGL as of version `1.2b`:
+
+Below is a list of shapes in OSGL as of version `1.3b`:
 
 | Shape | Supported | Supports Rotation | Supports Stroke | Notes |
 | ----- | --------- | ----------------- | --------------- | ----- |
@@ -20,16 +21,16 @@ Here's an example of drawing a rectangle:
 
 ```lua
 draw.rectangle(window, {
-	xPos = 0,
-	yPos = 0,
-	width = 5,
-	height = 5,
-	fillColor = color.RED,
+    xPos = 0,
+    yPos = 0,
+    width = 5,
+    height = 5,
+    fillColor = color.RED,
 
-	-- Rotation defaults to 0.
-	-- Strokes are completely optional
-	strokeColor = color.BLACK,
-	strokeThickness = 2
+    -- Rotation defaults to 0.
+    -- Strokes are completely optional
+    strokeColor = color.BLACK,
+    strokeThickness = 2
 })
 ```
 

@@ -29,6 +29,7 @@ local myWindow = Window.from(path.to.editableImage, { sizeX = 50, sizeY = 50 })
 local txt = -- *load texture*
 local mySprite = Sprite.new(myWindow, txt)
 mySprite:Draw(myWindow)
+myWindow:Render() -- Don't forget to render!
 ```
 
-Sprites also have an X and Y, meaning you can change the position of the sprite on the screen.
+Sprites also have an X and Y positions, meaning you can change the position of the sprite on the screen.

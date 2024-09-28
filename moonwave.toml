@@ -8,11 +8,15 @@ classOrder = []
 [docusaurus]
 onBrokenLinks = "throw"
 onBrokenMarkdownLinks = "warn"
+tagline = "User-friendly and highly efficient rendering module."
+
+[home]
+enabled = true
+includeReadme = false
 
 # From git:
-projectName = "OSGL" 
+projectName = "OSGL"
 
 [footer]
 style = "dark"
 copyright = "Copyright © 2024 Gunshot Sound Studios."
-
