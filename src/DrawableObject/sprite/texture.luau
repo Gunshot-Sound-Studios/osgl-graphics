@@ -43,13 +43,15 @@ local function loadTxt<P>(txt: types.FlagTexture): types.Texture<P>
     for _, v in ipairs(txt.pixels) do
         if type(v) == "number" then
             pixelStorage:WriteIndex(i, v)
-            i += 1
+            -- just offsetting by 1 pixel.
+            i = pixelStorage:OffsetIndex(i, 1, 0, 0)
         else
             -- This is a flag. For now, there's only an `r` flag.
             local repetitions, color = string.match(v, "(%d+)-(%d+)")
             for _ = 1, repetitions do
                 pixelStorage:WriteIndex(i, color)
-                i += 1
+                -- just offsetting by 1 pixel.
+                i = pixelStorage:OffsetIndex(i, 1, 0, 0)
             end
         end
     end
