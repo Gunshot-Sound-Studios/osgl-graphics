@@ -6,7 +6,7 @@ local UserInputService = game:GetService("UserInputService")
 
 local OSGL = script.Parent
 local types = require(OSGL.types)
-local privateTypes = require(script.types)
+local color = require(OSGL.color)
 local config = require(OSGL.config)
 local PixelStorage
 do
@@ -21,7 +21,7 @@ local DrawableObject = {}
 DrawableObject.__index = DrawableObject
 DrawableObject.PixelStorage = PixelStorage
 
-type DrawableObject<P> = types.Drawable<P>
+type DrawableObject<P> = types.DrawableObject<P>
 
 function DrawableObject.GetRelativeMouse<P>(self: DrawableObject<P>): (boolean, number, number)
     local sizeFactor = self.size / self.renderer.Parent.AbsoluteSize
@@ -39,6 +39,31 @@ end
 
 function DrawableObject.WritePixel<P>(self: DrawableObject<P>, x: number, y: number, newColor: types.Color)
     self.pixelStorage:WritePixel(x, y, self.sizeX, newColor)
+end
+
+function DrawableObject.Tint<P>(self: DrawableObject<P>, tint: types.Color, tintFactor: number)
+    self:TintRegion(tint, tintFactor, 0, 0, self.sizeX - 1, self.sizeY - 1)
+end
+
+function DrawableObject.TintRegion<P>(
+    self: DrawableObject<P>,
+    tint: types.Color,
+    tintFactor: number,
+    x: number,
+    y: number,
+    width: number,
+    height: number
+)
+    for x = x, x + width do
+        for y = y, y + height do
+            self.pixelStorage:WritePixel(
+                x,
+                y,
+                self.sizeX,
+                color.tint(self.pixelStorage:ReadPixel(x, y, self.sizeX), tint, tintFactor)
+            )
+        end
+    end
 end
 
 return DrawableObject

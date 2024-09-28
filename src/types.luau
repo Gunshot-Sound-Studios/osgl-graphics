@@ -147,6 +147,16 @@ export type DrawableObject<P> = {
     GetRelativeMouse: (self: Window<P>) -> (number, number),
     ReadPixel: (self: Window<P>, x: number, y: number) -> Color,
     WritePixel: (self: Window<P>, x: number, y: number, newColor: Color) -> (),
+    Tint: (self: DrawableObject<P>, tint: Color, tintFactor: number) -> (),
+    TintRegion: (
+        self: DrawableObject<P>,
+        tint: Color,
+        tintFactor: number,
+        x: number,
+        y: number,
+        width: number,
+        height: number
+    ) -> (),
 }
 
 return nil
