@@ -79,4 +79,41 @@ function DrawableObject.TintRegion<P>(
     end
 end
 
+function DrawableObject.FloodFill<P>(
+    self: DrawableObject<P>,
+    newColor: types.Color,
+    x: number?,
+    y: number?
+)
+    x = x or 0
+    y = y or 0
+
+    local sizeX, sizeY = self.sizeX, self.sizeY
+    local originalColor = self:ReadPixel(x, y)
+
+    local seen = {}
+    local queue = { self.pixelStorage:GetIndex(x, y, sizeX) }
+
+    local MAX_INDEX = self.pixelStorage:GetIndex(sizeX - 1, sizeY - 1, sizeX)
+    while #queue > 0 do
+        local currentIndex = table.remove(queue)
+        if seen[currentIndex] or currentIndex < 0 or currentIndex > MAX_INDEX then
+            continue
+        end
+        seen[currentIndex] = true
+
+        local currentColor = self.pixelStorage:ReadIndex(currentIndex)
+        if currentColor ~= originalColor then
+            continue;
+        end
+
+        self.pixelStorage:WriteIndex(currentIndex, newColor)
+
+        table.insert(queue, self.pixelStorage:OffsetIndex(currentIndex, 1, 0, self.sizeX))
+        table.insert(queue, self.pixelStorage:OffsetIndex(currentIndex, -1, 0, self.sizeX))
+        table.insert(queue, self.pixelStorage:OffsetIndex(currentIndex, 0, 1, self.sizeX))
+        table.insert(queue, self.pixelStorage:OffsetIndex(currentIndex, 0, -1, self.sizeX))
+    end
+end
+
 return DrawableObject

@@ -157,6 +157,7 @@ export type DrawableObject<P> = {
         width: number,
         height: number
     ) -> (),
+    FloodFill: (self: DrawableObject<P>, newColor: Color, x: number?, y: number?) -> (),
 }
 
 return nil
