@@ -90,29 +90,32 @@ function DrawableObject.FloodFill<P>(
 
     local sizeX, sizeY = self.sizeX, self.sizeY
     local originalColor = self:ReadPixel(x, y)
+    local pixelStorage = self.pixelStorage
 
-    local seen = {}
-    local queue = { self.pixelStorage:GetIndex(x, y, sizeX) }
+    -- Creates more than enough memory, better optimization.
+    local checked = table.create(self.sizeX * self.sizeY, false)
+    local stack = table.create(self.sizeX * self.sizeY, 0)
+    stack[1] = pixelStorage:GetIndex(x, y, sizeX)
 
-    local MAX_INDEX = self.pixelStorage:GetIndex(sizeX - 1, sizeY - 1, sizeX)
-    while #queue > 0 do
-        local currentIndex = table.remove(queue)
-        if seen[currentIndex] or currentIndex < 0 or currentIndex > MAX_INDEX then
+    local MAX_INDEX = pixelStorage:GetIndex(sizeX - 1, sizeY - 1, sizeX)
+    while #stack > 0 do
+        local currentIndex = stack[#stack]
+        stack[#stack] = nil
+
+        if checked[currentIndex] or currentIndex < 0 or currentIndex > MAX_INDEX then
             continue
         end
-        seen[currentIndex] = true
+        checked[currentIndex] = true
 
-        local currentColor = self.pixelStorage:ReadIndex(currentIndex)
-        if currentColor ~= originalColor then
+        if pixelStorage:ReadIndex(currentIndex) ~= originalColor then
             continue;
         end
+        pixelStorage:WriteIndex(currentIndex, newColor)
 
-        self.pixelStorage:WriteIndex(currentIndex, newColor)
-
-        table.insert(queue, self.pixelStorage:OffsetIndex(currentIndex, 1, 0, self.sizeX))
-        table.insert(queue, self.pixelStorage:OffsetIndex(currentIndex, -1, 0, self.sizeX))
-        table.insert(queue, self.pixelStorage:OffsetIndex(currentIndex, 0, 1, self.sizeX))
-        table.insert(queue, self.pixelStorage:OffsetIndex(currentIndex, 0, -1, self.sizeX))
+        stack[#stack + 1] = pixelStorage:OffsetIndex(currentIndex, 1, 0, sizeX)
+        stack[#stack + 1] = pixelStorage:OffsetIndex(currentIndex, -1, 0, sizeX)
+        stack[#stack + 1] = pixelStorage:OffsetIndex(currentIndex, 0, 1, sizeX)
+        stack[#stack + 1] = pixelStorage:OffsetIndex(currentIndex, 0, -1, sizeX)
     end
 end
 
