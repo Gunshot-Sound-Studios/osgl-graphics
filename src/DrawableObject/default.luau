@@ -94,4 +94,8 @@ function PixelStorage.WriteIndex(self: PixelStorage, i: number, newColor: Pixel)
     self.pixels[i] = newColor
 end
 
+function PixelStorage.GetIndex(self: PixelStorage, x: number, y: number, sizeX: number): number
+    return (y * sizeX + x) + 1
+end
+
 return PixelStorage

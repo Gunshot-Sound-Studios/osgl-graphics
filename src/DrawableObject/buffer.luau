@@ -61,7 +61,11 @@ function PixelStorage.WritePixel(
 end
 
 function PixelStorage.WriteIndex(self: PixelStorage, i: number, newColor: Pixel)
-    buffer.writeu32(self.buffer, i * 4, newColor)
+    buffer.writeu32(self.buffer, i, newColor)
+end
+
+function PixelStorage.GetIndex(self: PixelStorage, x: number, y: number, sizeX: number): number
+    return (y * sizeX + x) * 4
 end
 
 return PixelStorage
