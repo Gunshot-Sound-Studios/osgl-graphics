@@ -7,6 +7,7 @@ local UserInputService = game:GetService("UserInputService")
 local OSGL = script.Parent
 local types = require(OSGL.types)
 local color = require(OSGL.color)
+local utils = require(OSGL.utils)
 local config = require(OSGL.config)
 local PixelStorage
 do
@@ -54,13 +55,25 @@ function DrawableObject.TintRegion<P>(
     width: number,
     height: number
 )
+    local tintR = color.r(tint)
+    local tintG = color.g(tint)
+    local tintB = color.b(tint)
+    local tintA = color.a(tint)
+
     for x = x, x + width do
         for y = y, y + height do
+            local pixelColor = self.pixelStorage:ReadPixel(x, y, self.sizeX)
+
             self.pixelStorage:WritePixel(
                 x,
                 y,
                 self.sizeX,
-                color.tint(self.pixelStorage:ReadPixel(x, y, self.sizeX), tint, tintFactor)
+                color.new(
+                    utils.lerp(color.r(pixelColor), tintR, tintFactor),
+                    utils.lerp(color.g(pixelColor), tintG, tintFactor),
+                    utils.lerp(color.b(pixelColor), tintB, tintFactor),
+                    utils.lerp(color.a(pixelColor), tintA, tintFactor)
+                )
             )
         end
     end

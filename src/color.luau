@@ -22,6 +22,7 @@
 ------------------------------------------------------------
 
 local types = require(script.Parent.types)
+local utils = require(script.Parent.utils)
 
 local bit32bor = bit32.bor
 local bit32lshift = bit32.lshift
@@ -34,10 +35,6 @@ local bit32band = bit32.band
     The color class. Handles manipulations of color values.
 ]=]
 local colorModule = {}
-
-local function lerp(n1: number, n2: number, factor: number): number
-    return math.floor((1 - factor) * n1 + factor * n2)
-end
 
 --[=[
     Creates a new color value. Values cannot be changed manually and must be changed
@@ -324,10 +321,10 @@ function colorModule.tint(color1: types.Color, color2: types.Color, factor: numb
         return color2
     else
         return colorModule.new(
-            lerp(colorModule.r(color1), colorModule.r(color2), factor),
-            lerp(colorModule.g(color1), colorModule.g(color2), factor),
-            lerp(colorModule.b(color1), colorModule.b(color2), factor),
-            lerp(colorModule.a(color1), colorModule.a(color2), factor)
+            utils.lerp(colorModule.r(color1), colorModule.r(color2), factor),
+            utils.lerp(colorModule.g(color1), colorModule.g(color2), factor),
+            utils.lerp(colorModule.b(color1), colorModule.b(color2), factor),
+            utils.lerp(colorModule.a(color1), colorModule.a(color2), factor)
         )
     end
 end
