@@ -41,7 +41,7 @@ local config = require(OSGL.config)
 
     The window class. Handles creations of OSGL-Windows.
     An OSGL window is the representation of the EditableImage
-    instance.
+    instance. Inherits everything from [DrawableObject].
 ]=]
 local Window = {}
 local WindowPrivate = {}
