@@ -80,6 +80,10 @@ function PixelStorage.ReadPixel(
     return self.pixels[(y * sizeX + x) + 1]
 end
 
+function PixelStorage.ReadIndex(self: PixelStorage, i: number): Pixel
+    return self.pixels[i]
+end
+
 function PixelStorage.WritePixel(
     self: PixelStorage,
     x: number,

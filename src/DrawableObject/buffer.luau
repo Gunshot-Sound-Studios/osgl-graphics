@@ -50,6 +50,10 @@ function PixelStorage.ReadPixel(
     return buffer.readu32(self.buffer, (y * sizeX + x) * 4)
 end
 
+function PixelStorage.ReadIndex(self: PixelStorage, i: number): Pixel
+    return buffer.readu32(self.buffer, i)
+end
+
 function PixelStorage.WritePixel(
     self: PixelStorage,
     x: number,

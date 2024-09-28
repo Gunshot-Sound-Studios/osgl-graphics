@@ -13,6 +13,7 @@ export type PixelStorage<P> = {
         newHeight: number
     ) -> (),
     ReadPixel: (self: PixelStorage<P>, x: number, y: number, sizeX: number) -> P,
+    ReadIndex: (self: PixelStorage<P>, i: number) -> P,
     WritePixel: (self: PixelStorage<P>, x: number, y: number, sizeX: number, newColor: P) -> (),
     WriteIndex: (self: PixelStorage<P>, i: number, newColor: P) -> (),
     GetIndex: (self: PixelStorage<P>, x: number, y: number, sizeX: number) -> number,
