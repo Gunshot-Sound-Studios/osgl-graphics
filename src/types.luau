@@ -53,7 +53,7 @@ export type Color = number
 --- -- Creates a window from an existing EditableImage
 --- local myWindow = Window.from(path.to.editableImage)
 --- ```
-export type Window<P> = {
+export type Window<P> = DrawableObject<P> & {
     renderer: EditableImage,
     pixelStorage: privateTypes.PixelStorage<P>,
 
@@ -61,9 +61,6 @@ export type Window<P> = {
     Render: (self: Window<P>) -> nil,
     Clear: (self: Window<P>, clearColor: Color) -> (),
     Resize: (self: Window<P>, newWidth: number?, newHeight: number?) -> (),
-    GetRelativeMouse: (self: Window<P>) -> (number, number),
-    ReadPixel: (self: Window<P>, x: number, y: number) -> Color,
-    WritePixel: (self: Window<P>, x: number, y: number, newColor: Color) -> (),
 }
 
 --- @interface WindowConfiguration
@@ -141,9 +138,9 @@ export type DrawableObject<P> = {
     sizeY: number,
     size: Vector2,
 
-    GetRelativeMouse: (self: Window<P>) -> (number, number),
-    ReadPixel: (self: Window<P>, x: number, y: number) -> Color,
-    WritePixel: (self: Window<P>, x: number, y: number, newColor: Color) -> (),
+    GetRelativeMouse: (self: DrawableObject<P>) -> (number, number),
+    ReadPixel: (self: DrawableObject<P>, x: number, y: number) -> Color,
+    WritePixel: (self: DrawableObject<P>, x: number, y: number, newColor: Color) -> (),
     Tint: (self: DrawableObject<P>, tint: Color, tintFactor: number) -> (),
     TintRegion: (
         self: DrawableObject<P>,

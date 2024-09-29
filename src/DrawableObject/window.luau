@@ -48,9 +48,7 @@ local WindowPrivate = {}
 setmetatable(WindowPrivate, DrawableObject)
 WindowPrivate.__index = WindowPrivate
 
-type Window<P> = types.DrawableObject<P> & {
-    renderer: EditableImage,
-}
+type Window<P> = types.Window<P>
 
 --[=[
     Creates an OSGL window by creating a new EditableImage instance at the given place.
