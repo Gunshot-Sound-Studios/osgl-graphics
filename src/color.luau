@@ -314,6 +314,24 @@ function colorModule.a(color: types.Color): number
     return bit32rshift(color, 24)
 end
 
+--[=[
+    Tints the color towards the other color using a tint factor. A tint factor of 0
+    means `color1` will be returned, while a tint factor of 1 means `color2` will be
+    returned.
+
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local color = OSGL.color
+
+    local whiteTintedRed = color.tint(color.WHITE, color.RED)
+    ```
+
+    @param color1 Color -- The color to tint
+    @param color2 Color -- The tint that will be applied
+    @param factor number -- How strong the tint is
+    @within Color
+    @return number
+]=]
 function colorModule.tint(color1: types.Color, color2: types.Color, factor: number)
     if factor == 0 then
         return color1
