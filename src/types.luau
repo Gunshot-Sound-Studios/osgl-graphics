@@ -98,8 +98,8 @@ export type FlagTexture = {
 --- .sizeX number -- The width of the texture
 --- .sizeY number -- The height of the texture
 ---
---- A `Texture` can be drawn onto a `Sprite` to be displayed on-screen.
---- Textures are simply an array of colors.
+--- A `Texture` can be drawn onto a [Sprite] to be displayed on-screen.
+--- Textures are simply a wrapper over our internal `PixelStorage`.
 export type Texture<P> = DrawableObject<P> & {
     pixelStorage: privateTypes.PixelStorage<P>,
     sizeX: number,
@@ -113,7 +113,7 @@ export type Texture<P> = DrawableObject<P> & {
 --- .x number -- The X position of the sprite
 --- .y number -- The Y position of the sprite
 ---
---- A `Sprite` can be drawn onto onto the screen to display a `Texture`
+--- A `Sprite` can be drawn onto onto the screen to display a [Texture]
 export type Sprite<P> = {
     texture: Texture<P>,
     x: number,

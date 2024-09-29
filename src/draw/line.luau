@@ -4,7 +4,7 @@ local color = require(OSGL.color)
 local writePixel = require(OSGL.draw.writePixel)
 
 return function<P>(
-	window: types.Drawable<P>,
+	window: types.DrawableObject<P>,
 	line: {
 		startX: number,
 		startY: number,

@@ -15,7 +15,7 @@ Below is a list of shapes in OSGL as of version `1.3b`:
 | Points |     ✅    |       *N/A*       |     ❌       |  |
 | Triangle |     ❌    |       *N/A*       |     *N/A*       | Will be implemented |
 
-All shape-drawing functions can be accessed through the `draw` sub-module of OSGL. The first argument for each function is a `Drawable` object, which could be a `Window` or `Texture`. You'll also need to provide the relevant properties to define the shape (e.g., position, size, color).
+All shape-drawing functions can be accessed through the `draw` sub-module of OSGL. The first argument for each function is a `DrawableObject`, which could be a `Window` or `Texture`. You'll also need to provide the relevant properties to define the shape (e.g., position, size, color).
 
 Here's an example of drawing a rectangle:
 

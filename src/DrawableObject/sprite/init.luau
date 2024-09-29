@@ -82,7 +82,7 @@ end
     ```
 
     @within Sprite
-    @param window Drawable -- The window, or texture, the sprite will be drawn on.
+    @param to DrawableObject -- The window, or texture, the sprite will be drawn on.
 ]=]
 function SpritePrivate.Draw<P>(self: types.Sprite<P>, to: types.DrawableObject<P>)
 	local texture = self.texture

@@ -128,7 +128,7 @@ function getIndicesInRange(size: number, width: number, x: number, y: number, si
 end
 
 --[=[
-    Reads the desired chunk from a drawable object
+    Reads the desired chunk from a DrawableObject object
 
     ```lua
     local OSGL = require(path.to.osgl)
@@ -147,7 +147,7 @@ end
     ```
 
     @within Texture
-    @param window Drawable -- The drawable-object that will be read
+    @param from DrawableObject -- The [DrawableObject] that will be read
     @param x number -- The X position of the area that will be read
     @param y number -- The position of the area that will be read
     @param xSize number? -- The X-Size of the chunk. Defaults to 1

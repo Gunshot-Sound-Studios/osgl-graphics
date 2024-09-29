@@ -5,7 +5,7 @@ local fillPolygon = require(OSGL.draw.fillPolygon)
 local writePixel = require(OSGL.draw.writePixel)
 
 return function<P>(
-	window: types.Drawable<P>,
+	window: types.DrawableObject<P>,
 	rectangle: {
 		xPos: number,
 		yPos: number,

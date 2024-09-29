@@ -61,7 +61,7 @@ local draw = {}
 
     print("The window has been destroyed.")
     ```
-    @param window Drawable -- The window or texture to draw on
+    @param window DrawableObject -- The window or texture to draw on
     @param xPos number -- The X-Position of the pixel,
     @param yPos number -- The Y-Position of the pixel
     @param color Color -- The color of the pixel
@@ -71,7 +71,7 @@ local draw = {}
     @within Draw
     @return nil
 ]=]
-function draw.pixel<P>(window: types.Drawable<P>, xPos: number, yPos: number, color: types.Color)
+function draw.pixel<P>(window: types.DrawableObject<P>, xPos: number, yPos: number, color: types.Color)
 	log.cassert(xPos >= 0, "X position must be higher or equal to 0")
 	log.cassert(yPos >= 0, "Y position must be higher or equal to 0")
 
@@ -113,7 +113,7 @@ end
 
     print("The window has been destroyed.")
     ```
-    @param window Drawable -- The window or texture to draw on
+    @param window DrawableObject -- The window or texture to draw on
     @param line { startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: Color? } -- The data that is used to construct the line
     @function line
     @within Draw
@@ -155,7 +155,7 @@ draw.line = require(script.line)
 
     print("The window has been destroyed.")
     ```
-    @param window Drawable -- The window or texture to draw on
+    @param window DrawableObject -- The window or texture to draw on
     @param circle {centerX: number, centerY: number, radius: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?} -- The data that is used to construct the circle
     @function circle
     @within Draw
@@ -199,7 +199,7 @@ draw.circle = require(script.circle)
 	print("The window has been destroyed.")
 	```
 
-	@param window Drawable -- The window or texture to draw on
+	@param window DrawableObject -- The window or texture to draw on
 	@param rectangle {xPos: number, yPos: number, width: number, height: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?} -- The data that is used to construct the rectangle
 	@function rectangle
 	@within Draw
@@ -239,7 +239,7 @@ draw.rectangle = require(script.rectangle)
 	print("The window has been destroyed.")
 	```
 
-	@param window Drawable -- The window or texture to draw on
+	@param window DrawableObject -- The window or texture to draw on
 	@param points { x: number, y: number, points: Points, fillColor: Color } -- The data which is used to construct the shape
 	@error "X" -- This error occurs if the X is smaller than 0
 	@error "Y" -- This error occurs if the Y is smaller than 0

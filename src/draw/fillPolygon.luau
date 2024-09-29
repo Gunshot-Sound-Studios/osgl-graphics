@@ -2,7 +2,7 @@ local OSGL = script.Parent.Parent
 local types = require(OSGL.types)
 local writePixel = require(OSGL.draw.writePixel)
 
-return function<P>(corners: { { number } }, window: types.Drawable<P>, fillColor: types.Color)
+return function<P>(corners: { { number } }, window: types.DrawableObject<P>, fillColor: types.Color)
 	-- These are temporary, cause
 	-- if i calculate it, it takes up
 	-- like 10FPS
