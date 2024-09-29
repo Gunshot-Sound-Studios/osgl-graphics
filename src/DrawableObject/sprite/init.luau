@@ -33,7 +33,7 @@ local draw = require(OSGL.draw)
     @class Sprite
 
     The sprite class. Loads a `texture` onto the screen at the
-    given position. Inherits everything from [DrawableObject].
+    given position.
 ]=]
 local Sprite = {}
 local SpritePrivate = {}

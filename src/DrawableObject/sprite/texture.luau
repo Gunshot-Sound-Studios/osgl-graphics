@@ -33,7 +33,7 @@ local PixelStorage = require(OSGL.DrawableObject).PixelStorage
     @class Texture
 
     The Texture class. Handles loading textures into memory
-    for further use with sprites.
+    for further use with sprites. Inherits everything from [DrawableObject].
 ]=]
 local Texture = {}
 
