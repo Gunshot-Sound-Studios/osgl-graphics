@@ -100,7 +100,7 @@ export type FlagTexture = {
 ---
 --- A `Texture` can be drawn onto a `Sprite` to be displayed on-screen.
 --- Textures are simply an array of colors.
-export type Texture<P> = {
+export type Texture<P> = DrawableObject<P> & {
     pixelStorage: privateTypes.PixelStorage<P>,
     sizeX: number,
     sizeY: number
@@ -126,11 +126,6 @@ export type Sprite<P> = {
 --- @within Draw
 --- An array of points
 export type Points = {{number}}
-
---- @type Drawable Window | Texture
---- @within Draw
---- An object that contains a buffer. You can draw to these objects.
-export type Drawable<P> = Window<P> | Texture<P>
 
 export type DrawableObject<P> = {
     pixelStorage: privateTypes.PixelStorage<any>,

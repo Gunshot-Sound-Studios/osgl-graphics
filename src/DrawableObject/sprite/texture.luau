@@ -158,7 +158,7 @@ end
     @error "YSize" -- This error occurs if the YSize is less than 1
     @return {types.Color} -- The colors in the specified chunk
 ]=]
-function Texture.read<P>(window: types.Drawable<P>, x: number, y: number, xSize: number?, ySize: number?): {types.Color}
+function Texture.read<P>(from: types.DrawableObject<P>, x: number, y: number, xSize: number?, ySize: number?): {types.Color}
     xSize = xSize or 1
     ySize = ySize or 1
 
@@ -169,8 +169,8 @@ function Texture.read<P>(window: types.Drawable<P>, x: number, y: number, xSize:
 
     local size = (xSize * ySize) / 2
     local colors = table.create(size, 0)
-    local pixels = window.pixels
-    local indices = getIndicesInRange(size, window.sizeX, x, y, xSize, ySize)
+    local pixels = from.pixels
+    local indices = getIndicesInRange(size, from.sizeX, x, y, xSize, ySize)
     for i, v in ipairs(indices) do
         if v == -1 then continue end
         colors[i] = pixels[v]

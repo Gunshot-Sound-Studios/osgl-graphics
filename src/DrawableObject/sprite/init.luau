@@ -84,12 +84,12 @@ end
     @within Sprite
     @param window Drawable -- The window, or texture, the sprite will be drawn on.
 ]=]
-function SpritePrivate.Draw<P>(self: types.Sprite<P>, window: types.Drawable<P>)
+function SpritePrivate.Draw<P>(self: types.Sprite<P>, to: types.DrawableObject<P>)
 	local texture = self.texture
 
 	local y2 = 0
 	for y = self.y, self.y + texture.sizeY - 1 do
-		if y >= window.sizeY then
+		if y >= to.sizeY then
 			break
 		end
 
@@ -97,13 +97,13 @@ function SpritePrivate.Draw<P>(self: types.Sprite<P>, window: types.Drawable<P>)
 
 		local x2 = 0
 		for x = self.x, self.x + texture.sizeY - 1 do
-			if x >= window.sizeX then
+			if x >= to.sizeX then
 				break
 			end
 
 			x2 = x - self.x
 			if y2 < texture.sizeY and x2 < texture.sizeX then
-				draw.pixel(window, x, y, texture.pixelStorage:ReadPixel(x, y, texture.sizeX))
+				draw.pixel(to, x, y, texture.pixelStorage:ReadPixel(x, y, texture.sizeX))
 			end
 		end
 	end
