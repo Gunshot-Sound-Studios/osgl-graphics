@@ -323,7 +323,7 @@ end
     local OSGL = require(path.to.osgl)
     local color = OSGL.color
 
-    local whiteTintedRed = color.tint(color.WHITE, color.RED)
+    local whiteTintedRed = color.tint(color.WHITE, color.RED, 0.5)
     ```
 
     @param color1 Color -- The color to tint
