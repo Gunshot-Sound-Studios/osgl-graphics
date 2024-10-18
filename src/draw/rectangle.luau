@@ -5,7 +5,7 @@ local fillPolygon = require(OSGL.draw.fillPolygon)
 local writePixel = require(OSGL.draw.writePixel)
 
 return function<P>(
-	window: types.DrawableObject<P>,
+	window: types.Drawable<P>,
 	rectangle: {
 		xPos: number,
 		yPos: number,
@@ -41,19 +41,20 @@ return function<P>(
 		width += strokeLength
 		height += strokeLength
 
-		for x = 1, width do
+		for x = 0, width  do
 			x += rectangle.xPos
+			
 			if x >= sizeX then
-				break
+				continue
 			end
 
-			for y = 1, height do
+			for y = 0, height do
 				y += rectangle.yPos
 				if y >= sizeY then
-					break
+					continue
 				end
 
-				local pixelColor = if x > width or y > height then rectangle.strokeColor else rectangle.fillColor
+				local pixelColor = if x > (width + rectangle.xPos) or y > (height + rectangle.yPos) then rectangle.strokeColor else rectangle.fillColor
 
 				writePixel(sizeX, window, x, y, pixelColor)
 			end

@@ -2,7 +2,7 @@ local OSGL = script.Parent.Parent
 local types = require(OSGL.types)
 local writePixel = require(OSGL.draw.writePixel)
 
-return function<P>(corners: { { number } }, window: types.DrawableObject<P>, fillColor: types.Color)
+return function<P>(corners: { { number } }, window: types.Drawable<P>, fillColor: types.Color)
 	-- These are temporary, cause
 	-- if i calculate it, it takes up
 	-- like 10FPS
@@ -25,12 +25,13 @@ return function<P>(corners: { { number } }, window: types.DrawableObject<P>, fil
         end
 
         table.sort(intersections)
-
+		
         for i = 1, #intersections - 1, 2 do
             local startX = math.max(0, math.floor(intersections[i]))
             local endX = math.min(sizeX - 1, math.ceil(intersections[i + 1]))
 
-            for x = startX, endX do
+			for x = startX, endX do
+				if x > sizeX then continue end
                 writePixel(sizeX, window, x, y, fillColor)
             end
         end
