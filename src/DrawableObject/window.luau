@@ -35,6 +35,7 @@ local privateTypes = require(OSGL.DrawableObject.types)
 local log = require(OSGL.log)
 local colorM = require(OSGL.color)
 local config = require(OSGL.config)
+local AssetService = game:GetService("AssetService")
 
 --[=[
     @class Window
@@ -67,17 +68,15 @@ type Window<P> = types.Window<P>
     @param config WindowConfiguration? -- Optional configurations
     @return Window -- Returns an OSGL window instance
 ]=]
-function Window.new<P>(parent: Instance, config: types.WindowConfiguration?): Window<P>
+function Window.new<P>(parent: ImageLabel, config: types.WindowConfiguration?): Window<P>
 	log.typeCheckArgument("Window.new", "parent", parent, "Instance")
 
 	config = config or {}
 	config.sizeX = math.clamp(config.sizeX or 1, 1, 1024)
 	config.sizeY = math.clamp(config.sizeY or 1, 1, 1024)
 
-    local editableImage = Instance.new("EditableImage")
-	editableImage.Size = Vector2.new(config.sizeX, config.sizeY)
-	editableImage.Parent = parent
-
+	local editableImage = AssetService:CreateEditableImage({ Size = Vector2.new(config.sizeX, config.sizeY) })
+	parent.ImageContent = editableImage:GetContent()
 	return Window.from(editableImage)
 end
 

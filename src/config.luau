@@ -8,10 +8,10 @@
 return {
     -- Whether or not to use `buffer` as the pixel storage for the window. This uses
     -- `EditableImage:WritePixelsBuffer`, which was locked behind a FFlag. Currently,
-    -- it isn't. The option is still here in acse someone doesn't want to use it. Will
+    -- it isn't. The option is still here in case someone doesn't want to use it. Will
     -- be removed in the future!
     --
     -- Enabling this provides a huge performance boost almost 2x as fast as the default
     -- storage.
-    useBufferPixelStorage = true
+	useBufferPixelStorage = true -- [no-venv]: i've switched this on since plain tables don't work w/ editable images
 }
