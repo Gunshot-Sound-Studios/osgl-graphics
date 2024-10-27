@@ -357,7 +357,7 @@ colorModule.RED = colorModule.new(255)
 --- A green color
 colorModule.GREEN = colorModule.new(0, 255)
 
---- @prop BLUE color
+--- @prop BLUE Color
 --- @within Color
 --- A blue color
 colorModule.BLUE = colorModule.new(0, 0, 255)
