@@ -76,7 +76,8 @@ function Window.new<P>(parent: ImageLabel, config: types.WindowConfiguration?): 
 	config.sizeY = math.clamp(config.sizeY or 1, 1, 1024)
 
 	local editableImage = AssetService:CreateEditableImage({ Size = Vector2.new(config.sizeX, config.sizeY) })
-	parent.ImageContent = editableImage:GetContent()
+	parent.ImageContent = Content.fromObject(editableImage)
+
 	return Window.from(editableImage)
 end
 
