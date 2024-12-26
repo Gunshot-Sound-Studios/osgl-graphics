@@ -14,6 +14,8 @@ local SIZE_Y = 409
 local OSGL = require(ReplicatedStorage.OSGL)
 local window = OSGL.Window
 local texture = OSGL.Texture
+local draw = OSGL.draw
+local color = OSGL.color
 
 local floor = math.floor
 
@@ -23,9 +25,6 @@ local myWindow =
 myWindow:AddRenderer(A, B)
 
 local txt = texture.fromAssetId(14419725604)
-myWindow:Resize(floor(SIZE_X / 2), floor(SIZE_Y / 2))
-
-while task.wait() do
-    texture.draw(myWindow, txt, 0, 0)
-    myWindow:Render():Clear()
-end
+texture.draw(myWindow, txt, 0, 0)
+draw.floodFill(myWindow, 0, 0, color.RED)
+myWindow:Render()

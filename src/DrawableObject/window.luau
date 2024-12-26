@@ -229,7 +229,6 @@ function windowPrivate.RemoveRenderer(self: types.Window, ...: ImageLabel)
 	return self
 end
 
--- TODO: Implement
 --[=[
 Resizes the window and its pixel buffer. This function may be resource intensive and
 is not made for constant use. May require a re-render, depending on the new size.

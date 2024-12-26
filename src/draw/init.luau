@@ -40,6 +40,7 @@ local rectangle = require(script.rectangle)
 local circle = require(script.circle)
 local triangle = require(script.triangle)
 local polygon = require(script.fillPolygon)
+local floodFill = require(script.floodFill)
 
 --[=[
     @class Draw
@@ -220,5 +221,7 @@ draw.polygon(myWindow, {
 @within Draw
 ]=]
 draw.polygon = polygon
+
+draw.floodFill = floodFill
 
 return draw

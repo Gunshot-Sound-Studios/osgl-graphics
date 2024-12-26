@@ -14,6 +14,7 @@ Below is a list of shapes in OSGL as of version `1.4b`:
 | Lines |     ✅    |       *N/A*       |     ❌      |  |
 | Polygon |     ✅    |       *N/A*       |     ❌       |  |
 | Triangle |     ✅    |       *N/A*       |     ❌       |  |
+| Flood Fill |     ✅    |       *N/A*       |     *N/A*       | Dynamic shape that fills an area |
 
 All shape-drawing functions are accessible through the `draw` sub-module of OSGL. The first argument for each function must be a `DrawableObject`, which can be either a `Window` or a `Texture`. Additionally, you will need to provide the necessary parameters to define the shape, such as its position, size, and color.
 

@@ -42,6 +42,11 @@ local utils = {}
 function utils.createDraw()
 	return function(object)
 		return {
+			FloodFill = function(self, ...)
+				draw.floodFill(object, ...)
+				return self
+			end,
+
 			Polygon = function(self, ...)
 				draw.polygon(object, ...)
 				return self
