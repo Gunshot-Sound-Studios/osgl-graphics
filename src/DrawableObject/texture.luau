@@ -218,10 +218,81 @@ function Texture.draw<T>(
 		sizeX = sizeX,
 		sizeY = sizeY,
 
-		Draw = utils.createDraw(),
-		ReadPixel = utils.createReadPixel(),
-		TintRegion = utils.createTintRegion(),
-		Serialize = utils.createSerialize(),
+		Draw = object.Draw,
+		ReadPixel = object.ReadPixel,
+		TintRegion = object.TintRegion,
+		Serialize = object.Serialize,
+	}
+end
+
+--[=[
+	Draws a [DrawableObject] onto another [DrawableObject] with a rotation. The pivot is at the center of the [DrawableObject]
+
+	```lua
+	local OSGL = require(path.to.osgl)
+	local Texture = OSGL.Texture
+
+	local textureData = require(path.to.texture)
+	local secondTextureData = require(path.to.secondTexture)
+
+	local textureA = Texture.from(textureData)
+	local textureB = Texture.from(secondTextureData)
+
+	-- Draw textureB on textureA at 0, 0, rotated 15 degrees
+	local textureC = Texture.draw(textureA, textureB, 0, 0, 15)
+	```
+
+	@within Texture
+	@param object DrawableObject -- The object that the texture will be drawn onto
+	@param texture DrawableObject -- The texture that will be drawn
+	@param spriteX number -- The X position of where the texture will be drawn
+	@param spriteY number -- The y position of where the texture will be drawn
+	@param rotation number -- The rotation of the texture
+	@return DrawableObject -- The final texture
+]=]
+function Texture.drawRotated(
+	object: types.DrawableObject<T>,
+	texture: types.DrawableObject<types.DrawableObject>,
+	spriteX: number,
+	spriteY: number,
+	rotation: number
+)
+local objectSizeY = object.sizeY
+	local objectSizeX = object.sizeX
+	local sizeY = texture.sizeY
+	local sizeX = texture.sizeX
+	local bfr = texture.buffer
+
+	local radians = math.rad(rotation)
+
+	local centerX = sizeX / 2
+	local centerY = sizeY / 2
+
+	for y = 0, objectSizeY - 1 do
+		for x = 0, objectSizeX - 1 do
+			local relativeX = x - spriteX - centerX
+			local relativeY = y - spriteY - centerY
+
+			local sourceX = math.cos(radians) * relativeX + math.sin(radians) * relativeY + centerX
+			local sourceY = -math.sin(radians) * relativeX + math.cos(radians) * relativeY + centerY
+
+			if sourceX >= 0 and sourceX < sizeX and sourceY >= 0 and sourceY < sizeY then
+				local pixelColor = buffer.readu32(bfr, math.floor(sourceY) * sizeX * 4 + math.floor(sourceX) * 4)
+				pixel(object, x, y, pixelColor)
+			end
+		end
+	end
+
+	return {
+		buffer = bfr,
+
+		sizeX = sizeX,
+		sizeY = sizeY,
+
+		Draw = object.Draw,
+		ReadPixel = object.ReadPixel,
+		TintRegion = object.TintRegion,
+		Serialize = object.Serialize,
 	}
 end
 
