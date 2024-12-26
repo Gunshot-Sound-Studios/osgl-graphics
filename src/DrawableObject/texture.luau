@@ -362,6 +362,66 @@ function Texture.read<T>(texture: types.DrawableObject<T>, xPos: number, yPos: n
 end
 
 --[=[
+	Scales a [DrawableObject] by the given amount
+
+	```lua
+	local OSGL = require(path.to.osgl)
+	local Texture = OSGL.Texture
+
+	local textureData = require(path.to.texture)
+	local texture = Texture.from(textureData)
+
+	-- Enlarge `texture` by 5x on the X axis
+	local enlargedTexture = Texture.scale(texture, 5)
+	```
+
+	@within Texture
+	@param texture DrawableObject -- The texture that will be enlarged
+	@param scaleX number -- Scaling for x axis. Defaults to 1
+	@param scaleY number -- Scaling for y axis. Defaults to 1
+	@return DrawableObject -- The enlarged texture
+]=]
+function Texture.scale<T>(texture: types.DrawableObject<T>, scaleX: number?, scaleY: number?): types.DrawableObject<T>
+	-- Set default values for scaleX and scaleY if not provided
+	scaleX = scaleX or 1
+	scaleY = scaleY or 1
+
+	-- Get original texture size and buffer
+	local originalSizeX = texture.sizeX
+	local originalSizeY = texture.sizeY
+	local bfr = texture.buffer
+
+	-- Calculate the new size of the texture
+	local newSizeX = math.floor(originalSizeX * scaleX)
+	local newSizeY = math.floor(originalSizeY * scaleY)
+
+	local newBuffer = buffer.create(newSizeX * newSizeY * 4)
+
+	for y = 0, newSizeY - 1 do
+		for x = 0, newSizeX - 1 do
+			local sourceX = math.floor(x / scaleX)
+			local sourceY = math.floor(y / scaleY)
+
+			if sourceX < originalSizeX and sourceY < originalSizeY then
+				local color = buffer.readu32(bfr, sourceY * originalSizeX * 4 + sourceX * 4)
+				buffer.writeu32(newBuffer, y * newSizeX * 4 + x * 4, color)
+			end
+		end
+	end
+
+	return {
+		buffer = newBuffer,
+		sizeX = newSizeX,
+		sizeY = newSizeY,
+
+		Draw = texture.Draw,
+		ReadPixel = texture.ReadPixel,
+		TintRegion = texture.TintRegion,
+		Serialize = texture.Serialize,
+	}
+end
+
+--[=[
 	Creates a [DrawableObject] (texture) from an assetId
 
 	```lua
