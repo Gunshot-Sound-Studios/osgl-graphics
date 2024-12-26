@@ -58,8 +58,8 @@ export type WindowConfiguration = {
 --- @interface DrawableObject
 --- @within DrawableObject
 --- .buffer buffer -- The buffer of the object
---- .sizeX number -- The width of the object. 
---- .sizeY number -- The height of the object. 
+--- .sizeX number -- The width of the object.
+--- .sizeY number -- The height of the object.
 --- .size Vector2 -- The size of the object as a Vector2
 --- .Draw (self: DrawableObject<T>) -> DrawingContext<T> -- Returns the drawing context of the object
 --- .TintRegion (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  DrawingContext<T> -- Tints a region of pixels
@@ -118,6 +118,7 @@ export type DrawableObject<T> = {
 export type Window = DrawableObject<Window> & {
     editableImage: EditableImage,
     targetFPS: number,
+    lastRenderTime: number,
     renderers: {ImageLabel | ImageButton},
 
     Render: (self: Window) -> Window,

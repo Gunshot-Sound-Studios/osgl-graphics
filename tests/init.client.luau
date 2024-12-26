@@ -19,10 +19,9 @@ local color = OSGL.color
 
 
 local config = { sizeX = SIZE_X, sizeY = SIZE_Y }
-local myWindow =
-	Window.new(window, config)
+local myWindow = Window.new(window, config)
 
-local txt = texture.fromAssetId(14419725604)
+local txt = texture.fromAssetId(94762137675783)
 texture.draw(myWindow, txt, 0, 0)
 
 local buffer, w, h = myWindow:Serialize()
@@ -31,4 +30,6 @@ local secondWindow = Window.new(A, config)
 secondWindow:AddRenderer(B)
 secondWindow:Deserialize(buffer, w, h)
 
-secondWindow:Render()
+while task.wait() do
+    secondWindow:Render()
+end

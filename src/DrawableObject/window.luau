@@ -67,6 +67,15 @@ end
 ]=]
 function windowPrivate.Render(self: types.Window)
 	self.editableImage:WritePixelsBuffer(Vector2.zero, self.size, self.buffer)
+
+    local now = os.clock()
+    local fps = 1 / (now - self.lastRenderTime)
+    if fps > self.targetFPS then
+        task.wait(1 / self.targetFPS - 1 / fps)
+    end
+
+    self.lastRenderTime = os.clock()
+
 	return self
 end
 
@@ -106,7 +115,7 @@ local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 myWindow:WritePixel(0, 0, color.RED):Render()
 
 print(
-    myWindow:ReadPixel(0, 0) -- 255    
+    myWindow:ReadPixel(0, 0) -- 255
 )
 ```
 
@@ -276,7 +285,7 @@ function windowPrivate.Resize(self: types.Window, newWidth, newHeight)
     local currentSize = buffer.len(self.buffer)
     if bfrSize < currentSize then
         copy_size = bfrSize
-    else    
+    else
         copy_size = currentSize
     end
 
@@ -396,7 +405,7 @@ function windowPrivate.Deserialize(self: types.Window, bfr: buffer, width: numbe
     local currentSize = buffer.len(bfr)
     if bfrSize < currentSize then
         copy_size = bfrSize
-    else    
+    else
         copy_size = currentSize
     end
 
@@ -457,6 +466,7 @@ function makeWindow(editableImage: EditableImage, sizeX: number, sizeY: number, 
 		editableImage = editableImage,
 		buffer = bfr,
 		targetFPS = 60,
+        lastRenderTime = os.clock(),
 		renderers = renderers or {},
 
 		sizeX = sizeX,
