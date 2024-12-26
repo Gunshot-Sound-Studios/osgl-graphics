@@ -14,7 +14,7 @@ favicon = "image/favicon.ico"
 [home]
 enabled = true
 includeReadme = false
-bannerImage = "image/banner.png" # Optional
+bannerImage = "image/banner.svg"
 
 [[home.features]]
 title = "High performance"
