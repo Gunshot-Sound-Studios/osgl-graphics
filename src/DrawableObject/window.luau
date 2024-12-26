@@ -68,13 +68,13 @@ end
 function windowPrivate.Render(self: types.Window)
 	self.editableImage:WritePixelsBuffer(Vector2.zero, self.size, self.buffer)
 
-    local now = os.clock()
-    local fps = 1 / (now - self.lastRenderTime)
-    if fps > self.targetFPS then
-        task.wait(1 / self.targetFPS - 1 / fps)
-    end
+	local now = os.clock()
+	local fps = 1 / (now - self.lastRenderTime)
+	if fps > self.targetFPS then
+		task.wait(1 / self.targetFPS - 1 / fps)
+	end
 
-    self.lastRenderTime = os.clock()
+	self.lastRenderTime = os.clock()
 
 	return self
 end
@@ -193,9 +193,9 @@ function windowPrivate.AddRenderer(self: types.Window, ...: ImageLabel)
 	local renderers = self.renderers
 	for _, v: ImageLabel in ipairs({ ... }) do
 		if not table.find(renderers, v) then
-            table.insert(renderers, v)
-            v.ImageContent = content
-        end
+			table.insert(renderers, v)
+			v.ImageContent = content
+		end
 	end
 
 	return self
@@ -223,13 +223,13 @@ myWindow:RemoveRenderer(path.to.imageB)
 ]=]
 function windowPrivate.RemoveRenderer(self: types.Window, ...: ImageLabel)
 	local content = Content.fromObject(self.editableImage)
-    local renderers = self.renderers
+	local renderers = self.renderers
 	for _, v: ImageLabel in ipairs({ ... }) do
-        local isInTable = table.find(renderers, v)
+		local isInTable = table.find(renderers, v)
 		if v.ImageContent == content or isInTable then
-            if isInTable then
-                table.remove(renderers, isInTable)
-            end
+			if isInTable then
+				table.remove(renderers, isInTable)
+			end
 
 			v.ImageContent = Content.none
 		end
@@ -268,49 +268,49 @@ end
 @within Window
 ]=]
 function windowPrivate.Resize(self: types.Window, newWidth, newHeight)
-    local sizeX, sizeY = self.sizeX, self.sizeY
+	local sizeX, sizeY = self.sizeX, self.sizeY
 
 	newWidth = newWidth or sizeX
 	newHeight = newHeight or sizeY
 
-    if newHeight == sizeY and newWidth == sizeX then
-        return self
-    end
+	if newHeight == sizeY and newWidth == sizeX then
+		return self
+	end
 
 	log.cassert(newHeight > 0, "Height passed to `Window:Resize()` must be larger than 0.")
 	log.cassert(newWidth > 0, "Width passed to `Window:Resize()` must be larger than 0.")
 
-    local copy_size
-    local bfrSize = newWidth * newHeight * 4
-    local currentSize = buffer.len(self.buffer)
-    if bfrSize < currentSize then
-        copy_size = bfrSize
-    else
-        copy_size = currentSize
-    end
+	local copy_size
+	local bfrSize = newWidth * newHeight * 4
+	local currentSize = buffer.len(self.buffer)
+	if bfrSize < currentSize then
+		copy_size = bfrSize
+	else
+		copy_size = currentSize
+	end
 
 	local resizedBuffer = buffer.create(newWidth * newHeight * 4)
 	buffer.copy(resizedBuffer, 0, self.buffer, 0, copy_size)
 
 	self.buffer = resizedBuffer
 
-    local size = Vector2.new(newWidth, newHeight)
+	local size = Vector2.new(newWidth, newHeight)
 	self.size = size
 	self.sizeX = newWidth
 	self.sizeY = newHeight
 
 	local editableImage = AssetService:CreateEditableImage({ Size = size })
-    if not editableImage then
-        log.error("Could not resize window as the device does not have enough memory")
-    end
+	if not editableImage then
+		log.error("Could not resize window as the device does not have enough memory")
+	end
 
-    self.editableImage = editableImage
-    local content = Content.fromObject(editableImage)
-    for _, v in ipairs(self.renderers) do
-        v.ImageContent = content
-    end
+	self.editableImage = editableImage
+	local content = Content.fromObject(editableImage)
+	for _, v in ipairs(self.renderers) do
+		v.ImageContent = content
+	end
 
-    return self
+	return self
 end
 
 --[=[
@@ -394,43 +394,43 @@ window:Deserialize(bfr, width, height)
 @within Window
 ]=]
 function windowPrivate.Deserialize(self: types.Window, bfr: buffer, width: number?, height: number?)
-    width = width or self.sizeX
+	width = width or self.sizeX
 	height = height or self.sizeY
 
 	log.cassert(height > 0, "Height passed to `Window:Deserialize()` must be larger than 0.")
 	log.cassert(width > 0, "Width passed to `Window:Deserialize()` must be larger than 0.")
 
-    local copy_size
-    local bfrSize = width * height * 4
-    local currentSize = buffer.len(bfr)
-    if bfrSize < currentSize then
-        copy_size = bfrSize
-    else
-        copy_size = currentSize
-    end
+	local copy_size
+	local bfrSize = width * height * 4
+	local currentSize = buffer.len(bfr)
+	if bfrSize < currentSize then
+		copy_size = bfrSize
+	else
+		copy_size = currentSize
+	end
 
 	local resizedBuffer = buffer.create(width * height * 4)
 	buffer.copy(resizedBuffer, 0, bfr, 0, copy_size)
 
 	self.buffer = resizedBuffer
 
-    local size = Vector2.new(width, height)
+	local size = Vector2.new(width, height)
 	self.size = size
 	self.sizeX = width
 	self.sizeY = height
 
 	local editableImage = AssetService:CreateEditableImage({ Size = size })
-    if not editableImage then
-        log.error("Could not deserialize window as the device does not have enough memory")
-    end
+	if not editableImage then
+		log.error("Could not deserialize window as the device does not have enough memory")
+	end
 
-    self.editableImage = editableImage
-    local content = Content.fromObject(editableImage)
-    for _, v in ipairs(self.renderers) do
-        v.ImageContent = content
-    end
+	self.editableImage = editableImage
+	local content = Content.fromObject(editableImage)
+	for _, v in ipairs(self.renderers) do
+		v.ImageContent = content
+	end
 
-    return self
+	return self
 end
 
 --[=[
@@ -460,13 +460,20 @@ function windowPrivate.GetRelativeMouseToRenderer(self: types.Window, image: Ima
 	return isInWindow, math.round(relativeMousePosition.X), math.round(relativeMousePosition.Y)
 end
 
-function makeWindow(editableImage: EditableImage, sizeX: number, sizeY: number, bfr: buffer, renderers: {}?): types.Window
-    return {
+function makeWindow(
+	editableImage: EditableImage,
+	sizeX: number,
+	sizeY: number,
+	bfr: buffer,
+	renderers: {}?
+): types.Window
+	return {
 		-- Looks stupid, but it's efficient.
 		editableImage = editableImage,
 		buffer = bfr,
+
 		targetFPS = 60,
-        lastRenderTime = os.clock(),
+		lastRenderTime = os.clock(),
 		renderers = renderers or {},
 
 		sizeX = sizeX,
@@ -482,8 +489,8 @@ function makeWindow(editableImage: EditableImage, sizeX: number, sizeY: number, 
 		AddRenderer = windowPrivate.AddRenderer,
 		RemoveRenderer = windowPrivate.RemoveRenderer,
 
-        Serialize = windowPrivate.Serialize,
-        Deserialize = windowPrivate.Deserialize,
+		Serialize = windowPrivate.Serialize,
+		Deserialize = windowPrivate.Deserialize,
 
 		Draw = windowPrivate.Draw,
 	}
@@ -633,9 +640,9 @@ end
     @return Window -- Returns an OSGL window instance
 ]=]
 function Window.fromBuffer(bfr: buffer, config: types.WindowConfiguration)
-    log.typeCheckValue("Window.fromBuffer", "bfr", bfr, "buffer")
+	log.typeCheckValue("Window.fromBuffer", "bfr", bfr, "buffer")
 
-    config = config or {}
+	config = config or {}
 
 	local sizeX, sizeY = config.sizeX or 1, config.sizeY or 1
 
@@ -652,17 +659,37 @@ function Window.fromBuffer(bfr: buffer, config: types.WindowConfiguration)
 	sizeX = math.clamp(sizeX, 1, 1024)
 	sizeY = math.clamp(sizeY, 1, 1024)
 
-    local size = Vector2.new(config.sizeX, config.sizeY)
+	local size = Vector2.new(config.sizeX, config.sizeY)
 
 	local editableImage = AssetService:CreateEditableImage({ Size = size })
 	if not editableImage then
 		return log.error("Could not make EditableImage as the device does not have enough memory")
 	end
 
-    editableImage:WritePixelsBuffer(Vector2.zero, size, bfr)
+	editableImage:WritePixelsBuffer(Vector2.zero, size, bfr)
 
-    -- [saaawdust]: Makes another Vector2 :(
-    return makeWindow(editableImage, sizeX, sizeY, bfr)
+	-- [saaawdust]: Makes another Vector2 :(
+	return makeWindow(editableImage, sizeX, sizeY, bfr)
 end
+
+--[=[
+	@prop editableImage EditableImage
+	@within Window
+	The actual editableImage of the Window
+]=]
+
+--[=[
+	@prop targetFPS number
+	@within Window
+	The Window's Target FPS. Defaults to 60
+
+	```lua
+	window.targetFPS = 5
+
+	while task.wait() do
+		window:Render() -- Renders at roughly 5FPS
+	end
+	```
+]=]
 
 return Window

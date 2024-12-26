@@ -336,4 +336,28 @@ function Texture.fromAssetId(assetId: number): types.DrawableObject<types.Drawab
     }
 end
 
+--[=[
+	@prop buffer buffer
+	@within DrawableObject
+	The buffer of the object
+]=]
+
+--[=[
+	@prop sizeX number
+	@within DrawableObject
+	The width of the object
+]=]
+
+--[=[
+	@prop sizeY number
+	@within DrawableObject
+	The height of the object
+]=]
+
+--[=[
+	@prop size Vector2
+	@within DrawableObject
+	The size of the object
+]=]
+
 return Texture
