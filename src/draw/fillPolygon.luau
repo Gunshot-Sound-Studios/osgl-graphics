@@ -29,16 +29,36 @@ local draw = OSGL.draw
 local types = require(OSGL.types)
 local color = require(OSGL.color)
 local pixel = require(draw.pixel)
+local line = require(draw.line)
 
-return function<T>(object: types.DrawableObject<T>, corners: { { number } }, fill: types.Color)
+return function<T>(object: types.DrawableObject<T>, corners: { { number } }, fill: types.Color, strokeColor: types.Color?, strokeWidth: number?)
 	-- [saaawdust]: These are temporary, cause
 	-- if I calculate it, it takes up
 	-- like 10FPS
 
     fill = fill or color.BLACK
+    strokeColor = strokeColor or color.TRANSPARENT
+    strokeWidth = strokeWidth or 1
 
 	local sizeX = object.sizeX
 	local maxY = object.sizeY
+
+    if strokeColor ~= color.TRANSPARENT and strokeWidth > 0 then
+        for i = 1, #corners do
+            local p1 = corners[i]
+            local p2 = corners[i % #corners + 1]
+
+            line(
+                object,
+                math.floor(p1[1]),
+                math.floor(p1[2]),
+                math.floor(p2[1]),
+                math.floor(p2[2]),
+                strokeWidth,
+                strokeColor
+            )
+        end
+    end
 
     for y = 0, maxY do
         local intersections = {}
@@ -55,7 +75,7 @@ return function<T>(object: types.DrawableObject<T>, corners: { { number } }, fil
         end
 
         table.sort(intersections)
-		
+
         for i = 1, #intersections - 1, 2 do
             local startX = math.max(0, math.floor(intersections[i]))
             local endX = math.min(sizeX - 1, math.ceil(intersections[i + 1]))
