@@ -1,6 +1,6 @@
 # OSGL
 
-![OSGL logo](gh/logo.png)
+![OSGL logo](gh/Banner.svg)
 
 OSGL is a user-friendly and highly efficient module that allows you to draw pixels directly to the screen in Roblox.
 
