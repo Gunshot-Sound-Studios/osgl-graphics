@@ -56,7 +56,7 @@ These methods are exactly the same as the `Draw` methods, but they automatically
 
 You can find more about these methods in the `API`.
 
-Both `Window`s, and `Texture`s are something known as a `DrawableObject`. Effectively, a `Window` is just a special form of a `Texture`, and by extend, all a `Texture` is, is a `buffer` containing pixel-data. This is similar to CanvasDraw's `ImageData`. If you wanted to save a texture somewhere, all you would have to do is save the `buffer`, and the `sizeX` and `sizeY` (or just the `size`). Since it's a `Texture`, you can load it back into the game. This exact process can be described by [`Serialization` and `Deserialization`](../Windows/serializing-and-deserializing.md):
+Both `Window`s, and `Texture`s are something known as a `DrawableObject`. Effectively, a `Window` is just a special form of a `Texture`, and by extent, all a `Texture` is, is a `buffer` containing pixel-data. This is similar to CanvasDraw's `ImageData`. If you wanted to save a texture somewhere, all you would have to do is save the `buffer`, and the `sizeX` and `sizeY` (or just the `size`). Since it's a `Texture`, you can load it back into the game. This exact process can be described by [`Serialization` and `Deserialization`](../Windows/serializing-and-deserializing.md):
 
 ```lua
 -- Save.luau
