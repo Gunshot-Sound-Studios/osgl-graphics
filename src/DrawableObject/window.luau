@@ -64,6 +64,7 @@ end
 ```
 
 @within Window
+@return Window
 ]=]
 function windowPrivate.Render(self: types.Window)
 	self.editableImage:WritePixelsBuffer(Vector2.zero, self.size, self.buffer)
@@ -95,6 +96,7 @@ myWindow:WritePixel(0, 0, color.RED):Render()
 @param x number -- X position
 @param y number -- Y position
 @param color Color -- The color that will be written at the location
+@return Window
 @within Window
 ]=]
 function windowPrivate.WritePixel(self: types.Window, x, y, color)
@@ -152,6 +154,7 @@ end
 ```
 
 @param clearColor Color? -- The color the screen will be cleared with
+@return Window
 @within Window
 ]=]
 function windowPrivate.Clear(self: types.Window, clearColor: types.Color)
@@ -186,6 +189,7 @@ myWindow:AddRenderer(path.to.imageA, path.to.imageB)
 ```
 
 @param ... ...(ImageLabel | ImageButton) -- The Images that will become renderers
+@return Window
 @within Window
 ]=]
 function windowPrivate.AddRenderer(self: types.Window, ...: ImageLabel)
@@ -219,6 +223,7 @@ myWindow:RemoveRenderer(path.to.imageB)
 ```
 
 @param ... ...(ImageLabel | ImageButton) -- The Images that will be removed if rendering the Window
+@return Window
 @within Window
 ]=]
 function windowPrivate.RemoveRenderer(self: types.Window, ...: ImageLabel)
@@ -265,6 +270,7 @@ end
 @error "Height" -- This error occurs if the height is smaller than 0
 @error "Width" -- This error occurs if the width is smaller than 0
 @error "Memory" -- This error occurs when the device does not have enough memory to resize the window
+@return Window
 @within Window
 ]=]
 function windowPrivate.Resize(self: types.Window, newWidth, newHeight)
@@ -349,7 +355,7 @@ myWindow:TintRegion(color.RED, .5, 0, 0, 10, 10)
 ```
 
 @function TintRegion
-@return DrawingContext
+@return DrawableObject
 @within DrawableObject
 ]=]
 windowPrivate.TintRegion = utils.createTintRegion()
@@ -448,6 +454,7 @@ print(myWindow:GetRelativeMouseToRenderer(path.to.parent))
 ```
 
 @param image ImageLabel | ImageButton -- The renderer instance
+@return (boolean, number, number)
 @within Window
 ]=]
 function windowPrivate.GetRelativeMouseToRenderer(self: types.Window, image: ImageLabel): (boolean, number, number)

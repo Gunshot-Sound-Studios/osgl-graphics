@@ -25,3 +25,12 @@ myWindow.targetFPS = 275
 local txt = texture.fromAssetId(94762137675783)
 local newTexture = texture.scale(txt, 3)
 
+while task.wait() do
+    for x = 0, SIZE_X-1 do
+        for y = 0, SIZE_Y-1 do
+            draw.pixel(myWindow, x, y, color.RED)
+        end
+    end
+
+    myWindow:Render()
+end

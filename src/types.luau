@@ -64,6 +64,7 @@ export type WindowConfiguration = {
 --- .Draw (self: DrawableObject<T>) -> DrawingContext<T> -- Returns the drawing context of the object
 --- .TintRegion (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  DrawingContext<T> -- Tints a region of pixels
 --- .ReadPixel (self: T, x: number, y: number) -> Color -- Reads a pixel at the given X, Y
+--- .Serialize (self: T) -> (buffer, number, number) -- Returns the object's buffer, as well as its dimensions
 ---
 --- A DrawableObject is an item that you can draw too. This can be
 --- a window, or a texture.
@@ -84,7 +85,8 @@ export type DrawableObject<T> = {
 
     Draw: (self: DrawableObject<T>) -> DrawingContext<T>,
     ReadPixel: (self: T, x: number, y: number) -> Color,
-    TintRegion: (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  DrawingContext<T>
+    TintRegion: (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  DrawingContext<T>,
+    Serialize: (self: T) -> (buffer, number, number),
 }
 
 
@@ -100,7 +102,6 @@ export type DrawableObject<T> = {
 --- .AddRenderer (self: Window, ...ImageLabel | ImageButton) -> Window -- Adds a new renderer instance
 --- .RemoveRenderer (self: Window, ...ImageLabel | ImageButton) -> Window -- Removes a renderer instance
 ---
---- .Serialize (self: Window) -> (buffer, number, number) -- Returns the Window's buffer, as well as its dimensions
 --- .Deserialize (self: Window, bfr: buffer, width: number, height: number) -> Window -- Safely replaces the current window's buffer with a new buffer by resizing it to the specified width and height, preventing errors during the update
 ---
 --- .GetRelativeMouseToRenderer (self: Window, image: ImageLabel | ImageButton) -> (boolean, number, number) -- Returns the mouse position relative to the renderer
@@ -130,7 +131,6 @@ export type Window = DrawableObject<Window> & {
     AddRenderer: (self: Window, ...ImageLabel | ImageButton) -> Window,
     RemoveRenderer: (self: Window, ...ImageLabel | ImageButton) -> Window,
 
-    Serialize: (self: Window) -> (buffer, number, number),
     Deserialize: (self: Window, bfr: buffer, width: number, height: number) -> Window,
 
     GetRelativeMouseToRenderer: (self: Window, image: ImageLabel | ImageButton) -> (boolean, number, number)

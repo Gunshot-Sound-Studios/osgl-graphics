@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Serializing & Deserializing
 
-OSGL makes it easy to save and load your `Window`s and [`Texture`s](../Textures/loading-textures.md) safely—no more worrying about dreaded `buffer` errors! This process, known as **serialization** and **deserialization**, helps you transfer data smoothly.
+OSGL makes it easy to save and load your `Window`s and [`Texture`s](../Textures/loading-textures.md) safely without `buffer` errors! This process, known as **serialization** and **deserialization**, helps you transfer data smoothly.
 
 ### Why Serialize and Deserialize?
 

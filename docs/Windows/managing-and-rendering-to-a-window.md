@@ -61,7 +61,7 @@ while task.wait() do
 end
 ```
 
-In this example, each operation within the loop is presented as separate statements. However, these statements can be combined into a single line using method chaining, as shown below:
+In this example, each operation within the loop is presented as separate statements. However, these statements can be combined into a single statement using method chaining, as shown below:
 
 ```lua
 myWindow

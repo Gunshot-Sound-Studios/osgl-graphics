@@ -115,6 +115,8 @@ function utils.createTintRegion()
 				)
 			end
 		end
+
+		return self
 	end
 end
 
