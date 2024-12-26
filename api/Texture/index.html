@@ -3,199 +3,390 @@
 <head>
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v2.3.1">
-<title data-rh="true">Texture | OSGL</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://gunshot-Sound-Studios.github.io/osgl-graphics/api/Texture"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Texture | OSGL"><meta data-rh="true" name="description" content="The Texture class. Handles loading textures into memory
-for further use with sprites. Inherits everything from [DrawableObject]."><meta data-rh="true" property="og:description" content="The Texture class. Handles loading textures into memory
-for further use with sprites. Inherits everything from [DrawableObject]."><link data-rh="true" rel="canonical" href="https://gunshot-Sound-Studios.github.io/osgl-graphics/api/Texture"><link data-rh="true" rel="alternate" href="https://gunshot-Sound-Studios.github.io/osgl-graphics/api/Texture" hreflang="en"><link data-rh="true" rel="alternate" href="https://gunshot-Sound-Studios.github.io/osgl-graphics/api/Texture" hreflang="x-default"><link rel="stylesheet" href="/osgl-graphics/assets/css/styles.e1adec2f.css">
-<link rel="preload" href="/osgl-graphics/assets/js/runtime~main.f2c25cae.js" as="script">
-<link rel="preload" href="/osgl-graphics/assets/js/main.90257bf4.js" as="script">
+<title data-rh="true">Texture | OSGL</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Texture"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Texture | OSGL"><meta data-rh="true" name="description" content="The Texture class. Handles loading textures into memory
+so you can draw them onto a [DrawableObject]. Inherits everything from
+[DrawableObject]"><meta data-rh="true" property="og:description" content="The Texture class. Handles loading textures into memory
+so you can draw them onto a [DrawableObject]. Inherits everything from
+[DrawableObject]"><link data-rh="true" rel="icon" href="/osgl-graphics/image/favicon.ico"><link data-rh="true" rel="canonical" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Texture"><link data-rh="true" rel="alternate" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Texture" hreflang="en"><link data-rh="true" rel="alternate" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Texture" hreflang="x-default"><link rel="stylesheet" href="/osgl-graphics/assets/css/styles.9a3fe5a1.css">
+<link rel="preload" href="/osgl-graphics/assets/js/runtime~main.810f4afb.js" as="script">
+<link rel="preload" href="/osgl-graphics/assets/js/main.c62b21e0.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
 <script>!function(){function e(e){document.documentElement.setAttribute("data-theme",e)}var t=function(){var e=null;try{e=localStorage.getItem("theme")}catch(e){}return e}();null!==t?e(t):window.matchMedia("(prefers-color-scheme: dark)").matches?e("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,e("light"))}()</script><div id="__docusaurus">
-<div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/osgl-graphics/"><b class="navbar__title text--truncate">OSGL</b></a><a class="navbar__item navbar__link" href="/osgl-graphics/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/osgl-graphics/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/Gunshot-Sound-Studios/osgl-graphics" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="searchBox_ZlJk"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input type="search" id="search_input_react" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0 docPageContainer_wNNk"><div class="docPage_Dpn1"><div class="docSidebarContainer_o_re"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Color">​Color</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Draw">​Draw</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/DrawableObject">​Drawable​Object</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Sprite">​Sprite</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/osgl-graphics/api/Texture">​Texture</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Window">​Window</a></li></ul></nav></div></div><main class="docMainContainer_HJE1"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_MU3C"><div class="docItemContainer_Wv98"><article><div class="member_J0w1 markdown"><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_oUs_"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><header><h1 class="docTitle_mZRt" style="text-decoration:none"><span style="display:inline-block">Texture</span></h1><div class="luaClassTags_EipM"></div><div>
+<div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/osgl-graphics/"><b class="navbar__title text--truncate">OSGL</b></a><a class="navbar__item navbar__link" href="/osgl-graphics/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/osgl-graphics/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/Gunshot-Sound-Studios/osgl-graphics" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="searchBox_ZlJk"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input type="search" id="search_input_react" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0 docPageContainer_wNNk"><div class="docPage_Dpn1"><div class="docSidebarContainer_o_re"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Color">​Color</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Draw">​Draw</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/DrawableObject">​Drawable​Object</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/osgl-graphics/api/Texture">​Texture</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Window">​Window</a></li></ul></nav></div></div><main class="docMainContainer_HJE1"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_MU3C"><div class="docItemContainer_Wv98"><article><div class="member_J0w1 markdown"><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_oUs_"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><header><h1 class="docTitle_mZRt" style="text-decoration:none"><span style="display:inline-block">Texture</span></h1><div class="luaClassTags_EipM"></div><div>
 <p>
   The Texture class. Handles loading textures into memory
-  for further use with sprites. Inherits everything from <a href="/osgl-graphics/api/DrawableObject">DrawableObject</a>.
+  so you can draw them onto a <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a>. Inherits everything from
+  <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a>
 </p>
-</div></header><h2 class="anchor anchorWithStickyNavbar_LWe7" id="types">Types<a href="#types" class="hash-link" aria-label="Direct link to Types" title="Direct link to Types">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="FlagTexture"><code style="text-decoration:none">FlagTexture</code><a href="#FlagTexture" class="hash-link" aria-label="Direct link to FlagTexture" title="Direct link to FlagTexture">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/types.luau#L89"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">type</code> <code>FlagTexture<!-- --> = </code> <code class="purple_ieR2">{</code><div class="inset_uKQm"><code>width<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>height<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>pixels<!-- -->: </code><code class="green_DgR4">{</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code><code class="green_DgR4">}</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"></div><code class="purple_ieR2">}</code></div><div>
+</div></header><h2 class="anchor anchorWithStickyNavbar_LWe7" id="types">Types<a href="#types" class="hash-link" aria-label="Direct link to Types" title="Direct link to Types">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="FlagTexture"><code style="text-decoration:none">FlagTexture</code><a href="#FlagTexture" class="hash-link" aria-label="Direct link to FlagTexture" title="Direct link to FlagTexture">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/types.luau#L180"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">type</code> <code>FlagTexture<!-- --> = </code> <code class="purple_ieR2">{</code><div class="inset_uKQm"><code>width<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>height<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>pixels<!-- -->: </code><code class="green_DgR4">{</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code><code class="green_DgR4">}</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"></div><code class="purple_ieR2">}</code></div><div>
 <p>The representation of a texture made with the <code>converter</code> exe provided with the module.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Texture"><code style="text-decoration:none">Texture</code><a href="#Texture" class="hash-link" aria-label="Direct link to Texture" title="Direct link to Texture">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/types.luau#L103"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">interface</code> <code>Texture<!-- --> <!-- -->{</code><div class="inset_uKQm"><div><code>pixelStorage<!-- -->: </code><code class="blue_P4bS">PixelStorage</code><span class="inlineDescription_G7Er">-- <span>
-<p>The raw-bytes of the texture</p>
-</span></span></div><div><code>sizeX<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
-<p>The width of the texture</p>
-</span></span></div><div><code>sizeY<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
-<p>The height of the texture</p>
-</span></span></div></div><code>}</code></div><div>
-<p>
-  A <code>Texture</code> can be drawn onto a <a href="/osgl-graphics/api/Sprite#Sprite">Sprite</a> to be displayed on-screen.
-  Textures are simply a wrapper over our internal <code>PixelStorage</code>.
-</p>
-</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="from"><code style="text-decoration:none">from</code><a href="#from" class="hash-link" aria-label="Direct link to from" title="Direct link to from">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/DrawableObject/sprite/texture.luau#L84"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Texture<!-- -->.</code><code class="green_DgR4">from</code><code>(</code><div class="inset_uKQm"><div><code>textureData<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Texture#FlagTexture">FlagTexture</a></code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/ModuleScript" target="_blank" rel="noopener noreferrer">ModuleScript<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><span class="inlineDescription_G7Er">-- <span>
-<p>The string that was generated by the <code>converter</code> exe</p>
-</span></span></div></div><code>) → </code><code class="blue_P4bS">types.Texture</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">P</code><code class="op_lSLc">&gt;</code></div><div>
-<p>Loads a texture from a string, or a module that returns a string.</p>
+</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="from"><code style="text-decoration:none">from</code><a href="#from" class="hash-link" aria-label="Direct link to from" title="Direct link to from">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/DrawableObject/texture.luau#L73"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Texture<!-- -->.</code><code class="green_DgR4">from</code><code>(</code><div class="inset_uKQm"><div><code>textureData<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Texture#FlagTexture">FlagTexture</a></code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/ModuleScript" target="_blank" rel="noopener noreferrer">ModuleScript<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><span class="inlineDescription_G7Er">-- <span>
+<p>The textureData</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>The loaded texture</p>
+</span></span></div><div>
+<p>Creates a texture from textureData</p>
 <pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
-<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
-<span class="token keyword">local</span> texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>texture
-​
-<span class="token comment">-- Creates a window from an existing EditableImage</span>
-<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>editableImage<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
 
-<span class="token keyword">local</span> txt <span class="token operator">=</span> texture<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>script<span class="token punctuation">.</span>ModuleThatReturnsTexture<span class="token punctuation">)</span>
+<span class="token keyword">local</span> textureData <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>texture<span class="token punctuation">)</span>
+<span class="token keyword">local</span> texture <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>textureData<span class="token punctuation">)</span>
 </code></pre>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="new"><code style="text-decoration:none">new</code><a href="#new" class="hash-link" aria-label="Direct link to new" title="Direct link to new">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/DrawableObject/sprite/texture.luau#L111"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Texture<!-- -->.</code><code class="green_DgR4">new</code><code>(</code><div class="inset_uKQm"><div><code>sizeX<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The width of the texture</p>
-</span></span></div><div><code>sizeY<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
-<p>The height of the texture</p>
-</span></span></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Texture#Texture">Texture</a></code><span class="inlineDescription_G7Er">-- <span>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="new"><code style="text-decoration:none">new</code><a href="#new" class="hash-link" aria-label="Direct link to new" title="Direct link to new">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/DrawableObject/texture.luau#L143"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Texture<!-- -->.</code><code class="green_DgR4">new</code><code>(</code><div class="inset_uKQm"><div><code>width<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The texture's width</p>
+</span></span></div><div><code>height<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The texture's height</p>
+</span></span></div><div><code>bfr<!-- -->: </code><code class="blue_P4bS">buffer?</code><span class="inlineDescription_G7Er">-- <span>
+<p>An optional buffer for textureData</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>The loaded texture</p>
+</span></span></div><div>
+<p>Creates a texture of the given dimensions with an optional buffer</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token keyword">local</span> texture <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="draw"><code style="text-decoration:none">draw</code><a href="#draw" class="hash-link" aria-label="Direct link to draw" title="Direct link to draw">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/DrawableObject/texture.luau#L182"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Texture<!-- -->.</code><code class="green_DgR4">draw</code><code>(</code><div class="inset_uKQm"><div><code>object<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The object that the texture will be drawn onto</p>
+</span></span></div><div><code>texture<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The texture that will be drawn</p>
+</span></span></div><div><code>spriteX<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The X position of where the texture will be drawn</p>
+</span></span></div><div><code>spriteY<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>The y position of where the texture will be drawn</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><span class="inlineDescription_G7Er">-- <span>
 <p>The final texture</p>
 </span></span></div><div>
-<p>Creates a texture of the given width and height</p>
+<p>Draws a <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a> onto another <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></p>
 <pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
-<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
-<span class="token keyword">local</span> texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>texture
-​
-<span class="token comment">-- Creates a window from an existing EditableImage</span>
-<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>editableImage<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
 
-<span class="token keyword">local</span> txt <span class="token operator">=</span> texture<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> textureData <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>texture<span class="token punctuation">)</span>
+<span class="token keyword">local</span> secondTextureData <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>secondTexture<span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> textureA <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>textureData<span class="token punctuation">)</span>
+<span class="token keyword">local</span> textureB <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>secondTextureData<span class="token punctuation">)</span>
+
+<span class="token comment">-- Draw textureB on textureA at 0, 0</span>
+<span class="token keyword">local</span> textureC <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>textureA<span class="token punctuation">,</span> textureB<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
 </code></pre>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="read"><code style="text-decoration:none">read</code><a href="#read" class="hash-link" aria-label="Direct link to read" title="Direct link to read">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/DrawableObject/sprite/texture.luau#L161"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Texture<!-- -->.</code><code class="green_DgR4">read</code><code>(</code><div class="inset_uKQm"><div><code>from<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The <a href="/osgl-graphics/api/DrawableObject">DrawableObject</a> that will be read</p>
-</span></span></div><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The X position of the area that will be read</p>
-</span></span></div><div><code>y<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The position of the area that will be read</p>
-</span></span></div><div><code>xSize<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The X-Size of the chunk. Defaults to 1</p>
-</span></span></div><div><code>ySize<!-- -->: </code><code class="blue_P4bS">number?</code><span class="inlineDescription_G7Er">-- <span>
-<p>The Y-Size of the chunk. Defaults to 1</p>
-</span></span></div></div><code>) → </code><code class="purple_ieR2">{</code><code class="blue_P4bS">types.Color</code><code class="purple_ieR2">}</code><span class="inlineDescription_G7Er">-- <span>
-<p>The colors in the specified chunk</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="drawRotated"><code style="text-decoration:none">drawRotated</code><a href="#drawRotated" class="hash-link" aria-label="Direct link to drawRotated" title="Direct link to drawRotated">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/DrawableObject/texture.luau#L253"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Texture<!-- -->.</code><code class="green_DgR4">drawRotated</code><code>(</code><div class="inset_uKQm"><div><code>object<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The object that the texture will be drawn onto</p>
+</span></span></div><div><code>texture<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The texture that will be drawn</p>
+</span></span></div><div><code>spriteX<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The X position of where the texture will be drawn</p>
+</span></span></div><div><code>spriteY<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The y position of where the texture will be drawn</p>
+</span></span></div><div><code>rotation<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>The rotation of the texture</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>The final texture</p>
 </span></span></div><div>
-<p>Reads the desired chunk from a DrawableObject object</p>
+<p>Draws a <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a> onto another <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a> with a rotation. The pivot is at the center of the <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></p>
 <pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
-<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
-<span class="token keyword">local</span> texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>texture
-​
-<span class="token comment">-- Creates a window from an existing EditableImage</span>
-<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>editableImage<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
 
-<span class="token comment">-- *Draw somthing here*</span>
+<span class="token keyword">local</span> textureData <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>texture<span class="token punctuation">)</span>
+<span class="token keyword">local</span> secondTextureData <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>secondTexture<span class="token punctuation">)</span>
 
-<span class="token comment">-- Read a 5x5 square chunk, with the top-left corner</span>
-<span class="token comment">-- being at 0, 0. This will return an array of colors</span>
-<span class="token comment">-- of length 25 (assuming the window isn't smaller than 5x5 pixels)</span>
-<span class="token function">print</span><span class="token punctuation">(</span>texture<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">local</span> textureA <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>textureData<span class="token punctuation">)</span>
+<span class="token keyword">local</span> textureB <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>secondTextureData<span class="token punctuation">)</span>
+
+<span class="token comment">-- Draw textureB on textureA at 0, 0, rotated 15 degrees</span>
+<span class="token keyword">local</span> textureC <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>textureA<span class="token punctuation">,</span> textureB<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span>
 </code></pre>
-</div><h3>Errors</h3><table class="errorTable_jfN8"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>&quot;X&quot;</td><td>This error occurs if the X is less than 0</td></tr><tr><td>&quot;Y&quot;</td><td>This error occurs if the Y is less than 0</td></tr><tr><td>&quot;XSize&quot;</td><td>This error occurs if the XSize is less than 1</td></tr><tr><td>&quot;YSize&quot;</td><td>This error occurs if the YSize is less than 1</td></tr></tbody></table></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="read"><code style="text-decoration:none">read</code><a href="#read" class="hash-link" aria-label="Direct link to read" title="Direct link to read">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/DrawableObject/texture.luau#L321"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Texture<!-- -->.</code><code class="green_DgR4">read</code><code>(</code><div class="inset_uKQm"><div><code>texture<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The texture that the selection of pixels will be taken from</p>
+</span></span></div><div><code>xPos<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The top-left X position of the selection</p>
+</span></span></div><div><code>yPos<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The top-left Y position of the selection</p>
+</span></span></div><div><code>width<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The width of the selection box</p>
+</span></span></div><div><code>height<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>The height of the selection box</p>
+</span></span></div></div><code>) → </code><code class="purple_ieR2">(</code><div class="inset_uKQm"><code class="blue_P4bS">buffer</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">number</code></div><code class="purple_ieR2">)</code><span class="inlineDescription_G7Er">-- <span>
+<p>A tuple containing the buffer-data, the width, and height</p>
+</span></span></div><div>
+<p>Reads a rectangular selection of pixels from a <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token keyword">local</span> textureData <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>texture<span class="token punctuation">)</span>
+<span class="token keyword">local</span> texture <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>textureData<span class="token punctuation">)</span>
+<span class="token comment">-- Read a rectangular selection of pixels from 0, 5, with the</span>
+<span class="token comment">-- selection being 10x15 (150 pixels, from 0, 5)</span>
+<span class="token keyword">local</span> bfr<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>texture<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="scale"><code style="text-decoration:none">scale</code><a href="#scale" class="hash-link" aria-label="Direct link to scale" title="Direct link to scale">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/DrawableObject/texture.luau#L384"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Texture<!-- -->.</code><code class="green_DgR4">scale</code><code>(</code><div class="inset_uKQm"><div><code>texture<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>The texture that will be enlarged</p>
+</span></span></div><div><code>scaleX<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
+<p>Scaling for x axis. Defaults to 1</p>
+</span></span></div><div><code>scaleY<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>Scaling for y axis. Defaults to 1</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>The enlarged texture</p>
+</span></span></div><div>
+<p>Scales a <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a> by the given amount</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token keyword">local</span> textureData <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>texture<span class="token punctuation">)</span>
+<span class="token keyword">local</span> texture <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>textureData<span class="token punctuation">)</span>
+
+<span class="token comment">-- Enlarge `texture` by 5x on the X axis</span>
+<span class="token keyword">local</span> enlargedTexture <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">scale</span><span class="token punctuation">(</span>texture<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="fromAssetId"><code style="text-decoration:none">fromAssetId</code><a href="#fromAssetId" class="hash-link" aria-label="Direct link to fromAssetId" title="Direct link to fromAssetId">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/DrawableObject/texture.luau#L440"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Texture<!-- -->.</code><code class="green_DgR4">fromAssetId</code><code>(</code><div class="inset_uKQm"><div><code>assetId<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>The assetId that the texture will be</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>A finished texture that is the assetId</p>
+</span></span></div><div>
+<p>Creates a <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a> (texture) from an assetId</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token keyword">local</span> textureData <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>texture<span class="token punctuation">)</span>
+<span class="token keyword">local</span> texture <span class="token operator">=</span> Texture<span class="token punctuation">.</span><span class="token function">fromAssetId</span><span class="token punctuation">(</span>asset<span class="token punctuation">.</span>id<span class="token punctuation">)</span>
+</code></pre>
+</div><h3>Errors</h3><table class="errorTable_jfN8"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>&quot;Memory&quot;</td><td>This error occurs when the device doesn&#x27;t have enough memory to create the texture</td></tr></tbody></table></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
     &quot;functions&quot;: [
         {
             &quot;name&quot;: &quot;from&quot;,
-            &quot;desc&quot;: &quot;Loads a texture from a string, or a module that returns a string.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal texture = OSGL.texture\n​\n-- Creates a window from an existing EditableImage\nlocal myWindow = Window.from(path.to.editableImage, { sizeX = 50, sizeY = 50 })\n\nlocal txt = texture.from(script.ModuleThatReturnsTexture)\n```&quot;,
+            &quot;desc&quot;: &quot;Creates a texture from textureData\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Texture = OSGL.Texture\n\nlocal textureData = require(path.to.texture)\nlocal texture = Texture.from(textureData)\n```&quot;,
             &quot;params&quot;: [
                 {
                     &quot;name&quot;: &quot;textureData&quot;,
-                    &quot;desc&quot;: &quot;The string that was generated by the `converter` exe&quot;,
+                    &quot;desc&quot;: &quot;The textureData&quot;,
                     &quot;lua_type&quot;: &quot;FlagTexture | ModuleScript&quot;
                 }
             ],
             &quot;returns&quot;: [
                 {
-                    &quot;desc&quot;: &quot;&quot;,
-                    &quot;lua_type&quot;: &quot;types.Texture&lt;P&gt;\r\n&quot;
+                    &quot;desc&quot;: &quot;The loaded texture&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
                 }
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 84,
-                &quot;path&quot;: &quot;src/DrawableObject/sprite/texture.luau&quot;
+                &quot;line&quot;: 73,
+                &quot;path&quot;: &quot;src/DrawableObject/texture.luau&quot;
             }
         },
         {
             &quot;name&quot;: &quot;new&quot;,
-            &quot;desc&quot;: &quot;Creates a texture of the given width and height\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal texture = OSGL.texture\n​\n-- Creates a window from an existing EditableImage\nlocal myWindow = Window.from(path.to.editableImage, { sizeX = 50, sizeY = 50 })\n\nlocal txt = texture.new(50, 50)\n```&quot;,
+            &quot;desc&quot;: &quot;Creates a texture of the given dimensions with an optional buffer\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Texture = OSGL.Texture\n\nlocal texture = Texture.new(5, 10)\n```&quot;,
             &quot;params&quot;: [
                 {
-                    &quot;name&quot;: &quot;sizeX&quot;,
-                    &quot;desc&quot;: &quot;The width of the texture&quot;,
+                    &quot;name&quot;: &quot;width&quot;,
+                    &quot;desc&quot;: &quot;The texture&#x27;s width&quot;,
                     &quot;lua_type&quot;: &quot;number&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;sizeY&quot;,
-                    &quot;desc&quot;: &quot;The height of the texture&quot;,
+                    &quot;name&quot;: &quot;height&quot;,
+                    &quot;desc&quot;: &quot;The texture&#x27;s height&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;bfr&quot;,
+                    &quot;desc&quot;: &quot;An optional buffer for textureData&quot;,
+                    &quot;lua_type&quot;: &quot;buffer?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;The loaded texture&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 143,
+                &quot;path&quot;: &quot;src/DrawableObject/texture.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;draw&quot;,
+            &quot;desc&quot;: &quot;Draws a [DrawableObject] onto another [DrawableObject]\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Texture = OSGL.Texture\n\nlocal textureData = require(path.to.texture)\nlocal secondTextureData = require(path.to.secondTexture)\n\nlocal textureA = Texture.from(textureData)\nlocal textureB = Texture.from(secondTextureData)\n\n-- Draw textureB on textureA at 0, 0\nlocal textureC = Texture.draw(textureA, textureB, 0, 0)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;object&quot;,
+                    &quot;desc&quot;: &quot;The object that the texture will be drawn onto&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;texture&quot;,
+                    &quot;desc&quot;: &quot;The texture that will be drawn&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;spriteX&quot;,
+                    &quot;desc&quot;: &quot;The X position of where the texture will be drawn&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;spriteY&quot;,
+                    &quot;desc&quot;: &quot;The y position of where the texture will be drawn&quot;,
                     &quot;lua_type&quot;: &quot;number&quot;
                 }
             ],
             &quot;returns&quot;: [
                 {
                     &quot;desc&quot;: &quot;The final texture&quot;,
-                    &quot;lua_type&quot;: &quot;Texture&quot;
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
                 }
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 111,
-                &quot;path&quot;: &quot;src/DrawableObject/sprite/texture.luau&quot;
+                &quot;line&quot;: 182,
+                &quot;path&quot;: &quot;src/DrawableObject/texture.luau&quot;
             }
         },
         {
-            &quot;name&quot;: &quot;read&quot;,
-            &quot;desc&quot;: &quot;Reads the desired chunk from a DrawableObject object\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal texture = OSGL.texture\n​\n-- Creates a window from an existing EditableImage\nlocal myWindow = Window.from(path.to.editableImage, { sizeX = 50, sizeY = 50 })\n\n-- *Draw somthing here*\n\n-- Read a 5x5 square chunk, with the top-left corner\n-- being at 0, 0. This will return an array of colors\n-- of length 25 (assuming the window isn&#x27;t smaller than 5x5 pixels)\nprint(texture.read(myWindow, 0, 0, 5, 5))\n```&quot;,
+            &quot;name&quot;: &quot;drawRotated&quot;,
+            &quot;desc&quot;: &quot;Draws a [DrawableObject] onto another [DrawableObject] with a rotation. The pivot is at the center of the [DrawableObject]\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Texture = OSGL.Texture\n\nlocal textureData = require(path.to.texture)\nlocal secondTextureData = require(path.to.secondTexture)\n\nlocal textureA = Texture.from(textureData)\nlocal textureB = Texture.from(secondTextureData)\n\n-- Draw textureB on textureA at 0, 0, rotated 15 degrees\nlocal textureC = Texture.draw(textureA, textureB, 0, 0, 15)\n```&quot;,
             &quot;params&quot;: [
                 {
-                    &quot;name&quot;: &quot;from&quot;,
-                    &quot;desc&quot;: &quot;The [DrawableObject] that will be read&quot;,
+                    &quot;name&quot;: &quot;object&quot;,
+                    &quot;desc&quot;: &quot;The object that the texture will be drawn onto&quot;,
                     &quot;lua_type&quot;: &quot;DrawableObject&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;x&quot;,
-                    &quot;desc&quot;: &quot;The X position of the area that will be read&quot;,
+                    &quot;name&quot;: &quot;texture&quot;,
+                    &quot;desc&quot;: &quot;The texture that will be drawn&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;spriteX&quot;,
+                    &quot;desc&quot;: &quot;The X position of where the texture will be drawn&quot;,
                     &quot;lua_type&quot;: &quot;number&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;y&quot;,
-                    &quot;desc&quot;: &quot;The position of the area that will be read&quot;,
+                    &quot;name&quot;: &quot;spriteY&quot;,
+                    &quot;desc&quot;: &quot;The y position of where the texture will be drawn&quot;,
                     &quot;lua_type&quot;: &quot;number&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;xSize&quot;,
-                    &quot;desc&quot;: &quot;The X-Size of the chunk. Defaults to 1&quot;,
-                    &quot;lua_type&quot;: &quot;number?&quot;
-                },
-                {
-                    &quot;name&quot;: &quot;ySize&quot;,
-                    &quot;desc&quot;: &quot;The Y-Size of the chunk. Defaults to 1&quot;,
-                    &quot;lua_type&quot;: &quot;number?&quot;
+                    &quot;name&quot;: &quot;rotation&quot;,
+                    &quot;desc&quot;: &quot;The rotation of the texture&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
                 }
             ],
             &quot;returns&quot;: [
                 {
-                    &quot;desc&quot;: &quot;The colors in the specified chunk&quot;,
-                    &quot;lua_type&quot;: &quot;{types.Color}&quot;
+                    &quot;desc&quot;: &quot;The final texture&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 253,
+                &quot;path&quot;: &quot;src/DrawableObject/texture.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;read&quot;,
+            &quot;desc&quot;: &quot;Reads a rectangular selection of pixels from a [DrawableObject]\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Texture = OSGL.Texture\n\nlocal textureData = require(path.to.texture)\nlocal texture = Texture.from(textureData)\n-- Read a rectangular selection of pixels from 0, 5, with the\n-- selection being 10x15 (150 pixels, from 0, 5)\nlocal bfr, width, height = Texture.read(texture, 0, 5, 10, 15)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;texture&quot;,
+                    &quot;desc&quot;: &quot;The texture that the selection of pixels will be taken from&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;xPos&quot;,
+                    &quot;desc&quot;: &quot;The top-left X position of the selection&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;yPos&quot;,
+                    &quot;desc&quot;: &quot;The top-left Y position of the selection&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;width&quot;,
+                    &quot;desc&quot;: &quot;The width of the selection box&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;height&quot;,
+                    &quot;desc&quot;: &quot;The height of the selection box&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;A tuple containing the buffer-data, the width, and height&quot;,
+                    &quot;lua_type&quot;: &quot;(buffer, number, number)&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 321,
+                &quot;path&quot;: &quot;src/DrawableObject/texture.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;scale&quot;,
+            &quot;desc&quot;: &quot;Scales a [DrawableObject] by the given amount\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Texture = OSGL.Texture\n\nlocal textureData = require(path.to.texture)\nlocal texture = Texture.from(textureData)\n\n-- Enlarge `texture` by 5x on the X axis\nlocal enlargedTexture = Texture.scale(texture, 5)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;texture&quot;,
+                    &quot;desc&quot;: &quot;The texture that will be enlarged&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;scaleX&quot;,
+                    &quot;desc&quot;: &quot;Scaling for x axis. Defaults to 1&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;scaleY&quot;,
+                    &quot;desc&quot;: &quot;Scaling for y axis. Defaults to 1&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;The enlarged texture&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 384,
+                &quot;path&quot;: &quot;src/DrawableObject/texture.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;fromAssetId&quot;,
+            &quot;desc&quot;: &quot;Creates a [DrawableObject] (texture) from an assetId\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Texture = OSGL.Texture\n\nlocal textureData = require(path.to.texture)\nlocal texture = Texture.fromAssetId(asset.id)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;assetId&quot;,
+                    &quot;desc&quot;: &quot;The assetId that the texture will be&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;A finished texture that is the assetId&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
                 }
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;errors&quot;: [
                 {
-                    &quot;lua_type&quot;: &quot;\&quot;X\&quot;&quot;,
-                    &quot;desc&quot;: &quot;This error occurs if the X is less than 0&quot;
-                },
-                {
-                    &quot;lua_type&quot;: &quot;\&quot;Y\&quot;&quot;,
-                    &quot;desc&quot;: &quot;This error occurs if the Y is less than 0&quot;
-                },
-                {
-                    &quot;lua_type&quot;: &quot;\&quot;XSize\&quot;&quot;,
-                    &quot;desc&quot;: &quot;This error occurs if the XSize is less than 1&quot;
-                },
-                {
-                    &quot;lua_type&quot;: &quot;\&quot;YSize\&quot;&quot;,
-                    &quot;desc&quot;: &quot;This error occurs if the YSize is less than 1&quot;
+                    &quot;lua_type&quot;: &quot;\&quot;Memory\&quot;&quot;,
+                    &quot;desc&quot;: &quot;This error occurs when the device doesn&#x27;t have enough memory to create the texture&quot;
                 }
             ],
             &quot;source&quot;: {
-                &quot;line&quot;: 161,
-                &quot;path&quot;: &quot;src/DrawableObject/sprite/texture.luau&quot;
+                &quot;line&quot;: 440,
+                &quot;path&quot;: &quot;src/DrawableObject/texture.luau&quot;
             }
         }
     ],
@@ -206,44 +397,19 @@ for further use with sprites. Inherits everything from [DrawableObject]."><link 
             &quot;desc&quot;: &quot;The representation of a texture made with the `converter` exe provided with the module.\r&quot;,
             &quot;lua_type&quot;: &quot;{ width: number, height: number, pixels: { Color | string }, }&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 89,
-                &quot;path&quot;: &quot;src/types.luau&quot;
-            }
-        },
-        {
-            &quot;name&quot;: &quot;Texture&quot;,
-            &quot;desc&quot;: &quot;A `Texture` can be drawn onto a [Sprite] to be displayed on-screen.\nTextures are simply a wrapper over our internal `PixelStorage`.\r&quot;,
-            &quot;fields&quot;: [
-                {
-                    &quot;name&quot;: &quot;pixelStorage&quot;,
-                    &quot;lua_type&quot;: &quot;PixelStorage&quot;,
-                    &quot;desc&quot;: &quot;The raw-bytes of the texture&quot;
-                },
-                {
-                    &quot;name&quot;: &quot;sizeX&quot;,
-                    &quot;lua_type&quot;: &quot;number&quot;,
-                    &quot;desc&quot;: &quot;The width of the texture&quot;
-                },
-                {
-                    &quot;name&quot;: &quot;sizeY&quot;,
-                    &quot;lua_type&quot;: &quot;number&quot;,
-                    &quot;desc&quot;: &quot;The height of the texture&quot;
-                }
-            ],
-            &quot;source&quot;: {
-                &quot;line&quot;: 103,
+                &quot;line&quot;: 180,
                 &quot;path&quot;: &quot;src/types.luau&quot;
             }
         }
     ],
     &quot;name&quot;: &quot;Texture&quot;,
-    &quot;desc&quot;: &quot;The Texture class. Handles loading textures into memory\nfor further use with sprites. Inherits everything from [DrawableObject].&quot;,
+    &quot;desc&quot;: &quot;The Texture class. Handles loading textures into memory\nso you can draw them onto a [DrawableObject]. Inherits everything from\n[DrawableObject]&quot;,
     &quot;source&quot;: {
-        &quot;line&quot;: 38,
-        &quot;path&quot;: &quot;src/DrawableObject/sprite/texture.luau&quot;
+        &quot;line&quot;: 45,
+        &quot;path&quot;: &quot;src/DrawableObject/texture.luau&quot;
     }
-}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a><ul><li><a href="#FlagTexture" class="table-of-contents__link toc-highlight">FlagTexture</a></li><li><a href="#Texture" class="table-of-contents__link toc-highlight">Texture</a></li></ul></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#from" class="table-of-contents__link toc-highlight">.from</a></li><li><a href="#new" class="table-of-contents__link toc-highlight">.new</a></li><li><a href="#read" class="table-of-contents__link toc-highlight">.read</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 Gunshot Sound Studios.</div></div></div></footer></div>
-<script src="/osgl-graphics/assets/js/runtime~main.f2c25cae.js"></script>
-<script src="/osgl-graphics/assets/js/main.90257bf4.js"></script>
+}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a><ul><li><a href="#FlagTexture" class="table-of-contents__link toc-highlight">FlagTexture</a></li></ul></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#draw" class="table-of-contents__link toc-highlight">.draw</a></li><li><a href="#drawRotated" class="table-of-contents__link toc-highlight">.drawRotated</a></li><li><a href="#from" class="table-of-contents__link toc-highlight">.from</a></li><li><a href="#fromAssetId" class="table-of-contents__link toc-highlight">.fromAssetId</a></li><li><a href="#new" class="table-of-contents__link toc-highlight">.new</a></li><li><a href="#read" class="table-of-contents__link toc-highlight">.read</a></li><li><a href="#scale" class="table-of-contents__link toc-highlight">.scale</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 Gunshot Sound Studios.</div></div></div></footer></div>
+<script src="/osgl-graphics/assets/js/runtime~main.810f4afb.js"></script>
+<script src="/osgl-graphics/assets/js/main.c62b21e0.js"></script>
 </body>
 </html>

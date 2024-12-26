@@ -3,385 +3,435 @@
 <head>
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v2.3.1">
-<title data-rh="true">Draw | OSGL</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://gunshot-Sound-Studios.github.io/osgl-graphics/api/Draw"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Draw | OSGL"><meta data-rh="true" name="description" content="The draw class. Contains functions that manipulates pixels
-on an OSGL window."><meta data-rh="true" property="og:description" content="The draw class. Contains functions that manipulates pixels
-on an OSGL window."><link data-rh="true" rel="canonical" href="https://gunshot-Sound-Studios.github.io/osgl-graphics/api/Draw"><link data-rh="true" rel="alternate" href="https://gunshot-Sound-Studios.github.io/osgl-graphics/api/Draw" hreflang="en"><link data-rh="true" rel="alternate" href="https://gunshot-Sound-Studios.github.io/osgl-graphics/api/Draw" hreflang="x-default"><link rel="stylesheet" href="/osgl-graphics/assets/css/styles.e1adec2f.css">
-<link rel="preload" href="/osgl-graphics/assets/js/runtime~main.f2c25cae.js" as="script">
-<link rel="preload" href="/osgl-graphics/assets/js/main.90257bf4.js" as="script">
+<title data-rh="true">Draw | OSGL</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Draw"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Draw | OSGL"><meta data-rh="true" name="description" content="The draw class. Contains functions for drawing various
+shapes on a [DrawableObject]"><meta data-rh="true" property="og:description" content="The draw class. Contains functions for drawing various
+shapes on a [DrawableObject]"><link data-rh="true" rel="icon" href="/osgl-graphics/image/favicon.ico"><link data-rh="true" rel="canonical" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Draw"><link data-rh="true" rel="alternate" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Draw" hreflang="en"><link data-rh="true" rel="alternate" href="https://Gunshot-Sound-Studios.github.io/osgl-graphics/api/Draw" hreflang="x-default"><link rel="stylesheet" href="/osgl-graphics/assets/css/styles.9a3fe5a1.css">
+<link rel="preload" href="/osgl-graphics/assets/js/runtime~main.810f4afb.js" as="script">
+<link rel="preload" href="/osgl-graphics/assets/js/main.c62b21e0.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
 <script>!function(){function e(e){document.documentElement.setAttribute("data-theme",e)}var t=function(){var e=null;try{e=localStorage.getItem("theme")}catch(e){}return e}();null!==t?e(t):window.matchMedia("(prefers-color-scheme: dark)").matches?e("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,e("light"))}()</script><div id="__docusaurus">
-<div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/osgl-graphics/"><b class="navbar__title text--truncate">OSGL</b></a><a class="navbar__item navbar__link" href="/osgl-graphics/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/osgl-graphics/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/Gunshot-Sound-Studios/osgl-graphics" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="searchBox_ZlJk"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input type="search" id="search_input_react" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0 docPageContainer_wNNk"><div class="docPage_Dpn1"><div class="docSidebarContainer_o_re"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Color">​Color</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/osgl-graphics/api/Draw">​Draw</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/DrawableObject">​Drawable​Object</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Sprite">​Sprite</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Texture">​Texture</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Window">​Window</a></li></ul></nav></div></div><main class="docMainContainer_HJE1"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_MU3C"><div class="docItemContainer_Wv98"><article><div class="member_J0w1 markdown"><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_oUs_"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><header><h1 class="docTitle_mZRt" style="text-decoration:none"><span style="display:inline-block">Draw</span></h1><div class="luaClassTags_EipM"></div><div>
+<div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/osgl-graphics/"><b class="navbar__title text--truncate">OSGL</b></a><a class="navbar__item navbar__link" href="/osgl-graphics/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/osgl-graphics/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/Gunshot-Sound-Studios/osgl-graphics" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="searchBox_ZlJk"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input type="search" id="search_input_react" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0 docPageContainer_wNNk"><div class="docPage_Dpn1"><div class="docSidebarContainer_o_re"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Color">​Color</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/osgl-graphics/api/Draw">​Draw</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/DrawableObject">​Drawable​Object</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Texture">​Texture</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl-graphics/api/Window">​Window</a></li></ul></nav></div></div><main class="docMainContainer_HJE1"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_MU3C"><div class="docItemContainer_Wv98"><article><div class="member_J0w1 markdown"><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_oUs_"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><header><h1 class="docTitle_mZRt" style="text-decoration:none"><span style="display:inline-block">Draw</span></h1><div class="luaClassTags_EipM"></div><div>
 <p>
-  The draw class. Contains functions that manipulates pixels
-  on an OSGL window.
+  The draw class. Contains functions for drawing various
+  shapes on a <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a>
 </p>
-</div></header><h2 class="anchor anchorWithStickyNavbar_LWe7" id="types">Types<a href="#types" class="hash-link" aria-label="Direct link to Types" title="Direct link to Types">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Points"><code style="text-decoration:none">Points</code><a href="#Points" class="hash-link" aria-label="Direct link to Points" title="Direct link to Points">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/types.luau#L128"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">type</code> <code>Points<!-- --> = </code> <code class="purple_ieR2">{</code><code class="green_DgR4">{</code><code class="blue_P4bS">number</code><code class="green_DgR4">}</code><code class="purple_ieR2">}</code></div><div>
-<p>An array of points</p>
-</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pixel"><code style="text-decoration:none">pixel</code><a href="#pixel" class="hash-link" aria-label="Direct link to pixel" title="Direct link to pixel">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L74"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">pixel</code><code>(</code><div class="inset_uKQm"><div><code>window<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The window or texture to draw on</p>
-</span></span></div><div><code>xPos<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The X-Position of the pixel,</p>
-</span></span></div><div><code>yPos<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The Y-Position of the pixel</p>
-</span></span></div><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code><span class="inlineDescription_G7Er">-- <span>
-<p>The color of the pixel</p>
-</span></span></div></div><code>) → </code><code class="blue_P4bS">nil</code></div><div>
-<p>Draws a singular pixel at the given location</p>
+</div></header><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="pixel"><code style="text-decoration:none">pixel</code><a href="#pixel" class="hash-link" aria-label="Direct link to pixel" title="Direct link to pixel">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L76"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">pixel</code><code>(</code><div class="inset_uKQm"><div><code>object<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code></div><div><code>X<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>Y<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Draws a singular pixel onto the <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></p>
 <pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
 <span class="token keyword">local</span> draw <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>draw
-<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
-<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
 
 <span class="token comment">-- Creates a new EditableImage</span>
 <span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>parent<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-<span class="token comment">-- Runs every heartbeat</span>
-<span class="token keyword">while</span> myWindow<span class="token punctuation">:</span><span class="token function">IsOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
-   <span class="token comment">-- Render here</span>
-   <span class="token comment">-- Draws a pixel at 0, 0, with a red color, onto "myWindow"</span>
-   draw<span class="token punctuation">.</span><span class="token function">pixel</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">)</span>
-   <span class="token comment">-- Stop rendering here</span>
-
-   myWindow<span class="token punctuation">:</span><span class="token function">Render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">end</span>
-
-<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"The window has been destroyed."</span><span class="token punctuation">)</span>
+<span class="token comment">-- Draws a red pixel at 0, 0</span>
+draw<span class="token punctuation">.</span><span class="token function">pixel</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">)</span>
 </code></pre>
-</div><h3>Errors</h3><table class="errorTable_jfN8"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>&quot;X&quot;</td><td>This error occurs if the X is less than 0</td></tr><tr><td>&quot;Y&quot;</td><td>This error occurs if the Y is less than 0</td></tr></tbody></table><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="line"><code style="text-decoration:none">line</code><a href="#line" class="hash-link" aria-label="Direct link to line" title="Direct link to line">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L122"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">line</code><code>(</code><div class="inset_uKQm"><div><code>window<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The window or texture to draw on</p>
-</span></span></div><div><code>line<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code>startX<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>startY<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>stopX<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>stopY<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>thickness<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code></div><code class="purple_ieR2">}</code><span class="inlineDescription_G7Er">-- <span>
-<p>The data that is used to construct the line</p>
-</span></span></div></div><code>) → </code><code class="blue_P4bS">nil</code></div><div>
-<p>Draws a line from point A to point B</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="line"><code style="text-decoration:none">line</code><a href="#line" class="hash-link" aria-label="Direct link to line" title="Direct link to line">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L104"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">line</code><code>(</code><div class="inset_uKQm"><div><code>object<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code></div><div><code>startX<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>startY<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>endX<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>endY<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>thickness<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>color<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Draws a line onto the <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></p>
 <pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
 <span class="token keyword">local</span> draw <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>draw
-<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
-<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
 
 <span class="token comment">-- Creates a new EditableImage</span>
 <span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>parent<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-<span class="token comment">-- Runs every heartbeat</span>
-<span class="token keyword">while</span> myWindow<span class="token punctuation">:</span><span class="token function">IsOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
-    <span class="token comment">-- Render here</span>
-    <span class="token comment">-- Draws a red line from 0,0 to 29,29</span>
-    draw<span class="token punctuation">.</span><span class="token function">line</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token punctuation">{</span>
-        startX <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-        startY <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-        stopX <span class="token operator">=</span> <span class="token number">29</span><span class="token punctuation">,</span>
-        stopY <span class="token operator">=</span> <span class="token number">29</span><span class="token punctuation">,</span>
-
-        <span class="token comment">-- Thickness defaults to 1</span>
-        <span class="token comment">-- Color defaults to black</span>
-        color <span class="token operator">=</span> color<span class="token punctuation">.</span>RED
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token comment">-- Stop rendering here</span>
-
-    myWindow<span class="token punctuation">:</span><span class="token function">Render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">end</span>
-
-<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"The window has been destroyed."</span><span class="token punctuation">)</span>
+<span class="token comment">-- Draws a red line from 5, 5 to 10, 10 with a thickness of 2</span>
+draw<span class="token punctuation">.</span><span class="token function">line</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">)</span>
 </code></pre>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="circle"><code style="text-decoration:none">circle</code><a href="#circle" class="hash-link" aria-label="Direct link to circle" title="Direct link to circle">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L164"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">circle</code><code>(</code><div class="inset_uKQm"><div><code>window<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The window or texture to draw on</p>
-</span></span></div><div><code>circle<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code>centerX<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>centerY<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>radius<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>fillColor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>strokeColor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>strokeThickness<!-- -->: </code><code class="blue_P4bS">number?</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>rotation<!-- -->: </code><code class="blue_P4bS">number?</code></div><code class="purple_ieR2">}</code><span class="inlineDescription_G7Er">-- <span>
-<p>The data that is used to construct the circle</p>
-</span></span></div></div><code>) → </code><code class="blue_P4bS">nil</code></div><div>
-<p>Draws a circle with an optional stroke onto the screen</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="rectangle"><code style="text-decoration:none">rectangle</code><a href="#rectangle" class="hash-link" aria-label="Direct link to rectangle" title="Direct link to rectangle">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L134"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">rectangle</code><code>(</code><div class="inset_uKQm"><div><code>object<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code></div><div><code>xPos<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>yPos<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>width<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>height<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>fill<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code><code>,</code></div><div><code>stroke<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code><code>,</code></div><div><code>strokeThickness<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code></div><div><code>rotation<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Draws a rectangle onto the <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></p>
 <pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
-<span class="token keyword">local</span> Draw <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>draw
 <span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
 <span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
-
-<span class="token comment">-- Creates a new EditableImage</span>
-<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>parent<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-<span class="token comment">-- Runs every heartbeat</span>
-<span class="token keyword">while</span> myWindow<span class="token punctuation">:</span><span class="token function">IsOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
-    <span class="token comment">-- Render here</span>
-    <span class="token comment">-- Draw our circle</span>
-    myWindow<span class="token punctuation">:</span><span class="token function">Clear</span><span class="token punctuation">(</span>color<span class="token punctuation">.</span>TRANSPARENT<span class="token punctuation">)</span>
-    draw<span class="token punctuation">.</span><span class="token function">circle</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token punctuation">{</span>
-        centerX <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
-        centerY <span class="token operator">=</span> <span class="token number">25</span><span class="token punctuation">,</span>
-        radius <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span>
-        fillColor <span class="token operator">=</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">,</span>
-
-        <span class="token comment">-- Rotation defaults to 0.</span>
-        <span class="token comment">-- Strokes are completely optional</span>
-        strokeColor <span class="token operator">=</span> color<span class="token punctuation">.</span>BLACK<span class="token punctuation">,</span>
-        strokeThickness <span class="token operator">=</span> <span class="token number">2</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-    <span class="token comment">-- Stop rendering here</span>
-
-    myWindow<span class="token punctuation">:</span><span class="token function">Render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">end</span>
-
-<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"The window has been destroyed."</span><span class="token punctuation">)</span>
-</code></pre>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="rectangle"><code style="text-decoration:none">rectangle</code><a href="#rectangle" class="hash-link" aria-label="Direct link to rectangle" title="Direct link to rectangle">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L208"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">rectangle</code><code>(</code><div class="inset_uKQm"><div><code>window<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The window or texture to draw on</p>
-</span></span></div><div><code>rectangle<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code>xPos<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>yPos<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>width<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>height<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>fillColor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>strokeColor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>strokeThickness<!-- -->: </code><code class="blue_P4bS">number?</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>rotation<!-- -->: </code><code class="blue_P4bS">number?</code></div><code class="purple_ieR2">}</code><span class="inlineDescription_G7Er">-- <span>
-<p>The data that is used to construct the rectangle</p>
-</span></span></div></div><code>) → </code><code class="blue_P4bS">nil</code></div><div>
-<p>Draws a rectangle with an optional stroke on the screen</p>
-<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
 <span class="token keyword">local</span> draw <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>draw
-<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
-<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
 
 <span class="token comment">-- Creates a new EditableImage</span>
 <span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>parent<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-<span class="token comment">-- Runs every heartbeat</span>
-<span class="token keyword">while</span> myWindow<span class="token punctuation">:</span><span class="token function">IsOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
-	<span class="token comment">-- Render here</span>
-	<span class="token comment">-- Draws a square (5x5) at 0, 0, with a red color, onto "myWindow"</span>
-	draw<span class="token punctuation">.</span><span class="token function">rectangle</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token punctuation">{</span>
-		xPos <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-		yPos <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-		width <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span>
-		height <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">,</span>
-		fillColor <span class="token operator">=</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">,</span>
-
-		<span class="token comment">-- Rotation defaults to 0.</span>
-		<span class="token comment">-- Strokes are completely optional</span>
-		strokeColor <span class="token operator">=</span> color<span class="token punctuation">.</span>BLACK<span class="token punctuation">,</span>
-		strokeThickness <span class="token operator">=</span> <span class="token number">2</span>
-	<span class="token punctuation">}</span><span class="token punctuation">)</span>
-	<span class="token comment">-- Stop rendering here</span>
-
-	myWindow<span class="token punctuation">:</span><span class="token function">Render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">end</span>
-
-<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"The window has been destroyed."</span><span class="token punctuation">)</span>
+<span class="token comment">-- Draws a 5x5 red square at 0, 0 </span>
+draw<span class="token punctuation">.</span><span class="token function">rectangle</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">)</span>
 </code></pre>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="points"><code style="text-decoration:none">points</code><a href="#points" class="hash-link" aria-label="Direct link to points" title="Direct link to points">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L251"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">points</code><code>(</code><div class="inset_uKQm"><div><code>window<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject">DrawableObject</a></code><code>,</code><span class="inlineDescription_G7Er">-- <span>
-<p>The window or texture to draw on</p>
-</span></span></div><div><code>points<!-- -->: </code><code class="purple_ieR2">{</code><div class="inset_uKQm"><code>x<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>y<!-- -->: </code><code class="blue_P4bS">number</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>points<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Draw#Points">Points</a></code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>fillColor<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div><code class="purple_ieR2">}</code><span class="inlineDescription_G7Er">-- <span>
-<p>The data which is used to construct the shape</p>
-</span></span></div></div><code>) → </code><code class="blue_P4bS">nil</code></div><div>
-<p>Draws a shape from the given points</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="circle"><code style="text-decoration:none">circle</code><a href="#circle" class="hash-link" aria-label="Direct link to circle" title="Direct link to circle">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L163"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">circle</code><code>(</code><div class="inset_uKQm"><div><code>object<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code></div><div><code>centerX<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>centerY<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>radius<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>fill<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code><code>,</code></div><div><code>stroke<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code><code>,</code></div><div><code>strokeThickness<!-- -->: </code><code class="blue_P4bS">number?</code><code>,</code></div><div><code>rotation<!-- -->: </code><code class="blue_P4bS">number?</code><span class="inlineDescription_G7Er">-- <span>
+<p>This can only be viewed at low resolutions</p>
+</span></span></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Draws a circle onto the <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></p>
 <pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
-<span class="token keyword">local</span> draw <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>draw
 <span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
 <span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
+<span class="token keyword">local</span> draw <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>draw
 
 <span class="token comment">-- Creates a new EditableImage</span>
 <span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>parent<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-<span class="token comment">-- An array of points (x, y)</span>
-<span class="token keyword">local</span> points <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">6</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">6</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">}</span>
-<span class="token comment">-- Runs every heartbeat</span>
-<span class="token keyword">while</span> myWindow<span class="token punctuation">:</span><span class="token function">IsOpen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">do</span>
-	<span class="token comment">-- Render here</span>
-	<span class="token comment">-- Draws a square at 0, 0, with a red color, onto "myWindow"</span>
-	draw<span class="token punctuation">.</span><span class="token function">points</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token punctuation">{</span>
-		points <span class="token operator">=</span> points<span class="token punctuation">,</span>
-		color <span class="token operator">=</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">,</span>
-		x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-		y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
-	<span class="token punctuation">}</span><span class="token punctuation">)</span>
-	<span class="token comment">-- Stop rendering here</span>
-
-	myWindow<span class="token punctuation">:</span><span class="token function">Render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">end</span>
-
-<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"The window has been destroyed."</span><span class="token punctuation">)</span>
+<span class="token comment">-- Draws a red circle with a radius of 10 at 26, 26</span>
+draw<span class="token punctuation">.</span><span class="token function">circle</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token number">26</span><span class="token punctuation">,</span> <span class="token number">26</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">)</span>
 </code></pre>
-</div><h3>Errors</h3><table class="errorTable_jfN8"><thead><tr><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>&quot;X&quot;</td><td>This error occurs if the X is smaller than 0</td></tr><tr><td>&quot;Y&quot;</td><td>This error occurs if the Y is smaller than 0</td></tr><tr><td>&quot;Points&quot;</td><td>This error occurs if 2 or less points are provided</td></tr></tbody></table></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="triangle"><code style="text-decoration:none">triangle</code><a href="#triangle" class="hash-link" aria-label="Direct link to triangle" title="Direct link to triangle">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L194"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">triangle</code><code>(</code><div class="inset_uKQm"><div><code>object<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code></div><div><code>x1<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>y1<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>x2<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>y2<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>x3<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>y3<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>fill<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code><code>,</code></div><div><code>stroke<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code><code>,</code></div><div><code>strokeThickness<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Draws a triangle onto the <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
+<span class="token keyword">local</span> draw <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>draw
+
+<span class="token comment">-- Creates a new EditableImage</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>parent<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- Draws a red triangle with the given points</span>
+draw<span class="token punctuation">.</span><span class="token function">triangle</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="polygon"><code style="text-decoration:none">polygon</code><a href="#polygon" class="hash-link" aria-label="Direct link to polygon" title="Direct link to polygon">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L223"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">polygon</code><code>(</code><div class="inset_uKQm"><div><code>object<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></code><code>,</code></div><div><code>points<!-- -->: </code><code class="purple_ieR2">{</code><code class="green_DgR4">{</code><code class="blue_P4bS">number</code><code class="green_DgR4">}</code><code class="purple_ieR2">}</code><code>,</code></div><div><code>fill<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color?</a></code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Draws a polygon onto the <a href="/osgl-graphics/api/DrawableObject#DrawableObject">DrawableObject</a></p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
+<span class="token keyword">local</span> draw <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>draw
+
+<span class="token comment">-- Creates a new EditableImage</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>parent<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- Draws a red polygon with the given points</span>
+draw<span class="token punctuation">.</span><span class="token function">polygon</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token comment">-- Points for a triangle</span>
+    <span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> <span class="token number">10</span><span class="token punctuation">,</span><span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="floodFill"><code style="text-decoration:none">floodFill</code><a href="#floodFill" class="hash-link" aria-label="Direct link to floodFill" title="Direct link to floodFill">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/src/draw/init.luau#L248"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Draw<!-- -->.</code><code class="green_DgR4">floodFill</code><code>(</code><div class="inset_uKQm"><div><code>x<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>y<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>fill<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl-graphics/api/Color#Color">Color</a></code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Replaces all adjacent pixels of the same color with a replacement</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> color <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>color
+<span class="token keyword">local</span> draw <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>draw
+
+<span class="token comment">-- Creates a new EditableImage</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>parent<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">-- *draw something*</span>
+
+<span class="token comment">-- Start flood-filling from (5, 5)</span>
+myWindow<span class="token punctuation">:</span><span class="token function">Draw</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token function">FloodFill</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> color<span class="token punctuation">.</span>RED<span class="token punctuation">)</span>
+</code></pre>
+</div></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
     &quot;functions&quot;: [
         {
             &quot;name&quot;: &quot;pixel&quot;,
-            &quot;desc&quot;: &quot;Draws a singular pixel at the given location\n ```lua\nlocal OSGL = require(path.to.osgl)\nlocal draw = OSGL.draw\nlocal Window = OSGL.Window\nlocal color = OSGL.color\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- Runs every heartbeat\nwhile myWindow:IsOpen() do\n    -- Render here\n    -- Draws a pixel at 0, 0, with a red color, onto \&quot;myWindow\&quot;\n    draw.pixel(myWindow, 0, 0, color.RED)\n    -- Stop rendering here\n\n    myWindow:Render()\nend\n\nprint(\&quot;The window has been destroyed.\&quot;)\n```&quot;,
+            &quot;desc&quot;: &quot;Draws a singular pixel onto the [DrawableObject]\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal color = OSGL.color\nlocal draw = OSGL.draw\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- Draws a red pixel at 0, 0\ndraw.pixel(myWindow, 0, 0, color.RED)\n```&quot;,
             &quot;params&quot;: [
                 {
-                    &quot;name&quot;: &quot;window&quot;,
-                    &quot;desc&quot;: &quot;The window or texture to draw on&quot;,
+                    &quot;name&quot;: &quot;object&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;DrawableObject&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;xPos&quot;,
-                    &quot;desc&quot;: &quot;The X-Position of the pixel,&quot;,
+                    &quot;name&quot;: &quot;X&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;number&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;yPos&quot;,
-                    &quot;desc&quot;: &quot;The Y-Position of the pixel&quot;,
+                    &quot;name&quot;: &quot;Y&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;number&quot;
                 },
                 {
                     &quot;name&quot;: &quot;color&quot;,
-                    &quot;desc&quot;: &quot;The color of the pixel&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;Color&quot;
                 }
             ],
-            &quot;returns&quot;: [
-                {
-                    &quot;desc&quot;: &quot;&quot;,
-                    &quot;lua_type&quot;: &quot;nil&quot;
-                }
-            ],
+            &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;static&quot;,
-            &quot;errors&quot;: [
-                {
-                    &quot;lua_type&quot;: &quot;\&quot;X\&quot;&quot;,
-                    &quot;desc&quot;: &quot;This error occurs if the X is less than 0&quot;
-                },
-                {
-                    &quot;lua_type&quot;: &quot;\&quot;Y\&quot;&quot;,
-                    &quot;desc&quot;: &quot;This error occurs if the Y is less than 0&quot;
-                }
-            ],
             &quot;source&quot;: {
-                &quot;line&quot;: 74,
+                &quot;line&quot;: 76,
                 &quot;path&quot;: &quot;src/draw/init.luau&quot;
             }
         },
         {
             &quot;name&quot;: &quot;line&quot;,
-            &quot;desc&quot;: &quot;Draws a line from point A to point B\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal draw = OSGL.draw\nlocal Window = OSGL.Window\nlocal color = OSGL.color\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- Runs every heartbeat\nwhile myWindow:IsOpen() do\n    -- Render here\n    -- Draws a red line from 0,0 to 29,29\n    draw.line(myWindow, {\n        startX = 0,\n        startY = 0,\n        stopX = 29,\n        stopY = 29,\n\n        -- Thickness defaults to 1\n        -- Color defaults to black\n        color = color.RED\n    })\n    -- Stop rendering here\n\n    myWindow:Render()\nend\n\nprint(\&quot;The window has been destroyed.\&quot;)\n```&quot;,
+            &quot;desc&quot;: &quot;Draws a line onto the [DrawableObject]\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal color = OSGL.color\nlocal draw = OSGL.draw\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- Draws a red line from 5, 5 to 10, 10 with a thickness of 2\ndraw.line(myWindow, 5, 5, 10, 10, 2, color.RED)\n```&quot;,
             &quot;params&quot;: [
                 {
-                    &quot;name&quot;: &quot;window&quot;,
-                    &quot;desc&quot;: &quot;The window or texture to draw on&quot;,
+                    &quot;name&quot;: &quot;object&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;DrawableObject&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;line&quot;,
-                    &quot;desc&quot;: &quot;The data that is used to construct the line&quot;,
-                    &quot;lua_type&quot;: &quot;{ startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: Color? }&quot;
-                }
-            ],
-            &quot;returns&quot;: [
-                {
+                    &quot;name&quot;: &quot;startX&quot;,
                     &quot;desc&quot;: &quot;&quot;,
-                    &quot;lua_type&quot;: &quot;nil&quot;
-                }
-            ],
-            &quot;function_type&quot;: &quot;static&quot;,
-            &quot;source&quot;: {
-                &quot;line&quot;: 122,
-                &quot;path&quot;: &quot;src/draw/init.luau&quot;
-            }
-        },
-        {
-            &quot;name&quot;: &quot;circle&quot;,
-            &quot;desc&quot;: &quot;Draws a circle with an optional stroke onto the screen\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Draw = OSGL.draw\nlocal Window = OSGL.Window\nlocal color = OSGL.color\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- Runs every heartbeat\nwhile myWindow:IsOpen() do\n    -- Render here\n    -- Draw our circle\n    myWindow:Clear(color.TRANSPARENT)\n    draw.circle(myWindow, {\n        centerX = 25,\n        centerY = 25,\n        radius = 10,\n        fillColor = color.RED,\n\n        -- Rotation defaults to 0.\n        -- Strokes are completely optional\n        strokeColor = color.BLACK,\n        strokeThickness = 2\n    })\n    -- Stop rendering here\n\n    myWindow:Render()\nend\n\nprint(\&quot;The window has been destroyed.\&quot;)\n```&quot;,
-            &quot;params&quot;: [
-                {
-                    &quot;name&quot;: &quot;window&quot;,
-                    &quot;desc&quot;: &quot;The window or texture to draw on&quot;,
-                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                    &quot;lua_type&quot;: &quot;number&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;circle&quot;,
-                    &quot;desc&quot;: &quot;The data that is used to construct the circle&quot;,
-                    &quot;lua_type&quot;: &quot;{centerX: number, centerY: number, radius: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?}&quot;
-                }
-            ],
-            &quot;returns&quot;: [
-                {
+                    &quot;name&quot;: &quot;startY&quot;,
                     &quot;desc&quot;: &quot;&quot;,
-                    &quot;lua_type&quot;: &quot;nil&quot;
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;endX&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;endY&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;thickness&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;color&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Color&quot;
                 }
             ],
+            &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 164,
+                &quot;line&quot;: 104,
                 &quot;path&quot;: &quot;src/draw/init.luau&quot;
             }
         },
         {
             &quot;name&quot;: &quot;rectangle&quot;,
-            &quot;desc&quot;: &quot;Draws a rectangle with an optional stroke on the screen\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal draw = OSGL.draw\nlocal Window = OSGL.Window\nlocal color = OSGL.color\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- Runs every heartbeat\nwhile myWindow:IsOpen() do\n\t-- Render here\n\t-- Draws a square (5x5) at 0, 0, with a red color, onto \&quot;myWindow\&quot;\n\tdraw.rectangle(myWindow, {\n\t\txPos = 0,\n\t\tyPos = 0,\n\t\twidth = 5,\n\t\theight = 5,\n\t\tfillColor = color.RED,\n\n\t\t-- Rotation defaults to 0.\n\t\t-- Strokes are completely optional\n\t\tstrokeColor = color.BLACK,\n\t\tstrokeThickness = 2\n\t})\n\t-- Stop rendering here\n\n\tmyWindow:Render()\nend\n\nprint(\&quot;The window has been destroyed.\&quot;)\n```&quot;,
+            &quot;desc&quot;: &quot;Draws a rectangle onto the [DrawableObject]\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal color = OSGL.color\nlocal draw = OSGL.draw\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- Draws a 5x5 red square at 0, 0 \ndraw.rectangle(myWindow, 0, 0, 5, 5, color.RED)\n```&quot;,
             &quot;params&quot;: [
                 {
-                    &quot;name&quot;: &quot;window&quot;,
-                    &quot;desc&quot;: &quot;The window or texture to draw on&quot;,
+                    &quot;name&quot;: &quot;object&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;DrawableObject&quot;
                 },
                 {
-                    &quot;name&quot;: &quot;rectangle&quot;,
-                    &quot;desc&quot;: &quot;The data that is used to construct the rectangle&quot;,
-                    &quot;lua_type&quot;: &quot;{xPos: number, yPos: number, width: number, height: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?}&quot;
-                }
-            ],
-            &quot;returns&quot;: [
-                {
+                    &quot;name&quot;: &quot;xPos&quot;,
                     &quot;desc&quot;: &quot;&quot;,
-                    &quot;lua_type&quot;: &quot;nil&quot;
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;yPos&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;width&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;height&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;fill&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Color?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;stroke&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Color?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;strokeThickness&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;rotation&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
                 }
             ],
+            &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 208,
+                &quot;line&quot;: 134,
                 &quot;path&quot;: &quot;src/draw/init.luau&quot;
             }
         },
         {
-            &quot;name&quot;: &quot;points&quot;,
-            &quot;desc&quot;: &quot;Draws a shape from the given points\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal draw = OSGL.draw\nlocal Window = OSGL.Window\nlocal color = OSGL.color\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- An array of points (x, y)\nlocal points = { { 0, 0 }, { 6, 0 }, { 6, 6 }, { 0, 6 }, }\n-- Runs every heartbeat\nwhile myWindow:IsOpen() do\n\t-- Render here\n\t-- Draws a square at 0, 0, with a red color, onto \&quot;myWindow\&quot;\n\tdraw.points(myWindow, {\n\t\tpoints = points,\n\t\tcolor = color.RED,\n\t\tx = 0,\n\t\ty = 0,\n\t})\n\t-- Stop rendering here\n\n\tmyWindow:Render()\nend\n\nprint(\&quot;The window has been destroyed.\&quot;)\n```&quot;,
+            &quot;name&quot;: &quot;circle&quot;,
+            &quot;desc&quot;: &quot;Draws a circle onto the [DrawableObject]\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal color = OSGL.color\nlocal draw = OSGL.draw\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- Draws a red circle with a radius of 10 at 26, 26\ndraw.circle(myWindow, 26, 26, 10, color.RED)\n```&quot;,
             &quot;params&quot;: [
                 {
-                    &quot;name&quot;: &quot;window&quot;,
-                    &quot;desc&quot;: &quot;The window or texture to draw on&quot;,
+                    &quot;name&quot;: &quot;object&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;centerX&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;centerY&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;radius&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;fill&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Color?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;stroke&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Color?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;strokeThickness&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;rotation&quot;,
+                    &quot;desc&quot;: &quot;This can only be viewed at low resolutions&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 163,
+                &quot;path&quot;: &quot;src/draw/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;triangle&quot;,
+            &quot;desc&quot;: &quot;Draws a triangle onto the [DrawableObject]\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal color = OSGL.color\nlocal draw = OSGL.draw\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- Draws a red triangle with the given points\ndraw.triangle(myWindow, 0, 0, 5, 5, 10, 0, color.RED)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;object&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;DrawableObject&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x1&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;y1&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x2&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;y2&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;x3&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;y3&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;fill&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Color?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;stroke&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Color?&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;strokeThickness&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 194,
+                &quot;path&quot;: &quot;src/draw/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;polygon&quot;,
+            &quot;desc&quot;: &quot;Draws a polygon onto the [DrawableObject]\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal color = OSGL.color\nlocal draw = OSGL.draw\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n\n-- Draws a red polygon with the given points\ndraw.polygon(myWindow, {\n    -- Points for a triangle\n    { 0, 0 },\n    { 5, 5 },\n    { 10,0 },\n}, color.RED)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;object&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
                     &quot;lua_type&quot;: &quot;DrawableObject&quot;
                 },
                 {
                     &quot;name&quot;: &quot;points&quot;,
-                    &quot;desc&quot;: &quot;The data which is used to construct the shape&quot;,
-                    &quot;lua_type&quot;: &quot;{ x: number, y: number, points: Points, fillColor: Color }&quot;
-                }
-            ],
-            &quot;returns&quot;: [
-                {
                     &quot;desc&quot;: &quot;&quot;,
-                    &quot;lua_type&quot;: &quot;nil&quot;
+                    &quot;lua_type&quot;: &quot;{{number}}&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;fill&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Color?&quot;
                 }
             ],
+            &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;static&quot;,
-            &quot;errors&quot;: [
+            &quot;source&quot;: {
+                &quot;line&quot;: 223,
+                &quot;path&quot;: &quot;src/draw/init.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;floodFill&quot;,
+            &quot;desc&quot;: &quot;Replaces all adjacent pixels of the same color with a replacement\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal color = OSGL.color\nlocal draw = OSGL.draw\n\n-- Creates a new EditableImage\nlocal myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })\n-- *draw something*\n\n-- Start flood-filling from (5, 5)\nmyWindow:Draw():FloodFill(5, 5, color.RED)\n```&quot;,
+            &quot;params&quot;: [
                 {
-                    &quot;lua_type&quot;: &quot;\&quot;X\&quot;&quot;,
-                    &quot;desc&quot;: &quot;This error occurs if the X is smaller than 0&quot;
+                    &quot;name&quot;: &quot;x&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
                 },
                 {
-                    &quot;lua_type&quot;: &quot;\&quot;Y\&quot;&quot;,
-                    &quot;desc&quot;: &quot;This error occurs if the Y is smaller than 0&quot;
+                    &quot;name&quot;: &quot;y&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
                 },
                 {
-                    &quot;lua_type&quot;: &quot;\&quot;Points\&quot;&quot;,
-                    &quot;desc&quot;: &quot;This error occurs if 2 or less points are provided&quot;
+                    &quot;name&quot;: &quot;fill&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Color&quot;
                 }
             ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 251,
+                &quot;line&quot;: 248,
                 &quot;path&quot;: &quot;src/draw/init.luau&quot;
             }
         }
     ],
     &quot;properties&quot;: [],
-    &quot;types&quot;: [
-        {
-            &quot;name&quot;: &quot;Points&quot;,
-            &quot;desc&quot;: &quot;An array of points\r&quot;,
-            &quot;lua_type&quot;: &quot;{ {number} }&quot;,
-            &quot;source&quot;: {
-                &quot;line&quot;: 128,
-                &quot;path&quot;: &quot;src/types.luau&quot;
-            }
-        }
-    ],
+    &quot;types&quot;: [],
     &quot;name&quot;: &quot;Draw&quot;,
-    &quot;desc&quot;: &quot;The draw class. Contains functions that manipulates pixels\non an OSGL window.&quot;,
+    &quot;desc&quot;: &quot;The draw class. Contains functions for drawing various\nshapes on a [DrawableObject]&quot;,
     &quot;source&quot;: {
-        &quot;line&quot;: 39,
+        &quot;line&quot;: 51,
         &quot;path&quot;: &quot;src/draw/init.luau&quot;
     }
-}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a><ul><li><a href="#Points" class="table-of-contents__link toc-highlight">Points</a></li></ul></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#circle" class="table-of-contents__link toc-highlight">.circle</a></li><li><a href="#line" class="table-of-contents__link toc-highlight">.line</a></li><li><a href="#pixel" class="table-of-contents__link toc-highlight">.pixel</a></li><li><a href="#points" class="table-of-contents__link toc-highlight">.points</a></li><li><a href="#rectangle" class="table-of-contents__link toc-highlight">.rectangle</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 Gunshot Sound Studios.</div></div></div></footer></div>
-<script src="/osgl-graphics/assets/js/runtime~main.f2c25cae.js"></script>
-<script src="/osgl-graphics/assets/js/main.90257bf4.js"></script>
+}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#circle" class="table-of-contents__link toc-highlight">.circle</a></li><li><a href="#floodFill" class="table-of-contents__link toc-highlight">.floodFill</a></li><li><a href="#line" class="table-of-contents__link toc-highlight">.line</a></li><li><a href="#pixel" class="table-of-contents__link toc-highlight">.pixel</a></li><li><a href="#polygon" class="table-of-contents__link toc-highlight">.polygon</a></li><li><a href="#rectangle" class="table-of-contents__link toc-highlight">.rectangle</a></li><li><a href="#triangle" class="table-of-contents__link toc-highlight">.triangle</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2024 Gunshot Sound Studios.</div></div></div></footer></div>
+<script src="/osgl-graphics/assets/js/runtime~main.810f4afb.js"></script>
+<script src="/osgl-graphics/assets/js/main.c62b21e0.js"></script>
 </body>
 </html>
