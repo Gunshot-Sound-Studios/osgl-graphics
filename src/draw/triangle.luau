@@ -42,5 +42,5 @@ return function<T>(object: types.DrawableObject<T>, x1: number, y1: number, x2: 
         { x1, y1 },
         { x2, y2 },
         { x3, y3 },
-    }, fill)
+    }, fill, stroke, strokeThickness)
 end
