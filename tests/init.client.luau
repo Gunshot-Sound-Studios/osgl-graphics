@@ -12,19 +12,23 @@ local SIZE_X = 570
 local SIZE_Y = 409
 
 local OSGL = require(ReplicatedStorage.OSGL)
-local window = OSGL.Window
+local Window = OSGL.Window
 local texture = OSGL.Texture
 local draw = OSGL.draw
 local color = OSGL.color
 
-local floor = math.floor
 
+local config = { sizeX = SIZE_X, sizeY = SIZE_Y }
 local myWindow =
-	window.new(Players.LocalPlayer.PlayerGui:WaitForChild("ScreenGui").Window, { sizeX = SIZE_X, sizeY = SIZE_Y })
-
-myWindow:AddRenderer(A, B)
+	Window.new(window, config)
 
 local txt = texture.fromAssetId(14419725604)
 texture.draw(myWindow, txt, 0, 0)
-draw.floodFill(myWindow, 0, 0, color.RED)
-myWindow:Render()
+
+local buffer, w, h = myWindow:Serialize()
+
+local secondWindow = Window.new(A, config)
+secondWindow:AddRenderer(B)
+secondWindow:Deserialize(buffer, w, h)
+
+secondWindow:Render()

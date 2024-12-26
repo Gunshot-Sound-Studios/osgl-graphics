@@ -259,8 +259,14 @@ end
 @within Window
 ]=]
 function windowPrivate.Resize(self: types.Window, newWidth, newHeight)
-	newWidth = newWidth or self.sizeX
-	newHeight = newHeight or self.sizeY
+    local sizeX, sizeY = self.sizeX, self.sizeY
+
+	newWidth = newWidth or sizeX
+	newHeight = newHeight or sizeY
+
+    if newHeight == sizeY and newWidth == sizeX then
+        return self
+    end
 
 	log.cassert(newHeight > 0, "Height passed to `Window:Resize()` must be larger than 0.")
 	log.cassert(newWidth > 0, "Width passed to `Window:Resize()` must be larger than 0.")
@@ -340,6 +346,85 @@ myWindow:TintRegion(color.RED, .5, 0, 0, 10, 10)
 windowPrivate.TintRegion = utils.createTintRegion()
 
 --[=[
+Returns the object's buffer, as well as its width and height
+
+```lua
+-- Save.luau
+local bfr, width, height = myWindow:Serialize()
+-- *save data*
+
+-- Load.luau
+local bfr, width, height = -- *load data*
+window:Deserialize(bfr, width, height)
+```
+
+@function Serialize
+@return (buffer, number, number)
+@within DrawableObject
+]=]
+windowPrivate.Serialize = utils.createSerialize()
+
+--[=[
+Safely replaces the current window's buffer with a new buffer by resizing it to the specified width and height, preventing errors during the update
+
+```lua
+-- Save.luau
+local bfr, width, height = myWindow:Serialize()
+-- *save data*
+
+-- Load.luau
+local bfr, width, height = -- *load data*
+window:Deserialize(bfr, width, height)
+```
+
+@function Deserialize
+@param bfr buffer -- The new buffer
+@param width number? -- The width of the buffer
+@param height number? -- The height of the buffer
+@return Window
+@within Window
+]=]
+function windowPrivate.Deserialize(self: types.Window, bfr: buffer, width: number?, height: number?)
+    width = width or self.sizeX
+	height = height or self.sizeY
+
+	log.cassert(height > 0, "Height passed to `Window:Deserialize()` must be larger than 0.")
+	log.cassert(width > 0, "Width passed to `Window:Deserialize()` must be larger than 0.")
+
+    local copy_size
+    local bfrSize = width * height * 4
+    local currentSize = buffer.len(bfr)
+    if bfrSize < currentSize then
+        copy_size = bfrSize
+    else    
+        copy_size = currentSize
+    end
+
+	local resizedBuffer = buffer.create(width * height * 4)
+	buffer.copy(resizedBuffer, 0, bfr, 0, copy_size)
+
+	self.buffer = resizedBuffer
+
+    local size = Vector2.new(width, height)
+	self.size = size
+	self.sizeX = width
+	self.sizeY = height
+
+	local editableImage = AssetService:CreateEditableImage({ Size = size })
+    if not editableImage then
+        log.error("Could not deserialize window as the device does not have enough memory")
+    end
+
+    self.editableImage = editableImage
+    local content = Content.fromObject(editableImage)
+    for _, v in ipairs(self.renderers) do
+        v.ImageContent = content
+    end
+
+    return self
+end
+
+--[=[
 Returns a tuple describing the mouse position relative to the renderer from the top-left corner.
 The boolean represents if the mouse is in the renderer, and the following 2 numbers are the X and Y
 
@@ -364,6 +449,34 @@ function windowPrivate.GetRelativeMouseToRenderer(self: types.Window, image: Ima
 	local isInWindow = relativeMousePosition.X > 0 and relativeMousePosition.Y > 0
 
 	return isInWindow, math.round(relativeMousePosition.X), math.round(relativeMousePosition.Y)
+end
+
+function makeWindow(editableImage: EditableImage, sizeX: number, sizeY: number, bfr: buffer, renderers: {}?): types.Window
+    return {
+		-- Looks stupid, but it's efficient.
+		editableImage = editableImage,
+		buffer = bfr,
+		targetFPS = 60,
+		renderers = renderers or {},
+
+		sizeX = sizeX,
+		sizeY = sizeY,
+		size = Vector2.new(sizeX, sizeY),
+
+		Render = windowPrivate.Render,
+		Clear = windowPrivate.Clear,
+		Resize = windowPrivate.Resize,
+		WritePixel = windowPrivate.WritePixel,
+		ReadPixel = windowPrivate.ReadPixel,
+
+		AddRenderer = windowPrivate.AddRenderer,
+		RemoveRenderer = windowPrivate.RemoveRenderer,
+
+        Serialize = windowPrivate.Serialize,
+        Deserialize = windowPrivate.Deserialize,
+
+		Draw = windowPrivate.Draw,
+	}
 end
 
 --[=[
@@ -455,28 +568,7 @@ function Window.from(editableImage: EditableImage, renderers: { ImageLabel | Ima
 		log.error(errorMessage)
 	end
 
-	return {
-		-- Looks stupid, but it's efficient.
-		editableImage = editableImage,
-		buffer = bfr,
-		targetFPS = 60,
-		renderers = renderers or {},
-
-		sizeX = sizeX,
-		sizeY = sizeY,
-		size = size,
-
-		Render = windowPrivate.Render,
-		Clear = windowPrivate.Clear,
-		Resize = windowPrivate.Resize,
-		WritePixel = windowPrivate.WritePixel,
-		ReadPixel = windowPrivate.ReadPixel,
-
-		AddRenderer = windowPrivate.AddRenderer,
-		RemoveRenderer = windowPrivate.RemoveRenderer,
-
-		Draw = windowPrivate.Draw,
-	}
+	return makeWindow(editableImage, sizeX, sizeY, bfr, renderers)
 end
 
 --[=[
@@ -507,6 +599,60 @@ function Window.fromAssetId(assetId: number)
 	end
 
 	return Window.from(editableImage)
+end
+
+--[=[
+    Given a buffer, creates a Window.
+
+    ```lua
+    local OSGL = require(path.to.osgl)
+    local Window = OSGL.Window
+    ​
+    -- Creates a window from an assetId
+    local myWindow = Window.fromBuffer(bfr, { sizeX = bufferWidth, sizeY = bufferHeight })
+
+    -- use AddRenderers to add a renderer
+    myWindow:AddRenderers(path.to.imageA)
+    ```
+
+    @within Window
+    @error "Permission" -- This error occurs when the owner of the place does not have the `EditableImage` feature enabled
+    @error "Memory" -- This error occurs when the device doesn't have enough memory to create the Window
+    @param bfr buffer -- The buffer that will be loaded into the Window
+    @param config WindowConfiguration? -- Optional configurations
+    @return Window -- Returns an OSGL window instance
+]=]
+function Window.fromBuffer(bfr: buffer, config: types.WindowConfiguration)
+    log.typeCheckValue("Window.fromBuffer", "bfr", bfr, "buffer")
+
+    config = config or {}
+
+	local sizeX, sizeY = config.sizeX or 1, config.sizeY or 1
+
+	if sizeX <= 0 or sizeX > 1024 or sizeY <= 0 or sizeY > 1024 then
+		log.warn(
+			"Attempt to create a window with invalid dimensions (X: "
+				.. sizeX
+				.. ", Y: "
+				.. sizeY
+				.. "). Dimensions must be within the range of 1 to 1024. The window size has been automatically clamped to valid parameters."
+		)
+	end
+
+	sizeX = math.clamp(sizeX, 1, 1024)
+	sizeY = math.clamp(sizeY, 1, 1024)
+
+    local size = Vector2.new(config.sizeX, config.sizeY)
+
+	local editableImage = AssetService:CreateEditableImage({ Size = size })
+	if not editableImage then
+		return log.error("Could not make EditableImage as the device does not have enough memory")
+	end
+
+    editableImage:WritePixelsBuffer(Vector2.zero, size, bfr)
+
+    -- [saaawdust]: Makes another Vector2 :(
+    return makeWindow(editableImage, sizeX, sizeY, bfr)
 end
 
 return Window

@@ -100,7 +100,11 @@ export type DrawableObject<T> = {
 --- .AddRenderer (self: Window, ...ImageLabel | ImageButton) -> Window -- Adds a new renderer instance
 --- .RemoveRenderer (self: Window, ...ImageLabel | ImageButton) -> Window -- Removes a renderer instance
 ---
+--- .Serialize (self: Window) -> (buffer, number, number) -- Returns the Window's buffer, as well as its dimensions
+--- .Deserialize (self: Window, bfr: buffer, width: number, height: number) -> Window -- Safely replaces the current window's buffer with a new buffer by resizing it to the specified width and height, preventing errors during the update
+---
 --- .GetRelativeMouseToRenderer (self: Window, image: ImageLabel | ImageButton) -> (boolean, number, number) -- Returns the mouse position relative to the renderer
+---
 --- An OSGL window is the representation of the EditableImage instance.
 --- A window can be created by importing the OSGL '*window*' submodule:
 ---
@@ -124,6 +128,9 @@ export type Window = DrawableObject<Window> & {
 
     AddRenderer: (self: Window, ...ImageLabel | ImageButton) -> Window,
     RemoveRenderer: (self: Window, ...ImageLabel | ImageButton) -> Window,
+
+    Serialize: (self: Window) -> (buffer, number, number),
+    Deserialize: (self: Window, bfr: buffer, width: number, height: number) -> Window,
 
     GetRelativeMouseToRenderer: (self: Window, image: ImageLabel | ImageButton) -> (boolean, number, number)
 }

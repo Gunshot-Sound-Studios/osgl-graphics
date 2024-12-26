@@ -120,6 +120,7 @@ function Texture.from(textureData: types.FlagTexture | ModuleScript): types.Draw
 		Draw = utils.createDraw(),
 		ReadPixel = utils.createReadPixel(),
 		TintRegion = utils.createTintRegion(),
+		Serialize = utils.createSerialize(),
 	}
 end
 
@@ -150,6 +151,7 @@ function Texture.new(width: number, height: number, bfr: buffer?): types.Drawabl
 		Draw = utils.createDraw(),
 		ReadPixel = utils.createReadPixel(),
 		TintRegion = utils.createTintRegion(),
+		Serialize = utils.createSerialize(),
 	}
 end
 
@@ -219,6 +221,7 @@ function Texture.draw<T>(
 		Draw = utils.createDraw(),
 		ReadPixel = utils.createReadPixel(),
 		TintRegion = utils.createTintRegion(),
+		Serialize = utils.createSerialize(),
 	}
 end
 
@@ -329,6 +332,7 @@ function Texture.fromAssetId(assetId: number): types.DrawableObject<types.Drawab
         Draw = utils.createDraw(),
 		ReadPixel = utils.createReadPixel(),
 		TintRegion = utils.createTintRegion(),
+		Serialize = utils.createSerialize(),
     }
 end
 

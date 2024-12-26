@@ -38,3 +38,7 @@ local txt = Texture.new(50, 50) -- Creates a 50x50 texture
 :::info
 Remember, like `Window`s, `Texture`s can also be drawn to! You can edit a texture like any other window by passing it as the first argument of a `draw` function. This is because both belong to a superclass named `DrawableObject`. This means, anything you can draw to a `Window`, you can also draw to a `Texture`!
 :::
+
+:::warning
+Textures are expensive to load into memory! Once loaded however, they can be used everywhere. Try to avoid loading `Texture`s too much.
+:::

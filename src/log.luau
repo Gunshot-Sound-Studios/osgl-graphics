@@ -37,6 +37,14 @@ function log.typeCheckArgument(fnName: string, argName: string, argument: any, e
     return
 end
 
+function log.typeCheckValue(fnName: string, argName: string, argument: any, expectedType: string)
+    if typeof(argument) ~= expectedType then
+        log.error(`Argument '{argName}' of function '{fnName}' was not passed or was not of type '{expectedType}'.`)
+    end
+
+    return
+end
+
 local DIVIDE_ERR = "\n------ OSGL Error ------\n"
 function log.error(message: string)
 	local stack = `Stack: {debug.traceback(nil, 2)}`

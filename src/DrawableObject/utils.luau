@@ -118,4 +118,10 @@ function utils.createTintRegion()
 	end
 end
 
+function utils.createSerialize()
+	return function<T>(self: types.DrawableObject<T>)
+		return self.buffer, self.sizeX, self.sizeY
+	end
+end
+
 return utils

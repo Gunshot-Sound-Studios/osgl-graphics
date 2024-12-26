@@ -56,22 +56,25 @@ These methods are exactly the same as the `Draw` methods, but they automatically
 
 You can find more about these methods in the `API`.
 
-Both `Window`s, and `Texture`s are something known as a `DrawableObject`. Effectively, a `Window` is just a special form of a `Texture`, and by extend, all a `Texture` is, is a `buffer` containing pixel-data. This is similar to CanvasDraw's `ImageData`. If you wanted to save a texture somewhere, all you would have to do is save the `buffer`, and the `sizeX` and `sizeY` (or just the `size`). Since it's a `Texture`, you can load it back into the game:
+Both `Window`s, and `Texture`s are something known as a `DrawableObject`. Effectively, a `Window` is just a special form of a `Texture`, and by extend, all a `Texture` is, is a `buffer` containing pixel-data. This is similar to CanvasDraw's `ImageData`. If you wanted to save a texture somewhere, all you would have to do is save the `buffer`, and the `sizeX` and `sizeY` (or just the `size`). Since it's a `Texture`, you can load it back into the game. This exact process can be described by [`Serialization` and `Deserialization`](../Windows/serializing-and-deserializing.md):
 
 ```lua
 -- Save.luau
-local bfr, size = window.buffer, window.size
--- *Save data here*
+local bfr, width, height = windowOne:Serialize()
+-- *save data*
 
 -- Load.luau
-local bfr, size = -- *Load data here*
-local newTexture = Texture.new(size.X, size.Y, bfr)
-
--- You can do whatever you want with this texture. You can even turn it into a window:
-window.buffer = newTexture.buffer
+local bfr, width, height = -- *load data*
+windowTwo:Deserialize(bfr, width, height)
 ```
+
+You can learn more about this on the designated page linked above.
+
 :::warning
 
-Be careful when setting a window's `buffer` to another `buffer`! If the `buffer`s aren't the same size, this will cause an error. This is the same case with a `Texture`. If you're setting one `buffer` to another, make sure they're the same size to avoid any errors.
+The `Deserialize` function safely scales the size of the buffer. Directly setting the `buffer` to another buffer may cause size errors! It's always safer to use `Deserialize`, however if you are confident that both `buffer`s will always be the same size, you can directly set the buffer via:
+```lua
+A.buffer = B.buffer
+```
 
 :::

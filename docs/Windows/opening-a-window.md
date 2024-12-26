@@ -13,7 +13,7 @@ local OSGL = require(ReplicatedStorage.Packages.OSGL)
 local Window = OSGL.Window
 ```
 
-There are three functions available for creating our window: `Window.from`, `Window.new` and `Window.fromAssetId` . According to the API:
+There are four functions available for creating our window: `Window.from`, `Window.new`, `Window.fromAssetId`, and `Window.fromBuffer` . According to the API:
 
 > `Window.from` : ***Creates an OSGL window from an existing EditableImage.***
 
@@ -21,7 +21,9 @@ There are three functions available for creating our window: `Window.from`, `Win
 
 > `Window.fromAssetId`: ***Given an assetId, creates a Window.***
 
-Since we don’t have an existing `EditableImage` and do not wish to use an assetId, we'll use `Window.new` to create our window directly on the designated `ImageLabel`:
+> `Window.fromBuffer`: ***Given a buffer, creates a Window.***
+
+Since we don’t have an existing `EditableImage` and do not wish to use an assetId, nor a buffer, we'll use `Window.new` to create our window directly on the designated `ImageLabel`:
 
 ```lua
 local OSGL = require(ReplicatedStorage.Packages.OSGL)
@@ -61,3 +63,5 @@ The function can be used like `Window.new`:
 ```lua
 local window = Window.fromAssetId(asset.id)
 ```
+
+On the other hand, you can use `Window.fromBuffer` to create a window with a `buffer` object already loaded in. This is useful when you are serializing and deserializing many `Window`s and `Texture`s. You can learn more about this [here](./serializing-and-deserializing.md).
