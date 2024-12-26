@@ -66,8 +66,8 @@ end
 @within Window
 ]=]
 function windowPrivate.Render(self: types.Window)
-    self.editableImage:WritePixelsBuffer(Vector2.zero, self.size, self.buffer)
-    return self
+	self.editableImage:WritePixelsBuffer(Vector2.zero, self.size, self.buffer)
+	return self
 end
 
 --[=[
@@ -89,8 +89,8 @@ myWindow:WritePixel(0, 0, color.RED):Render()
 @within Window
 ]=]
 function windowPrivate.WritePixel(self: types.Window, x, y, color)
-    buffer.writeu32(self.buffer, (y * self.sizeX + x) * 4, color)
-    return self
+	buffer.writeu32(self.buffer, (y * self.sizeX + x) * 4, color)
+	return self
 end
 
 --[=[
@@ -146,20 +146,20 @@ end
 @within Window
 ]=]
 function windowPrivate.Clear(self: types.Window, clearColor: types.Color)
-    local bufferLength = buffer.len(self.buffer)
-    local current_size = 4
-    local numCopies = math.ceil(math.log(bufferLength / 4, 2))
+	local bufferLength = buffer.len(self.buffer)
+	local current_size = 4
+	local numCopies = math.ceil(math.log(bufferLength / 4, 2))
 
-    buffer.writeu32(self.buffer, 0, clearColor or color.TRANSPARENT)
+	buffer.writeu32(self.buffer, 0, clearColor or color.TRANSPARENT)
 
-    for _ = 1, numCopies do
-        local copy_size = math.min(current_size, bufferLength - current_size)
-        buffer.copy(self.buffer, current_size, self.buffer, 0, copy_size)
+	for _ = 1, numCopies do
+		local copy_size = math.min(current_size, bufferLength - current_size)
+		buffer.copy(self.buffer, current_size, self.buffer, 0, copy_size)
 
-        current_size += copy_size
-    end
+		current_size += copy_size
+	end
 
-    return self
+	return self
 end
 
 --[=[
@@ -180,12 +180,16 @@ myWindow:AddRenderer(path.to.imageA, path.to.imageB)
 @within Window
 ]=]
 function windowPrivate.AddRenderer(self: types.Window, ...: ImageLabel)
-    local content = Content.fromObject(self.editableImage)
-    for _, v: ImageLabel in ipairs({...}) do
-        v.ImageContent = content
-    end
+	local content = Content.fromObject(self.editableImage)
+	local renderers = self.renderers
+	for _, v: ImageLabel in ipairs({ ... }) do
+		if not table.find(renderers, v) then
+            table.insert(renderers, v)
+            v.ImageContent = content
+        end
+	end
 
-    return self
+	return self
 end
 
 --[=[
@@ -209,20 +213,27 @@ myWindow:RemoveRenderer(path.to.imageB)
 @within Window
 ]=]
 function windowPrivate.RemoveRenderer(self: types.Window, ...: ImageLabel)
-    local content = Content.fromObject(self.editableImage)
-    for _, v: ImageLabel in ipairs({...}) do
-       if v.ImageContent == content then
-            v.ImageContent = Content.none
-       end
-    end
+	local content = Content.fromObject(self.editableImage)
+    local renderers = self.renderers
+	for _, v: ImageLabel in ipairs({ ... }) do
+        local isInTable = table.find(renderers, v)
+		if v.ImageContent == content or isInTable then
+            if isInTable then
+                table.remove(renderers, isInTable)
+            end
 
-    return self
+			v.ImageContent = Content.none
+		end
+	end
+
+	return self
 end
 
 -- TODO: Implement
 --[=[
 Resizes the window and its pixel buffer. This function may be resource intensive and
 is not made for constant use. May require a re-render, depending on the new size.
+After a window is resized, all renderers in `window.renderers` are added as a renderer
 
 ```lua
 local OSGL = require(path.to.osgl)
@@ -245,25 +256,47 @@ end
 @param newHeight number? -- The new height of the window
 @error "Height" -- This error occurs if the height is smaller than 0
 @error "Width" -- This error occurs if the width is smaller than 0
+@error "Memory" -- This error occurs when the device does not have enough memory to resize the window
 @within Window
 ]=]
 function windowPrivate.Resize(self: types.Window, newWidth, newHeight)
-    -- newWidth = newWidth or sizeX
-    -- newHeight = newHeight or sizeY
+	newWidth = newWidth or self.sizeX
+	newHeight = newHeight or self.sizeY
 
-    -- log.cassert(newHeight > 0, "Height passed to `Window:Resize()` must be larger than 0.")
-    -- log.cassert(newWidth > 0, "Width passed to `Window:Resize()` must be larger than 0.")
+	log.cassert(newHeight > 0, "Height passed to `Window:Resize()` must be larger than 0.")
+	log.cassert(newWidth > 0, "Width passed to `Window:Resize()` must be larger than 0.")
 
-    -- local resizedBuffer = buffer.create(newWidth * newHeight * 4)
-    -- buffer.copy(resizedBuffer, 0, bfr)
+    local copy_size
+    local bfrSize = newWidth * newHeight * 4
+    local currentSize = buffer.len(self.buffer)
+    if bfrSize < currentSize then
+        copy_size = bfrSize
+    else    
+        copy_size = currentSize
+    end
 
-    -- bfr = resizedBuffer
+	local resizedBuffer = buffer.create(newWidth * newHeight * 4)
+	buffer.copy(resizedBuffer, 0, self.buffer, 0, copy_size)
 
-    -- self.size = Vector2.new(newWidth, newHeight)
-    -- self.sizeX = newWidth
-    -- self.sizeY = newHeight
+	self.buffer = resizedBuffer
 
-    -- self.renderer.Size = self.size
+    local size = Vector2.new(newWidth, newHeight)
+	self.size = size
+	self.sizeX = newWidth
+	self.sizeY = newHeight
+
+	local editableImage = AssetService:CreateEditableImage({ Size = size })
+    if not editableImage then
+        log.error("Could not resize window as the device does not have enough memory")
+    end
+
+    self.editableImage = editableImage
+    local content = Content.fromObject(editableImage)
+    for _, v in ipairs(self.renderers) do
+        v.ImageContent = content
+    end
+
+    return self
 end
 
 --[=[
@@ -325,13 +358,13 @@ print(myWindow:GetRelativeMouseToRenderer(path.to.parent))
 @within Window
 ]=]
 function windowPrivate.GetRelativeMouseToRenderer(self: types.Window, image: ImageLabel): (boolean, number, number)
-    local sizeFactor = self.size / image.AbsoluteSize
-    local mousePosition = UserInputService:GetMouseLocation() - image.AbsolutePosition
+	local sizeFactor = self.size / image.AbsoluteSize
+	local mousePosition = UserInputService:GetMouseLocation() - image.AbsolutePosition
 
-    local relativeMousePosition = mousePosition * sizeFactor
-    local isInWindow = relativeMousePosition.X > 0 and relativeMousePosition.Y > 0
+	local relativeMousePosition = mousePosition * sizeFactor
+	local isInWindow = relativeMousePosition.X > 0 and relativeMousePosition.Y > 0
 
-    return isInWindow, math.round(relativeMousePosition.X), math.round(relativeMousePosition.Y)
+	return isInWindow, math.round(relativeMousePosition.X), math.round(relativeMousePosition.Y)
 end
 
 --[=[
@@ -353,16 +386,22 @@ end
     @param config WindowConfiguration? -- Optional configurations
     @return Window -- Returns an OSGL window instance
 ]=]
-function Window.new<P>(parent: ImageLabel, config: types.WindowConfiguration?): types.Window
+function Window.new<P>(parent: ImageLabel | ImageButton, config: types.WindowConfiguration?): types.Window
 	log.typeCheckArgument("Window.new", "parent", parent, "Instance")
 
 	config = config or {}
-    
-    local sizeX, sizeY = config.sizeX or 1, config.sizeY or 1
 
-    if sizeX <= 0 or sizeX > 1024 or sizeY <= 0 or sizeY > 1024 then
-        log.warn("Attempt to create a window with invalid dimensions (X: " .. sizeX .. ", Y: " .. sizeY .. "). Dimensions must be within the range of 1 to 1024. The window size has been automatically clamped to valid parameters.")
-    end
+	local sizeX, sizeY = config.sizeX or 1, config.sizeY or 1
+
+	if sizeX <= 0 or sizeX > 1024 or sizeY <= 0 or sizeY > 1024 then
+		log.warn(
+			"Attempt to create a window with invalid dimensions (X: "
+				.. sizeX
+				.. ", Y: "
+				.. sizeY
+				.. "). Dimensions must be within the range of 1 to 1024. The window size has been automatically clamped to valid parameters."
+		)
+	end
 
 	sizeX = math.clamp(sizeX, 1, 1024)
 	sizeY = math.clamp(sizeY, 1, 1024)
@@ -374,7 +413,7 @@ function Window.new<P>(parent: ImageLabel, config: types.WindowConfiguration?): 
 
 	parent.ImageContent = Content.fromObject(editableImage)
 
-	return Window.from(editableImage)
+	return Window.from(editableImage, { parent })
 end
 
 --[=[
@@ -393,9 +432,10 @@ end
     @error "Permission" -- This error occurs when the owner of the place does not have the `EditableImage` feature enabled
     @error "Memory" -- This error occurs when the device doesn't have enough memory to create the Window
     @param editableImage EditableImage -- The existing EditableImage
+    @param renderers {ImageLabel | ImageButton?} -- An argument used internally to initially set any renderers
     @return Window -- Returns an OSGL window instance
 ]=]
-function Window.from(editableImage: EditableImage): types.Window
+function Window.from(editableImage: EditableImage, renderers: { ImageLabel | ImageButton? }): types.Window
 	log.typeCheckArgument("Window.from", "editableImage", editableImage, "EditableImage")
 
 	local size = editableImage.Size
@@ -406,36 +446,38 @@ function Window.from(editableImage: EditableImage): types.Window
 
 	-- Check if the user can actually draw to the window
 	local success, errorMessage = pcall(function()
-        local temporaryBuffer = buffer.create(4)
-        buffer.writeu8(temporaryBuffer, 0, 0)
-    
-        editableImage:WritePixelsBuffer(Vector2.zero, Vector2.one, temporaryBuffer)
-    end)
-    
-    if not success then
-        log.error(errorMessage)
-    end
+		local temporaryBuffer = buffer.create(4)
+		buffer.writeu8(temporaryBuffer, 0, 0)
+
+		editableImage:WritePixelsBuffer(Vector2.zero, Vector2.one, temporaryBuffer)
+	end)
+
+	if not success then
+		log.error(errorMessage)
+	end
 
 	return {
-        -- Looks stupid, but it's efficient.
-        editableImage = editableImage,
-        buffer = bfr,
-        targetFPS = 60,
-        sizeX = sizeX,
-        sizeY = sizeY,
-        size = size,
+		-- Looks stupid, but it's efficient.
+		editableImage = editableImage,
+		buffer = bfr,
+		targetFPS = 60,
+		renderers = renderers or {},
 
-        Render = windowPrivate.Render,
-        Clear = windowPrivate.Clear,
-        Resize = windowPrivate.Resize,
-        WritePixel = windowPrivate.WritePixel,
-        ReadPixel = windowPrivate.ReadPixel,
+		sizeX = sizeX,
+		sizeY = sizeY,
+		size = size,
 
-        AddRenderer = windowPrivate.AddRenderer,
-        RemoveRenderer = windowPrivate.RemoveRenderer,
+		Render = windowPrivate.Render,
+		Clear = windowPrivate.Clear,
+		Resize = windowPrivate.Resize,
+		WritePixel = windowPrivate.WritePixel,
+		ReadPixel = windowPrivate.ReadPixel,
 
-        Draw = windowPrivate.Draw
-    }
+		AddRenderer = windowPrivate.AddRenderer,
+		RemoveRenderer = windowPrivate.RemoveRenderer,
+
+		Draw = windowPrivate.Draw,
+	}
 end
 
 --[=[
@@ -459,13 +501,13 @@ end
     @return Window -- Returns an OSGL window instance
 ]=]
 function Window.fromAssetId(assetId: number)
-    local texture = Content.fromAssetId(assetId)
-    local editableImage = AssetService:CreateEditableImageAsync(texture)
-    if not editableImage then
-        log.error("Could not make window as the device does not have enough memory")
-    end
+	local texture = Content.fromAssetId(assetId)
+	local editableImage = AssetService:CreateEditableImageAsync(texture)
+	if not editableImage then
+		log.error("Could not make window as the device does not have enough memory")
+	end
 
-    return Window.from(editableImage)
+	return Window.from(editableImage)
 end
 
 return Window

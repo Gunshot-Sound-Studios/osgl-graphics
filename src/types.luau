@@ -92,6 +92,7 @@ export type DrawableObject<T> = {
 --- @interface Window
 --- .editableImage EditableImage -- The actual `EditableImage` instance.
 --- .targetFPS number -- The FPS OSGL should aim to render at.
+--- .renderers {ImageLabel | ImageButton} -- A value used internally to keep track of what the Window is rendering too
 --- .Render (self: Window) -> Window -- Renders the contents of the buffer
 --- .Clear (self: Window, color: Color) -> Window -- Clears the window with a color
 --- .Resize (self: Window, newWidth: number, newHeight: number) -> Window -- Resizes the window to a new size
@@ -113,6 +114,7 @@ export type DrawableObject<T> = {
 export type Window = DrawableObject<Window> & {
     editableImage: EditableImage,
     targetFPS: number,
+    renderers: {ImageLabel | ImageButton},
 
     Render: (self: Window) -> Window,
     Clear: (self: Window, color: Color) -> Window,
