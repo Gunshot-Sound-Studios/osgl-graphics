@@ -1,5 +1,5 @@
 ------------------------------------------------------------
--- OSGL v1.3b - Open-Source-Graphical-Library
+-- OSGL v1.4b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
@@ -21,9 +21,6 @@
 --
 ------------------------------------------------------------
 
-local OSGL = script.Parent
-local privateTypes = require(OSGL.DrawableObject.types)
-
 --- @type Color number
 --- @within Color
 ---
@@ -37,31 +34,6 @@ local privateTypes = require(OSGL.DrawableObject.types)
 --- local myAwesomeRedColor = color.new(255)
 --- ```
 export type Color = number
-
---- @interface Window
---- @within Window
---- .renderer EditableImage -- The actual `EditableImage` instance.
---- .pixels { Color } -- An array of color values.
----
---- An OSGL window is the representation of the EditableImage instance.
---- A window can be created by importing the OSGL '*window*' submodule:
----
---- ```lua
---- local OSGL = require(path.to.osgl)
---- local Window = OSGL.Window
---- ​
---- -- Creates a window from an existing EditableImage
---- local myWindow = Window.from(path.to.editableImage)
---- ```
-export type Window<P> = DrawableObject<P> & {
-    renderer: EditableImage,
-    pixelStorage: privateTypes.PixelStorage<P>,
-
-    IsOpen: (self: Window<P>, yield: number?) -> boolean,
-    Render: (self: Window<P>) -> nil,
-    Clear: (self: Window<P>, clearColor: Color) -> (),
-    Resize: (self: Window<P>, newWidth: number?, newHeight: number?) -> (),
-}
 
 --- @interface WindowConfiguration
 --- @within Window
@@ -83,6 +55,113 @@ export type WindowConfiguration = {
     sizeY: number?,
 }
 
+--- @interface DrawableObject
+--- @within DrawableObject
+--- .buffer buffer -- The buffer of the object
+--- .sizeX number -- The width of the object. 
+--- .sizeY number -- The height of the object. 
+--- .size Vector2 -- The size of the object as a Vector2
+--- .Draw (self: DrawableObject<T>) -> DrawingContext<T> -- Returns the drawing context of the object
+--- .TintRegion (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  DrawingContext<T> -- Tints a region of pixels
+--- .ReadPixel (self: T, x: number, y: number) -> Color -- Reads a pixel at the given X, Y
+---
+--- A DrawableObject is an item that you can draw too. This can be
+--- a window, or a texture.
+---
+--- ```lua
+--- local OSGL = require(path.to.osgl)
+--- local Window = OSGL.Window
+--- ​
+--- -- Creates a Window with a size of 50x50
+--- -- This window is a DrawableObject
+--- local myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })
+--- ```
+export type DrawableObject<T> = {
+    buffer: buffer,
+    sizeX: number,
+    sizeY: number,
+    size: Vector2, -- [saaawdust]: TODO: If this is unused, then delete it!
+
+    Draw: (self: DrawableObject<T>) -> DrawingContext<T>,
+    ReadPixel: (self: T, x: number, y: number) -> Color,
+    TintRegion: (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  DrawingContext<T>
+}
+
+
+--- @within Window
+--- @interface Window
+--- .editableImage EditableImage -- The actual `EditableImage` instance.
+--- .targetFPS number -- The FPS OSGL should aim to render at.
+--- .Render (self: Window) -> Window -- Renders the contents of the buffer
+--- .Clear (self: Window, color: Color) -> Window -- Clears the window with a color
+--- .Resize (self: Window, newWidth: number, newHeight: number) -> Window -- Resizes the window to a new size
+---
+--- .AddRenderer (self: Window, ...ImageLabel | ImageButton) -> Window -- Adds a new renderer instance
+--- .RemoveRenderer (self: Window, ...ImageLabel | ImageButton) -> Window -- Removes a renderer instance
+---
+--- .GetRelativeMouseToRenderer (self: Window, image: ImageLabel | ImageButton) -> (boolean, number, number) -- Returns the mouse position relative to the renderer
+--- An OSGL window is the representation of the EditableImage instance.
+--- A window can be created by importing the OSGL '*window*' submodule:
+---
+--- ```lua
+--- local OSGL = require(path.to.osgl)
+--- local Window = OSGL.Window
+--- ​
+--- -- Creates a window from an existing EditableImage
+--- local myWindow = Window.from(path.to.editableImage)
+--- ```
+export type Window = DrawableObject<Window> & {
+    editableImage: EditableImage,
+    targetFPS: number,
+
+    Render: (self: Window) -> Window,
+    Clear: (self: Window, color: Color) -> Window,
+    Resize: (self: Window, newWidth: number, newHeight: number) -> Window,
+
+    WritePixel: (self: Window, x: number, y: number, color: Color) -> Window,
+
+    AddRenderer: (self: Window, ...ImageLabel | ImageButton) -> Window,
+    RemoveRenderer: (self: Window, ...ImageLabel | ImageButton) -> Window,
+
+    GetRelativeMouseToRenderer: (self: Window, image: ImageLabel | ImageButton) -> (boolean, number, number)
+}
+
+--- @interface DrawingContext
+--- @within DrawableObject
+--- .Pixel (self: DrawingContext<V>, x: number, y: number, color: Color) -> DrawingContext<V>
+--- .Line (self: DrawingContext<V>, startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: Color) -> DrawingContext<V>
+--- .Rectangle (self: DrawingContext<V>, xPos: number, yPos: number, width: number, height: number, fill: Color?, stroke: Color?, strokeThickness: number?, rotation: number?) -> DrawingContext<V>
+--- .Circle (self: DrawingContext<V>, centerX: number, centerY: number, radius: number, fill: Color?, stroke: Color?, strokeThickness: number?, rotation: number?) -> DrawingContext<V>
+--- .Triangle (self: DrawingContext<V>, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, fill: Color?, stroke: Color?, strokeThickness: number?) -> DrawingContext<V>
+--- .Polygon (self: DrawingContext<V>, corners: {{number}}, fill: Color) -> DrawingContext<V>
+--- .StopDrawing (self: DrawingContext<V>) -> V
+---
+--- The DrawingContext is a wrapper around [draw] that allows you to
+--- to call the functions with your [DrawableObject] already passed as
+--- the first argument.
+---
+--- ```lua
+--- local OSGL = require(path.to.osgl)
+--- local Window = OSGL.Window
+--- local color = OSGL.color
+--- ​
+--- -- Creates a Window with a size of 50x50
+--- -- This window is a DrawableObject
+--- local myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })
+---
+--- myWindow:Draw():Pixel(1, 1, color.RED):StopDrawing()
+--- ```
+export type DrawingContext<V> = {
+    Pixel: (self: DrawingContext<V>, x: number, y: number, color: Color) -> DrawingContext<V>,
+    Line: (self: DrawingContext<V>, startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: Color) -> DrawingContext<V>,
+    Rectangle: (self: DrawingContext<V>, xPos: number, yPos: number, width: number, height: number, fill: Color?, stroke: Color?, strokeThickness: number?, rotation: number?) -> DrawingContext<V>,
+    Circle: (self: DrawingContext<V>, centerX: number, centerY: number, radius: number, fill: Color?, stroke: Color?, strokeThickness: number?, rotation: number?) -> DrawingContext<V>,
+    Triangle: (self: DrawingContext<V>, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, fill: Color?, stroke: Color?, strokeThickness: number?) -> DrawingContext<V>,
+    Polygon: (self: DrawingContext<V>, corners: {{number}}, fill: Color) -> DrawingContext<V>,
+
+    StopDrawing: (self: DrawingContext<V>) -> V
+}
+
 --- @type FlagTexture { width: number, height: number, pixels: { Color | string }, }
 --- @within Texture
 --- The representation of a texture made with the `converter` exe provided with the module.
@@ -90,63 +169,6 @@ export type FlagTexture = {
     width: number,
     height: number,
     pixels: { number | string },
-}
-
---- @interface Texture
---- @within Texture
---- .pixelStorage PixelStorage -- The raw-bytes of the texture
---- .sizeX number -- The width of the texture
---- .sizeY number -- The height of the texture
----
---- A `Texture` can be drawn onto a [Sprite] to be displayed on-screen.
---- Textures are simply a wrapper over our internal `PixelStorage`.
-export type Texture<P> = DrawableObject<P> & {
-    pixelStorage: privateTypes.PixelStorage<P>,
-    sizeX: number,
-    sizeY: number
-}
-
---- @interface Sprite
---- @within Sprite
---- .texture Texture -- The sprites' texture
---- .color Color -- The color of the sprite
---- .x number -- The X position of the sprite
---- .y number -- The Y position of the sprite
----
---- A `Sprite` can be drawn onto onto the screen to display a [Texture]
-export type Sprite<P> = {
-    texture: Texture<P>,
-    x: number,
-    y: number,
-
-    Draw: (self: Sprite<P>, window: Window<P>) -> ()
-}
-
---- @type Points { {number} }
---- @within Draw
---- An array of points
-export type Points = {{number}}
-
-export type DrawableObject<P> = {
-    pixelStorage: privateTypes.PixelStorage<any>,
-    sizeX: number,
-    sizeY: number,
-    size: Vector2,
-
-    GetRelativeMouse: (self: DrawableObject<P>) -> (number, number),
-    ReadPixel: (self: DrawableObject<P>, x: number, y: number) -> Color,
-    WritePixel: (self: DrawableObject<P>, x: number, y: number, newColor: Color) -> (),
-    Tint: (self: DrawableObject<P>, tint: Color, tintFactor: number) -> (),
-    TintRegion: (
-        self: DrawableObject<P>,
-        tint: Color,
-        tintFactor: number,
-        x: number,
-        y: number,
-        width: number,
-        height: number
-    ) -> (),
-    FloodFill: (self: DrawableObject<P>, newColor: Color, x: number?, y: number?) -> (),
 }
 
 return nil

@@ -26,3 +26,4 @@ OSGL is developed and maintained by an amazing team of contributors:
 - jukepilot
 - opensrcerror
 - msix29
+- Sle_l

@@ -4,11 +4,9 @@ sidebar_position: 2
 
 # Setting up your environment
 
-Before we can *use* OSGL, there are a few things we need to do first. Firstly, we need to make sure that we have the EditableImage beta enabled in Studio. You can enable it in `File > Beta Features > EditableImages & EditableMeshes`
+If you haven't done so already, download the latest version of OSGL from either the [Github releases](https://github.com/Gunshot-Sound-Studios/osgl-graphics/releases/latest) or from the [Roblox Marketplace](https://create.roblox.com/store/asset/18468099737/OSGL). Once downloaded, insert it into Studio in a suitible place (such as `ReplicatedStorage/Packages`)
 
-If you haven't already, grab yourself the latest copy of OSGL from the [github](https://github.com/Gunshot-Sound-Studios/osgl-graphics/releases/latest) or the [Roblox Marketplace](https://create.roblox.com/store/asset/18468099737/OSGL), and insert it into Studio in a suitible place (such as `ReplicatedStorage/Packages`)
-
-Create an `ImageLabel` in `StarterGui`, with its `BackgroundTransparency` set to 0. This `ImageLabel` will serve as your canvas:
+Create an `ImageLabel` in `StarterGui`, with its `BackgroundTransparency` set to 0. This `ImageLabel` will act as your primary canvas for rendering graphics.
 
 ![Studio View](./img/blank-canv.jpeg)
 
@@ -20,4 +18,4 @@ Lower resolutions cause blurred images! If you're rendering at a low resolution,
 
 Additionally, create a `LocalScript` in your desired location (e.g., `StarterPlayer/StarterPlayerScripts` ). This script will create our window and manage the rendering process.
 
-Now we can start programming!
+Now you are ready to begin programming!

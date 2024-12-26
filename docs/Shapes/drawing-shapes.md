@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Drawing Shapes
 
-Below is a list of shapes in OSGL as of version `1.3b`:
+Below is a list of shapes in OSGL as of version `1.4b`:
 
 | Shape | Supported | Supports Rotation | Supports Stroke | Notes |
 | ----- | --------- | ----------------- | --------------- | ----- |
@@ -12,26 +12,24 @@ Below is a list of shapes in OSGL as of version `1.3b`:
 | Rectangle |     ✅    |       ✅       |     ✅       |  |
 | Circle |     ✅    |       ✅      |     ✅       | Rotation is only visible at low resolutions.  |
 | Lines |     ✅    |       *N/A*       |     ❌      |  |
-| Points |     ✅    |       *N/A*       |     ❌       |  |
-| Triangle |     ❌    |       *N/A*       |     *N/A*       | Will be implemented |
+| Polygon |     ✅    |       *N/A*       |     ❌       |  |
+| Triangle |     ✅    |       *N/A*       |     ❌       |  |
 
-All shape-drawing functions can be accessed through the `draw` sub-module of OSGL. The first argument for each function is a `DrawableObject`, which could be a `Window` or `Texture`. You'll also need to provide the relevant properties to define the shape (e.g., position, size, color).
+All shape-drawing functions are accessible through the `draw` sub-module of OSGL. The first argument for each function must be a `DrawableObject`, which can be either a `Window` or a `Texture`. Additionally, you will need to provide the necessary parameters to define the shape, such as its position, size, and color.
 
-Here's an example of drawing a rectangle:
+Here is an example of how to draw a square, as defined by the documentation:
 
 ```lua
-draw.rectangle(window, {
-    xPos = 0,
-    yPos = 0,
-    width = 5,
-    height = 5,
-    fillColor = color.RED,
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
 
-    -- Rotation defaults to 0.
-    -- Strokes are completely optional
-    strokeColor = color.BLACK,
-    strokeThickness = 2
-})
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+
+-- Draws a 5x5 red square at 0, 0 
+draw.rectangle(myWindow, 0, 0, 5, 5, color.RED)
 ```
 
 **Notes**:

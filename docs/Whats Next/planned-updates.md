@@ -6,6 +6,4 @@ sidebar_position: 1
 
 Below is a list of possible upcoming OSGL features:
 
-- Shapes:
-  - Triangles
 - Fonts & Texts

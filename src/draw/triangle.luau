@@ -23,39 +23,24 @@
 --
 ------------------------------------------------------------
 
-local debug = debug
-local warn = warn
-local error = error
+local OSGL = script.Parent.Parent
+local draw = OSGL.draw
+local types = require(OSGL.types)
+local color = require(OSGL.color)
+local fillPolygon = require(draw.fillPolygon)
 
-local log = {}
+return function<T>(object: types.DrawableObject<T>, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, fill: types.Color?, stroke: types.Color?, strokeThickness: number?)
+    fill = fill or color.BLACK
+    stroke = stroke or color.TRANSPARENT
+    strokeThickness = strokeThickness or 0
 
-function log.typeCheckArgument(fnName: string, argName: string, argument: any, expectedType: string)
-    if not argument or not argument:isA(expectedType) then
-        log.error(`Argument '{argName}' of function '{fnName}' was not passed or was not of type '{expectedType}'.`)
-    end
-
-    return
+    -- [saaawdust]: Somehow this is faster than
+    --              an optimised triangle rasterizer.
+    --              Use this implementation until something
+    --              faster is found.
+    fillPolygon(object, {
+        { x1, y1 },
+        { x2, y2 },
+        { x3, y3 },
+    }, fill)
 end
-
-local DIVIDE_ERR = "\n------ OSGL Error ------\n"
-function log.error(message: string)
-	local stack = `Stack: {debug.traceback(nil, 2)}`
-    return log.doLog(error, DIVIDE_ERR, message, stack)
-end
-
-function log.cassert(value: boolean, message: string)
-    if not value then log.error(message) end
-end
-
-local DIVIDE_WARN = "\n------ OSGL Warn ------\n"
-function log.warn(message: string)
-	local stack = `Stack: {debug.traceback(nil, 2)}`
-    return log.doLog(warn, DIVIDE_WARN, message, stack)
-end
-
-
-function log.doLog(logType: any, header: string, message: string, stack: string)
-    logType(`{header}{message}{header}{stack}`, logType == error and 0 or "")
-end
-
-return log

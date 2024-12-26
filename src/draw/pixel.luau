@@ -23,39 +23,12 @@
 --
 ------------------------------------------------------------
 
-local debug = debug
-local warn = warn
-local error = error
+local OSGL = script.Parent.Parent
+local types = require(OSGL.types)
 
-local log = {}
+return function<T>(object: types.DrawableObject<T>, x: number, y: number, color: types.Color)
+    -- [saaawdust]: This is the exact same as `window:WritePixel`.
+    buffer.writeu32(object.buffer, (y * object.sizeX + x) * 4, color or color.BLACK)
 
-function log.typeCheckArgument(fnName: string, argName: string, argument: any, expectedType: string)
-    if not argument or not argument:isA(expectedType) then
-        log.error(`Argument '{argName}' of function '{fnName}' was not passed or was not of type '{expectedType}'.`)
-    end
-
-    return
+    return -- [saaawdust]: Not quite sure what this should return.
 end
-
-local DIVIDE_ERR = "\n------ OSGL Error ------\n"
-function log.error(message: string)
-	local stack = `Stack: {debug.traceback(nil, 2)}`
-    return log.doLog(error, DIVIDE_ERR, message, stack)
-end
-
-function log.cassert(value: boolean, message: string)
-    if not value then log.error(message) end
-end
-
-local DIVIDE_WARN = "\n------ OSGL Warn ------\n"
-function log.warn(message: string)
-	local stack = `Stack: {debug.traceback(nil, 2)}`
-    return log.doLog(warn, DIVIDE_WARN, message, stack)
-end
-
-
-function log.doLog(logType: any, header: string, message: string, stack: string)
-    logType(`{header}{message}{header}{stack}`, logType == error and 0 or "")
-end
-
-return log

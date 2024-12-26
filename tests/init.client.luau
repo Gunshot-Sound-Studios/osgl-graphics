@@ -1,29 +1,31 @@
--- Script
-
-local UserInputService = game:GetService("UserInputService")
-local finished = false
-
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local SIZE_X = 1000
-local SIZE_Y = 1000
+local plr = Players.LocalPlayer
+local screenGui = plr.PlayerGui:WaitForChild("ScreenGui")
+
+local window = screenGui.Window
+local A = screenGui.A
+local B = screenGui.B
+
+local SIZE_X = 570
+local SIZE_Y = 409
 
 local OSGL = require(ReplicatedStorage.OSGL)
 local window = OSGL.Window
+local texture = OSGL.Texture
 local color = OSGL.color
-local Sprite = OSGL.Sprite
-local Texture = OSGL.texture
+local draw = OSGL.draw
 
-local myWindow = window.new(Players.LocalPlayer.PlayerGui:WaitForChild("ScreenGui").Window, { sizeX = SIZE_X, sizeY = SIZE_Y })
+local myWindow =
+	window.new(Players.LocalPlayer.PlayerGui:WaitForChild("ScreenGui").Window, { sizeX = SIZE_X, sizeY = SIZE_Y })
 
-for x = 0, SIZE_X - 1 do
-    for y = 0, SIZE_Y - 1 do
-        myWindow:WritePixel(x, y, color.new(math.random(255), math.random(255), math.random(255)))
-    end
-end
+myWindow:AddRenderer(A, B)
+myWindow:RemoveRenderer(B)
 
-while myWindow:IsOpen() do
-    myWindow:Clear(color.BLACK)
-    myWindow:Render()
+local txt = texture.fromAssetId(14419725604)
+
+while task.wait() do
+    texture.draw(myWindow, txt, 0, 0)
+    myWindow:Render():Clear()
 end
