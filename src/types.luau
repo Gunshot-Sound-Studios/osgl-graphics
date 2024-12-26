@@ -143,6 +143,7 @@ export type Window = DrawableObject<Window> & {
 --- .Circle (self: DrawingContext<V>, centerX: number, centerY: number, radius: number, fill: Color?, stroke: Color?, strokeThickness: number?, rotation: number?) -> DrawingContext<V>
 --- .Triangle (self: DrawingContext<V>, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, fill: Color?, stroke: Color?, strokeThickness: number?) -> DrawingContext<V>
 --- .Polygon (self: DrawingContext<V>, corners: {{number}}, fill: Color) -> DrawingContext<V>
+--- .FloodFill (self: DrawableObject<V>, x: number, y: number, fill: Color) -> DrawingContext<V>
 --- .StopDrawing (self: DrawingContext<V>) -> V
 ---
 --- The DrawingContext is a wrapper around [draw] that allows you to

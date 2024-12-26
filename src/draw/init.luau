@@ -222,6 +222,29 @@ draw.polygon(myWindow, {
 ]=]
 draw.polygon = polygon
 
+--[=[
+Replaces all adjacent pixels of the same color with a replacement
+
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
+
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+-- *draw something*
+
+-- Start flood-filling from (5, 5)
+myWindow:Draw():FloodFill(5, 5, color.RED)
+```
+
+@function floodFill
+@param x number
+@param y number
+@param fill Color
+@within Draw
+]=]
 draw.floodFill = floodFill
 
 return draw
