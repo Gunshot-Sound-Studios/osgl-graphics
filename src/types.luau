@@ -62,7 +62,7 @@ export type WindowConfiguration = {
 --- .sizeY number -- The height of the object.
 --- .size Vector2 -- The size of the object as a Vector2
 --- .Draw (self: DrawableObject<T>) -> DrawingContext<T> -- Returns the drawing context of the object
---- .TintRegion (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  DrawingContext<T> -- Tints a region of pixels
+--- .TintRegion (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) -> T -- Tints a region of pixels
 --- .ReadPixel (self: T, x: number, y: number) -> Color -- Reads a pixel at the given X, Y
 --- .Serialize (self: T) -> (buffer, number, number) -- Returns the object's buffer, as well as its dimensions
 ---
@@ -85,7 +85,7 @@ export type DrawableObject<T> = {
 
     Draw: (self: DrawableObject<T>) -> DrawingContext<T>,
     ReadPixel: (self: T, x: number, y: number) -> Color,
-    TintRegion: (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  DrawingContext<T>,
+    TintRegion: (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  T,
     Serialize: (self: T) -> (buffer, number, number),
 }
 
