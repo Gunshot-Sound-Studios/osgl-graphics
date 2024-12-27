@@ -256,7 +256,7 @@ function Texture.drawRotated(
 	spriteX: number,
 	spriteY: number,
 	rotation: number
-)
+): types.DrawableObject<types.DrawableObject>
 local objectSizeY = object.sizeY
 	local objectSizeX = object.sizeX
 	local sizeY = texture.sizeY
