@@ -35,6 +35,8 @@ local pixel = require(draw.pixel)
 local log = require(OSGL.log)
 local utils = require(drawableObject.utils)
 
+type Texture<T> = types.DrawableObject<T>
+
 --[=[
     @class Texture
 
@@ -70,7 +72,7 @@ end
 	@param textureData FlagTexture | ModuleScript -- The textureData
 	@return DrawableObject -- The loaded texture
 ]=]
-function Texture.from(textureData: types.FlagTexture | ModuleScript): types.DrawableObject<types.DrawableObject>
+function Texture.from<T>(textureData: types.FlagTexture | ModuleScript): Texture<T>
 	if typeof(textureData) == "Instance" and textureData:IsA("ModuleScript") then
 		textureData = require(textureData)
 	end
@@ -140,7 +142,7 @@ end
 	@param bfr buffer? -- An optional buffer for textureData
 	@return DrawableObject -- The loaded texture
 ]=]
-function Texture.new(width: number, height: number, bfr: buffer?): types.DrawableObject<types.DrawableObject>
+function Texture.new<T>(width: number, height: number, bfr: buffer?): Texture<T>
 	return {
 		buffer = bfr or buffer.create(width * height * 4),
 
@@ -181,10 +183,10 @@ end
 ]=]
 function Texture.draw<T>(
 	object: types.DrawableObject<T>,
-	texture: types.DrawableObject<types.DrawableObject>,
+	texture: Texture<T>,
 	spriteX: number,
 	spriteY: number
-): types.DrawableObject<types.DrawableObject>
+): Texture<T>
 	local y2 = 0
 	local objectSizeY = object.sizeY
 	local objectSizeX = object.sizeX
@@ -250,13 +252,13 @@ end
 	@param rotation number -- The rotation of the texture
 	@return DrawableObject -- The final texture
 ]=]
-function Texture.drawRotated(
+function Texture.drawRotated<T>(
 	object: types.DrawableObject<T>,
-	texture: types.DrawableObject<types.DrawableObject>,
+	texture: Texture<T>,
 	spriteX: number,
 	spriteY: number,
 	rotation: number
-): types.DrawableObject<types.DrawableObject>
+): Texture<T>
 local objectSizeY = object.sizeY
 	local objectSizeX = object.sizeX
 	local sizeY = texture.sizeY
@@ -437,7 +439,7 @@ end
 	@error "Memory" -- This error occurs when the device doesn't have enough memory to create the texture
 	@return DrawableObject -- A finished texture that is the assetId
 ]=]
-function Texture.fromAssetId(assetId: number): types.DrawableObject<types.DrawableObject>
+function Texture.fromAssetId<T>(assetId: number): Texture<T>
     local newContent = Content.fromAssetId(assetId)
 
     -- [saaawdust]: Do I check if they can create an editable image or not? [1]
@@ -452,7 +454,7 @@ function Texture.fromAssetId(assetId: number): types.DrawableObject<types.Drawab
 	    -- [saaawdust]: Do I check if they can create an editable image or not? [2]
     local pixelBuffer = temporaryEditableImage:ReadPixelsBuffer(Vector2.zero, size)
 	temporaryEditableImage:Destroy()
-	
+
     return {
         buffer = pixelBuffer,
 
