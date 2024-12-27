@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Opening a window
 
-In OSGL, a "window" is actually just a fancy name for an EditableImage. All that OSGL does, is wrap this EditableImage in an easy-to-use API for you; with **a lot** of handy features.
+In OSGL, a `Window` is an EditableImage. OSGL is wrapper around this EditableImage that gives you an easy-to-use API with many handy features.
 
 Before we can actually *draw* on our window, we need to create one. OSGL is split into *sub-modules* that each serve a different purpose (e.g, drawing on a window, creating a window, etc.). In this case, we want the `Window` class which allows us to create our window.
 
@@ -13,7 +13,7 @@ local OSGL = require(ReplicatedStorage.Packages.OSGL)
 local Window = OSGL.Window
 ```
 
-There are four functions available for creating our window: `Window.from`, `Window.new`, `Window.fromAssetId`, and `Window.fromBuffer` . According to the API:
+There are four functions available for creating our window: `Window.from`, `Window.new`, `Window.fromAssetId`, and `Window.fromBuffer`. Below is a high-level extract from the API:
 
 > `Window.from` : ***Creates an OSGL window from an existing EditableImage.***
 

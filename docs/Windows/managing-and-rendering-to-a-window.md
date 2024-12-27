@@ -15,6 +15,7 @@ local windowUi -- reference to windowUi, our `ImageLabel`
 
 -- Create our window, 500x500
 local myWindow = Window.new(windowUi, { sizeX = 500, sizeY = 500 })
+myWindow.targetFPS = 270
 
 while task.wait() do
     myWindow
@@ -23,7 +24,7 @@ while task.wait() do
 end
 ```
 
-In summary, the code above creates a window with a size of 500x500 pixels. While the window remains open, it continuously clears the screen using the `BLACK` color (0, 0, 0, 255). The `Clear` method clears the window's buffer with the specified color, and the `Render` method displays the updated buffer on the screen.
+In summary, the code above creates a window with a size of 500x500 pixels, with a target FPS of 270. It continuously clears the screen using the `BLACK` color (0, 0, 0, 255). The `Clear` method clears the window's buffer with the specified color, and the `Render` method displays the updated buffer on the screen.
 
 It's important to note that the method calls do not need to be chained. You can achieve the same effect with separate statements, as shown below:
 
@@ -48,6 +49,7 @@ local windowUi = -- *reference to windowUi, our `ImageLabel`*
 
 -- Create our window, 10x10
 local myWindow = Window.new(windowUi, { sizeX = 10, sizeY = 10 })
+myWindow.targetFPS = 270
 
 while task.wait() do
     myWindow:Clear(color.BLACK)

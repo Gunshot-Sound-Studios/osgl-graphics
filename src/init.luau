@@ -28,9 +28,6 @@ return {
     Window = require(drawableObject.window),
     Texture = require(drawableObject.texture),
 
-    -- Sprite = require(script.DrawableObject.sprite),
-    -- texture = require(script.DrawableObject.sprite.texture),
-
     color = require(script.color),
     types = require(script.types),
     draw = require(script.draw),
