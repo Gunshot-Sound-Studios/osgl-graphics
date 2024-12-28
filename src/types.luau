@@ -180,7 +180,7 @@ export type DrawingContext<V> = {
 export type FlagTexture = {
     width: number,
     height: number,
-    pixels: { number | string },
+    pixels: buffer,
 }
 
 return nil

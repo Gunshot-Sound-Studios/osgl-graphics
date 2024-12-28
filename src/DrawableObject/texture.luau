@@ -72,58 +72,25 @@ end
 	@param textureData FlagTexture | ModuleScript -- The textureData
 	@return DrawableObject -- The loaded texture
 ]=]
-function Texture.from<T>(textureData: types.FlagTexture | ModuleScript): Texture<T>
-	if typeof(textureData) == "Instance" and textureData:IsA("ModuleScript") then
-		textureData = require(textureData)
-	end
+function Texture.from(textureData: types.FlagTexture | ModuleScript): types.DrawableObject<types.DrawableObject>
+    if typeof(textureData) == "Instance" and textureData:IsA("ModuleScript") then
+        textureData = require(textureData)
+    end
 
-	local width, height = textureData.width, textureData.height
-	local bfr = buffer.create(width * height * 4)
+    local width, height = textureData.width, textureData.height
 
-	local i = 1
-	for _, v in ipairs(textureData.pixels) do
-		if type(v) == "number" then
-			local x, y = getIndex(width, height, i)
+    return {
+        buffer = textureData.pixels,
 
-			if not x or not y then
-				continue
-			end
+        sizeX = width,
+        sizeY = height,
+        size = Vector2.new(width, height),
 
-			x -= 1
-			y -= 1
-
-			buffer.writeu32(bfr, (y * width + x) * 4, v)
-			i += 1
-		else
-			-- This is a flag. For now, there's only an `r` flag.
-			local repetitions, color = string.match(v, "(%d+)-(%d+)")
-			for _ = 1, repetitions do
-				local x, y = getIndex(width, height, i)
-				if not x or not y then
-					continue
-				end
-
-				x -= 1
-				y -= 1
-
-				buffer.writeu32(bfr, (y * width + x) * 4, color)
-				i += 1
-			end
-		end
-	end
-
-	return {
-		buffer = bfr,
-
-		sizeX = width,
-		sizeY = height,
-		size = Vector2.new(width, height), -- Is this needed?
-
-		Draw = utils.createDraw(),
-		ReadPixel = utils.createReadPixel(),
-		TintRegion = utils.createTintRegion(),
-		Serialize = utils.createSerialize(),
-	}
+        Draw = utils.createDraw(),
+        ReadPixel = utils.createReadPixel(),
+        TintRegion = utils.createTintRegion(),
+        Serialize = utils.createSerialize(),
+    }
 end
 
 --[=[
