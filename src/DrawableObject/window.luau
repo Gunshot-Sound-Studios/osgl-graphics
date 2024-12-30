@@ -531,9 +531,11 @@ function Window.new<P>(parent: ImageLabel | ImageButton, config: types.WindowCon
 
 	if sizeX <= 0 or sizeX > 1024 or sizeY <= 0 or sizeY > 1024 then
 		log.warn(
-			`Attempt to create a window with invalid dimensions (X: {sizeX} \z , Y: {sizeY}). \z
-                Dimensions must be within the range of 1 to 1024. The window size \z
-                has been automatically clamped to valid parameters.`
+			"Attempt to create a window with invalid dimensions (X: "
+				.. sizeX
+				.. ", Y: "
+				.. sizeY
+				.. "). Dimensions must be within the range of 1 to 1024. The window size has been automatically clamped to valid parameters."
 		)
 	end
 

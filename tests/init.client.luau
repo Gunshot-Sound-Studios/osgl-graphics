@@ -5,15 +5,16 @@ local plr = Players.LocalPlayer
 local screenGui = plr.PlayerGui:WaitForChild("ScreenGui")
 
 local window = screenGui.Window
-local A = screenGui.A
-local B = screenGui.B
+-- local A = screenGui.A
+-- local B = screenGui.B
 
-local SIZE_X = 500
-local SIZE_Y = 500
+local SIZE_X = 3
+local SIZE_Y = 3
 
 local OSGL = require(ReplicatedStorage.OSGL)
 local Window = OSGL.Window
-local texture = OSGL.Texture
+local Texture = OSGL.Texture
+local Video = OSGL.Video
 local draw = OSGL.draw
 local color = OSGL.color
 
@@ -21,9 +22,12 @@ local config = { sizeX = SIZE_X, sizeY = SIZE_Y }
 local myWindow = Window.new(window, config)
 myWindow.targetFPS = 270
 
-myWindow
-    :Clear(color.BLACK)
-    :Draw()
-    :Circle(250, 250, 50, color.RED)
-    :StopDrawing()
-    :Render()
+local frames = script.frames
+local video = Video.from({frames.A, frames.B, frames.C})
+video.frameRate = 6
+video.loop = true
+
+video:PlaySync(function(texture)
+    Texture.draw(myWindow, texture, 0, 0)
+    myWindow:Render()
+end)

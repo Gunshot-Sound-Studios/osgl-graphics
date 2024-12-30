@@ -27,6 +27,7 @@ local drawableObject = script.DrawableObject
 return {
     Window = require(drawableObject.window),
     Texture = require(drawableObject.texture),
+    Video = require(script.video),
 
     color = require(script.color),
     types = require(script.types),

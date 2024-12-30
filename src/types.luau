@@ -174,14 +174,65 @@ export type DrawingContext<V> = {
     StopDrawing: (self: DrawingContext<V>) -> V
 }
 
+--- @interface Texture
+--- @within Texture
+--- A [DrawableObject] that represents a texture.
 export type Texture<T> = DrawableObject<T>
 
+--- @interface Video
+--- @within Video
+---
+--- .sizeX number -- The videos width.
+--- .sizeX number -- The videos height.
+--- .playbackFrame number -- Which frame the video is playing.
+--- .frameRate number -- How many frames-per-second to display.
+--- .playing boolean -- Whether the video is playing or not.
+--- .loop boolean -- Whether the video should loop after finishing.
+--- .frames {buffer} -- A set of [DrawableObject]s that represent the videos frames.
+---
+--- .PlaySync (self: Video<T>, callback: (texture: Texture<T>) -> ()) -> Video<T>
+--- .PlayAsync (self: Video<T>, callback: (texture: Texture<T>) -> ()) -> Video<T>
+--- .Stop (self: Video<T>) -> Video<T>
+--- .GetFrame (self: Video<T>, frame: number) -> Texture<T>
+--- .GetBufferOfFrame (self: Video<T>, frame: number) -> buffer
+--- .Previous: (self: Video<T>) -> Video<T>
+--- .Next: (self: Video<T>) -> Video<T>
+---
+--- An animatable set of [DrawableObject] that represents a video.
+---
+--- ```lua
+--- local OSGL = require(path.to.osgl)
+--- local Window = OSGL.Window
+--- local Video = OSGL.Video
+--- local Texture = OSGL.Texture
+--- ​
+--- -- Creates a Window with a size of 50x50
+--- -- This window is a DrawableObject
+--- local myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })
+--- ㅤ
+--- local frames = -- Reference to texture-data
+--- local video = Video.from(frames)
+--- video.frameRate = 60
+--- video.loop = true
+--- 
+--- video:PlaySync(function(texture)
+---     Texture.draw(myWindow, texture, 0, 0)
+---     myWindow:Render()
+--- end)
+--- ```
 export type Video<T> = {
     sizeX: number,
     sizeY: number,
     playbackFrame: number,
+    frameRate: number,
     playing: boolean,
+    loop: boolean,
     frames: {buffer},
+
+    PlaySync: (self: Video<T>, callback: (texture: Texture<T>) -> ()) -> Video<T>,
+    PlayAsync: (self: Video<T>, callback: (texture: Texture<T>) -> ()) -> Video<T>,
+
+    Stop: (self: Video<T>) -> Video<T>,
 
     GetFrame: (self: Video<T>, frame: number) -> Texture<T>,
     GetBufferOfFrame: (self: Video<T>, frame: number) -> buffer,
