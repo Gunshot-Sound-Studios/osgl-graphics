@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Serializing & Deserializing
 
-OSGL makes it easy to save and load your `Window`s and [`Texture`s](../Textures/loading-textures.md) safely without `buffer` errors! This process, known as **serialization** and **deserialization**, helps you transfer data smoothly.
+OSGL makes it easy to save and load your `Window`s and [`Texture`s](../Textures/loading-textures.md) safely without `buffer` errors. This process, known as **serialization** and **deserialization**, allows the transfer of data smoothly.
 
 ### Why Serialize and Deserialize?
 
@@ -14,7 +14,7 @@ Imagine you have two `Window`s: Window A and Window B. You want to copy the cont
 local B = Window.fromBuffer(A.buffer, configuration)
 ```
 
-But, here's the catch: if `B` isn't the same size as `A`, you'll get an error. That's where **serialization** and **deserialization** come in. You can **serialize** a `Window` and **deserialize** it into another `Window` or even a `Texture`:
+However: if `B` isn't the same size as `A`, an error will occur. This is where **serialization** and **deserialization** are useful. You can **serialize** a `Window` and **deserialize** it into another `Window` or even a `Texture`:
 
 ```lua
 local A = Window.new(parent, { sizeX = 50, sizeY = 50 })

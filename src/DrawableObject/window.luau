@@ -530,10 +530,11 @@ function Window.new<P>(parent: ImageLabel | ImageButton, config: types.WindowCon
 	local sizeX, sizeY = config.sizeX or 1, config.sizeY or 1
 
 	if sizeX <= 0 or sizeX > 1024 or sizeY <= 0 or sizeY > 1024 then
+		-- [saaawdust]: Moonwave doesn't like interpolated strings.
 		log.warn(
-			`Attempt to create a window with invalid dimensions (X: {sizeX} \z , Y: {sizeY}). \z
+			"Attempt to create a window with invalid dimensions (X: "..sizeX.." \z , Y: "..sizeY.."). \z
                 Dimensions must be within the range of 1 to 1024. The window size \z
-                has been automatically clamped to valid parameters.`
+                has been automatically clamped to valid parameters."
 		)
 	end
 
