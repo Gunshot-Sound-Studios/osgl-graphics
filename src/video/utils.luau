@@ -1,5 +1,3 @@
---!optimize 2
-
 ------------------------------------------------------------
 -- OSGL v1.5b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
@@ -24,44 +22,10 @@
 ------------------------------------------------------------
 
 local OSGL = script.Parent.Parent
-local draw = OSGL.draw
-local pixel = require(draw.pixel)
-
 local types = require(OSGL.types)
 
-return function<T>(object: types.DrawableObject<T>, startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: types.Color)
-    thickness = thickness or 1
-	color = color or color.BLACK
+local utils = {}
 
-	local sizeX, sizeY = object.sizeX, object.sizeY
 
-	local dx = stopX - startX
-	local dy = stopY - startY
 
-	local steps = math.max(math.abs(dx), math.abs(dy))
-
-	local xIncrement = dx / steps
-	local yIncrement = dy / steps
-
-	local x = startX
-	local y = startY
-
-	local function drawThickPoint(px: number, py: number, thickness: number)
-		local halfThickness = thickness / 2
-		for offsetX = -halfThickness, halfThickness do
-			for offsetY = -halfThickness, halfThickness do
-				local pixelX = math.floor(px + offsetX + 0.5)
-				local pixelY = math.floor(py + offsetY + 0.5)
-				if pixelX >= 0 and pixelX < sizeX and pixelY >= 0 and pixelY < sizeY then
-					pixel(object, pixelX, pixelY, color)
-				end
-			end
-		end
-	end
-
-	for _ = 0, steps do
-		drawThickPoint(x, y, thickness)
-		x += xIncrement
-		y += yIncrement
-	end
-end
+return utils

@@ -1,5 +1,5 @@
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
+-- OSGL v1.5b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
@@ -172,6 +172,22 @@ export type DrawingContext<V> = {
     FloodFill: (self: DrawableObject<V>, x: number, y: number, fill: Color) -> DrawingContext<V>,
 
     StopDrawing: (self: DrawingContext<V>) -> V
+}
+
+export type Texture<T> = DrawableObject<T>
+
+export type Video<T> = {
+    sizeX: number,
+    sizeY: number,
+    playbackFrame: number,
+    playing: boolean,
+    frames: {buffer},
+
+    GetFrame: (self: Video<T>, frame: number) -> Texture<T>,
+    GetBufferOfFrame: (self: Video<T>, frame: number) -> buffer,
+
+    Previous: (self: Video<T>) -> Video<T>,
+    Next: (self: Video<T>) -> Video<T>,
 }
 
 --- @type FlagTexture { width: number, height: number, pixels: { Color | string }, }

@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Drawing Shapes
 
-Below is a list of shapes in OSGL as of version `1.4b`:
+Below is a list of shapes in OSGL as of version `1.5b`:
 
 | Shape | Supported | Supports Rotation | Supports Stroke | Notes |
 | ----- | --------- | ----------------- | --------------- | ----- |

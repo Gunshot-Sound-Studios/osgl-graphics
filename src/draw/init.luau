@@ -1,5 +1,5 @@
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
+-- OSGL v1.5b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.

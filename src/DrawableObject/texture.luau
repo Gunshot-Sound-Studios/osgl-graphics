@@ -3,7 +3,7 @@
 --!optimize 2
 
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
+-- OSGL v1.5b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
@@ -35,8 +35,6 @@ local pixel = require(draw.pixel)
 local log = require(OSGL.log)
 local utils = require(drawableObject.utils)
 
-type Texture<T> = types.DrawableObject<T>
-
 --[=[
     @class Texture
 
@@ -45,17 +43,6 @@ type Texture<T> = types.DrawableObject<T>
     [DrawableObject]
 ]=]
 local Texture = {}
-
-local function getIndex(width: number, height: number, index: number)
-	if index < 1 or index > (width * height) then
-		return nil, nil
-	end
-
-	local x = (index - 1) % width + 1
-	local y = math.ceil(index / width)
-
-	return x, y
-end
 
 --[=[
 	Creates a texture from textureData
@@ -72,7 +59,7 @@ end
 	@param textureData FlagTexture | ModuleScript -- The textureData
 	@return DrawableObject -- The loaded texture
 ]=]
-function Texture.from(textureData: types.FlagTexture | ModuleScript): types.DrawableObject<types.DrawableObject>
+function Texture.from<T>(textureData: types.FlagTexture | ModuleScript): types.Texture<T>
     if typeof(textureData) == "Instance" and textureData:IsA("ModuleScript") then
         textureData = require(textureData)
     end
@@ -109,7 +96,7 @@ end
 	@param bfr buffer? -- An optional buffer for textureData
 	@return DrawableObject -- The loaded texture
 ]=]
-function Texture.new<T>(width: number, height: number, bfr: buffer?): Texture<T>
+function Texture.new<T>(width: number, height: number, bfr: buffer?): types.Texture<T>
 	return {
 		buffer = bfr or buffer.create(width * height * 4),
 
@@ -150,10 +137,10 @@ end
 ]=]
 function Texture.draw<T>(
 	object: types.DrawableObject<T>,
-	texture: Texture<T>,
+	texture: types.Texture<T>,
 	spriteX: number,
 	spriteY: number
-): Texture<T>
+): types.Texture<T>
 	local y2 = 0
 	local objectSizeY = object.sizeY
 	local objectSizeX = object.sizeX
@@ -221,11 +208,11 @@ end
 ]=]
 function Texture.drawRotated<T>(
 	object: types.DrawableObject<T>,
-	texture: Texture<T>,
+	texture: types.Texture<T>,
 	spriteX: number,
 	spriteY: number,
 	rotation: number
-): Texture<T>
+): types.Texture<T>
 local objectSizeY = object.sizeY
 	local objectSizeX = object.sizeX
 	local sizeY = texture.sizeY
@@ -406,7 +393,7 @@ end
 	@error "Memory" -- This error occurs when the device doesn't have enough memory to create the texture
 	@return DrawableObject -- A finished texture that is the assetId
 ]=]
-function Texture.fromAssetId<T>(assetId: number): Texture<T>
+function Texture.fromAssetId<T>(assetId: number): types.Texture<T>
     local newContent = Content.fromAssetId(assetId)
 
     -- [saaawdust]: Do I check if they can create an editable image or not? [1]
