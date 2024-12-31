@@ -11,14 +11,13 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local OSGL = require(ReplicatedStorage.OSGL)
 local Window = OSGL.Window
 local Texture = OSGL.Texture
-local Video = OSGL.Video
 
 local player = Players.LocalPlayer
 assert(player)
 
 -- Define window dimensions
-local WIDTH = 3
-local HEIGHT = 3
+local WIDTH = 9
+local HEIGHT = 9
 
 -- Create ImageLabel & ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
@@ -35,12 +34,20 @@ ImageLabel.ResampleMode = Enum.ResamplerMode.Pixelated
 local window = Window.new(ImageLabel, { sizeX = WIDTH, sizeY = HEIGHT })
 window.targetFPS = 244
 
-local frames = script.frames
-local video = Video.from({frames.A, frames.B, frames.C})
-video.frameRate = 6
-video.loop = true
+-- local baseTexture = Texture.new(9, 9)
+-- local mouth = Texture.from(script.mouth)
+-- local eye = Texture.from(script.eye)
 
-video:PlaySync(function(texture)
-    Texture.draw(window, texture, 0, 0)
-    window:Render()
-end)
+-- Texture.draw(baseTexture, mouth, 0, 0)
+-- -- Texture.draw(baseTexture, eye, 1, 3)
+-- Texture.draw(baseTexture, eye, 7, 3)
+
+-- Texture.draw(window, baseTexture, 0, 0)
+-- window:Render()
+
+local s = Texture.from(script["6"])
+local f = Texture.from(script["4"])
+
+--Texture.draw(s, f, 0, 0)
+Texture.draw(window, s, 0, 0)
+window:Render()

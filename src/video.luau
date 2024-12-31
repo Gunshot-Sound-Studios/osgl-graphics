@@ -328,6 +328,18 @@ end
 function Video.new<T>(width: number, height: number, frames: { buffer }?): types.Video<T>
 	local frames = frames or {}
 
+    local size
+	for i, v: buffer in ipairs(frames) do
+        local len = buffer.len(v)
+
+		if not size then
+			size = len
+		elseif len ~= size then
+			warn("Failed to load video frame ".. i.. ". The frame has been discarded, all frames but be the same size!")
+			table.remove(frames, i)
+		end
+	end
+
 	return {
 		sizeX = width,
 		sizeY = height,
@@ -386,16 +398,59 @@ function Video.from<T>(collection: { types.FlagTexture | ModuleScript }): types.
 			v = require(v)
 		end
 
-		bfrCollection[i] = v.pixels
 		if not sizeX or not sizeY then
 			sizeX, sizeY = v.width, v.height
 		elseif sizeX ~= v.width or sizeY ~= v.height then
-			warn("Failed to load video: All frames but be the same size!")
-			return Video.new(sizeX, sizeY, bfrCollection)
+			warn("Failed to load video frame ".. i.. ". The frame has been discarded, all frames but be the same size!")
+			continue
 		end
+
+        bfrCollection[i] = v.pixels
 	end
 
 	return Video.new(sizeX, sizeY, bfrCollection)
 end
+
+--[=[
+	@prop sizeX number
+	@within Video
+	The videos width in pixels.
+]=]
+
+--[=[
+	@prop sizeY number
+	@within Video
+	The videos height in pixels.
+]=]
+
+--[=[
+	@prop playbackFrame number
+	@within Video
+	The frame the video is currently displaying
+]=]
+
+--[=[
+	@prop frameRate number
+	@within Video
+	The videos "FPS" (frames per second).
+]=]
+
+--[=[
+	@prop playing boolean
+	@within Video
+	Whether the video is currently playing.
+]=]
+
+--[=[
+	@prop loop boolean
+	@within Video
+	Whether the video should loop after finishing
+]=]
+
+--[=[
+	@prop frames {buffer}
+	@within Video
+	A set of [DrawableObject] that represent the videos frames.
+]=]
 
 return Video

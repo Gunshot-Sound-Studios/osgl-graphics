@@ -188,7 +188,7 @@ export type Texture<T> = DrawableObject<T>
 --- .frameRate number -- How many frames-per-second to display.
 --- .playing boolean -- Whether the video is playing or not.
 --- .loop boolean -- Whether the video should loop after finishing.
---- .frames {buffer} -- A set of [DrawableObject]s that represent the videos frames.
+--- .frames {buffer} -- A set of [DrawableObject] that represent the videos frames.
 ---
 --- .PlaySync (self: Video<T>, callback: (texture: Texture<T>) -> ()) -> Video<T>
 --- .PlayAsync (self: Video<T>, callback: (texture: Texture<T>) -> ()) -> Video<T>

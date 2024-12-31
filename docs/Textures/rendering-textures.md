@@ -4,7 +4,9 @@ sidebar_position: 2
 
 # Rendering Textures
 
-In OSGL, `Texture` data is essentially a buffer (just like a `Window`). However, if you want to render a `Texture` onto another `DrawableObject`, such as a `Window` or another `Texture`, you can use the `Texture.draw` function:
+## Drawing a Texture on Another Texture
+
+In OSGL, a `Texture` is essentially a buffer, similar to a `Window`. To render a `Texture` onto another `DrawableObject`, such as a `Window` or another `Texture`, use the `Texture.draw` function:
 
 ```lua
 local OSGL = require(path.to.osgl)
@@ -20,15 +22,15 @@ local textureB = Texture.from(secondTextureData)
 local textureC = Texture.draw(textureA, textureB, 0, 0)
 ```
 
-#### What's Happening Here?
- - Loading Textures: We load two textures, `textureA` and `textureB`, using the `Texture.from` function.
- - Drawing: The `Texture.draw` function draws `textureB` onto `textureA` at position (0, 0). This operation    returns a new `Texture` object, which we've assigned to `textureC`.
+### Explanation
 
-You can also perform this operation on a `Window`. Remember: a `Window` in OSGL is also a DrawableObject, which is a `Texture`.
+- Two textures, `textureA` and `textureB`, are loaded using the `Texture.from` function.
+- The `Texture.draw` function draws `textureB` onto `textureA` at position (0, 0). This operation returns a new `Texture` object, assigned to `textureC`.
 
-### Drawing a Texture onto a Window
+## Drawing a Texture onto a Window
 
-To render a `Texture` onto a `Window`, you can do the exact same thing:
+You can also draw a `Texture` onto a `Window`, as it is a `DrawableObject`:
+
 ```lua
 local OSGL = require(path.to.osgl)
 local Window = OSGL.Window
@@ -47,14 +49,16 @@ Texture.draw(myWindow, myTexture, 10, 10)
 -- Render the window to display it on the screen
 myWindow:Render()
 ```
-### Example: Combining Textures with layers
 
-Using this knowledge, you can layer multiple `Texture` objects onto a singular `DrawableObject` like so:
+## Example: Combining Textures with Layers
+
+Using this knowledge, you can layer multiple `Texture` objects onto a single `DrawableObject`:
+
 ```lua
 local OSGL = require(path.to.osgl)
 local Texture = OSGL.Texture
 
--- Load base texture and 2 additional layers
+-- Load base texture and two additional layers
 local baseTextureData = require(path.to.baseTexture)
 local layer1Data = require(path.to.layer1)
 local layer2Data = require(path.to.layer2)
@@ -71,3 +75,4 @@ Texture.draw(baseTexture, layer2, 40, 40)
 
 -- Now baseTexture contains both layers combined!
 ```
+
