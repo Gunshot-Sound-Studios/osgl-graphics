@@ -166,7 +166,7 @@ function Texture.draw<T>(
 
 			x2 = x - spriteX
 			if y2 < sizeY and x2 < sizeX then
-				pixel(object, x, y, buffer.readu32(bfr, (y * sizeX + x) * 4))
+				pixel(object, x, y, buffer.readu32(bfr, (y2 * sizeX + x2) * 4))
 			end
 		end
 	end

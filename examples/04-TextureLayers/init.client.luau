@@ -34,20 +34,20 @@ ImageLabel.ResampleMode = Enum.ResamplerMode.Pixelated
 local window = Window.new(ImageLabel, { sizeX = WIDTH, sizeY = HEIGHT })
 window.targetFPS = 244
 
--- local baseTexture = Texture.new(9, 9)
--- local mouth = Texture.from(script.mouth)
--- local eye = Texture.from(script.eye)
+local baseTexture = Texture.new(9, 9)
+local mouth = Texture.from(script.mouth)
+local eye = Texture.from(script.eye)
 
--- Texture.draw(baseTexture, mouth, 0, 0)
--- -- Texture.draw(baseTexture, eye, 1, 3)
--- Texture.draw(baseTexture, eye, 7, 3)
+Texture.draw(baseTexture, mouth, 0, 0)
+Texture.draw(baseTexture, eye, 1, 3)
+Texture.draw(baseTexture, eye, 7, 3)
 
--- Texture.draw(window, baseTexture, 0, 0)
--- window:Render()
-
-local s = Texture.from(script["6"])
-local f = Texture.from(script["4"])
-
---Texture.draw(s, f, 0, 0)
-Texture.draw(window, s, 0, 0)
+Texture.draw(window, baseTexture, 0, 0)
 window:Render()
+
+-- local s = Texture.from(script["6"])
+-- local f = Texture.from(script["4"])
+
+-- Texture.draw(s, f, 0, 0)
+-- Texture.draw(window, s, 0, 0)
+-- window:Render()
