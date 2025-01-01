@@ -6,7 +6,7 @@ sidebar_position: 2
 
 In this chapter, we'll set up your environment for using OSGL. All of the tools we'll use, such as the `image-converter` executable, are available on Windows and MacOS.
 
-The most important component you'll need is the actual OSGl module itself. You can download the latest version of the module from either the [Github releases](https://github.com/Gunshot-Sound-Studios/osgl-graphics/releases/latest), the [Roblox marketplace](https://create.roblox.com/store/asset/18468099737/OSGL) or the [Wally Index](https://wally.run/package/gunshotsoundstudios/osgl). 
+The most important component you'll need is the actual OSGL module itself. You can download the latest version of the module from either the [Github releases](https://github.com/Gunshot-Sound-Studios/osgl-graphics/releases/latest), the [Roblox marketplace](https://create.roblox.com/store/asset/18468099737/OSGL) or the [Wally Index](https://wally.run/package/gunshotsoundstudios/osgl). 
 
 You can use [Rojo](https://rojo.space) to sync the `Examples` folder to view any examples showcased or referenced in this tutorial. By default, all scripts have their `Enabled` property set to `false`, so you'll need to enable the script to test them. These scripts are designed to be self-sufficient and will automatically create any necessary resources during runtime.
 

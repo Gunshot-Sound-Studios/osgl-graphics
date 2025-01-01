@@ -1,5 +1,6 @@
 {
     "name": "OSGL",
+    "servePort": 8080,
     "tree": {
         "$className": "DataModel",
         "ReplicatedStorage": {

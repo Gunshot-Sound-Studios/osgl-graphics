@@ -35,12 +35,20 @@ ImageLabel.ResampleMode = Enum.ResamplerMode.Pixelated
 local window = Window.new(ImageLabel, { sizeX = WIDTH, sizeY = HEIGHT })
 window.targetFPS = 244
 
-local frames = script.frames
-local video = Video.from({frames.A, frames.B, frames.C})
-video.frameRate = 6
-video.loop = true
+-- local frames = script.frames
+-- local video = Video.from({frames.A, frames.B, frames.C})
+-- video.frameRate = 6
+-- video.loop = true
 
-video:PlaySync(function(texture)
-    Texture.draw(window, texture, 0, 0)
-    window:Render()
-end)
+-- video:PlaySync(function(texture)
+--     Texture.draw(window, texture, 0, 0)
+--     window:Render()
+-- end)
+
+local frames = script.frames
+local a = Texture.from(frames.A)
+local b = Texture.from(frames.B)
+local c = Texture.from(frames.C)
+local finalTexture = Texture.layer(a, b, c)
+Texture.draw(window, finalTexture, 0, 0)
+window:Render()

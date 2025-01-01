@@ -33,6 +33,10 @@ return function<T>(object: types.DrawableObject<T>, startX: number, startY: numb
     thickness = thickness or 1
 	color = color or color.BLACK
 
+	if thickness == 0 then
+		return
+	end
+
 	local sizeX, sizeY = object.sizeX, object.sizeY
 
 	local dx = stopX - startX

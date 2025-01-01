@@ -16,7 +16,7 @@ Before you start, make sure you have the following prerequisites:
 
 This tutorial assumes you have a basic understanding of how to use Roblox Studio and basic knowledge of [Luau](https://luau.org). While prior knowledge of computer graphics concepts is not required, it may be helpful.
 
--- TODO: CODE EXAMPLES IN REPO
+You can find various code examples in the `examples` folder of the GitHub repository.
 
 ## Tutorial Structure
 
