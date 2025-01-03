@@ -1,3 +1,5 @@
+--!optimize 2
+
 ------------------------------------------------------------
 -- OSGL v1.4b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
@@ -21,14 +23,12 @@
 --
 ------------------------------------------------------------
 
-local drawableObject = script.DrawableObject
+local OSGL = script.Parent.Parent
+local types = require(OSGL.types)
 
--- [saaawdust]: Assuming `require` caches here.
-return {
-    Window = require(drawableObject.window),
-    Texture = require(drawableObject.texture),
+return function<T>(object: types.DrawableObject<T>, x: number, y: number, color: types.Color)
+    -- [saaawdust]: This is the exact same as `window:WritePixel`.
+    buffer.writeu32(object.buffer, (y * object.sizeX + x) * 4, color or color.BLACK)
 
-    color = require(script.color),
-    types = require(script.types),
-    draw = require(script.draw),
-}
+    return -- [saaawdust]: Not quite sure what this should return.
+end

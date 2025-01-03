@@ -8,11 +8,28 @@ classOrder = []
 [docusaurus]
 onBrokenLinks = "throw"
 onBrokenMarkdownLinks = "warn"
+tagline = "Open Source Graphical Library"
+favicon = "image/favicon.ico"
 
-# From git:
-projectName = "OSGL" 
+[home]
+enabled = true
+includeReadme = false
+bannerImage = "image/banner.svg"
+
+[[home.features]]
+title = "High performance"
+description = "OSGL is designed for speed and efficiency, which means it can render graphics in real time with minimal delay. Whether you're creating a simple app or a complex game, you can count on OSGL to provide top-notch performance."
+
+[[home.features]]
+title = "Battle-tested"
+description = "OSGL has been tested in many different situations to make sure it works reliably even when the pressure is on. "
+
+[[home.features]]
+title = "User-Friendly documentation"
+description = "We know that starting with a new library can be tough. That’s why OSGL comes with easy-to-follow documentation that explains each feature in simple terms. And if you ever have questions or run into problems, we're here to help!"
+
+projectName = "OSGL"
 
 [footer]
 style = "dark"
 copyright = "Copyright © 2024 Gunshot Sound Studios."
-

@@ -1,9 +1,5 @@
---!strict
---!native
---!optimize 2
-
 ------------------------------------------------------------
--- OSGL v1.1 - Open-Source-Graphical-Library
+-- OSGL v1.4b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
@@ -25,224 +21,230 @@
 --
 ------------------------------------------------------------
 
-local OSGL = script.Parent
-local types = require(OSGL.types)
-local log = require(OSGL.log)
-local writePixel = require(script.writePixel)
+-- [saaawdust]: NOTE: I'm not implementing typechecking for any of
+--              these functions. These functions could be called every
+--              frame and even though it's a minor slow-down, it still
+--              could make the function slower in the long-run since
+--              we're calling it constantly.
+--              The user should give the correct values.
+
+-- [saaawdust]: Require shapes here. I don't know if `require`
+--              caches (I think it does), but just incase it doesn't,
+--              this will help optimise.
+--
+--              If it does, we can change this to
+--              `draw.pixel = require(script.pixel)` safely
+local pixel = require(script.pixel)
+local line = require(script.line)
+local rectangle = require(script.rectangle)
+local circle = require(script.circle)
+local triangle = require(script.triangle)
+local polygon = require(script.fillPolygon)
+local floodFill = require(script.floodFill)
 
 --[=[
     @class Draw
 
-    The draw class. Contains functions that manipulates pixels
-    on an OSGL window.
+    The draw class. Contains functions for drawing various
+    shapes on a [DrawableObject]
 ]=]
 local draw = {}
 
 --[=[
-    Draws a singular pixel at the given location
-     ```lua
-    local OSGL = require(path.to.osgl)
-    local draw = OSGL.draw
-    local Window = OSGL.Window
-    local color = OSGL.color
+Draws a singular pixel onto the [DrawableObject]
 
-    -- Creates a new EditableImage
-    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
 
-    -- Runs every heartbeat
-    while myWindow:IsOpen() do
-        -- Render here
-        -- Draws a pixel at 0, 0, with a red color, onto "myWindow"
-        draw.pixel(myWindow, 0, 0, color.RED)
-        -- Stop rendering here
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
-        myWindow:Render()
-    end
+-- Draws a red pixel at 0, 0
+draw.pixel(myWindow, 0, 0, color.RED)
+```
 
-    print("The window has been destroyed.")
-    ```
-    @param window Drawable -- The window or texture to draw on
-    @param xPos number -- The X-Position of the pixel,
-    @param yPos number -- The Y-Position of the pixel
-    @param color Color -- The color of the pixel
-    @error "X" -- This error occurs if the X is less than 0
-    @error "Y" -- This error occurs if the Y is less than 0
-    @within Draw
-    @return nil
+@function pixel
+@param object DrawableObject
+@param X number
+@param Y number
+@param color Color
+@within Draw
 ]=]
-function draw.pixel(window: types.Drawable, xPos: number, yPos: number, color: types.Color)
-	log.cassert(xPos >= 0, "X position must be higher or equal to 0")
-	log.cassert(yPos >= 0, "Y position must be higher or equal to 0")
-
-    xPos = math.round(xPos)
-    yPos = math.round(yPos)
-
-	writePixel(window.sizeX, window, xPos, yPos, color) -- Temporary
-end
+draw.pixel = pixel
 
 --[=[
-    Draws a line from point A to point B
-    ```lua
-    local OSGL = require(path.to.osgl)
-    local draw = OSGL.draw
-    local Window = OSGL.Window
-    local color = OSGL.color
+Draws a line onto the [DrawableObject]
 
-    -- Creates a new EditableImage
-    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
 
-    -- Runs every heartbeat
-    while myWindow:IsOpen() do
-        -- Render here
-        -- Draws a red line from 0,0 to 29,29
-        draw.line(myWindow, {
-            startX = 0,
-            startY = 0,
-            stopX = 29,
-            stopY = 29,
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
-            -- Thickness defaults to 1
-            -- Color defaults to black
-            color = color.RED
-        })
-        -- Stop rendering here
+-- Draws a red line from 5, 5 to 10, 10 with a thickness of 2
+draw.line(myWindow, 5, 5, 10, 10, 2, color.RED)
+```
 
-        myWindow:Render()
-    end
-
-    print("The window has been destroyed.")
-    ```
-    @param window Drawable -- The window or texture to draw on
-    @param line { startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: Color? } -- The data that is used to construct the line
-    @within Draw
-    @return nil
+@function line
+@param object DrawableObject
+@param startX number
+@param startY number
+@param endX number
+@param endY number
+@param thickness number
+@param color Color
+@within Draw
 ]=]
-draw.line = require(script.line)
+draw.line = line
 
 --[=[
-    Draws a circle with an optional stroke onto the screen
-    ```lua
-    local OSGL = require(path.to.osgl)
-    local Draw = OSGL.draw
-    local Window = OSGL.Window
-    local color = OSGL.color
+Draws a rectangle onto the [DrawableObject]
 
-    -- Creates a new EditableImage
-    local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
 
-    -- Runs every heartbeat
-    while myWindow:IsOpen() do
-        -- Render here
-        -- Draw our circle
-        myWindow:Clear(color.TRANSPARENT)
-        draw.circle(myWindow, {
-            centerX = 25,
-            centerY = 25,
-            radius = 10,
-            fillColor = color.RED,
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
-            -- Rotation defaults to 0.
-            -- Strokes are completely optional
-            strokeColor = color.BLACK,
-            strokeThickness = 2
-        })
-        -- Stop rendering here
+-- Draws a 5x5 red square at 0, 0 
+draw.rectangle(myWindow, 0, 0, 5, 5, color.RED)
+```
 
-        myWindow:Render()
-    end
-
-    print("The window has been destroyed.")
-    ```
-    @param window Drawable -- The window or texture to draw on
-    @param circle {centerX: number, centerY: number, radius: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?} -- The data that is used to construct the circle
-    @within Draw
-    @return nil
+@function rectangle
+@param object DrawableObject
+@param xPos number
+@param yPos number
+@param width number
+@param height number
+@param fill Color?
+@param stroke Color?
+@param strokeThickness number?
+@param rotation number?
+@within Draw
 ]=]
-draw.circle = require(script.circle)
+draw.rectangle = rectangle
 
 --[=[
-	Draws a rectangle with an optional stroke on the screen
+Draws a circle onto the [DrawableObject]
 
-	```lua
-	local OSGL = require(path.to.osgl)
-	local draw = OSGL.draw
-	local Window = OSGL.Window
-	local color = OSGL.color
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
 
-	-- Creates a new EditableImage
-	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
-	-- Runs every heartbeat
-	while myWindow:IsOpen() do
-		-- Render here
-		-- Draws a square (5x5) at 0, 0, with a red color, onto "myWindow"
-		draw.rectangle(myWindow, {
-			xPos = 0,
-			yPos = 0,
-			width = 5,
-			height = 5,
-			fillColor = color.RED,
+-- Draws a red circle with a radius of 10 at 26, 26
+draw.circle(myWindow, 26, 26, 10, color.RED)
+```
 
-			-- Rotation defaults to 0.
-			-- Strokes are completely optional
-			strokeColor = color.BLACK,
-			strokeThickness = 2
-		})
-		-- Stop rendering here
-
-		myWindow:Render()
-	end
-
-	print("The window has been destroyed.")
-	```
-
-	@param window Drawable -- The window or texture to draw on
-	@param rectangle {xPos: number, yPos: number, width: number, height: number, fillColor: Color?, strokeColor: Color?, strokeThickness: number?, rotation: number?} -- The data that is used to construct the rectangle
-	@within Draw
-	@return nil
+@function circle
+@param object DrawableObject
+@param centerX number
+@param centerY number
+@param radius number
+@param fill Color?
+@param stroke Color?
+@param strokeThickness number?
+@param rotation number? -- This can only be viewed at low resolutions
+@within Draw
 ]=]
-draw.rectangle = require(script.rectangle)
+draw.circle = circle
 
 --[=[
-	Draws a shape from the given points
+Draws a triangle onto the [DrawableObject]
 
-    ```lua
-	local OSGL = require(path.to.osgl)
-	local draw = OSGL.draw
-	local Window = OSGL.Window
-	local color = OSGL.color
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
 
-	-- Creates a new EditableImage
-	local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 
-	-- An array of points (x, y)
-	local points = { { 0, 0 }, { 6, 0 }, { 6, 6 }, { 0, 6 }, }
-	-- Runs every heartbeat
-	while myWindow:IsOpen() do
-		-- Render here
-		-- Draws a square at 0, 0, with a red color, onto "myWindow"
-		draw.points(myWindow, {
-			points = points,
-			color = color.RED,
-			x = 0,
-			y = 0,
-		})
-		-- Stop rendering here
+-- Draws a red triangle with the given points
+draw.triangle(myWindow, 0, 0, 5, 5, 10, 0, color.RED)
+```
 
-		myWindow:Render()
-	end
-
-	print("The window has been destroyed.")
-	```
-
-	@param window Drawable -- The window or texture to draw on
-	@param points { x: number, y: number, points: Points, fillColor: Color } -- The data which is used to construct the shape
-	@error "X" -- This error occurs if the X is smaller than 0
-	@error "Y" -- This error occurs if the Y is smaller than 0
-	@error "Points" -- This error occurs if 2 or less points are provided
-	@within Draw
-	@return nil
+@function triangle
+@param object DrawableObject
+@param x1 number
+@param y1 number
+@param x2 number
+@param y2 number
+@param x3 number
+@param y3 number
+@param fill Color?
+@param stroke Color?
+@param strokeThickness number?
+@within Draw
 ]=]
-draw.points = require(script.points)
+draw.triangle = triangle
+
+--[=[
+Draws a polygon onto the [DrawableObject]
+
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
+
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+
+-- Draws a red polygon with the given points
+draw.polygon(myWindow, {
+    -- Points for a triangle
+    { 0, 0 },
+    { 5, 5 },
+    { 10,0 },
+}, color.RED)
+```
+
+@function polygon
+@param object DrawableObject
+@param points {{number}}
+@param fill Color?
+@within Draw
+]=]
+draw.polygon = polygon
+
+--[=[
+Replaces all adjacent pixels of the same color with a replacement
+
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
+
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+-- *draw something*
+
+-- Start flood-filling from (5, 5)
+myWindow:Draw():FloodFill(5, 5, color.RED)
+```
+
+@function floodFill
+@param x number
+@param y number
+@param fill Color
+@within Draw
+]=]
+draw.floodFill = floodFill
 
 return draw

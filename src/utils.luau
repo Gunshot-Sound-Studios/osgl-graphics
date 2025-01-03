@@ -1,3 +1,5 @@
+--!optimize 2
+
 ------------------------------------------------------------
 -- OSGL v1.4b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
@@ -21,14 +23,10 @@
 --
 ------------------------------------------------------------
 
-local drawableObject = script.DrawableObject
+local utils = {}
 
--- [saaawdust]: Assuming `require` caches here.
-return {
-    Window = require(drawableObject.window),
-    Texture = require(drawableObject.texture),
+function utils.lerp(n1: number, n2: number, factor: number): number
+    return math.floor((1 - factor) * n1 + factor * n2)
+end
 
-    color = require(script.color),
-    types = require(script.types),
-    draw = require(script.draw),
-}
+return utils

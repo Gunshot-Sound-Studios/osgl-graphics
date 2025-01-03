@@ -1,68 +1,83 @@
+--!optimize 2
+
+------------------------------------------------------------
+-- OSGL v1.4b - Open-Source-Graphical-Library
+-- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+--
+-- This software is provided ‘as-is’, without any express or implied warranty.
+-- In no event will the authors be held liable for any damages arising from the use of this software.
+--
+-- Permission is granted to anyone to use this software for any purpose,
+-- including commercial applications, and to alter it and redistribute it freely,
+-- subject to the following restrictions:
+--
+-- 1. The origin of this software must not be misrepresented;
+--    you must not claim that you wrote the original software.
+--    If you use this software in a product, an acknowledgment
+--    in the product documentation would be appreciated but is not required.
+--
+-- 2. Altered source versions must be plainly marked as such,
+--    and must not be misrepresented as being the original software.
+--
+-- 3. This notice may not be removed or altered from any source distribution.
+--
+------------------------------------------------------------
+
 local OSGL = script.Parent.Parent
+local draw = OSGL.draw
 local types = require(OSGL.types)
 local color = require(OSGL.color)
-local fillPolygon = require(OSGL.draw.fillPolygon)
-local writePixel = require(OSGL.draw.writePixel)
+local pixel = require(draw.pixel)
+local fillPolygon = require(draw.fillPolygon)
 
-return function(
-	window: types.Drawable,
-	rectangle: {
-		xPos: number,
-		yPos: number,
-		width: number,
-		height: number,
-		fillColor: types.Color?,
-		strokeColor: types.Color?,
-		strokeThickness: number?,
-		rotation: number?,
-	}
-)
-	rectangle.fillColor = rectangle.fillColor or color.TRANSPARENT
-	rectangle.rotation = rectangle.rotation or 0
-	rectangle.strokeColor = rectangle.strokeColor or color.TRANSPARENT
-	rectangle.strokeThickness = rectangle.strokeThickness or 0
+return function<T>(object: types.DrawableObject<T>, xPos: number, yPos: number, width: number, height: number, fill: types.Color?, stroke: types.Color?, strokeThickness: number?, rotation: number?)
+    fill = fill or color.BLACK
+	rotation = rotation or 0
+	stroke = stroke or color.TRANSPARENT
+	strokeThickness = strokeThickness or 0
 
-	local strokeLength = if rectangle.strokeColor ~= color.TRANSPARENT then rectangle.strokeThickness else 0
+	local strokeLength = if stroke ~= color.TRANSPARENT then strokeThickness else 0
 
-	local sizeX, sizeY = window.sizeX, window.sizeY
+	local sizeX, sizeY = object.sizeX, object.sizeY
 
-	local centerX = rectangle.xPos + rectangle.width / 2
-	local centerY = rectangle.yPos + rectangle.height / 2
+	local centerX = xPos + width / 2
+	local centerY = yPos + height / 2
 
-	if rectangle.rotation % 90 == 0 then
-		local width, height
+	if rotation % 90 == 0 then
+		local w, h
 
-		if rectangle.rotation % 180 == 0 then
-			width, height = rectangle.width, rectangle.height
+		if rotation % 180 == 0 then
+			w, h = width, height
 		else
-			width, height = rectangle.height, rectangle.width
+			w, h = height, width
 		end
 
-		width += strokeLength
-		height += strokeLength
+		w += strokeLength
+		h += strokeLength
 
-		for x = 1, width do
-			x += rectangle.xPos
+		for x = 0, w  do
+			x += xPos
+			
 			if x >= sizeX then
-				break
+				continue
 			end
 
-			for y = 1, height do
-				y += rectangle.yPos
+			for y = 0, h do
+				y += yPos
 				if y >= sizeY then
-					break
+					continue
 				end
 
-				local pixelColor = if x > width or y > height then rectangle.strokeColor else rectangle.fillColor
+				local pixelColor = if x > (w + xPos) or y > (h + yPos) then stroke else fill
 
-				writePixel(sizeX, window, x, y, pixelColor)
+				pixel(object, x, y, pixelColor)
 			end
 		end
 
 		return
 	end
 
-	local radians = rectangle.rotation * (math.pi / 180)
+	local radians = rotation * (math.pi / 180)
 	local cosTheta = math.cos(radians)
 	local sinTheta = math.sin(radians)
 
@@ -74,15 +89,16 @@ return function(
 		return centerX + rotatedX, centerY + rotatedY
 	end
 
-	local x0, y0 = rotatePoint(rectangle.xPos, rectangle.yPos)
-	local x1, y1 = rotatePoint(rectangle.xPos + rectangle.width, rectangle.yPos)
-	local x2, y2 = rotatePoint(rectangle.xPos + rectangle.width, rectangle.yPos + rectangle.height)
-	local x3, y3 = rotatePoint(rectangle.xPos, rectangle.yPos + rectangle.height)
+	local x0, y0 = rotatePoint(xPos, yPos)
+	local x1, y1 = rotatePoint(xPos + width, yPos)
+	local x2, y2 = rotatePoint(xPos + width, yPos + height)
+	local x3, y3 = rotatePoint(xPos, yPos + height)
+    
 
-	fillPolygon({
+	fillPolygon(object, {
 		{ x0, y0 },
 		{ x1, y1 },
 		{ x2, y2 },
 		{ x3, y3 },
-	}, window, rectangle.fillColor)
+	}, fill)
 end

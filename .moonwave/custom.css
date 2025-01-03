@@ -1,0 +1,10 @@
+:root {
+    --ifm-color-primary: #3F8AFF;
+    --ifm-color-primary-dark: rgb(0, 112, 209);
+    --ifm-color-primary-darker: rgb(0, 104, 195);
+    --ifm-color-primary-darkest: rgb(0, 88, 165);
+    --ifm-color-primary-light: rgb(63, 138, 255);
+    --ifm-color-primary-lighter: rgb(77, 172, 255);
+    --ifm-color-primary-lightest: rgb(125, 194, 255);
+    --ifm-code-font-size: 95%;
+  }

@@ -1,5 +1,7 @@
+--!optimize 2
+
 ------------------------------------------------------------
--- OSGL v1.2b - Open-Source-Graphical-Library
+-- OSGL v1.4b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
@@ -21,10 +23,22 @@
 --
 ------------------------------------------------------------
 
+local debug = debug
+local warn = warn
+local error = error
+
 local log = {}
 
 function log.typeCheckArgument(fnName: string, argName: string, argument: any, expectedType: string)
     if not argument or not argument:isA(expectedType) then
+        log.error(`Argument '{argName}' of function '{fnName}' was not passed or was not of type '{expectedType}'.`)
+    end
+
+    return
+end
+
+function log.typeCheckValue(fnName: string, argName: string, argument: any, expectedType: string)
+    if typeof(argument) ~= expectedType then
         log.error(`Argument '{argName}' of function '{fnName}' was not passed or was not of type '{expectedType}'.`)
     end
 

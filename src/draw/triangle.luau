@@ -1,3 +1,5 @@
+--!optimize 2
+
 ------------------------------------------------------------
 -- OSGL v1.4b - Open-Source-Graphical-Library
 -- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
@@ -21,14 +23,24 @@
 --
 ------------------------------------------------------------
 
-local drawableObject = script.DrawableObject
+local OSGL = script.Parent.Parent
+local draw = OSGL.draw
+local types = require(OSGL.types)
+local color = require(OSGL.color)
+local fillPolygon = require(draw.fillPolygon)
 
--- [saaawdust]: Assuming `require` caches here.
-return {
-    Window = require(drawableObject.window),
-    Texture = require(drawableObject.texture),
+return function<T>(object: types.DrawableObject<T>, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, fill: types.Color?, stroke: types.Color?, strokeThickness: number?)
+    fill = fill or color.BLACK
+    stroke = stroke or color.TRANSPARENT
+    strokeThickness = strokeThickness or 0
 
-    color = require(script.color),
-    types = require(script.types),
-    draw = require(script.draw),
-}
+    -- [saaawdust]: Somehow this is faster than
+    --              an optimised triangle rasterizer.
+    --              Use this implementation until something
+    --              faster is found.
+    fillPolygon(object, {
+        { x1, y1 },
+        { x2, y2 },
+        { x3, y3 },
+    }, fill, stroke, strokeThickness)
+end
