@@ -1,6 +1,6 @@
 [package]
 name = "gunshotsoundstudios/osgl"
-version = "0.1.4"
+version = "0.1.5"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 authors = ["SawWasTaken", "jukepilot", "msix", "Sle_l"]
