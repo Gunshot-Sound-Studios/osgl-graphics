@@ -98,6 +98,7 @@ myWindow:WritePixel(0, 0, color.RED):Render()
 @param y number -- Y position
 @param color Color -- The color that will be written at the location
 @return DrawableObject
+@function WritePixel
 @within DrawableObject
 ]=]
 windowPrivate.WritePixel = utils.createWritePixel()
@@ -119,6 +120,7 @@ myWindow:OverwritePixel(0, 0, color.RED):Render()
 @param y number -- Y position
 @param color Color -- The color that will be written at the location
 @return DrawableObject
+@function OverwritePixel
 @within DrawableObject
 ]=]
 windowPrivate.OverwritePixel = utils.createOverwritePixel()
