@@ -45,7 +45,7 @@ return function<T>(object: types.DrawableObject<T>, x: number, y: number, color:
         buffer.writeu32(object.buffer, index, color)
     elseif object.alphaBlendingMode == alphaBlendMode.Additive then
         local alpha = colorLib.a(color)
-        if alpha == 0 then
+        if alpha == 0 or alpha == 255 then
             return
         end
 

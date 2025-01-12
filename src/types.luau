@@ -67,6 +67,8 @@ export type WindowConfiguration = {
 --- .Draw (self: DrawableObject<T>) -> DrawingContext<T> -- Returns the drawing context of the object
 --- .TintRegion (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) -> T -- Tints a region of pixels
 --- .ReadPixel (self: T, x: number, y: number) -> Color -- Reads a pixel at the given X, Y
+--- .WritePixel (self: T, x: number, y: number, color: Color) -> T -- Writes a pixel at the given X, Y
+--- .OverwritePixel (self: T, x: number, y: number) -> T -- Writes a pixel at the given X, Y, ignoring the `AlphaBlendMode`. Faster than `WritePixel`
 --- .Serialize (self: T) -> (buffer, number, number) -- Returns the object's buffer, as well as its dimensions
 ---
 --- A DrawableObject is an item that you can draw too. This can be
@@ -89,6 +91,8 @@ export type DrawableObject<T> = {
 
     Draw: (self: DrawableObject<T>) -> DrawingContext<T>,
     ReadPixel: (self: T, x: number, y: number) -> Color,
+    WritePixel: (self: Window, x: number, y: number, color: Color) -> T,
+    OverwritePixel: (self: Window, x: number, y: number, color: Color) -> T,
     TintRegion: (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  T,
     Serialize: (self: T) -> (buffer, number, number),
 }
@@ -129,8 +133,6 @@ export type Window = DrawableObject<Window> & {
     Render: (self: Window) -> Window,
     Clear: (self: Window, color: Color) -> Window,
     Resize: (self: Window, newWidth: number, newHeight: number) -> Window,
-
-    WritePixel: (self: Window, x: number, y: number, color: Color) -> Window,
 
     AddRenderer: (self: Window, ...ImageLabel | ImageButton) -> Window,
     RemoveRenderer: (self: Window, ...ImageLabel | ImageButton) -> Window,
