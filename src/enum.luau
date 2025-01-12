@@ -21,9 +21,17 @@
 --
 ------------------------------------------------------------
 
-return {
-    AlphaBlendMode = {
-        Overwrite = 0,
-        Additive = 1,
-    }
+local AlphaBlendMode = {
+    Overwrite = 0 :: AlphaBlendMode,
+    Additive = 1 :: AlphaBlendMode,
 }
+
+local enums = {
+    AlphaBlendMode = AlphaBlendMode :: typeof(AlphaBlendMode),
+}
+
+export type AlphaBlendMode = number
+export type OEnum = typeof(enums)
+
+
+return enums

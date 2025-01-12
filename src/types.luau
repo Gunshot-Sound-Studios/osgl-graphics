@@ -21,6 +21,9 @@
 --
 ------------------------------------------------------------
 
+local OSGL = script.Parent
+local enum = require(OSGL.enum)
+
 --- @type Color number
 --- @within Color
 ---
@@ -82,7 +85,7 @@ export type DrawableObject<T> = {
     sizeX: number,
     sizeY: number,
     size: Vector2,
-    alphaBlendingMode: unknown,
+    alphaBlendingMode: enum.AlphaBlendMode,
 
     Draw: (self: DrawableObject<T>) -> DrawingContext<T>,
     ReadPixel: (self: T, x: number, y: number) -> Color,
