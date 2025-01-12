@@ -1,6 +1,6 @@
 ------------------------------------------------------------
 -- OSGL v1.5b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- Copyright © 2023-2025 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -81,7 +81,8 @@ export type DrawableObject<T> = {
     buffer: buffer,
     sizeX: number,
     sizeY: number,
-    size: Vector2, -- [saaawdust]: TODO: If this is unused, then delete it!
+    size: Vector2,
+    alphaBlendingMode: unknown,
 
     Draw: (self: DrawableObject<T>) -> DrawingContext<T>,
     ReadPixel: (self: T, x: number, y: number) -> Color,

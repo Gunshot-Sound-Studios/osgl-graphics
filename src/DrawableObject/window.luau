@@ -4,7 +4,7 @@
 
 ------------------------------------------------------------
 -- OSGL v1.5b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- Copyright © 2023-2025 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -34,6 +34,7 @@ local types = require(OSGL.types)
 local log = require(OSGL.log)
 local color = require(OSGL.color)
 local utils = require(drawableObject.utils)
+local draw = require(OSGL.draw)
 
 --[=[
     @class Window
@@ -81,7 +82,7 @@ function windowPrivate.Render(self: types.Window)
 end
 
 --[=[
-Writes a color to a certain pixel on a window. The exact same as `draw.pixel`.
+Writes a color to a certain pixel on a [DrawableObject]. The exact same as `draw.pixel`.
 
 ```lua
 local OSGL = require(path.to.osgl)
@@ -96,13 +97,31 @@ myWindow:WritePixel(0, 0, color.RED):Render()
 @param x number -- X position
 @param y number -- Y position
 @param color Color -- The color that will be written at the location
-@return Window
-@within Window
+@return DrawableObject
+@within DrawableObject
 ]=]
-function windowPrivate.WritePixel(self: types.Window, x, y, color)
-	buffer.writeu32(self.buffer, (y * self.sizeX + x) * 4, color)
-	return self
-end
+windowPrivate.WritePixel = utils.createWritePixel()
+
+--[=[
+Writes a color to a certain pixel on a [DrawableObject], ignoring `AlphaBlendMode`
+
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+myWindow:OverwritePixel(0, 0, color.RED):Render()
+```
+
+@param x number -- X position
+@param y number -- Y position
+@param color Color -- The color that will be written at the location
+@return DrawableObject
+@within DrawableObject
+]=]
+windowPrivate.OverwritePixel = utils.createOverwritePixel()
 
 --[=[
 Reads a color on a window at the given location from the buffer

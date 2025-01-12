@@ -12,13 +12,16 @@ local OSGL = require(ReplicatedStorage.OSGL)
 local Window = OSGL.Window
 local Texture = OSGL.Texture
 local Video = OSGL.Video
+local enum = OSGL.Enum
+local color = OSGL.color
+local draw = OSGL.draw
 
 local player = Players.LocalPlayer
 assert(player)
 
 -- Define window dimensions
-local WIDTH = 3
-local HEIGHT = 3
+local WIDTH = 36
+local HEIGHT = 36
 
 -- Create ImageLabel & ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
@@ -35,20 +38,12 @@ ImageLabel.ResampleMode = Enum.ResamplerMode.Pixelated
 local window = Window.new(ImageLabel, { sizeX = WIDTH, sizeY = HEIGHT })
 window.targetFPS = 244
 
--- local frames = script.frames
--- local video = Video.from({frames.A, frames.B, frames.C})
--- video.frameRate = 6
--- video.loop = true
+window.alphaBlendingMode = enum.AlphaBlendMode.Additive
 
--- video:PlaySync(function(texture)
---     Texture.draw(window, texture, 0, 0)
---     window:Render()
--- end)
+window:Clear(color.BLACK)
+window
+    :Draw()
+    :Triangle(0, 0, 5, 10, 10, 0, color.RED)
+    :Triangle(5, 5, 20, 35, 5, 35, color.new(0, 255, 0, 128))
 
-local frames = script.frames
-local a = Texture.from(frames.A)
-local b = Texture.from(frames.B)
-local c = Texture.from(frames.C)
-local finalTexture = Texture.layer(a, b, c)
-Texture.draw(window, finalTexture, 0, 0)
 window:Render()

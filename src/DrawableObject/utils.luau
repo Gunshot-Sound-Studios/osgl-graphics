@@ -2,7 +2,7 @@
 
 ------------------------------------------------------------
 -- OSGL v1.5b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- Copyright © 2023-2025 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -87,6 +87,18 @@ end
 function utils.createReadPixel()
 	return function(self, x: number, y: number)
 		return buffer.readu32(self.buffer, (y * self.sizeX + x) * 4)
+	end
+end
+
+function utils.createOverwritePixel()
+	return function(self, x: number, y: number, color: types.Color)
+		return buffer.writeu32(self.buffer, (y * self.sizeX + x) * 4, color)
+	end
+end
+
+function utils.createWritePixel()
+	return function(self, x: number, y: number, color: types.Color)
+		return draw.pixel(self, x, y, color)
 	end
 end
 

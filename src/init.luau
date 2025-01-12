@@ -1,6 +1,6 @@
 ------------------------------------------------------------
 -- OSGL v1.5b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- Copyright © 2023-2025 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,6 +28,7 @@ return {
     Window = require(drawableObject.window),
     Texture = require(drawableObject.texture),
     Video = require(script.video),
+    Enum = require(script.enum),
 
     color = require(script.color),
     types = require(script.types),

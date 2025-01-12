@@ -4,7 +4,7 @@
 
 ------------------------------------------------------------
 -- OSGL v1.5b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- Copyright © 2023-2025 Gunshot Sound Studios (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -78,6 +78,8 @@ function Texture.from<T>(textureData: types.FlagTexture | ModuleScript): types.T
 
 		Draw = utils.createDraw(),
 		ReadPixel = utils.createReadPixel(),
+		WritePixel = utils.createWritePixel(),
+		OverwritePixel = utils.createOverwritePixel(),
 		TintRegion = utils.createTintRegion(),
 		Serialize = utils.createSerialize(),
 	}
