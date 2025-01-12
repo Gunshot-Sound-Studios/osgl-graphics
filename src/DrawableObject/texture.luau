@@ -34,6 +34,7 @@ local types = require(OSGL.types)
 local pixel = require(draw.pixel)
 local log = require(OSGL.log)
 local utils = require(drawableObject.utils)
+local enum = require(OSGL.enum)
 
 --[=[
     @class Texture
@@ -70,6 +71,7 @@ function Texture.from<T>(textureData: types.FlagTexture | ModuleScript): types.T
 	local width, height = textureData.width, textureData.height
 
 	return {
+		alphaBlendingMode = enum.AlphaBlendMode.Overwrite,
 		buffer = textureData.pixels,
 
 		sizeX = width,
