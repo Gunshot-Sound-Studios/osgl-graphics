@@ -41,6 +41,7 @@ local circle = require(script.circle)
 local triangle = require(script.triangle)
 local polygon = require(script.fillPolygon)
 local floodFill = require(script.floodFill)
+local buffer = require(script.buffer)
 
 --[=[
     @class Draw
@@ -246,5 +247,7 @@ myWindow:Draw():FloodFill(5, 5, color.RED)
 @within Draw
 ]=]
 draw.floodFill = floodFill
+
+draw.buffer = buffer
 
 return draw

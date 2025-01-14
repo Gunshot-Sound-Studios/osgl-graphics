@@ -28,6 +28,7 @@ return {
     Window = require(drawableObject.window),
     Texture = require(drawableObject.texture),
     Video = require(script.video),
+    Font = require(script.font),
     Enum = require(script.enum),
 
     color = require(script.color),

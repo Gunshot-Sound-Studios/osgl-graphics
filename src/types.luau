@@ -247,10 +247,41 @@ export type Video<T> = {
     Next: (self: Video<T>) -> Video<T>,
 }
 
---- @type FlagTexture { width: number, height: number, pixels: { Color | string }, }
+--- @interface Glyph number | { buffer | number }
+--- @within Font
+--- The representation of a letter in a font made with the `converter` exe provided with the module.
+export type Glyph = {
+    number | { buffer | number }
+}
+
+--- @interface Glyphs { [string]: Glyph }
+--- @within Font
+--- A group of letters
+export type Glyphs = { [string]: Glyph }
+
+--- @interface StoredFont { version: string, letters: Glyphs }
+--- @within Font
+--- The representation of a font made with the `converter` exe provided with the module.
+export type StoredFont = {
+    version: string,
+    letters: Glyphs
+}
+
+export type Font = {
+    glyphs: Glyphs,
+
+    spacing: number,
+    linePadding: number,
+
+    Draw:<T>(self: Font, object: DrawableObject<T>, text: string, x: number, y: number, color: Color) -> Font,
+}
+
+--- @interface FlagTexture { version: string, width: number, height: number, pixels: buffer, }
 --- @within Texture
 --- The representation of a texture made with the `converter` exe provided with the module.
 export type FlagTexture = {
+    version: string,
+
     width: number,
     height: number,
     pixels: buffer,

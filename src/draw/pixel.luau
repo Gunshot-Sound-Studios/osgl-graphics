@@ -27,17 +27,16 @@ local OSGL = script.Parent.Parent
 local types = require(OSGL.types)
 local enum = require(OSGL.enum)
 local colorLib = require(OSGL.color)
+local util = require(OSGL.utils)
 
 local alphaBlendMode = enum.AlphaBlendMode
 
-local function lerp(a: number, b: number, t: number): number
-    return a + (b - a) * t
-end
+lerp = util.lerp
 
 return function<T>(object: types.DrawableObject<T>, x: number, y: number, color: types.Color)
     -- [saaawdust]: This is the exact same as `window:WritePixel`.
     
-    color = color or color.BLACK
+    color = color or colorLib.BLACK
 
     local alpha = colorLib.a(color)
     local index = (y * object.sizeX + x) * 4

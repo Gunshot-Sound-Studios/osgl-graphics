@@ -60,4 +60,4 @@ These methods are the same as the `Draw` methods, but they automatically pass th
 
 You can find more about these methods in the `API`, or on the [shapes](../drawing-shapes.md) page.
 
-Both `Window`s and `Texture`s are known as `DrawableObject`s. A `Window` is a special form of a `Texture`, and a `Texture` is a `buffer` containing pixel data. This is similar to CanvasDraw's `ImageData`. To save a texture, save the `buffer`, `sizeX`, and `sizeY` (or just the `size`). Since it's a `Texture`, you can load it back into the game. This process is described in [`Serialization` and `Deserialization`](../Windows/serializing-and-deserializing.md).
+Both `Window`s and `Texture`s are known as `DrawableObject`s. A `Window` is a special form of a `Texture`, and a `Texture` is a `buffer` containing pixel data. This is similar to CanvasDraw's `ImageData`. To save a texture, save the `buffer`, `sizeX`, and `sizeY` (or just the `size`). Since it's a `Texture`, you can load it back into the game. This process is described in [`Serialization` and `Deserialization`](../Advanced/serializing-and-deserializing.md).

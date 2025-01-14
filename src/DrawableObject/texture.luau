@@ -34,6 +34,7 @@ local types = require(OSGL.types)
 local pixel = require(draw.pixel)
 local log = require(OSGL.log)
 local utils = require(drawableObject.utils)
+local osglUtils = require(OSGL.utils)
 local enum = require(OSGL.enum)
 
 --[=[
@@ -70,6 +71,21 @@ function Texture.from<T>(textureData: types.FlagTexture | ModuleScript): types.T
 
 	local width, height = textureData.width, textureData.height
 
+	local v = textureData.version
+	if v and not table.find(osglUtils.VALID_TEXTURE_VERSIONS, v) then
+		local txtVers = osglUtils.VALID_TEXTURE_VERSIONS
+
+		log.error(
+			"Texture version mismatch. Expected any version from "
+				.. txtVers[1]
+				.. " to "
+				.. txtVers[#txtVers]
+				.. ", got version "
+				.. v
+				.. ". This may cause unexpected behavior."
+		)
+	end
+
 	return {
 		alphaBlendingMode = enum.AlphaBlendMode.Overwrite,
 		buffer = textureData.pixels,
@@ -105,14 +121,17 @@ end
 ]=]
 function Texture.new<T>(width: number, height: number, bfr: buffer?): types.Texture<T>
 	return {
+		alphaBlendingMode = enum.AlphaBlendMode.Overwrite,
 		buffer = bfr or buffer.create(width * height * 4),
-
+	
 		sizeX = width,
 		sizeY = height,
-		size = Vector2.new(width, height), -- [saaawdust]: TODO: Is this needed?
-
+		size = Vector2.new(width, height),
+	
 		Draw = utils.createDraw(),
 		ReadPixel = utils.createReadPixel(),
+		WritePixel = utils.createWritePixel(),
+		OverwritePixel = utils.createOverwritePixel(),
 		TintRegion = utils.createTintRegion(),
 		Serialize = utils.createSerialize(),
 	}
@@ -422,14 +441,17 @@ function Texture.fromAssetId<T>(assetId: number): types.Texture<T>
 	temporaryEditableImage:Destroy()
 
 	return {
+		alphaBlendingMode = enum.AlphaBlendMode.Overwrite,
 		buffer = pixelBuffer,
 
 		sizeX = width,
 		sizeY = height,
-		size = size,
-
+		size = Vector2.new(width, height),
+	
 		Draw = utils.createDraw(),
 		ReadPixel = utils.createReadPixel(),
+		WritePixel = utils.createWritePixel(),
+		OverwritePixel = utils.createOverwritePixel(),
 		TintRegion = utils.createTintRegion(),
 		Serialize = utils.createSerialize(),
 	}

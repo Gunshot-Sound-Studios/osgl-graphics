@@ -42,6 +42,11 @@ local utils = {}
 function utils.createDraw()
 	return function(object)
 		return {
+			Buffer = function(self, ...)
+				draw.buffer(object, ...)
+				return self
+			end,
+
 			FloodFill = function(self, ...)
 				draw.floodFill(object, ...)
 				return self

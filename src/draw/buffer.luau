@@ -1,5 +1,3 @@
---!optimize 2
-
 ------------------------------------------------------------
 -- OSGL v1.5b - Open-Source-Graphical-Library
 -- Copyright © 2023-2025 Gunshot Sound Studios (@saaawdust)
@@ -23,12 +21,25 @@
 --
 ------------------------------------------------------------
 
-local utils = {}
-utils.VALID_TEXTURE_VERSIONS = { "1.5b" }
-utils.VALID_FONT_VERSIONS = { "1.5b" }
+local OSGL = script.Parent.Parent
+local draw = OSGL.draw
+local types = require(OSGL.types)
+local color = require(OSGL.color)
+local pixel = require(draw.pixel)
 
-function utils.lerp(n1: number, n2: number, factor: number): number
-    return math.floor((1 - factor) * n1 + factor * n2)
+return function<T>(object: types.DrawableObject<T>, bfr: buffer, sizeX: number, sizeY: number, x: number, y: number)
+    local winX = object.sizeX
+    local winY = object.sizeY
+
+    for i = 0, sizeX - 1 do
+        local pixelX = x + i
+        for j = 0, sizeY - 1 do
+            local pixelY = y + j
+
+            if pixelX >= 0 and pixelX < winX and pixelY >= 0 and pixelY < winY then
+                local col = buffer.readu32(bfr, (y * sizeX + x) * 4)
+                pixel(object, pixelX, pixelY, col)
+            end
+        end
+    end
 end
-
-return utils
