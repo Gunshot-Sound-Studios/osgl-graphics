@@ -22,27 +22,25 @@
 ------------------------------------------------------------
 
 local OSGL = script.Parent.Parent
-local draw = OSGL.draw
+local enum = require(OSGL.enum)
 local types = require(OSGL.types)
-local color = require(OSGL.color)
-local pixel = require(draw.pixel)
-local mode = require(draw.mode)
 
-return function<T>(object: types.DrawableObject<T>, bfr: buffer, sizeX: number, sizeY: number, x: number, y: number)
-    local pixel = mode.drawPixel
-    
-    local winX = object.sizeX
-    local winY = object.sizeY
+local mode = {}
 
-    for i = 0, sizeX - 1 do
-        local pixelX = x + i
-        for j = 0, sizeY - 1 do
-            local pixelY = y + j
-
-            if pixelX >= 0 and pixelX < winX and pixelY >= 0 and pixelY < winY then
-                local col = buffer.readu32(bfr, (y * sizeX + x) * 4)
-                pixel(object, pixelX, pixelY, col)
-            end
-        end
-    end
+local globalOverwritePixel = function(self, x: number, y: number, color: types.Color)
+    return buffer.writeu32(self.buffer, (y * self.sizeX + x) * 4, color)
 end
+
+function mode.setDrawingMode(newMode: enum.DrawingMode)
+	if newMode == enum.DrawingMode.Write then
+        mode.drawPixel = require(script.Parent.pixel)
+    else
+        mode.drawPixel = globalOverwritePixel
+	end
+
+	return
+end
+
+mode.drawPixel = require(script.Parent.pixel)
+
+return mode

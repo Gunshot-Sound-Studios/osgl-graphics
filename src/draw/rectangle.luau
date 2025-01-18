@@ -27,11 +27,13 @@ local OSGL = script.Parent.Parent
 local draw = OSGL.draw
 local types = require(OSGL.types)
 local color = require(OSGL.color)
-local pixel = require(draw.pixel)
 local fillPolygon = require(draw.fillPolygon)
+local mode = require(draw.mode)
 
 return function<T>(object: types.DrawableObject<T>, xPos: number, yPos: number, width: number, height: number, fill: types.Color?, stroke: types.Color?, strokeThickness: number?, rotation: number?)
-    fill = fill or color.BLACK
+    local pixel = mode.drawPixel
+	
+	fill = fill or color.BLACK
 	rotation = rotation or 0
 	stroke = stroke or color.TRANSPARENT
 	strokeThickness = strokeThickness or 0

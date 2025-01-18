@@ -42,6 +42,7 @@ local triangle = require(script.triangle)
 local polygon = require(script.fillPolygon)
 local floodFill = require(script.floodFill)
 local buffer = require(script.buffer)
+local mode = require(script.mode)
 
 --[=[
     @class Draw
@@ -52,7 +53,7 @@ local buffer = require(script.buffer)
 local draw = {}
 
 --[=[
-Draws a singular pixel onto the [DrawableObject]
+Draws a singular pixel onto the [DrawableObject]. Ignores drawing mode.
 
 ```lua
 local OSGL = require(path.to.osgl)
@@ -74,7 +75,7 @@ draw.pixel(myWindow, 0, 0, color.RED)
 @param color Color
 @within Draw
 ]=]
-draw.pixel = pixel
+draw.pixel = mode.drawPixel
 
 --[=[
 Draws a line onto the [DrawableObject]
@@ -276,5 +277,7 @@ myWindow:Draw():Buffer(bfr, sizeX, sizeY, 0, 0)
 @within Draw
 ]=]
 draw.buffer = buffer
+
+draw.setMode = mode.setDrawingMode
 
 return draw

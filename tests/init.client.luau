@@ -21,8 +21,8 @@ local player = Players.LocalPlayer
 assert(player)
 
 -- Define window dimensions
-local WIDTH = 250 
-local HEIGHT = 500
+local WIDTH = 20 
+local HEIGHT = 20
 
 -- Create ImageLabel & ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
@@ -38,11 +38,13 @@ ImageLabel.ResampleMode = Enum.ResamplerMode.Pixelated
 -- Create the window
 local window = Window.new(ImageLabel, { sizeX = WIDTH, sizeY = HEIGHT })
 window.targetFPS = 244
+window.alphaBlendingMode = enum.AlphaBlendMode.Additive
 
-local fnt = Font.from(require(script.atari))
-fnt.linePadding = 32
+window:Clear(color.BLACK)
 
-while task.wait() do
-    fnt:Draw(window, "Atari Small", 0, 0, color.BLACK)
-    window:Render()
-end
+draw.setMode(enum.DrawingMode.Overwrite)
+window:Draw()
+    :Triangle(0,0, 5,5,10,0, color.RED)
+    :Triangle(3,3, 8,8,13,3, color.new(0, 255, 0, 127))
+    :StopDrawing()
+    :Render()

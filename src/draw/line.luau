@@ -25,12 +25,14 @@
 
 local OSGL = script.Parent.Parent
 local draw = OSGL.draw
-local pixel = require(draw.pixel)
+local mode = require(draw.mode)
 
 local types = require(OSGL.types)
 
 return function<T>(object: types.DrawableObject<T>, startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: types.Color)
-    thickness = thickness or 1
+    local pixel = mode.drawPixel
+	
+	thickness = thickness or 1
 	color = color or color.BLACK
 
 	if thickness == 0 then

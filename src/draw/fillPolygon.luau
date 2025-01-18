@@ -30,11 +30,14 @@ local types = require(OSGL.types)
 local color = require(OSGL.color)
 local pixel = require(draw.pixel)
 local line = require(draw.line)
+local mode = require(draw.mode)
 
 return function<T>(object: types.DrawableObject<T>, corners: { { number } }, fill: types.Color, strokeColor: types.Color?, strokeWidth: number?)
 	-- [saaawdust]: These are temporary, cause
 	-- if I calculate it, it takes up
 	-- like 10FPS
+
+    local pixel = mode.drawPixel
 
     fill = fill or color.BLACK
     strokeColor = strokeColor or color.TRANSPARENT

@@ -26,11 +26,18 @@ local AlphaBlendMode = {
     Additive = 1 :: AlphaBlendMode,
 }
 
+local DrawingMode = {
+    Overwrite = 0 :: DrawingMode,
+    Write = 1 :: DrawingMode,
+}
+
 local enums = {
     AlphaBlendMode = AlphaBlendMode :: typeof(AlphaBlendMode),
+    DrawingMode = DrawingMode :: typeof(DrawingMode),
 }
 
 export type AlphaBlendMode = number
+export type DrawingMode = number
 export type OEnum = typeof(enums)
 
 
