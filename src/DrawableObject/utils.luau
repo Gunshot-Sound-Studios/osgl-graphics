@@ -39,7 +39,7 @@ local color = require(OSGL.color)
 local utils = {}
 
 -- [saaawdust]: Credits to `sambouza` for this implementation
-function utils.createDraw()
+function utils.createDraw<T>(): types.DrawableObject<T>
 	return function(object)
 		return {
 			Buffer = function(self, ...)

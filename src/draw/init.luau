@@ -230,8 +230,6 @@ Replaces all adjacent pixels of the same color with a replacement
 local OSGL = require(path.to.osgl)
 local Window = OSGL.Window
 local color = OSGL.color
-local draw = OSGL.draw
-
 -- Creates a new EditableImage
 local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 -- *draw something*
@@ -241,6 +239,7 @@ myWindow:Draw():FloodFill(5, 5, color.RED)
 ```
 
 @function floodFill
+@param object DrawableObject
 @param x number
 @param y number
 @param fill Color
@@ -248,6 +247,34 @@ myWindow:Draw():FloodFill(5, 5, color.RED)
 ]=]
 draw.floodFill = floodFill
 
+--[=[
+Draws a buffer onto a [DrawableObject]
+
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+-- *draw something*
+
+local sizeX, sizeY = 50, 50
+local bfr = buffer.create(sizeX * sizeY * 4)
+
+-- Draw the buffer of sizeX, sizeY from 0, 0
+myWindow:Draw():Buffer(bfr, sizeX, sizeY, 0, 0)
+```
+
+@function buffer
+@param object DrawableObject
+@param bfr buffer
+@param sizeX number
+@param sizeY number
+@param x number
+@param y number
+@within Draw
+]=]
 draw.buffer = buffer
 
 return draw
