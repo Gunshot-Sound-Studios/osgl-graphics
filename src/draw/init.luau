@@ -258,7 +258,6 @@ local color = OSGL.color
 
 -- Creates a new EditableImage
 local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
--- *draw something*
 
 local sizeX, sizeY = 50, 50
 local bfr = buffer.create(sizeX * sizeY * 4)
@@ -278,6 +277,28 @@ myWindow:Draw():Buffer(bfr, sizeX, sizeY, 0, 0)
 ]=]
 draw.buffer = buffer
 
+--[=[
+States whether shapes should draw with `OverwritePixel`, or `Pixel`.
+`OverwritePixel` is faster than `Pixel`, but does not support alpha blending.
+
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
+local enum = OSGL.enum
+
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+-- Alpha-blending will be ignored all all shapes will use `OverwritePixel`
+draw.setMode(enum.DrawingMode.Overwrite)
+-- *draw something*
+```
+
+@function setMode
+@param enum DrawableObject
+@within Draw
+]=]
 draw.setMode = mode.setDrawingMode
 
 return draw

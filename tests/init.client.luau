@@ -21,8 +21,8 @@ local player = Players.LocalPlayer
 assert(player)
 
 -- Define window dimensions
-local WIDTH = 20 
-local HEIGHT = 20
+local WIDTH = 496 
+local HEIGHT = 662
 
 -- Create ImageLabel & ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
@@ -31,20 +31,17 @@ ScreenGui.Parent = player.PlayerGui
 local ImageLabel = Instance.new("ImageLabel")
 ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
 ImageLabel.Position = UDim2.fromScale(.5, .5)
-ImageLabel.Size = UDim2.fromOffset(420, 420)
+ImageLabel.Size = UDim2.fromOffset(496, 662)
 ImageLabel.Parent = ScreenGui
 ImageLabel.ResampleMode = Enum.ResamplerMode.Pixelated
+ImageLabel.BackgroundTransparency = 1
 
 -- Create the window
 local window = Window.new(ImageLabel, { sizeX = WIDTH, sizeY = HEIGHT })
 window.targetFPS = 244
 window.alphaBlendingMode = enum.AlphaBlendMode.Additive
 
-window:Clear(color.BLACK)
+local newTxt = Texture.from(script.hand)
+Texture.draw(window, newTxt, 0, 0)
 
-draw.setMode(enum.DrawingMode.Overwrite)
-window:Draw()
-    :Triangle(0,0, 5,5,10,0, color.RED)
-    :Triangle(3,3, 8,8,13,3, color.new(0, 255, 0, 127))
-    :StopDrawing()
-    :Render()
+window:Render()
