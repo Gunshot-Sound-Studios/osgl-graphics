@@ -96,11 +96,25 @@ function Font.Draw<T>(
 			local width = bit32.extract(size, 16, 16)
 			local pixelData = glyph[2]
 
-			for fh = 1, height do
+			if typeof(pixelData) == "buffer" then
+				local index = 0
 				for fw = 1, width do
-					local bit = readBitNumber(pixelData[fw], fh)
-					if bit == 1 then
-						draw.pixel(object, x + fw, y + fh, color)
+					for fh = 1, height do
+						local bit = buffer.readu8(pixelData, index)
+						if bit == 1 then
+							draw.pixel(object, x + fw, y + fh, color)
+						end
+
+						index += 1
+					end
+				end
+			else
+				for fh = 1, height do
+					for fw = 1, width do
+						local bit = readBitNumber(pixelData[fw], fh)
+						if bit == 1 then
+							draw.pixel(object, x + fw, y + fh, color)
+						end
 					end
 				end
 			end

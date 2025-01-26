@@ -248,11 +248,11 @@ export type Video<T> = {
     Next: (self: Video<T>) -> Video<T>,
 }
 
---- @interface Glyph number | { buffer | number }
+--- @interface Glyph number | buffer | { number }
 --- @within Font
 --- The representation of a letter in a font made with the `converter` exe provided with the module.
 export type Glyph = {
-    number | { buffer | number }
+    number | buffer | { number }
 }
 
 --- @interface Glyphs { [string]: Glyph }

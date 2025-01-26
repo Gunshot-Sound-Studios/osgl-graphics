@@ -23,8 +23,8 @@ local player = Players.LocalPlayer
 assert(player)
 
 -- Define window dimensions
-local WIDTH = 50 
-local HEIGHT = 50
+local WIDTH = 100
+local HEIGHT = 100
 
 -- Create ImageLabel & ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
@@ -44,11 +44,7 @@ local window = Window.new(ImageLabel, { sizeX = WIDTH, sizeY = HEIGHT })
 window.targetFPS = 244
 window.alphaBlendingMode = enum.AlphaBlendMode.Additive
 
-RunService.Heartbeat:Connect(function(deltaTime)
-    warn( window:GetRelativeMouseToRenderer(ImageLabel))
-    if UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
-        local _, x, y = window:GetRelativeMouseToRenderer(ImageLabel)
-        draw.pixel(window, x, y, color.BLACK)
-        window:Render()
-    end
-end)
+local fnt = Font.from(require(script.AtariSmall))
+fnt.linePadding = 24
+fnt:Draw(window, "abc", 0, 0, color.BLACK)
+window:Render()
