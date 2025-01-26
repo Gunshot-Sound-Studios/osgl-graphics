@@ -26,6 +26,7 @@
 ------------------------------------------------------------
 
 local AssetService = game:GetService("AssetService")
+local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 
 local OSGL = script.Parent.Parent
@@ -479,13 +480,17 @@ print(myWindow:GetRelativeMouseToRenderer(path.to.parent))
 @within Window
 ]=]
 function windowPrivate.GetRelativeMouseToRenderer(self: types.Window, image: ImageLabel): (boolean, number, number)
-	local sizeFactor = self.size / image.AbsoluteSize
-	local mousePosition = UserInputService:GetMouseLocation() - image.AbsolutePosition
+    local sizeFactor = self.size / image.AbsoluteSize
+    local mousePosition = UserInputService:GetMouseLocation() - image.AbsolutePosition
 
-	local relativeMousePosition = mousePosition * sizeFactor
-	local isInWindow = relativeMousePosition.X > 0 and relativeMousePosition.Y > 0
+    local relativeMousePosition = mousePosition * sizeFactor
 
-	return isInWindow, math.round(relativeMousePosition.X), math.round(relativeMousePosition.Y)
+    local x = math.round(relativeMousePosition.X)
+    local y = math.round(relativeMousePosition.Y)
+
+    local isInImage = x >= 0 and y >= 0 and x < image.AbsoluteSize.X and y < image.AbsoluteSize.Y
+
+    return isInImage, isInImage and x or 0, isInImage and y or 0
 end
 
 function makeWindow(
@@ -513,6 +518,8 @@ function makeWindow(
 		Resize = windowPrivate.Resize,
 		WritePixel = windowPrivate.WritePixel,
 		ReadPixel = windowPrivate.ReadPixel,
+
+		GetRelativeMouseToRenderer = windowPrivate.GetRelativeMouseToRenderer,
 
 		AddRenderer = windowPrivate.AddRenderer,
 		RemoveRenderer = windowPrivate.RemoveRenderer,
