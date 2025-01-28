@@ -96,13 +96,15 @@ function Font.Draw<T>(
 			local width = bit32.extract(size, 16, 16)
 			local pixelData = glyph[2]
 
+			local heightDrop = self._maxHeight - height
+
 			if typeof(pixelData) == "buffer" then
 				local index = 0
 				for fw = 1, width do
 					for fh = 1, height do
 						local bit = buffer.readu8(pixelData, index)
 						if bit == 1 then
-							draw.pixel(object, x + fw, y + fh, color)
+							draw.pixel(object, x + fw, y + fh + heightDrop, color)
 						end
 
 						index += 1
@@ -113,7 +115,7 @@ function Font.Draw<T>(
 					for fw = 1, width do
 						local bit = readBitNumber(pixelData[fw], fh)
 						if bit == 1 then
-							draw.pixel(object, x + fw, y + fh, color)
+							draw.pixel(object, x + fw, y + fh + heightDrop, color)
 						end
 					end
 				end
@@ -143,6 +145,7 @@ function Font.from(data: types.StoredFont): types.Font
 	return {
 		glyphs = data.letters,
 
+		_maxHeight = data.maxHeight,
 		spacing = 5,
         linePadding = 0,
 

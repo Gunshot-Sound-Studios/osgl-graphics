@@ -23,7 +23,7 @@ local player = Players.LocalPlayer
 assert(player)
 
 -- Define window dimensions
-local WIDTH = 100
+local WIDTH = 300
 local HEIGHT = 100
 
 -- Create ImageLabel & ScreenGui
@@ -34,7 +34,7 @@ ScreenGui.IgnoreGuiInset = false
 local ImageLabel = Instance.new("ImageLabel")
 ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
 ImageLabel.Position = UDim2.fromScale(.5, .5)
-ImageLabel.Size = UDim2.fromOffset(400, 500)
+ImageLabel.Size = UDim2.fromOffset(1000, 500)
 ImageLabel.Parent = ScreenGui
 ImageLabel.ResampleMode = Enum.ResamplerMode.Pixelated
 ImageLabel.BackgroundTransparency = 0
@@ -46,5 +46,5 @@ window.alphaBlendingMode = enum.AlphaBlendMode.Additive
 
 local fnt = Font.from(require(script.AtariSmall))
 fnt.linePadding = 24
-fnt:Draw(window, "abc", 0, 0, color.BLACK)
+fnt:Draw(window, "Hello, World!", 0, 0, color.BLACK)
 window:Render()

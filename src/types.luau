@@ -265,7 +265,8 @@ export type Glyphs = { [string]: Glyph }
 --- The representation of a font made with the `converter` exe provided with the module.
 export type StoredFont = {
     version: string,
-    letters: Glyphs
+    letters: Glyphs,
+    maxHeight: number,
 }
 
 export type Font = {
