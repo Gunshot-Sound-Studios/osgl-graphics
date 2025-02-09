@@ -481,7 +481,8 @@ print(myWindow:GetRelativeMouseToRenderer(path.to.parent))
 ]=]
 function windowPrivate.GetRelativeMouseToRenderer(self: types.Window, image: ImageLabel): (boolean, number, number)
     local sizeFactor = self.size / image.AbsoluteSize
-    local mousePosition = UserInputService:GetMouseLocation() - image.AbsolutePosition
+    local inset, _ = GuiService:GetGuiInset()
+    local mousePosition = UserInputService:GetMouseLocation() - image.AbsolutePosition - inset
 
     local relativeMousePosition = mousePosition * sizeFactor
 
