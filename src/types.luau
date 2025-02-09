@@ -1,6 +1,6 @@
 ------------------------------------------------------------
 -- OSGL v1.5b - Open-Source-Graphical-Library
--- Copyright © 2023-2025 Gunshot Sound Studios (@saaawdust)
+-- Copyright © 2023-2025 OSGL (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -181,7 +181,7 @@ export type DrawingContext<V> = {
     StopDrawing: (self: DrawingContext<V>) -> V
 }
 
---- @interface Texture
+--- @type Texture DrawableObject<T>
 --- @within Texture
 --- A [DrawableObject] that represents a texture.
 export type Texture<T> = DrawableObject<T>
@@ -248,19 +248,19 @@ export type Video<T> = {
     Next: (self: Video<T>) -> Video<T>,
 }
 
---- @interface Glyph number | buffer | { number }
+--- @type Glyph number | buffer | { number }
 --- @within Font
 --- The representation of a letter in a font made with the `converter` exe provided with the module.
 export type Glyph = {
     number | buffer | { number }
 }
 
---- @interface Glyphs { [string]: Glyph }
+--- @type Glyphs { [string]: Glyph }
 --- @within Font
 --- A group of letters
 export type Glyphs = { [string]: Glyph }
 
---- @interface StoredFont { version: string, letters: Glyphs }
+--- @type StoredFont { version: string, letters: Glyphs }
 --- @within Font
 --- The representation of a font made with the `converter` exe provided with the module.
 export type StoredFont = {
@@ -269,6 +269,9 @@ export type StoredFont = {
     maxHeight: number,
 }
 
+--- @type Font { glyphs: Glyphs, spacing: number, linePadding: number }
+--- @within Font
+--- A loaded font
 export type Font = {
     glyphs: Glyphs,
 
@@ -278,7 +281,7 @@ export type Font = {
     Draw:<T>(self: Font, object: DrawableObject<T>, text: string, x: number, y: number, color: Color) -> Font,
 }
 
---- @interface FlagTexture { version: string, width: number, height: number, pixels: buffer, }
+--- @type FlagTexture { version: string, width: number, height: number, pixels: buffer, }
 --- @within Texture
 --- The representation of a texture made with the `converter` exe provided with the module.
 export type FlagTexture = {

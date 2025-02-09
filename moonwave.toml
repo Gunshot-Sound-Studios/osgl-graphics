@@ -1,5 +1,5 @@
 title = "OSGL"
-gitRepoUrl = "https://github.com/Gunshot-Sound-Studios/osgl-graphics" # From Git
+gitRepoUrl = "https://github.com/osgl-rbx/osgl" # From Git
 
 gitSourceBranch = "main"
 changelog = true
@@ -18,11 +18,11 @@ bannerImage = "image/banner.svg"
 
 [[home.features]]
 title = "High performance"
-description = "OSGL is designed for speed and efficiency, which means it can render graphics in real time with minimal delay. Whether you're creating a simple app or a complex game, you can count on OSGL to provide top-notch performance."
+description = "OSGL is designed for speed and efficiency, which means it can render graphics in real time with minimal delay. You can always count on OSGL to provide top-notch performance."
 
 [[home.features]]
 title = "Battle-tested"
-description = "OSGL has been tested in many different situations to make sure it works reliably even when the pressure is on. "
+description = "OSGL has been tested in many different situations to make sure it works reliably, even on low-end devices."
 
 [[home.features]]
 title = "User-Friendly documentation"
@@ -32,4 +32,4 @@ projectName = "OSGL"
 
 [footer]
 style = "dark"
-copyright = "Copyright © 2025 Gunshot Sound Studios."
+copyright = "Copyright © 2025 OSGL"

@@ -2,7 +2,7 @@ Welcome to the migration guide for transitioning from CanvasDraw to OSGL. This g
 
 It's important to note that OSGL and CanvasDraw have different internal architectures. OSGL works differently from CanvasDraw, so you may need to refactor your code.
 
-In CanvasDraw, you create objects known as canvases with `CanvasDraw.new()`. In OSGL, you create a **window**, which you can read about [here](../Windows/opening-a-window.md):
+In CanvasDraw, you create objects known as canvases with `CanvasDraw.new()`. In OSGL, you create a **window**, which you can read about [here](../rendering-to-a-window.md):
 
 ```lua
 local CanvasDraw = require(path)
@@ -58,6 +58,6 @@ window
 
 These methods are the same as the `Draw` methods, but they automatically pass the window as the first argument.
 
-You can find more about these methods in the `API`, or on the [shapes](../drawing-shapes.md) page.
+You can find more about these methods in the `API`, or on the [shapes](../Shapes/drawing-shapes.md) page.
 
 Both `Window`s and `Texture`s are known as `DrawableObject`s. A `Window` is a special form of a `Texture`, and a `Texture` is a `buffer` containing pixel data. This is similar to CanvasDraw's `ImageData`. To save a texture, save the `buffer`, `sizeX`, and `sizeY` (or just the `size`). Since it's a `Texture`, you can load it back into the game. This process is described in [`Serialization` and `Deserialization`](../Advanced/serializing-and-deserializing.md).
