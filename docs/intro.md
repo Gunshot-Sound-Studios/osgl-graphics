@@ -30,6 +30,6 @@ By the end of this tutorial, you'll have a solid understanding of how to effecti
 
 :::note
 
-This tutorial is intended to be a community effort; OSGL is still relatively new, and best practices are still evolving. If you have any feedback on the tutorial or the site itself, please don't hesitate to submit an issue or pull request to the GitHub repository. You can watch the repository to be notified of updates to the tutorial. You can learn more about contribution [here](https://github.com/Gunshot-Sound-Studios/osgl-graphics/blob/main/CONTRIBUTING.md).
+This tutorial is intended to be a community effort; OSGL is still relatively new, and best practices are still evolving. If you have any feedback on the tutorial or the site itself, please don't hesitate to submit an issue or pull request to the GitHub repository. You can watch the repository to be notified of updates to the tutorial. You can learn more about contribution [here](https://github.com/osgl-rbx/osgl/blob/main/CONTRIBUTING.md).
 
 :::

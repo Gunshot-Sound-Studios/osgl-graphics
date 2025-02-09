@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Loading Textures
 
-To load file formats such as `PNGs`, `WebPs`, etc., OSGL uses its own external tool. The tool is bundled with OSGL on the github releases page, [here](https://github.com/Gunshot-Sound-Studios/osgl-graphics/releases/latest), named `image-converter` (previously `converter`). Pick the one for your OS. If you don't know which to pick, feel free to ask us!
+To load file formats such as `PNGs`, `WebPs`, etc., OSGL uses its own external tool. The tool is bundled with OSGL on the github releases page, [here](https://github.com/osgl-rbx/osgl/releases/latest), named `image-converter` (previously `converter`). Pick the one for your OS. If you don't know which to pick, feel free to ask us!
 
 :::note
 You can get help with the `image-converter` exe by running it in the command-prompt, with the `-h` flag! e.g:

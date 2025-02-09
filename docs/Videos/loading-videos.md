@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Loading Videos
 
-To load a video format, such as an MP4, like a [Texture](../Textures/loading-textures.md), OSGL uses an external tool bundled with OSGL on the GitHub releases page, [here](https://github.com/Gunshot-Sound-Studios/osgl-graphics/releases/latest), named `video-converter`. Choose the version for your OS. If unsure, feel free to ask us!
+To load a video format, such as an MP4, like a [Texture](../Textures/loading-textures.md), OSGL uses an external tool bundled with OSGL on the GitHub releases page, [here](https://github.com/osgl-rbx/osgl/releases/latest), named `video-converter`. Choose the version for your OS. If unsure, feel free to ask us!
 
 :::note
 You can get help with the `video-converter` executable by running it in the command prompt with the `-h` flag, e.g.:
