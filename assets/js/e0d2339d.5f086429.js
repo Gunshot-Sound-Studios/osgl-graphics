@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[583],{84410:s=>{s.exports=JSON.parse('{"sourceUrl":"https://github.com/osgl-rbx/osgl/blob/main","baseUrl":"/osgl/","classOrder":[],"apiCategories":[]}')}}]);

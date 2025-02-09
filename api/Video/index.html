@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="plugin-moonwave plugin-id-moonwave" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.6.3">
+<title data-rh="true">Video | OSGL</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://osgl-rbx.github.io/osgl/api/Video"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Video | OSGL"><meta data-rh="true" name="description" content="The Video class is responsible for managing
+video playback and rendering. It facilitates the
+loading and manipulation of video textures (an animatable [DrawableObject]!)."><meta data-rh="true" property="og:description" content="The Video class is responsible for managing
+video playback and rendering. It facilitates the
+loading and manipulation of video textures (an animatable [DrawableObject]!)."><link data-rh="true" rel="icon" href="/osgl/image/favicon.ico"><link data-rh="true" rel="canonical" href="https://osgl-rbx.github.io/osgl/api/Video"><link data-rh="true" rel="alternate" href="https://osgl-rbx.github.io/osgl/api/Video" hreflang="en"><link data-rh="true" rel="alternate" href="https://osgl-rbx.github.io/osgl/api/Video" hreflang="x-default"><link rel="stylesheet" href="/osgl/assets/css/styles.c7572302.css">
+<script src="/osgl/assets/js/runtime~main.087811ee.js" defer="defer"></script>
+<script src="/osgl/assets/js/main.e3ad99dd.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();null!==e?t(e):window.matchMedia("(prefers-color-scheme: dark)").matches?t("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,t("light"))}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/osgl/"><b class="navbar__title text--truncate">OSGL</b></a><a class="navbar__item navbar__link" href="/osgl/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/osgl/api/">API</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/osgl-rbx/osgl" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="Switch between dark and light mode (currently light mode)" aria-label="Switch between dark and light mode (currently light mode)" aria-live="polite" aria-pressed="false"><svg viewBox="0 0 24 24" width="24" height="24" class="lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" class="darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input id="search_input_react" type="search" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="main-wrapper mainWrapper_z2l0 docPageContainer_wNNk"><div class="docPage_Dpn1"><div class="docSidebarContainer_o_re"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl/api/Color">​Color</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl/api/Draw">​Draw</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl/api/DrawableObject">​Drawable​Object</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl/api/Font">​Font</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl/api/Texture">​Texture</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/osgl/api/Video">​Video</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/osgl/api/Window">​Window</a></li></ul></nav></div></div><main class="docMainContainer_HJE1"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_MU3C"><div class="docItemContainer_Wv98"><article><div class="member_J0w1 markdown"><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_oUs_"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><header><h1 class="docTitle_mZRt" style="text-decoration:none"><span style="display:inline-block">Video</span></h1><div class="luaClassTags_EipM"></div><div>
+<p>
+  The Video class is responsible for managing
+  video playback and rendering. It facilitates the
+  loading and manipulation of video textures (an animatable <a href="/osgl/api/DrawableObject#DrawableObject">DrawableObject</a>!).
+</p>
+</div></header><h2 class="anchor anchorWithStickyNavbar_LWe7" id="types">Types<a href="#types" class="hash-link" aria-label="Direct link to Types" title="Direct link to Types">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Video"><code style="text-decoration:none">Video</code><a href="#Video" class="hash-link" aria-label="Direct link to Video" title="Direct link to Video">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/types.luau#L230"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">interface</code> <code>Video<!-- --> <!-- -->{</code><div class="inset_uKQm"><div><code>sizeX<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>The videos width.</p>
+</span></span></div><div><code>sizeX<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>The videos height.</p>
+</span></span></div><div><code>playbackFrame<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>Which frame the video is playing.</p>
+</span></span></div><div><code>frameRate<!-- -->: </code><code class="blue_P4bS">number</code><span class="inlineDescription_G7Er">-- <span>
+<p>How many frames-per-second to display.</p>
+</span></span></div><div><code>playing<!-- -->: </code><code class="blue_P4bS">boolean</code><span class="inlineDescription_G7Er">-- <span>
+<p>Whether the video is playing or not.</p>
+</span></span></div><div><code>loop<!-- -->: </code><code class="blue_P4bS">boolean</code><span class="inlineDescription_G7Er">-- <span>
+<p>Whether the video should loop after finishing.</p>
+</span></span></div><div><code>frames<!-- -->: </code><code class="purple_ieR2">{</code><code class="blue_P4bS">buffer</code><code class="purple_ieR2">}</code><span class="inlineDescription_G7Er">-- <span>
+<p>A set of <a href="/osgl/api/DrawableObject#DrawableObject">DrawableObject</a> that represent the videos frames.</p>
+</span></span></div><div><code>PlaySync<!-- -->: </code><code class="purple_ieR2">(</code><div class="inset_uKQm"><code>self<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>callback<!-- -->: </code><code class="green_DgR4">(</code><code>texture<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Texture#Texture">Texture</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="green_DgR4">)</code><code class="green_DgR4"> → </code><code class="green_DgR4">(</code><code class="green_DgR4">)</code></div><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><div><code>PlayAsync<!-- -->: </code><code class="purple_ieR2">(</code><div class="inset_uKQm"><code>self<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>callback<!-- -->: </code><code class="green_DgR4">(</code><code>texture<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Texture#Texture">Texture</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="green_DgR4">)</code><code class="green_DgR4"> → </code><code class="green_DgR4">(</code><code class="green_DgR4">)</code></div><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><div><code>Stop<!-- -->: </code><code class="purple_ieR2">(</code><code>self<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><div><code>GetFrame<!-- -->: </code><code class="purple_ieR2">(</code><div class="inset_uKQm"><code>self<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>frame<!-- -->: </code><code class="blue_P4bS">number</code></div><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Texture#Texture">Texture</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><div><code>GetBufferOfFrame<!-- -->: </code><code class="purple_ieR2">(</code><div class="inset_uKQm"><code>self<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>frame<!-- -->: </code><code class="blue_P4bS">number</code></div><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="blue_P4bS">buffer</code></div><div><code>Previous:<!-- -->: </code><code class="purple_ieR2">(</code><code>self<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><div><code>Next:<!-- -->: </code><code class="purple_ieR2">(</code><code>self<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div></div><code>}</code></div><div>
+<p>An animatable set of <a href="/osgl/api/DrawableObject#DrawableObject">DrawableObject</a> that represents a video.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> Video <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Video
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+​
+<span class="token comment">-- Creates a Window with a size of 50x50</span>
+<span class="token comment">-- This window is a DrawableObject</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>instance<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+ㅤ
+<span class="token keyword">local</span> frames <span class="token operator">=</span> <span class="token comment">-- Reference to texture-data</span>
+<span class="token keyword">local</span> video <span class="token operator">=</span> Video<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>frames<span class="token punctuation">)</span>
+video<span class="token punctuation">.</span>frameRate <span class="token operator">=</span> <span class="token number">60</span>
+video<span class="token punctuation">.</span>loop <span class="token operator">=</span> <span class="token keyword">true</span>
+video<span class="token punctuation">:</span><span class="token function">PlaySync</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>texture<span class="token punctuation">)</span>
+    Texture<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> texture<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    myWindow<span class="token punctuation">:</span><span class="token function">Render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+</code></pre>
+</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="properties">Properties<a href="#properties" class="hash-link" aria-label="Direct link to Properties" title="Direct link to Properties">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="sizeX"><code style="text-decoration:none">sizeX</code><a href="#sizeX" class="hash-link" aria-label="Direct link to sizeX" title="Direct link to sizeX">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L419"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.<!-- -->sizeX<!-- -->:<!-- --> </code> <code class="blue_P4bS">number</code></div><div>
+<p>The videos width in pixels.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="sizeY"><code style="text-decoration:none">sizeY</code><a href="#sizeY" class="hash-link" aria-label="Direct link to sizeY" title="Direct link to sizeY">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L425"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.<!-- -->sizeY<!-- -->:<!-- --> </code> <code class="blue_P4bS">number</code></div><div>
+<p>The videos height in pixels.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="playbackFrame"><code style="text-decoration:none">playbackFrame</code><a href="#playbackFrame" class="hash-link" aria-label="Direct link to playbackFrame" title="Direct link to playbackFrame">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L431"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.<!-- -->playbackFrame<!-- -->:<!-- --> </code> <code class="blue_P4bS">number</code></div><div>
+<p>The frame the video is currently displaying</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="frameRate"><code style="text-decoration:none">frameRate</code><a href="#frameRate" class="hash-link" aria-label="Direct link to frameRate" title="Direct link to frameRate">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L437"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.<!-- -->frameRate<!-- -->:<!-- --> </code> <code class="blue_P4bS">number</code></div><div>
+<p>The videos "FPS" (frames per second).</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="playing"><code style="text-decoration:none">playing</code><a href="#playing" class="hash-link" aria-label="Direct link to playing" title="Direct link to playing">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L443"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.<!-- -->playing<!-- -->:<!-- --> </code> <code class="blue_P4bS">boolean</code></div><div>
+<p>Whether the video is currently playing.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="loop"><code style="text-decoration:none">loop</code><a href="#loop" class="hash-link" aria-label="Direct link to loop" title="Direct link to loop">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L449"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.<!-- -->loop<!-- -->:<!-- --> </code> <code class="blue_P4bS">boolean</code></div><div>
+<p>Whether the video should loop after finishing</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="frames"><code style="text-decoration:none">frames</code><a href="#frames" class="hash-link" aria-label="Direct link to frames" title="Direct link to frames">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L455"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.<!-- -->frames<!-- -->:<!-- --> </code> <code class="purple_ieR2">{</code><code class="blue_P4bS">buffer</code><code class="purple_ieR2">}</code></div><div>
+<p>A set of <a href="/osgl/api/DrawableObject#DrawableObject">DrawableObject</a> that represent the videos frames.</p>
+</div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="PlaySync"><code style="text-decoration:none">PlaySync</code><a href="#PlaySync" class="hash-link" aria-label="Direct link to PlaySync" title="Direct link to PlaySync">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L68"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.</code><code class="green_DgR4">PlaySync</code><code>(</code><div class="inset_uKQm"><div><code>self<!-- -->: </code><code class="blue_P4bS">types.Video</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>,</code></div><div><code>callback<!-- -->: </code><code class="purple_ieR2">(</code><code>texture<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Texture#Texture">Texture</a></code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code><span class="inlineDescription_G7Er">-- <span>
+<p>A callback function that will be ran every frame, returning the current frame as a <a href="/osgl/api/Texture#Texture">Texture</a>.</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>Returns itself.</p>
+</span></span></div><div>
+<p>Plays a video syncronously. The callback will be ran every frame and provides the current frame as a <a href="/osgl/api/Texture#Texture">Texture</a>.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> Video <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Video
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token comment">-- Creates a Window with a size of 50x50</span>
+<span class="token comment">-- This window is a DrawableObject</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>instance<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> frames <span class="token operator">=</span> <span class="token comment">-- Reference to texture-data</span>
+<span class="token keyword">local</span> video <span class="token operator">=</span> Video<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>frames<span class="token punctuation">)</span>
+video<span class="token punctuation">.</span>frameRate <span class="token operator">=</span> <span class="token number">60</span>
+video<span class="token punctuation">.</span>loop <span class="token operator">=</span> <span class="token keyword">true</span>
+
+<span class="token comment">-- Plays the video syncronously, rendering </span>
+<span class="token comment">-- to `myWindow` every frame</span>
+video<span class="token punctuation">:</span><span class="token function">PlaySync</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>texture<span class="token punctuation">)</span>
+    Texture<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> texture<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    myWindow<span class="token punctuation">:</span><span class="token function">Render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="PlayAsync"><code style="text-decoration:none">PlayAsync</code><a href="#PlayAsync" class="hash-link" aria-label="Direct link to PlayAsync" title="Direct link to PlayAsync">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L124"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.</code><code class="green_DgR4">PlayAsync</code><code>(</code><div class="inset_uKQm"><div><code>self<!-- -->: </code><code class="blue_P4bS">types.Video</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>,</code></div><div><code>callback<!-- -->: </code><code class="purple_ieR2">(</code><code>texture<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Texture#Texture">Texture</a></code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code><span class="inlineDescription_G7Er">-- <span>
+<p>A callback function that will be ran every frame, returning the current frame as a <a href="/osgl/api/Texture#Texture">Texture</a>.</p>
+</span></span></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>Returns itself.</p>
+</span></span></div><div>
+<p>Plays a video asyncronously. The callback will be ran every frame and provides the current frame as a <a href="/osgl/api/Texture#Texture">Texture</a>.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> Video <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Video
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token comment">-- Creates a Window with a size of 50x50</span>
+<span class="token comment">-- This window is a DrawableObject</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>instance<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> frames <span class="token operator">=</span> <span class="token comment">-- Reference to texture-data</span>
+<span class="token keyword">local</span> video <span class="token operator">=</span> Video<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>frames<span class="token punctuation">)</span>
+video<span class="token punctuation">.</span>frameRate <span class="token operator">=</span> <span class="token number">60</span>
+video<span class="token punctuation">.</span>loop <span class="token operator">=</span> <span class="token keyword">true</span>
+
+<span class="token comment">-- Plays the video asyncronously, rendering </span>
+<span class="token comment">-- to `myWindow` every frame</span>
+video<span class="token punctuation">:</span><span class="token function">PlayAsync</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>texture<span class="token punctuation">)</span>
+    Texture<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> texture<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    myWindow<span class="token punctuation">:</span><span class="token function">Render</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+
+<span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"This code will run while the video is playing!"</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Next"><code style="text-decoration:none">Next</code><a href="#Next" class="hash-link" aria-label="Direct link to Next" title="Direct link to Next">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L162"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.</code><code class="green_DgR4">Next</code><code>(</code><code>self<!-- -->: </code><code class="blue_P4bS">types.Video</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>Returns itself.</p>
+</span></span></div><div>
+<p>Skips to the next frame. Goes to the first frame if <code>loop</code> is enabled.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> Video <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Video
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token comment">-- Creates a Window with a size of 50x50</span>
+<span class="token comment">-- This window is a DrawableObject</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>instance<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> frames <span class="token operator">=</span> <span class="token comment">-- Reference to texture-data</span>
+<span class="token keyword">local</span> video <span class="token operator">=</span> Video<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>frames<span class="token punctuation">)</span>
+video<span class="token punctuation">.</span>frameRate <span class="token operator">=</span> <span class="token number">60</span>
+video<span class="token punctuation">.</span>loop <span class="token operator">=</span> <span class="token keyword">true</span>
+
+<span class="token comment">-- Plays the video syncronously, rendering </span>
+<span class="token comment">-- to `myWindow` every frame</span>
+video<span class="token punctuation">:</span><span class="token function">PlaySync</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>texture<span class="token punctuation">)</span>
+    Texture<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> texture<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> video<span class="token punctuation">.</span>playbackFrame <span class="token operator">==</span> <span class="token number">10</span> <span class="token keyword">then</span>
+        <span class="token comment">-- Skip the frame</span>
+        video<span class="token punctuation">:</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span> 
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Previous"><code style="text-decoration:none">Previous</code><a href="#Previous" class="hash-link" aria-label="Direct link to Previous" title="Direct link to Previous">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L206"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.</code><code class="green_DgR4">Previous</code><code>(</code><code>self<!-- -->: </code><code class="blue_P4bS">types.Video</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>Returns itself.</p>
+</span></span></div><div>
+<p>Goes to the previous frame. Does not go to the last frame if <code>loop</code> is enabled.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> Video <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Video
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token comment">-- Creates a Window with a size of 50x50</span>
+<span class="token comment">-- This window is a DrawableObject</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>instance<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> frames <span class="token operator">=</span> <span class="token comment">-- Reference to texture-data</span>
+<span class="token keyword">local</span> video <span class="token operator">=</span> Video<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>frames<span class="token punctuation">)</span>
+video<span class="token punctuation">.</span>frameRate <span class="token operator">=</span> <span class="token number">60</span>
+video<span class="token punctuation">.</span>loop <span class="token operator">=</span> <span class="token keyword">true</span>
+
+<span class="token comment">-- Plays the video syncronously, rendering </span>
+<span class="token comment">-- to `myWindow` every frame</span>
+video<span class="token punctuation">:</span><span class="token function">PlaySync</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>texture<span class="token punctuation">)</span>
+    Texture<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> texture<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> video<span class="token punctuation">.</span>playbackFrame <span class="token operator">==</span> <span class="token number">10</span> <span class="token keyword">then</span>
+        <span class="token comment">-- Go back a frame</span>
+        video<span class="token punctuation">:</span><span class="token function">Previous</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span> 
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="Stop"><code style="text-decoration:none">Stop</code><a href="#Stop" class="hash-link" aria-label="Direct link to Stop" title="Direct link to Stop">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L247"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.</code><code class="green_DgR4">Stop</code><code>(</code><code>self<!-- -->: </code><code class="blue_P4bS">types.Video</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>Returns itself.</p>
+</span></span></div><div>
+<p>Stops the video playback and sets the current frame to the start.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> Video <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Video
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token comment">-- Creates a Window with a size of 50x50</span>
+<span class="token comment">-- This window is a DrawableObject</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>instance<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> frames <span class="token operator">=</span> <span class="token comment">-- Reference to texture-data</span>
+<span class="token keyword">local</span> video <span class="token operator">=</span> Video<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>frames<span class="token punctuation">)</span>
+video<span class="token punctuation">.</span>frameRate <span class="token operator">=</span> <span class="token number">60</span>
+video<span class="token punctuation">.</span>loop <span class="token operator">=</span> <span class="token keyword">true</span>
+
+<span class="token comment">-- Plays the video syncronously, rendering </span>
+<span class="token comment">-- to `myWindow` every frame</span>
+video<span class="token punctuation">:</span><span class="token function">PlaySync</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>texture<span class="token punctuation">)</span>
+    Texture<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span>myWindow<span class="token punctuation">,</span> texture<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> video<span class="token punctuation">.</span>playbackFrame <span class="token operator">==</span> <span class="token number">10</span> <span class="token keyword">then</span>
+        <span class="token comment">-- Stop the playback</span>
+        video<span class="token punctuation">:</span><span class="token function">Stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">end</span> 
+<span class="token keyword">end</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GetFrame"><code style="text-decoration:none">GetFrame</code><a href="#GetFrame" class="hash-link" aria-label="Direct link to GetFrame" title="Direct link to GetFrame">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L277"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.</code><code class="green_DgR4">GetFrame</code><code>(</code><div class="inset_uKQm"><div><code>self<!-- -->: </code><code class="blue_P4bS">types.Video</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>,</code></div><div><code>frame<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Texture#Texture">Texture</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>Returns the frame as a texture.</p>
+</span></span></div><div>
+<p>Returns a specific frame as a <a href="/osgl/api/Texture#Texture">Texture</a></p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> Video <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Video
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token comment">-- Creates a Window with a size of 50x50</span>
+<span class="token comment">-- This window is a DrawableObject</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>instance<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> frames <span class="token operator">=</span> <span class="token comment">-- Reference to texture-data</span>
+<span class="token keyword">local</span> video <span class="token operator">=</span> Video<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>frames<span class="token punctuation">)</span>
+<span class="token keyword">local</span> frameTwo <span class="token operator">=</span> video<span class="token punctuation">:</span><span class="token function">GetFrame</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- frameTwo is a `Texture` object!</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="GetBufferOfFrame"><code style="text-decoration:none">GetBufferOfFrame</code><a href="#GetBufferOfFrame" class="hash-link" aria-label="Direct link to GetBufferOfFrame" title="Direct link to GetBufferOfFrame">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L304"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.</code><code class="green_DgR4">GetBufferOfFrame</code><code>(</code><div class="inset_uKQm"><div><code>self<!-- -->: </code><code class="blue_P4bS">types.Video</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>,</code></div><div><code>frame<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Texture#Texture">Texture</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>Returns the frame as a buffer.</p>
+</span></span></div><div>
+<p>Returns a specific frame as a buffer</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> Video <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Video
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token comment">-- Creates a Window with a size of 50x50</span>
+<span class="token comment">-- This window is a DrawableObject</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>instance<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> frames <span class="token operator">=</span> <span class="token comment">-- Reference to texture-data</span>
+<span class="token keyword">local</span> video <span class="token operator">=</span> Video<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>frames<span class="token punctuation">)</span>
+<span class="token keyword">local</span> frameTwo <span class="token operator">=</span> video<span class="token punctuation">:</span><span class="token function">GetBufferOfFrame</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- frameTwo is a buffer object!</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="new"><code style="text-decoration:none">new</code><a href="#new" class="hash-link" aria-label="Direct link to new" title="Direct link to new">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L328"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.</code><code class="green_DgR4">new</code><code>(</code><div class="inset_uKQm"><div><code>width<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>height<!-- -->: </code><code class="blue_P4bS">number</code><code>,</code></div><div><code>frames<!-- -->: </code><code class="purple_ieR2">{</code><code class="blue_P4bS">buffer</code><code class="purple_ieR2">}</code><code class="blue_P4bS">?</code></div></div><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>The newly created <a href="/osgl/api/Video#Video">Video</a> object.</p>
+</span></span></div><div>
+<p>Create a new <a href="/osgl/api/Video#Video">Video</a> object of the given dimensions, with an optional buffer.</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> Video <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Video
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token comment">-- Creates a Window with a size of 50x50</span>
+<span class="token comment">-- This window is a DrawableObject</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>instance<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">-- Blank 500x500 video</span>
+<span class="token keyword">local</span> video <span class="token operator">=</span> Video<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">)</span>
+</code></pre>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorWithStickyNavbar_LWe7" id="from"><code style="text-decoration:none">from</code><a href="#from" class="hash-link" aria-label="Direct link to from" title="Direct link to from">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/osgl-rbx/osgl/blob/main/src/video.luau#L386"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>Video<!-- -->.</code><code class="green_DgR4">from</code><code>(</code><code>collection<!-- -->: </code><code class="purple_ieR2">{</code><code class="blue_P4bS">types.FlagTexture</code><code class="op_lSLc"> | </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/ModuleScript" target="_blank" rel="noopener noreferrer">ModuleScript<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="purple_ieR2">}</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/osgl/api/Video#Video">Video</a></code><span class="inlineDescription_G7Er">-- <span>
+<p>The newly created <a href="/osgl/api/Video#Video">Video</a> object.</p>
+</span></span></div><div>
+<p>
+  Creates a new <a href="/osgl/api/Video#Video">Video</a> object from a collection of <a href="/osgl/api/Texture#Texture">Texture</a> objects.
+  All frames must be the same size.
+</p>
+<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> OSGL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>osgl<span class="token punctuation">)</span>
+<span class="token keyword">local</span> Window <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Window
+<span class="token keyword">local</span> Video <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Video
+<span class="token keyword">local</span> Texture <span class="token operator">=</span> OSGL<span class="token punctuation">.</span>Texture
+
+<span class="token comment">-- Creates a Window with a size of 50x50</span>
+<span class="token comment">-- This window is a DrawableObject</span>
+<span class="token keyword">local</span> myWindow <span class="token operator">=</span> Window<span class="token punctuation">.</span><span class="token function">new</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span>to<span class="token punctuation">.</span>instance<span class="token punctuation">,</span> <span class="token punctuation">{</span> sizeX <span class="token operator">=</span> <span class="token number">50</span><span class="token punctuation">,</span> sizeY <span class="token operator">=</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">local</span> frames <span class="token operator">=</span> <span class="token comment">-- Reference to texture-data</span>
+<span class="token keyword">local</span> video <span class="token operator">=</span> Video<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>frames<span class="token punctuation">)</span>
+	
+<span class="token comment">-- video is a `Video` object!</span>
+</code></pre>
+</div></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
+    &quot;functions&quot;: [
+        {
+            &quot;name&quot;: &quot;PlaySync&quot;,
+            &quot;desc&quot;: &quot;Plays a video syncronously. The callback will be ran every frame and provides the current frame as a [Texture].\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal Video = OSGL.Video\nlocal Texture = OSGL.Texture\n\n-- Creates a Window with a size of 50x50\n-- This window is a DrawableObject\nlocal myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })\n\nlocal frames = -- Reference to texture-data\nlocal video = Video.from(frames)\nvideo.frameRate = 60\nvideo.loop = true\n\n-- Plays the video syncronously, rendering \n-- to `myWindow` every frame\nvideo:PlaySync(function(texture)\n    Texture.draw(myWindow, texture, 0, 0)\n    myWindow:Render()\nend)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;self&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;types.Video&lt;T&gt;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;callback&quot;,
+                    &quot;desc&quot;: &quot;A callback function that will be ran every frame, returning the current frame as a [Texture].&quot;,
+                    &quot;lua_type&quot;: &quot;(texture: Texture) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;Returns itself.&quot;,
+                    &quot;lua_type&quot;: &quot;Video&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 68,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;PlayAsync&quot;,
+            &quot;desc&quot;: &quot;Plays a video asyncronously. The callback will be ran every frame and provides the current frame as a [Texture].\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal Video = OSGL.Video\nlocal Texture = OSGL.Texture\n\n-- Creates a Window with a size of 50x50\n-- This window is a DrawableObject\nlocal myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })\n\nlocal frames = -- Reference to texture-data\nlocal video = Video.from(frames)\nvideo.frameRate = 60\nvideo.loop = true\n\n-- Plays the video asyncronously, rendering \n-- to `myWindow` every frame\nvideo:PlayAsync(function(texture)\n    Texture.draw(myWindow, texture, 0, 0)\n    myWindow:Render()\nend)\n\nprint(\&quot;This code will run while the video is playing!\&quot;)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;self&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;types.Video&lt;T&gt;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;callback&quot;,
+                    &quot;desc&quot;: &quot;A callback function that will be ran every frame, returning the current frame as a [Texture].&quot;,
+                    &quot;lua_type&quot;: &quot;(texture: Texture) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;Returns itself.&quot;,
+                    &quot;lua_type&quot;: &quot;Video&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 124,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Next&quot;,
+            &quot;desc&quot;: &quot;Skips to the next frame. Goes to the first frame if `loop` is enabled.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal Video = OSGL.Video\nlocal Texture = OSGL.Texture\n\n-- Creates a Window with a size of 50x50\n-- This window is a DrawableObject\nlocal myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })\n\nlocal frames = -- Reference to texture-data\nlocal video = Video.from(frames)\nvideo.frameRate = 60\nvideo.loop = true\n\n-- Plays the video syncronously, rendering \n-- to `myWindow` every frame\nvideo:PlaySync(function(texture)\n    Texture.draw(myWindow, texture, 0, 0)\n\n    if video.playbackFrame == 10 then\n        -- Skip the frame\n        video:Next()\n    end \nend)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;self&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;types.Video&lt;T&gt;&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;Returns itself.&quot;,
+                    &quot;lua_type&quot;: &quot;Video&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 162,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Previous&quot;,
+            &quot;desc&quot;: &quot;Goes to the previous frame. Does not go to the last frame if `loop` is enabled.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal Video = OSGL.Video\nlocal Texture = OSGL.Texture\n\n-- Creates a Window with a size of 50x50\n-- This window is a DrawableObject\nlocal myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })\n\nlocal frames = -- Reference to texture-data\nlocal video = Video.from(frames)\nvideo.frameRate = 60\nvideo.loop = true\n\n-- Plays the video syncronously, rendering \n-- to `myWindow` every frame\nvideo:PlaySync(function(texture)\n    Texture.draw(myWindow, texture, 0, 0)\n\n    if video.playbackFrame == 10 then\n        -- Go back a frame\n        video:Previous()\n    end \nend)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;self&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;types.Video&lt;T&gt;&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;Returns itself.&quot;,
+                    &quot;lua_type&quot;: &quot;Video&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 206,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Stop&quot;,
+            &quot;desc&quot;: &quot;Stops the video playback and sets the current frame to the start.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal Video = OSGL.Video\nlocal Texture = OSGL.Texture\n\n-- Creates a Window with a size of 50x50\n-- This window is a DrawableObject\nlocal myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })\n\nlocal frames = -- Reference to texture-data\nlocal video = Video.from(frames)\nvideo.frameRate = 60\nvideo.loop = true\n\n-- Plays the video syncronously, rendering \n-- to `myWindow` every frame\nvideo:PlaySync(function(texture)\n    Texture.draw(myWindow, texture, 0, 0)\n\n    if video.playbackFrame == 10 then\n        -- Stop the playback\n        video:Stop()\n    end \nend)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;self&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;types.Video&lt;T&gt;&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;Returns itself.&quot;,
+                    &quot;lua_type&quot;: &quot;Video&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 247,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;GetFrame&quot;,
+            &quot;desc&quot;: &quot;Returns a specific frame as a [Texture]\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal Video = OSGL.Video\nlocal Texture = OSGL.Texture\n\n-- Creates a Window with a size of 50x50\n-- This window is a DrawableObject\nlocal myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })\n\nlocal frames = -- Reference to texture-data\nlocal video = Video.from(frames)\nlocal frameTwo = video:GetFrame(2)\n\n-- frameTwo is a `Texture` object!\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;self&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;types.Video&lt;T&gt;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;frame&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;Returns the frame as a texture.&quot;,
+                    &quot;lua_type&quot;: &quot;Texture&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 277,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;GetBufferOfFrame&quot;,
+            &quot;desc&quot;: &quot;Returns a specific frame as a buffer\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal Video = OSGL.Video\nlocal Texture = OSGL.Texture\n\n-- Creates a Window with a size of 50x50\n-- This window is a DrawableObject\nlocal myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })\n\nlocal frames = -- Reference to texture-data\nlocal video = Video.from(frames)\nlocal frameTwo = video:GetBufferOfFrame(2)\n\n-- frameTwo is a buffer object!\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;self&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;types.Video&lt;T&gt;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;frame&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;Returns the frame as a buffer.&quot;,
+                    &quot;lua_type&quot;: &quot;Texture&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 304,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;new&quot;,
+            &quot;desc&quot;: &quot;Create a new [Video] object of the given dimensions, with an optional buffer.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal Video = OSGL.Video\nlocal Texture = OSGL.Texture\n\n-- Creates a Window with a size of 50x50\n-- This window is a DrawableObject\nlocal myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })\n\n-- Blank 500x500 video\nlocal video = Video.new(500, 500)\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;width&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;height&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;frames&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;{ buffer }?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;The newly created [Video] object.&quot;,
+                    &quot;lua_type&quot;: &quot;Video&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 328,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;from&quot;,
+            &quot;desc&quot;: &quot;Creates a new [Video] object from a collection of [Texture] objects.\nAll frames must be the same size.\n\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal Video = OSGL.Video\nlocal Texture = OSGL.Texture\n\n-- Creates a Window with a size of 50x50\n-- This window is a DrawableObject\nlocal myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })\n\nlocal frames = -- Reference to texture-data\nlocal video = Video.from(frames)\n\t\n-- video is a `Video` object!\n```&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;collection&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;{ types.FlagTexture | ModuleScript }&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;The newly created [Video] object.&quot;,
+                    &quot;lua_type&quot;: &quot;Video&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 386,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        }
+    ],
+    &quot;properties&quot;: [
+        {
+            &quot;name&quot;: &quot;sizeX&quot;,
+            &quot;desc&quot;: &quot;The videos width in pixels.&quot;,
+            &quot;lua_type&quot;: &quot;number&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 419,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;sizeY&quot;,
+            &quot;desc&quot;: &quot;The videos height in pixels.&quot;,
+            &quot;lua_type&quot;: &quot;number&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 425,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;playbackFrame&quot;,
+            &quot;desc&quot;: &quot;The frame the video is currently displaying&quot;,
+            &quot;lua_type&quot;: &quot;number&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 431,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;frameRate&quot;,
+            &quot;desc&quot;: &quot;The videos \&quot;FPS\&quot; (frames per second).&quot;,
+            &quot;lua_type&quot;: &quot;number&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 437,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;playing&quot;,
+            &quot;desc&quot;: &quot;Whether the video is currently playing.&quot;,
+            &quot;lua_type&quot;: &quot;boolean&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 443,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;loop&quot;,
+            &quot;desc&quot;: &quot;Whether the video should loop after finishing&quot;,
+            &quot;lua_type&quot;: &quot;boolean&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 449,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;frames&quot;,
+            &quot;desc&quot;: &quot;A set of [DrawableObject] that represent the videos frames.&quot;,
+            &quot;lua_type&quot;: &quot;{buffer}&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 455,
+                &quot;path&quot;: &quot;src/video.luau&quot;
+            }
+        }
+    ],
+    &quot;types&quot;: [
+        {
+            &quot;name&quot;: &quot;Video&quot;,
+            &quot;desc&quot;: &quot;An animatable set of [DrawableObject] that represents a video.\n```lua\nlocal OSGL = require(path.to.osgl)\nlocal Window = OSGL.Window\nlocal Video = OSGL.Video\nlocal Texture = OSGL.Texture\n​\n-- Creates a Window with a size of 50x50\n-- This window is a DrawableObject\nlocal myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })\nㅤ\nlocal frames = -- Reference to texture-data\nlocal video = Video.from(frames)\nvideo.frameRate = 60\nvideo.loop = true\nvideo:PlaySync(function(texture)\n    Texture.draw(myWindow, texture, 0, 0)\n    myWindow:Render()\nend)\n```\r&quot;,
+            &quot;fields&quot;: [
+                {
+                    &quot;name&quot;: &quot;sizeX&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;,
+                    &quot;desc&quot;: &quot;The videos width.&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;sizeX&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;,
+                    &quot;desc&quot;: &quot;The videos height.&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;playbackFrame&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;,
+                    &quot;desc&quot;: &quot;Which frame the video is playing.&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;frameRate&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;,
+                    &quot;desc&quot;: &quot;How many frames-per-second to display.&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;playing&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;,
+                    &quot;desc&quot;: &quot;Whether the video is playing or not.&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;loop&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;,
+                    &quot;desc&quot;: &quot;Whether the video should loop after finishing.&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;frames&quot;,
+                    &quot;lua_type&quot;: &quot;{buffer}&quot;,
+                    &quot;desc&quot;: &quot;A set of [DrawableObject] that represent the videos frames.&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;PlaySync&quot;,
+                    &quot;lua_type&quot;: &quot;(self: Video&lt;T&gt;, callback: (texture: Texture&lt;T&gt;) -&gt; ()) -&gt; Video&lt;T&gt;&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;PlayAsync&quot;,
+                    &quot;lua_type&quot;: &quot;(self: Video&lt;T&gt;, callback: (texture: Texture&lt;T&gt;) -&gt; ()) -&gt; Video&lt;T&gt;&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Stop&quot;,
+                    &quot;lua_type&quot;: &quot;(self: Video&lt;T&gt;) -&gt; Video&lt;T&gt;&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;GetFrame&quot;,
+                    &quot;lua_type&quot;: &quot;(self: Video&lt;T&gt;, frame: number) -&gt; Texture&lt;T&gt;&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;GetBufferOfFrame&quot;,
+                    &quot;lua_type&quot;: &quot;(self: Video&lt;T&gt;, frame: number) -&gt; buffer&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Previous:&quot;,
+                    &quot;lua_type&quot;: &quot;(self: Video&lt;T&gt;) -&gt; Video&lt;T&gt;&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Next:&quot;,
+                    &quot;lua_type&quot;: &quot;(self: Video&lt;T&gt;) -&gt; Video&lt;T&gt;&quot;,
+                    &quot;desc&quot;: &quot;&quot;
+                }
+            ],
+            &quot;source&quot;: {
+                &quot;line&quot;: 230,
+                &quot;path&quot;: &quot;src/types.luau&quot;
+            }
+        }
+    ],
+    &quot;name&quot;: &quot;Video&quot;,
+    &quot;desc&quot;: &quot;The Video class is responsible for managing\nvideo playback and rendering. It facilitates the\nloading and manipulation of video textures (an animatable [DrawableObject]!).&quot;,
+    &quot;source&quot;: {
+        &quot;line&quot;: 36,
+        &quot;path&quot;: &quot;src/video.luau&quot;
+    }
+}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a><ul><li><a href="#Video" class="table-of-contents__link toc-highlight">Video</a></li></ul></li><li><a href="#properties" class="table-of-contents__link toc-highlight">Properties</a><ul><li><a href="#frameRate" class="table-of-contents__link toc-highlight">frameRate</a></li><li><a href="#frames" class="table-of-contents__link toc-highlight">frames</a></li><li><a href="#loop" class="table-of-contents__link toc-highlight">loop</a></li><li><a href="#playbackFrame" class="table-of-contents__link toc-highlight">playbackFrame</a></li><li><a href="#playing" class="table-of-contents__link toc-highlight">playing</a></li><li><a href="#sizeX" class="table-of-contents__link toc-highlight">sizeX</a></li><li><a href="#sizeY" class="table-of-contents__link toc-highlight">sizeY</a></li></ul></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#from" class="table-of-contents__link toc-highlight">.from</a></li><li><a href="#GetBufferOfFrame" class="table-of-contents__link toc-highlight">.GetBufferOfFrame</a></li><li><a href="#GetFrame" class="table-of-contents__link toc-highlight">.GetFrame</a></li><li><a href="#new" class="table-of-contents__link toc-highlight">.new</a></li><li><a href="#Next" class="table-of-contents__link toc-highlight">.Next</a></li><li><a href="#PlayAsync" class="table-of-contents__link toc-highlight">.PlayAsync</a></li><li><a href="#PlaySync" class="table-of-contents__link toc-highlight">.PlaySync</a></li><li><a href="#Previous" class="table-of-contents__link toc-highlight">.Previous</a></li><li><a href="#Stop" class="table-of-contents__link toc-highlight">.Stop</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 OSGL</div></div></div></footer></div>
+</body>
+</html>
