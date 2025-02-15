@@ -45,4 +45,6 @@ local video2 = Video.new(50, 50, {frameOne, frameTwo})
 
 :::warning
 High-resolution videos are even more expensive to load into memory than textures! Try to avoid storing them. Instead, consider optimizing your videos by reducing their resolution or compressing them before loading. This will help manage memory usage and improve performance.
+
+Roblox is not good at loading large videos! Try to stick to gifs under 100 frames for optimal performance.
 :::

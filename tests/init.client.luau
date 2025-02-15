@@ -44,7 +44,10 @@ local window = Window.new(ImageLabel, { sizeX = WIDTH, sizeY = HEIGHT })
 window.targetFPS = 244
 window.alphaBlendingMode = enum.AlphaBlendMode.Additive
 
-local fnt = Font.from(require(script.AtariSmall))
-fnt.linePadding = 24
-fnt:Draw(window, "Hello, World!", 0, 0, color.BLACK)
-window:Render()
+local video = Video.from(script["test-video"]:GetChildren())
+video.loop = true
+
+video:PlaySync(function(texture)
+    Texture.draw(window, texture, 0, 0)
+    window:Render()
+end)

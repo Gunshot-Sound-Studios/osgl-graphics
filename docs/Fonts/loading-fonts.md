@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Loading Fonts
 
-To load fonts such as `ttf`, etc., OSGL uses its own external tool. The tool is bundled with OSGL on the github releases page, [here](github.com/osgl-rbx/osgl/releases/latest). Pick the one for your OS. If you don't know which to pick, feel free to ask us!
+To load fonts such as `ttf`, etc., OSGL uses its own external tool. The tool is bundled with OSGL on the github releases page, [here](https://github.com/osgl-rbx/osgl/releases/latest). Pick the one for your OS. If you don't know which to pick, feel free to ask us!
 
 :::note
 You can get help with the exe by running it in the command-prompt, with the `-h` flag! e.g:
