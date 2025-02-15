@@ -1,6 +1,6 @@
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- OSGL v1.5b - Open-Source-Graphical-Library
+-- Copyright © 2023-2025 OSGL (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -41,6 +41,8 @@ local circle = require(script.circle)
 local triangle = require(script.triangle)
 local polygon = require(script.fillPolygon)
 local floodFill = require(script.floodFill)
+local buffer = require(script.buffer)
+local mode = require(script.mode)
 
 --[=[
     @class Draw
@@ -51,7 +53,7 @@ local floodFill = require(script.floodFill)
 local draw = {}
 
 --[=[
-Draws a singular pixel onto the [DrawableObject]
+Draws a singular pixel onto the [DrawableObject]. Ignores drawing mode.
 
 ```lua
 local OSGL = require(path.to.osgl)
@@ -73,7 +75,7 @@ draw.pixel(myWindow, 0, 0, color.RED)
 @param color Color
 @within Draw
 ]=]
-draw.pixel = pixel
+draw.pixel = mode.drawPixel
 
 --[=[
 Draws a line onto the [DrawableObject]
@@ -229,8 +231,6 @@ Replaces all adjacent pixels of the same color with a replacement
 local OSGL = require(path.to.osgl)
 local Window = OSGL.Window
 local color = OSGL.color
-local draw = OSGL.draw
-
 -- Creates a new EditableImage
 local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
 -- *draw something*
@@ -240,11 +240,65 @@ myWindow:Draw():FloodFill(5, 5, color.RED)
 ```
 
 @function floodFill
+@param object DrawableObject
 @param x number
 @param y number
 @param fill Color
 @within Draw
 ]=]
 draw.floodFill = floodFill
+
+--[=[
+Draws a buffer onto a [DrawableObject]
+
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+
+local sizeX, sizeY = 50, 50
+local bfr = buffer.create(sizeX * sizeY * 4)
+
+-- Draw the buffer of sizeX, sizeY from 0, 0
+myWindow:Draw():Buffer(bfr, sizeX, sizeY, 0, 0)
+```
+
+@function buffer
+@param object DrawableObject
+@param bfr buffer
+@param sizeX number
+@param sizeY number
+@param x number
+@param y number
+@within Draw
+]=]
+draw.buffer = buffer
+
+--[=[
+States whether shapes should draw with `OverwritePixel`, or `Pixel`.
+`OverwritePixel` is faster than `Pixel`, but does not support alpha blending.
+
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+local draw = OSGL.draw
+local enum = OSGL.enum
+
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+-- Alpha-blending will be ignored all all shapes will use `OverwritePixel`
+draw.setMode(enum.DrawingMode.Overwrite)
+-- *draw something*
+```
+
+@function setMode
+@param enum DrawableObject
+@within Draw
+]=]
+draw.setMode = mode.setDrawingMode
 
 return draw

@@ -2,8 +2,8 @@
 --!native
 
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- OSGL v1.5b - Open-Source-Graphical-Library
+-- Copyright © 2023-2025 OSGL (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -30,11 +30,14 @@ local types = require(OSGL.types)
 local color = require(OSGL.color)
 local pixel = require(draw.pixel)
 local line = require(draw.line)
+local mode = require(draw.mode)
 
 return function<T>(object: types.DrawableObject<T>, corners: { { number } }, fill: types.Color, strokeColor: types.Color?, strokeWidth: number?)
 	-- [saaawdust]: These are temporary, cause
 	-- if I calculate it, it takes up
 	-- like 10FPS
+
+    local pixel = mode.drawPixel
 
     fill = fill or color.BLACK
     strokeColor = strokeColor or color.TRANSPARENT

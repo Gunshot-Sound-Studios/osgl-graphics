@@ -1,8 +1,8 @@
 --!optimize 2
 
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- OSGL v1.5b - Open-Source-Graphical-Library
+-- Copyright © 2023-2025 OSGL (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -24,6 +24,8 @@
 ------------------------------------------------------------
 
 local utils = {}
+utils.VALID_TEXTURE_VERSIONS = { "1.5b" }
+utils.VALID_FONT_VERSIONS = { "1.5b" }
 
 function utils.lerp(n1: number, n2: number, factor: number): number
     return math.floor((1 - factor) * n1 + factor * n2)

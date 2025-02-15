@@ -3,8 +3,8 @@
 --!optimize 2
 
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- OSGL v1.5b - Open-Source-Graphical-Library
+-- Copyright © 2023-2025 OSGL (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -26,6 +26,7 @@
 ------------------------------------------------------------
 
 local AssetService = game:GetService("AssetService")
+local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 
 local OSGL = script.Parent.Parent
@@ -34,6 +35,7 @@ local types = require(OSGL.types)
 local log = require(OSGL.log)
 local color = require(OSGL.color)
 local utils = require(drawableObject.utils)
+local draw = require(OSGL.draw)
 
 --[=[
     @class Window
@@ -81,7 +83,7 @@ function windowPrivate.Render(self: types.Window)
 end
 
 --[=[
-Writes a color to a certain pixel on a window. The exact same as `draw.pixel`.
+Writes a color to a certain pixel on a [DrawableObject]. The exact same as `draw.pixel`.
 
 ```lua
 local OSGL = require(path.to.osgl)
@@ -96,13 +98,33 @@ myWindow:WritePixel(0, 0, color.RED):Render()
 @param x number -- X position
 @param y number -- Y position
 @param color Color -- The color that will be written at the location
-@return Window
-@within Window
+@return DrawableObject
+@function WritePixel
+@within DrawableObject
 ]=]
-function windowPrivate.WritePixel(self: types.Window, x, y, color)
-	buffer.writeu32(self.buffer, (y * self.sizeX + x) * 4, color)
-	return self
-end
+windowPrivate.WritePixel = utils.createWritePixel()
+
+--[=[
+Writes a color to a certain pixel on a [DrawableObject], ignoring `AlphaBlendMode`
+
+```lua
+local OSGL = require(path.to.osgl)
+local Window = OSGL.Window
+local color = OSGL.color
+
+-- Creates a new EditableImage
+local myWindow = Window.new(path.to.parent, { sizeX = 50, sizeY = 50 })
+myWindow:OverwritePixel(0, 0, color.RED):Render()
+```
+
+@param x number -- X position
+@param y number -- Y position
+@param color Color -- The color that will be written at the location
+@return DrawableObject
+@function OverwritePixel
+@within DrawableObject
+]=]
+windowPrivate.OverwritePixel = utils.createOverwritePixel()
 
 --[=[
 Reads a color on a window at the given location from the buffer
@@ -458,13 +480,18 @@ print(myWindow:GetRelativeMouseToRenderer(path.to.parent))
 @within Window
 ]=]
 function windowPrivate.GetRelativeMouseToRenderer(self: types.Window, image: ImageLabel): (boolean, number, number)
-	local sizeFactor = self.size / image.AbsoluteSize
-	local mousePosition = UserInputService:GetMouseLocation() - image.AbsolutePosition
+    local sizeFactor = self.size / image.AbsoluteSize
+    local inset, _ = GuiService:GetGuiInset()
+    local mousePosition = UserInputService:GetMouseLocation() - image.AbsolutePosition - inset
 
-	local relativeMousePosition = mousePosition * sizeFactor
-	local isInWindow = relativeMousePosition.X > 0 and relativeMousePosition.Y > 0
+    local relativeMousePosition = mousePosition * sizeFactor
 
-	return isInWindow, math.round(relativeMousePosition.X), math.round(relativeMousePosition.Y)
+    local x = math.round(relativeMousePosition.X)
+    local y = math.round(relativeMousePosition.Y)
+
+    local isInImage = x >= 0 and y >= 0 and x < image.AbsoluteSize.X and y < image.AbsoluteSize.Y
+
+    return isInImage, isInImage and x or 0, isInImage and y or 0
 end
 
 function makeWindow(
@@ -492,6 +519,8 @@ function makeWindow(
 		Resize = windowPrivate.Resize,
 		WritePixel = windowPrivate.WritePixel,
 		ReadPixel = windowPrivate.ReadPixel,
+
+		GetRelativeMouseToRenderer = windowPrivate.GetRelativeMouseToRenderer,
 
 		AddRenderer = windowPrivate.AddRenderer,
 		RemoveRenderer = windowPrivate.RemoveRenderer,
@@ -533,7 +562,11 @@ function Window.new<P>(parent: ImageLabel | ImageButton, config: types.WindowCon
 		-- [saaawdust]: Moonwave doesn't like "\z". I've removed it.
 		--				Looks terrible, but Moonwave starts complaining.
 		log.warn(
-			`Attempt to create a window with invalid dimensions (X: {sizeX}, Y: {sizeY}).\nDimensions must be within the range of 1 to 1024. The window size has been automatically clamped to valid parameters.`
+			"Attempt to create a window with invalid dimensions (X: "
+				.. sizeX
+				.. ", Y: "
+				.. sizeY
+				.. "). Dimensions must be within the range of 1 to 1024. The window size has been automatically clamped to valid parameters."
 		)
 	end
 

@@ -1,8 +1,8 @@
 --!optimize 2
 
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- OSGL v1.5b - Open-Source-Graphical-Library
+-- Copyright © 2023-2025 OSGL (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -25,13 +25,19 @@
 
 local OSGL = script.Parent.Parent
 local draw = OSGL.draw
-local pixel = require(draw.pixel)
+local mode = require(draw.mode)
 
 local types = require(OSGL.types)
 
 return function<T>(object: types.DrawableObject<T>, startX: number, startY: number, stopX: number, stopY: number, thickness: number, color: types.Color)
-    thickness = thickness or 1
+    local pixel = mode.drawPixel
+	
+	thickness = thickness or 1
 	color = color or color.BLACK
+
+	if thickness == 0 then
+		return
+	end
 
 	local sizeX, sizeY = object.sizeX, object.sizeY
 

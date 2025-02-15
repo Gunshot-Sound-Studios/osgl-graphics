@@ -1,29 +1,53 @@
+-- Standalone script showcasing OSGL
+
+-- OSGL v1.5b - Open-Source Graphical Library
+
+-- OSGL is provided 'as-is' without any warranty. Use at your own risk.
+-- Everyone is free to use, modify, and redistribute OSGL.
+
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
-local plr = Players.LocalPlayer
-local screenGui = plr.PlayerGui:WaitForChild("ScreenGui")
-
-local window = screenGui.Window
-local A = screenGui.A
-local B = screenGui.B
-
-local SIZE_X = 500
-local SIZE_Y = 500
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
 
 local OSGL = require(ReplicatedStorage.OSGL)
 local Window = OSGL.Window
-local texture = OSGL.Texture
-local draw = OSGL.draw
+local Texture = OSGL.Texture
+local Video = OSGL.Video
+local enum = OSGL.Enum
 local color = OSGL.color
+local draw = OSGL.draw
+local Font = OSGL.Font
 
-local config = { sizeX = SIZE_X, sizeY = SIZE_Y }
-local myWindow = Window.new(window, config)
-myWindow.targetFPS = 270
+local player = Players.LocalPlayer
+assert(player)
 
-myWindow
-    :Clear(color.BLACK)
-    :Draw()
-    :Circle(250, 250, 50, color.RED)
-    :StopDrawing()
-    :Render()
+-- Define window dimensions
+local WIDTH = 300
+local HEIGHT = 100
+
+-- Create ImageLabel & ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = player.PlayerGui
+ScreenGui.IgnoreGuiInset = false
+
+local ImageLabel = Instance.new("ImageLabel")
+ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+ImageLabel.Position = UDim2.fromScale(.5, .5)
+ImageLabel.Size = UDim2.fromOffset(1000, 500)
+ImageLabel.Parent = ScreenGui
+ImageLabel.ResampleMode = Enum.ResamplerMode.Pixelated
+ImageLabel.BackgroundTransparency = 0
+
+-- Create the window
+local window = Window.new(ImageLabel, { sizeX = WIDTH, sizeY = HEIGHT })
+window.targetFPS = 244
+window.alphaBlendingMode = enum.AlphaBlendMode.Additive
+
+local video = Video.from(script["test-video"]:GetChildren())
+video.loop = true
+
+video:PlaySync(function(texture)
+    Texture.draw(window, texture, 0, 0)
+    window:Render()
+end)

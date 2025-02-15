@@ -1,8 +1,8 @@
 --!optimize 2
 
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- OSGL v1.5b - Open-Source-Graphical-Library
+-- Copyright © 2023-2025 OSGL (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -39,9 +39,14 @@ local color = require(OSGL.color)
 local utils = {}
 
 -- [saaawdust]: Credits to `sambouza` for this implementation
-function utils.createDraw()
+function utils.createDraw<T>(): types.DrawableObject<T>
 	return function(object)
 		return {
+			Buffer = function(self, ...)
+				draw.buffer(object, ...)
+				return self
+			end,
+
 			FloodFill = function(self, ...)
 				draw.floodFill(object, ...)
 				return self
@@ -87,6 +92,18 @@ end
 function utils.createReadPixel()
 	return function(self, x: number, y: number)
 		return buffer.readu32(self.buffer, (y * self.sizeX + x) * 4)
+	end
+end
+
+function utils.createOverwritePixel()
+	return function(self, x: number, y: number, color: types.Color)
+		return buffer.writeu32(self.buffer, (y * self.sizeX + x) * 4, color)
+	end
+end
+
+function utils.createWritePixel()
+	return function(self, x: number, y: number, color: types.Color)
+		return draw.pixel(self, x, y, color)
 	end
 end
 

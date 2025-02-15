@@ -2,8 +2,8 @@
 --!native
 
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- OSGL v1.5b - Open-Source-Graphical-Library
+-- Copyright © 2023-2025 OSGL (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,7 +28,7 @@ local OSGL = script.Parent.Parent
 local draw = OSGL.draw
 local types = require(OSGL.types)
 local color = require(OSGL.color)
-local pixel = require(draw.pixel)
+local mode = require(draw.mode)
 
 function getIndex(x, y, sizeX)
     return (y * sizeX + x) * 4
@@ -39,6 +39,8 @@ function offsetIndex(i, x, y, sizeX)
 end
 
 return function<T>(object: types.DrawableObject<T>, x: number, y: number, color: types.Color)
+	local pixel = mode.drawPixel
+
 	x = x or 0
 	y = y or 0
 

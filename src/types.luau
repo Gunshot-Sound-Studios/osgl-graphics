@@ -1,6 +1,6 @@
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- OSGL v1.5b - Open-Source-Graphical-Library
+-- Copyright © 2023-2025 OSGL (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -20,6 +20,9 @@
 -- 3. This notice may not be removed or altered from any source distribution.
 --
 ------------------------------------------------------------
+
+local OSGL = script.Parent
+local enum = require(OSGL.enum)
 
 --- @type Color number
 --- @within Color
@@ -64,6 +67,8 @@ export type WindowConfiguration = {
 --- .Draw (self: DrawableObject<T>) -> DrawingContext<T> -- Returns the drawing context of the object
 --- .TintRegion (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) -> T -- Tints a region of pixels
 --- .ReadPixel (self: T, x: number, y: number) -> Color -- Reads a pixel at the given X, Y
+--- .WritePixel (self: T, x: number, y: number, color: Color) -> T -- Writes a pixel at the given X, Y
+--- .OverwritePixel (self: T, x: number, y: number) -> T -- Writes a pixel at the given X, Y, ignoring the `AlphaBlendMode`. Faster than `WritePixel`
 --- .Serialize (self: T) -> (buffer, number, number) -- Returns the object's buffer, as well as its dimensions
 ---
 --- A DrawableObject is an item that you can draw too. This can be
@@ -81,10 +86,13 @@ export type DrawableObject<T> = {
     buffer: buffer,
     sizeX: number,
     sizeY: number,
-    size: Vector2, -- [saaawdust]: TODO: If this is unused, then delete it!
+    size: Vector2,
+    alphaBlendingMode: enum.AlphaBlendMode,
 
     Draw: (self: DrawableObject<T>) -> DrawingContext<T>,
     ReadPixel: (self: T, x: number, y: number) -> Color,
+    WritePixel: (self: Window, x: number, y: number, color: Color) -> T,
+    OverwritePixel: (self: Window, x: number, y: number, color: Color) -> T,
     TintRegion: (self: DrawableObject<T>, tint: Color, factor: number, x: number, y: number, width: number, height: number) ->  T,
     Serialize: (self: T) -> (buffer, number, number),
 }
@@ -125,8 +133,6 @@ export type Window = DrawableObject<Window> & {
     Render: (self: Window) -> Window,
     Clear: (self: Window, color: Color) -> Window,
     Resize: (self: Window, newWidth: number, newHeight: number) -> Window,
-
-    WritePixel: (self: Window, x: number, y: number, color: Color) -> Window,
 
     AddRenderer: (self: Window, ...ImageLabel | ImageButton) -> Window,
     RemoveRenderer: (self: Window, ...ImageLabel | ImageButton) -> Window,
@@ -170,14 +176,117 @@ export type DrawingContext<V> = {
     Triangle: (self: DrawingContext<V>, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, fill: Color?, stroke: Color?, strokeThickness: number?) -> DrawingContext<V>,
     Polygon: (self: DrawingContext<V>, corners: {{number}}, fill: Color) -> DrawingContext<V>,
     FloodFill: (self: DrawableObject<V>, x: number, y: number, fill: Color) -> DrawingContext<V>,
+    Buffer: (self: DrawableObject<V>, bfr: buffer, sizeX: number, sizeY: number, x: number, y: number) -> DrawingContext<V>,
 
     StopDrawing: (self: DrawingContext<V>) -> V
 }
 
---- @type FlagTexture { width: number, height: number, pixels: { Color | string }, }
+--- @type Texture DrawableObject<T>
+--- @within Texture
+--- A [DrawableObject] that represents a texture.
+export type Texture<T> = DrawableObject<T>
+
+--- @interface Video
+--- @within Video
+---
+--- .sizeX number -- The videos width.
+--- .sizeX number -- The videos height.
+--- .playbackFrame number -- Which frame the video is playing.
+--- .frameRate number -- How many frames-per-second to display.
+--- .playing boolean -- Whether the video is playing or not.
+--- .loop boolean -- Whether the video should loop after finishing.
+--- .frames {buffer} -- A set of [DrawableObject] that represent the videos frames.
+---
+--- .PlaySync (self: Video<T>, callback: (texture: Texture<T>) -> ()) -> Video<T>
+--- .PlayAsync (self: Video<T>, callback: (texture: Texture<T>) -> ()) -> Video<T>
+--- .Stop (self: Video<T>) -> Video<T>
+--- .GetFrame (self: Video<T>, frame: number) -> Texture<T>
+--- .GetBufferOfFrame (self: Video<T>, frame: number) -> buffer
+--- .Previous: (self: Video<T>) -> Video<T>
+--- .Next: (self: Video<T>) -> Video<T>
+---
+--- An animatable set of [DrawableObject] that represents a video.
+---
+--- ```lua
+--- local OSGL = require(path.to.osgl)
+--- local Window = OSGL.Window
+--- local Video = OSGL.Video
+--- local Texture = OSGL.Texture
+--- ​
+--- -- Creates a Window with a size of 50x50
+--- -- This window is a DrawableObject
+--- local myWindow = Window.new(path.to.instance, { sizeX = 50, sizeY = 50 })
+--- ㅤ
+--- local frames = -- Reference to texture-data
+--- local video = Video.from(frames)
+--- video.frameRate = 60
+--- video.loop = true
+--- 
+--- video:PlaySync(function(texture)
+---     Texture.draw(myWindow, texture, 0, 0)
+---     myWindow:Render()
+--- end)
+--- ```
+export type Video<T> = {
+    sizeX: number,
+    sizeY: number,
+    playbackFrame: number,
+    frameRate: number,
+    playing: boolean,
+    loop: boolean,
+    frames: {buffer},
+
+    PlaySync: (self: Video<T>, callback: (texture: Texture<T>) -> ()) -> Video<T>,
+    PlayAsync: (self: Video<T>, callback: (texture: Texture<T>) -> ()) -> Video<T>,
+
+    Stop: (self: Video<T>) -> Video<T>,
+
+    GetFrame: (self: Video<T>, frame: number) -> Texture<T>,
+    GetBufferOfFrame: (self: Video<T>, frame: number) -> buffer,
+
+    Previous: (self: Video<T>) -> Video<T>,
+    Next: (self: Video<T>) -> Video<T>,
+}
+
+--- @type Glyph number | buffer | { number }
+--- @within Font
+--- The representation of a letter in a font made with the `converter` exe provided with the module.
+export type Glyph = {
+    number | buffer | { number }
+}
+
+--- @type Glyphs { [string]: Glyph }
+--- @within Font
+--- A group of letters
+export type Glyphs = { [string]: Glyph }
+
+--- @type StoredFont { version: string, letters: Glyphs }
+--- @within Font
+--- The representation of a font made with the `converter` exe provided with the module.
+export type StoredFont = {
+    version: string,
+    letters: Glyphs,
+    maxHeight: number,
+}
+
+--- @type Font { glyphs: Glyphs, spacing: number, linePadding: number }
+--- @within Font
+--- A loaded font
+export type Font = {
+    glyphs: Glyphs,
+
+    spacing: number,
+    linePadding: number,
+
+    Draw:<T>(self: Font, object: DrawableObject<T>, text: string, x: number, y: number, color: Color) -> Font,
+}
+
+--- @type FlagTexture { version: string, width: number, height: number, pixels: buffer, }
 --- @within Texture
 --- The representation of a texture made with the `converter` exe provided with the module.
 export type FlagTexture = {
+    version: string,
+
     width: number,
     height: number,
     pixels: buffer,

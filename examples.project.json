@@ -1,0 +1,19 @@
+{
+    "name": "OSGL-Examples",
+    "tree": {
+        "$className": "DataModel",
+        "ReplicatedStorage": {
+            "OSGL": {
+                "$path": "src"
+            }
+        },
+        "StarterPlayer": {
+            "StarterPlayerScripts": {
+                "$ignoreUnknownInstances": true,
+                "Examples": {
+                    "$path": "examples"
+                }
+            }
+        }
+    }
+}

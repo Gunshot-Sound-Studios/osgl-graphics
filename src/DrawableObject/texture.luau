@@ -3,8 +3,8 @@
 --!optimize 2
 
 ------------------------------------------------------------
--- OSGL v1.4b - Open-Source-Graphical-Library
--- Copyright © 2023-2024 Gunshot Sound Studios (@saaawdust)
+-- OSGL v1.5b - Open-Source-Graphical-Library
+-- Copyright © 2023-2025 OSGL (@saaawdust)
 --
 -- This software is provided ‘as-is’, without any express or implied warranty.
 -- In no event will the authors be held liable for any damages arising from the use of this software.
@@ -34,8 +34,8 @@ local types = require(OSGL.types)
 local pixel = require(draw.pixel)
 local log = require(OSGL.log)
 local utils = require(drawableObject.utils)
-
-type Texture<T> = types.DrawableObject<T>
+local osglUtils = require(OSGL.utils)
+local enum = require(OSGL.enum)
 
 --[=[
     @class Texture
@@ -46,16 +46,8 @@ type Texture<T> = types.DrawableObject<T>
 ]=]
 local Texture = {}
 
-local function getIndex(width: number, height: number, index: number)
-	if index < 1 or index > (width * height) then
-		return nil, nil
-	end
-
-	local x = (index - 1) % width + 1
-	local y = math.ceil(index / width)
-
-	return x, y
-end
+local clamp = math.clamp
+local floor = math.floor
 
 --[=[
 	Creates a texture from textureData
@@ -72,25 +64,43 @@ end
 	@param textureData FlagTexture | ModuleScript -- The textureData
 	@return DrawableObject -- The loaded texture
 ]=]
-function Texture.from(textureData: types.FlagTexture | ModuleScript): types.DrawableObject<types.DrawableObject>
-    if typeof(textureData) == "Instance" and textureData:IsA("ModuleScript") then
-        textureData = require(textureData)
-    end
+function Texture.from<T>(textureData: types.FlagTexture | ModuleScript): types.Texture<T>
+	if typeof(textureData) == "Instance" and textureData:IsA("ModuleScript") then
+		textureData = require(textureData)
+	end
 
-    local width, height = textureData.width, textureData.height
+	local width, height = textureData.width, textureData.height
 
-    return {
-        buffer = textureData.pixels,
+	local v = textureData.version
+	if v and not table.find(osglUtils.VALID_TEXTURE_VERSIONS, v) then
+		local txtVers = osglUtils.VALID_TEXTURE_VERSIONS
 
-        sizeX = width,
-        sizeY = height,
-        size = Vector2.new(width, height),
+		log.error(
+			"Texture version mismatch. Expected any version from "
+				.. txtVers[1]
+				.. " to "
+				.. txtVers[#txtVers]
+				.. ", got version "
+				.. v
+				.. ". This may cause unexpected behavior."
+		)
+	end
 
-        Draw = utils.createDraw(),
-        ReadPixel = utils.createReadPixel(),
-        TintRegion = utils.createTintRegion(),
-        Serialize = utils.createSerialize(),
-    }
+	return {
+		alphaBlendingMode = enum.AlphaBlendMode.Overwrite,
+		buffer = textureData.pixels,
+
+		sizeX = width,
+		sizeY = height,
+		size = Vector2.new(width, height),
+
+		Draw = utils.createDraw(),
+		ReadPixel = utils.createReadPixel(),
+		WritePixel = utils.createWritePixel(),
+		OverwritePixel = utils.createOverwritePixel(),
+		TintRegion = utils.createTintRegion(),
+		Serialize = utils.createSerialize(),
+	}
 end
 
 --[=[
@@ -109,16 +119,19 @@ end
 	@param bfr buffer? -- An optional buffer for textureData
 	@return DrawableObject -- The loaded texture
 ]=]
-function Texture.new<T>(width: number, height: number, bfr: buffer?): Texture<T>
+function Texture.new<T>(width: number, height: number, bfr: buffer?): types.Texture<T>
 	return {
+		alphaBlendingMode = enum.AlphaBlendMode.Overwrite,
 		buffer = bfr or buffer.create(width * height * 4),
-
+	
 		sizeX = width,
 		sizeY = height,
-		size = Vector2.new(width, height), -- [saaawdust]: TODO: Is this needed?
-
+		size = Vector2.new(width, height),
+	
 		Draw = utils.createDraw(),
 		ReadPixel = utils.createReadPixel(),
+		WritePixel = utils.createWritePixel(),
+		OverwritePixel = utils.createOverwritePixel(),
 		TintRegion = utils.createTintRegion(),
 		Serialize = utils.createSerialize(),
 	}
@@ -150,10 +163,10 @@ end
 ]=]
 function Texture.draw<T>(
 	object: types.DrawableObject<T>,
-	texture: Texture<T>,
+	texture: types.Texture<T>,
 	spriteX: number,
 	spriteY: number
-): Texture<T>
+): types.Texture<T>
 	local y2 = 0
 	local objectSizeY = object.sizeY
 	local objectSizeX = object.sizeX
@@ -176,7 +189,7 @@ function Texture.draw<T>(
 
 			x2 = x - spriteX
 			if y2 < sizeY and x2 < sizeX then
-				pixel(object, x, y, buffer.readu32(bfr, (y * sizeX + x) * 4))
+				pixel(object, x, y, buffer.readu32(bfr, (y2 * sizeX + x2) * 4))
 			end
 		end
 	end
@@ -221,12 +234,12 @@ end
 ]=]
 function Texture.drawRotated<T>(
 	object: types.DrawableObject<T>,
-	texture: Texture<T>,
+	texture: types.Texture<T>,
 	spriteX: number,
 	spriteY: number,
 	rotation: number
-): Texture<T>
-local objectSizeY = object.sizeY
+): types.Texture<T>
+	local objectSizeY = object.sizeY
 	local objectSizeX = object.sizeX
 	local sizeY = texture.sizeY
 	local sizeX = texture.sizeX
@@ -246,7 +259,7 @@ local objectSizeY = object.sizeY
 			local sourceY = -math.sin(radians) * relativeX + math.cos(radians) * relativeY + centerY
 
 			if sourceX >= 0 and sourceX < sizeX and sourceY >= 0 and sourceY < sizeY then
-				local pixelColor = buffer.readu32(bfr, math.floor(sourceY) * sizeX * 4 + math.floor(sourceX) * 4)
+				local pixelColor = buffer.readu32(bfr, floor(sourceY) * sizeX * 4 + floor(sourceX) * 4)
 				pixel(object, x, y, pixelColor)
 			end
 		end
@@ -287,10 +300,16 @@ end
 	@param height number -- The height of the selection box
 	@return (buffer, number, number) -- A tuple containing the buffer-data, the width, and height
 ]=]
-function Texture.read<T>(texture: types.DrawableObject<T>, xPos: number, yPos: number, width: number, height: number): (buffer, number, number)
+function Texture.read<T>(
+	texture: types.DrawableObject<T>,
+	xPos: number,
+	yPos: number,
+	width: number,
+	height: number
+): (buffer, number, number)
 	local sizeX = texture.sizeX
 	local sizeY = texture.sizeY
-    local txt = texture.buffer
+	local txt = texture.buffer
 
 	if xPos < 0 or xPos > 1024 or yPos < 0 or yPos > 1024 then
 		log.warn(
@@ -302,7 +321,7 @@ function Texture.read<T>(texture: types.DrawableObject<T>, xPos: number, yPos: n
 		)
 	end
 
-    if width <= 0 or width > sizeX or height <= 0 or height > sizeY then
+	if width <= 0 or width > sizeX or height <= 0 or height > sizeY then
 		log.warn(
 			"Attempt to read from a texture with the width or height being out of bounds (Width: "
 				.. width
@@ -312,11 +331,10 @@ function Texture.read<T>(texture: types.DrawableObject<T>, xPos: number, yPos: n
 		)
 	end
 
-
-	local clampedXPos = math.clamp(xPos, 0, sizeX - 1)
-	local clampedYPos = math.clamp(yPos, 0, sizeY - 1)
-	local clampedWidth = math.clamp(width, 1, sizeX - clampedXPos)
-	local clampedHeight = math.clamp(height, 1, sizeY - clampedYPos)
+	local clampedXPos = clamp(xPos, 0, sizeX - 1)
+	local clampedYPos = clamp(yPos, 0, sizeY - 1)
+	local clampedWidth = clamp(width, 1, sizeX - clampedXPos)
+	local clampedHeight = clamp(height, 1, sizeY - clampedYPos)
 
 	local bfr = buffer.create(clampedWidth * clampedHeight * 4)
 	for h = 0, clampedHeight - 1 do
@@ -361,15 +379,15 @@ function Texture.scale<T>(texture: types.DrawableObject<T>, scaleX: number?, sca
 	local bfr = texture.buffer
 
 	-- Calculate the new size of the texture
-	local newSizeX = math.floor(originalSizeX * scaleX)
-	local newSizeY = math.floor(originalSizeY * scaleY)
+	local newSizeX = floor(originalSizeX * scaleX)
+	local newSizeY = floor(originalSizeY * scaleY)
 
 	local newBuffer = buffer.create(newSizeX * newSizeY * 4)
 
 	for y = 0, newSizeY - 1 do
 		for x = 0, newSizeX - 1 do
-			local sourceX = math.floor(x / scaleX)
-			local sourceY = math.floor(y / scaleY)
+			local sourceX = floor(x / scaleX)
+			local sourceY = floor(y / scaleY)
 
 			if sourceX < originalSizeX and sourceY < originalSizeY then
 				local color = buffer.readu32(bfr, sourceY * originalSizeX * 4 + sourceX * 4)
@@ -406,34 +424,37 @@ end
 	@error "Memory" -- This error occurs when the device doesn't have enough memory to create the texture
 	@return DrawableObject -- A finished texture that is the assetId
 ]=]
-function Texture.fromAssetId<T>(assetId: number): Texture<T>
-    local newContent = Content.fromAssetId(assetId)
+function Texture.fromAssetId<T>(assetId: number): types.Texture<T>
+	local newContent = Content.fromAssetId(assetId)
 
-    -- [saaawdust]: Do I check if they can create an editable image or not? [1]
-    local temporaryEditableImage = AssetService:CreateEditableImageAsync(newContent)
-    if not temporaryEditableImage then
-        log.error("Could not make texture as the device does not have enough memory")
-    end
+	-- [saaawdust]: Do I check if they can create an editable image or not? [1]
+	local temporaryEditableImage = AssetService:CreateEditableImageAsync(newContent)
+	if not temporaryEditableImage then
+		log.error("Could not make texture as the device does not have enough memory")
+	end
 
-    local size = temporaryEditableImage.Size
-    local width, height = size.X, size.Y
+	local size = temporaryEditableImage.Size
+	local width, height = size.X, size.Y
 
-	    -- [saaawdust]: Do I check if they can create an editable image or not? [2]
-    local pixelBuffer = temporaryEditableImage:ReadPixelsBuffer(Vector2.zero, size)
+	-- [saaawdust]: Do I check if they can create an editable image or not? [2]
+	local pixelBuffer = temporaryEditableImage:ReadPixelsBuffer(Vector2.zero, size)
 	temporaryEditableImage:Destroy()
 
-    return {
-        buffer = pixelBuffer,
+	return {
+		alphaBlendingMode = enum.AlphaBlendMode.Overwrite,
+		buffer = pixelBuffer,
 
-        sizeX = width,
-        sizeY = height,
-        size = size,
-
-        Draw = utils.createDraw(),
+		sizeX = width,
+		sizeY = height,
+		size = Vector2.new(width, height),
+	
+		Draw = utils.createDraw(),
 		ReadPixel = utils.createReadPixel(),
+		WritePixel = utils.createWritePixel(),
+		OverwritePixel = utils.createOverwritePixel(),
 		TintRegion = utils.createTintRegion(),
 		Serialize = utils.createSerialize(),
-    }
+	}
 end
 
 --[=[
